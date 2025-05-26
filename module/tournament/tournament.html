@@ -1,0 +1,21 @@
+<article class="tournament-article-container-breakout" ng-controller="customstats.tournament_controller">
+
+	<section class="sub-navbar">
+		<div class="tab" ng-show="app.user_has_right('customstats:tournament')">
+			<div ng-click="tab = 'overview'">
+				<span class="name" ng-class='{"tc-teal":tab == "overview"}'>Übersicht</span>
+				</div>
+			</div>
+		<div class="tab" ng-show="app.user_has_right('customstats:tournament') && view.tournament_entry">
+			<div ng-click="tab = 'schedule'">
+				<span class="name" ng-class='{"tc-teal":tab == "schedule"}'>Spielplan</span>
+				</div>
+			</div>
+		</section>
+
+		<div ng-if="tab == 'overview'" ng-include="'load_template/overview_tournament'"></div>
+		<div ng-if="tab == 'schedule'" ng-include="'load_template/schedule_tournament'"></div>
+		<div ng-if="tab == 'team'" ng-include="'load_template/team_tournament'"></div>
+		<div ng-if="tab == 'team_player'" ng-include="'load_template/team_player_tournament'"></div>
+
+	</article>

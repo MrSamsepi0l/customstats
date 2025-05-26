@@ -1,0 +1,34 @@
+/*.flex-box-tabview {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	}
+
+.tab-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 75%;
+	height: 225px;
+	background: linear-gradient(to right bottom, #050a0c, #320518);
+	margin-top: 6px;
+	margin-bottom: 25px;
+	font-family: sans-serif;
+	border-width: 1;
+	border: 1px solid #1c1c1c;
+	transition: border 0.5s ease-in;
+	}
+
+.tab-button:hover {
+	transform: scale(1.04, 1.04);
+	border: 1px solid #d7d7d7;
+	border-width: 1;
+	}
+
+@media screen and (min-width: 601px){
+	.tab-button {font-size: 4vw}
+	}
+
+@media screen and (max-width: 600px) {
+	.tab-button {font-size: 2vw}
+	}*/

@@ -1,0 +1,160 @@
+<article ng-controller="customstats.admin_base:user_config_controller">
+
+	<div class="user-config-search-bar">
+		<input class="user-config-entry-input search" placeholder="Suche..." ng-model="user_config.filter.string" />
+		<div>
+			<button ng-class='{"bc-green":user_config.show_info, "tc-white":!user_config.show_info}' class="btn user-config-switch-btn" ng-disabled="user_config.show_info" ng-click="user_config.show_right = false; user_config.show_info = true">User-Info</button>
+			<button ng-class='{"bc-green":user_config.show_right, "tc-white":!user_config.show_right}' class="btn user-config-switch-btn" ng-disabled="user_config.show_right" ng-click="user_config.show_info = false; user_config.show_right = true">User-Rechte</button>
+			</div>
+		</div>
+
+	<section class="flex-box-user-config">
+
+		<div class="user-list user-config-scrollbar">
+			<table class="user-config-table user-config-table-hover" style="background: #0f1519">
+				<tr class="font-bold">
+					<td style="max-height: 50px" ng-click="user_config.order_list('userID')">#</td>
+					<td style="max-height: 50px" ng-click="user_config.order_list('username')">Username</td>
+					<td style="max-height: 50px" ng-click="user_config.order_list('createTime')">Erstelldatum</td>
+					</tr>
+				<tbody>
+					<tr ng-repeat="e in user_config.data | orderBy:user_config.order_by | filter:user_config.filter.string" ng-click="user_config.entry = e; user_config.edit(e); user_config.get_user_specific_right(e)" ng-class='{"champion-config-focused":user_config.entry.userID == e.userID}'>
+						<td ng-class='{"tc-green":e.enabled, "tc-red":!e.enabled}'>{{e.userID}}</td>
+						<td>{{e.username}}</td>
+						<td style="color: #787878">{{e.createTime | phpdate:'Y-m-d'}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		<div class="user-entry" ng-if="user_config.entry_edit && user_config.show_info">
+			<div class="header">
+				<div class="id-name font-bold">
+					<span>#{{user_config.entry.userID}}</span>
+					<span>&nbsp;-&nbsp;{{user_config.entry.username}}&nbsp;<span ng-class='{"tc-green":user_config.entry.enabled, "tc-red":!user_config.entry.enabled}'>[{{user_config.entry.enabled ? 'Aktiviert' : 'Deaktiviert'}}]</span></span>
+					</div>
+				<div class="flex-expand"></div>
+				<div class="i-wrench"></div>
+				</div>
+			<div class="body user-config-scrollbar">
+				<div>
+					<table class="table table-striped user-config-table">
+						<tr>
+							<td class="v-middle">E-Mail Adresse</td>
+							<td><input class="user-config-entry-input" type="text" ng-model="user_config.entry_edit.email" /></td>
+							</tr>
+						<tr>
+							<td class="v-middle">Username</td>
+							<td><input class="user-config-entry-input" type="text" ng-model="user_config.entry_edit.username" /></td>
+							</tr>
+						<tr>
+							<td class="v-middle">Echter Name</td>
+							<td><input class="user-config-entry-input" type="text" ng-model="user_config.entry_edit.real_name" /></td>
+							</tr>
+						<tr>
+							<td class="v-middle">Aktiviert</td>
+							<td>
+								<div>
+									<button ng-class='{"user-config-button-enabled":user_config.entry_edit.enabled, "user-config-button":!user_config.entry_edit.enabled}' class="btn i-tick" ng-disabled="user_config.entry_edit.enabled" ng-click="user_config.entry_edit.enabled = true"></button>
+									<button ng-class='{"user-config-button-disabled":!user_config.entry_edit.enabled, "user-config-button":user_config.entry_edit.enabled}' class="btn i-x" ng-disabled="!user_config.entry_edit.enabled" ng-click="user_config.entry_edit.enabled = false"></button>
+									</div>
+								</td>
+							</tr>
+						<tr>
+							<td class="v-middle">Online</td>
+							<td>
+								<div>
+									<button ng-class='{"user-config-button-enabled":user_config.entry_edit.online, "user-config-button":!user_config.entry_edit.online}' class="btn i-tick" ng-disabled="user_config.entry_edit.online" ng-click="user_config.entry_edit.online = true"></button>
+									<button ng-class='{"user-config-button-disabled":!user_config.entry_edit.online, "user-config-button":user_config.entry_edit.online}' class="btn i-x" ng-disabled="!user_config.entry_edit.online" ng-click="user_config.entry_edit.online = false"></button>
+									</div>
+								</td>
+							</tr>
+						<tr>
+							<td class="v-middle">Donation</td>
+							<td><input class="user-config-entry-input" type="text" ng-model="user_config.entry_edit.donation" /></td>
+							</tr>
+						<tr>
+							<td class="v-middle">Letzte Aktivität</td>
+							<td>
+								<span ng-if="user_config.entry_edit.last_activity">{{user_config.entry_edit.last_activity | phpdate: 'Y-m-d H:i:s'}}</span>
+								<span ng-if="!user_config.entry_edit.last_activity">{{user_config.entry_edit.last_activity}}</span>
+								</td>
+							</tr>
+						<tr>
+							<td class="v-middle">Letzter Passwort Reset</td>
+							<td>
+								<span ng-if="user_config.entry_edit.password_reset">{{user_config.entry_edit.password_reset | phpdate: 'Y-m-d H:i:s'}}</span>
+								<span ng-if="!user_config.entry_edit.password_reset">{{user_config.entry_edit.password_reset}}</span>
+								</td>
+							</tr>
+						<tr>
+							<td class="v-middle">Api-Key</td>
+							<td><span style="font-weight: bold">{{user_config.entry_edit.api_key}}</span></td>
+							</tr>
+						<tr>
+							<td class="v-middle">Spieler-Assoziation</td>
+							<td><select class="user-config-select user-config-scrollbar" ng-options="e.playerID as e.ingame_name for e in user_config.player_list" ng-model="user_config.entry_edit.playerID"></select></td>
+							</tr>
+						<tr>
+							<td class="v-middle">sonstige Daten</td>
+							<td><textarea class="user-config-entry-area" type="text" ng-model="user_config.entry_edit.param_converted"></textarea></td>
+							</tr>
+						<tr>
+							<td class="v-middle">Erstellzeit</td>
+							<td><span>{{user_config.entry_edit.createTime}}</span></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			<div class="footer">
+				<div class="flex-expand"></div>
+					<button class="save-button" ng-click="user_config.update_user(user_config.entry_edit)">
+						<div class="image-and-button">
+							<span>User speichern</span>
+							<div class="i-tick"></div>
+							</div>
+						</button>
+					</div>
+				</div>
+
+		<div class="user-entry" ng-if="user_config.entry_edit && user_config.show_right">
+			<div class="header">
+				<div class="id-name font-bold">
+					<span>#{{user_config.entry_edit.userID}}</span>
+					<span>&nbsp;-&nbsp;{{user_config.entry.username}}&nbsp;<span ng-class='{"tc-green":user_config.entry.enabled, "tc-red":!user_config.entry.enabled}'>[{{user_config.entry.enabled ? 'Aktiviert' : 'Deaktiviert'}}]</span></span>
+					</div>
+				<div class="flex-expand"></div>
+				<div class="icon i-wrench"></div>
+				</div>
+			<div class="body user-config-scrollbar">
+				<div>
+					<table class="table table-striped user-config-table">
+						<tr ng-repeat="e in user_config.entry_edit.user_right_config">
+							<td class="v-middle">{{e.right}}</td>
+							<td>
+								<div>
+									<button ng-class='{"user-config-button-enabled":e.has_right, "user-config-button":!e.has_right}' class="btn i-tick" ng-disabled="e.has_right" ng-click="e.has_right = true"></button>
+									<button ng-class='{"user-config-button-disabled":!e.has_right, "user-config-button":e.has_right}' class="btn i-x" ng-disabled="!e.has_right" ng-click="e.has_right = false"></button>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			<div class="footer">
+				<button class="save-button" ng-click="user_config.cleanup_right(user_config.entry)">Rechte Cleanup</button>
+				<div class="flex-expand"></div>
+					<button class="save-button" ng-click="user_config.save_user_right(user_config.entry_edit)" style="min-width: 275px">
+						<div class="image-and-button">
+							<span>Rechte speichern</span>
+							<div class="i-tick"></div>
+							</div>
+						</button>
+					</div>
+				</div>
+
+		</section>
+
+	<div class="loading-div" ng-if="view.status == 100 || user_config.status == 100"></div>
+
+	</article>

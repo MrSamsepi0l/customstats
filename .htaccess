@@ -1,0 +1,40 @@
+# Aktiviere Engine und überschreibe Base für relative Pfade
+RewriteEngine On
+RewriteBase /
+
+# Verzeichnis Browsing verbieten
+Options All -Indexes
+
+# Autor Scan mittels Query String verbieten
+#RewriteCond %{QUERY_STRING} (author=\d+) [NC]
+#RewriteRule .* - [F]
+
+# Upload Limit definieren
+# LimitRequestBody 10240000 # 10 MB
+
+
+######## Lokaler Server && Remote Strato Server ########
+
+# Funktioniert nur in lokaler Umgebung, da Strato dies blockiert
+#SetEnv APP_CONTROLLER lib/customstats/controller.php
+
+# Alle Anfragen, die keine Datei/Verzeichnis sind, werden auf die index.php umgeleitet
+RewriteCond %{SERVER_NAME} =customstats.localhost
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /index.php [QSA]
+
+RewriteCond %{SERVER_NAME} !=customstats.localhost
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /index.php [QSA]
+
+# Alle Anfragen, die nicht über HTTPS kommen, auf SSL umleiten
+#RewriteCond %{SERVER_NAME} !=localhost
+#RewriteCond %{HTTPS} off
+#RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Rufe index.php auf, sobald es eine Umleitung ins Hauptverzeichnis gibt
+<IfModule dir_module>
+    DirectoryIndex index.php
+</IfModule>

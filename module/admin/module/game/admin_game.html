@@ -1,0 +1,19 @@
+<article ng-controller="customstats.admin_game_controller">
+
+	<section class="navbar-admin-base">
+		<div class="tab" ng-show="app.user_has_right('customstats:admin:new_game')">
+			<div ng-click="tab = 'new_game'">
+				<span class="name">Neues Spiel</span>
+				</div>
+			</div>
+		<div class="tab">
+			<div ng-click="tab = 'edit_game'" ng-show="app.user_has_right('customstats:admin:edit_game')">
+				<span class="name">Spiel bearbeiten</span>
+				</div>
+			</div>
+		</section>
+
+		<div ng-if="tab == 'new_game' && app.user_has_right('customstats:admin:new_game')" ng-include="'load_template/new_game'"></div>
+		<div ng-if="tab == 'edit_game' && app.user_has_right('customstats:admin:edit_game')" ng-include="'load_template/edit_game'"></div>
+
+	</article>

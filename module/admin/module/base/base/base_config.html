@@ -1,0 +1,219 @@
+<article ng-controller='customstats.admin_base:base_config_controller'>
+
+	<div class="base-config-search-bar">
+		<input class="base-config-entry-input search" placeholder="Suche..." ng-model="base_config.filter.string" />
+		<div>
+			<button ng-class='{"bc-green":base_config.show.edit, "tc-white":!base_config.show.edit}' class="btn base-config-switch-btn" ng-disabled="base_config.show.edit" ng-click="base_config.show.specific = false; base_config.show.new = false; base_config.show.edit = true">Editieren</button>
+			<button ng-class='{"bc-green":base_config.show.specific, "tc-white":!base_config.show.specific}' class="btn base-config-switch-btn" ng-disabled="base_config.show.specific" ng-click="base_config.show.edit = false; base_config.show.new = false; base_config.show.specific = true">Spezifische-Config</button>
+			<button ng-class='{"bc-green":base_config.show.new, "tc-white":!base_config.show.new}' class="btn base-config-switch-btn" ng-click="base_config.set_new()">Neues Projekt erstellen</button>
+			</div>
+		</div>
+
+	<section class="flex-box-base-config">
+
+		<div class="api-list base-config-scrollbar">
+			<table class="base-config-table base-config-table-hover" style="background: #0f1519">
+				<tr class="font-bold">
+					<td style="max-height: 50px" ng-click="base.order_list('name')">Projekt</td>
+					<td style="max-height: 50px" ng-click="base.order_list('createTime')">Erstelldatum</td>
+					</tr>
+				<tbody>
+					<tr ng-repeat="e in base_config.data | orderBy:base_config.order_by | filter:base_config.filter.string track by $index" ng-click="base_config.entry = e; base_config.edit(e); base_config.show_edit = true; base_config.show_new = false" ng-class='{"champion-config-focused":base_config.entry.project == e.project}'>
+						<td>{{e.project}}</td>
+						<td style="color: #787878">{{e.createTime | phpdate:'Y-m-d'}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		<!-- Editieren -->
+		<div class="api-entry" ng-if="base_config.entry_edit && base_config.show.edit">
+			<div class="header">
+				<div class="id-name font-bold">
+					<span>#&nbsp;{{base_config.entry.project}}</span>
+					<span>&nbsp;-&nbsp;<span ng-class='{"tc-green":base_config.entry.enabled, "tc-red":!base_config.entry.enabled}'>[{{base_config.entry.enabled ? 'Aktiviert' : 'Deaktiviert'}}]</span></span>
+					</div>
+				<div class="flex-expand"></div>
+				<div class="i-wrench"></div>
+				</div>
+			<div class="body base-config-scrollbar">
+				<div>
+					<table class="table table-striped base-config-table">
+						<tr>
+							<td class="v-middle">Project-Name</td>
+							<td><input class="base-config-entry-input" type="text" ng-model="base_config.entry_edit.project" /></td>
+							</tr>
+						<tr>
+							<td class="v-middle">Aktiviert</td>
+							<td>
+								<div>
+									<button ng-class='{"base-config-button-enabled":base_config.entry_edit.enabled, "base-config-button":!base_config.entry_edit.enabled}' class="btn i-tick" ng-disabled="base_config.entry_edit.enabled" ng-click="base_config.entry_edit.enabled = true"></button>
+									<button ng-class='{"base-config-button-disabled":!base_config.entry_edit.enabled, "base-config-button":base_config.entry_edit.enabled}' class="btn i-x" ng-disabled="!base_config.entry_edit.enabled" ng-click="base_config.entry_edit.enabled = false"></button>
+									</div>
+								</td>
+							</tr>
+						<tr>
+							<td class="v-middle">Erstellzeit</td>
+							<td><span>{{base_config.entry_edit.createTime}}</span></td>
+							</tr>
+						<tr>
+							<td class="v-middle">Config Param</td>
+							<td><textarea class="base-config-entry-area" type="text" ng-model="base_config.entry_edit.param_converted"></textarea></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			<div class="footer">
+				<div class="flex-expand"></div>
+					<button class="save-button" ng-click="base_config.update_config(base_config.entry_edit)">
+						<div class="image-and-button">
+							<span>Config speichern</span>
+							<div class="i-tick"></div>
+							</div>
+						</button>
+					</div>
+				</div>
+
+		<!-- spezifische Config -->
+		<div class="api-entry" ng-if="base_config.entry_edit && base_config.show.specific">
+			<div class="header">
+				<div class="id-name font-bold">
+					<span>#&nbsp;{{base_config.entry.project}}</span>
+					<span>&nbsp;-&nbsp;<span ng-class='{"tc-green":base_config.entry.enabled, "tc-red":!base_config.entry.enabled}'>[{{base_config.entry.enabled ? 'Aktiviert' : 'Deaktiviert'}}]</span></span>
+					</div>
+				<div class="flex-expand"></div>
+				<div class="i-wrench"></div>
+				</div>
+			<div class="body base-config-scrollbar">
+				<div>
+					<table class="table table-striped base-config-table">
+						<th class="tc-teal">Summoners</th>
+						<tr ng-repeat="e in base_config.entry_edit.param.base_config.player_profile.summoners">
+							<td><input class="base-config-entry-input" type="text" ng-model="base_config.entry_edit.param.base_config.player_profile.summoners[$index].key" style="color: {{e.color}}" /></td>
+							<td><input class="base-config-entry-input" type="text" ng-model="base_config.entry_edit.param.base_config.player_profile.summoners[$index].pair" /></td>
+							<td class="v-middle"><input class="base-config-entry-color" type="color" ng-model="base_config.entry_edit.param.base_config.player_profile.summoners[$index].color" /></td>
+							<td class="v-middle">Min. Spiele</td>
+							<td colspan="3"><input class="base-config-entry-input" type="text" ng-model="base_config.entry_edit.param.base_config.player_profile.summoners[$index].min_games" style="width: 50px" /></td>
+							</tr>
+						<th class="tc-teal">Streaks</th>
+						<tr ng-repeat="e in base_config.entry_edit.param.base_config.player_profile.streak">
+							<td class="v-middle"><span class="base-config-display" type="text" style="color: {{e.color}}">{{e.key}}</span></td>
+							<td class="v-middle"><input class="base-config-entry-color" type="color" ng-model="e.color" /></td>
+							<td class="v-middle" ng-if="e.pair == 'actual_win_streak'">Minimum Wins</td>
+							<td colspan="4" ng-if="e.pair == 'actual_win_streak'"><input class="base-config-entry-input" type="text" ng-model="base_config.entry_edit.param.base_config.player_profile.streak[$index].min_wins" style="width: 50px" /></td>
+							<td ng-if="e.pair == 'actual_lose_streak'" class="v-middle">Minimum Loses</td>
+							<td colspan="4" ng-if="e.pair == 'actual_lose_streak'"><input class="base-config-entry-input" type="text" ng-model="base_config.entry_edit.param.base_config.player_profile.streak[$index].min_loses" style="width: 50px" /></td>
+							</tr>
+						<th class="tc-teal">Champions</th>
+						<tr ng-repeat="(key, val) in base_config.entry_edit.param.base_config.player_profile.champion_specific">
+							<td class="v-middle" style="min-width: 210px; color: {{val.color}}"><span class="base-config-display">{{base_config.translate.champion_specific[key]}}</span></td>
+							<td class="v-middle"><input class="base-config-entry-color" type="color" ng-model="val.color" /></td>
+							<td class="v-middle">Min. Spiele</td>
+							<td class="v-middle"><input class="base-config-entry-input" type="text" ng-model="val.min_games" style="width: 50px" /></td>
+							<td colspan="2" class="v-middle" ng-if="val.min_winrate || val.min_winrate == 0">Min. Winrate</td>
+							<td class="v-middle" ng-if="val.min_winrate || val.min_winrate == 0"><input class="base-config-entry-input" type="text" ng-model="val.min_winrate" style="width: 50px" />%</td>
+							<td colspan="2" class="v-middle" ng-if="val.max_winrate || val.max_winrate == 0" class="v-middle" style="width: 100px">Max. Winrate</td>
+							<td class="v-middle" ng-if="val.max_winrate || val.max_winrate == 0" style="width: 100px"><input class="base-config-entry-input" type="text" ng-model="val.max_winrate" style="width: 50px" />%</td>
+							</tr>
+						<th class="tc-teal">Spieler</th>
+						<tr ng-repeat="(key, val) in base_config.entry_edit.param.base_config.player_profile.player_specific">
+							<td class="v-middle" style="min-width: 210px"><input class="base-config-entry-input" ng-model="val.name" type="text" style="color: {{val.color}}" /></td>
+							<td class="v-middle"><input class="base-config-entry-color" type="color" ng-model="val.color" /></td>
+							<td class="v-middle">Min. Spiele</td>
+							<td colspan="4" class="v-middle"><input class="base-config-entry-input" type="text" ng-model="val.min_games" style="width: 50px" /></td>
+							</tr>
+						<th class="tc-teal">Zerstörer</th>
+						<tr>
+							<td class="v-middle" style="min-width: 210px; color: {{base_config.entry_edit.param.base_config.player_profile.destroyer.color}}"><span class="base-config-display">Spieler-Zerstörer</span></td>
+							<td class="v-middle"><input class="base-config-entry-color" type="color" ng-model="base_config.entry_edit.param.base_config.player_profile.destroyer.color" /></td>
+							<td class="v-middle">Min. Spiele</td>
+							<td class="v-middle"><input class="base-config-entry-input" type="text" ng-model="base_config.entry_edit.param.base_config.player_profile.destroyer.min_games" style="width: 50px" /></td>
+							<td colspan="2" class="v-middle">Min. Winrate gg. Spieler</td>
+							<td class="v-middle"><input class="base-config-entry-input" type="text" ng-model="base_config.entry_edit.param.base_config.player_profile.destroyer.min_winrate_against_player" style="width: 50px" />%</td>
+							</tr>
+						<tr>
+							<td class="v-middle" style="min-width: 210px; color: {{base_config.entry_edit.param.base_config.player_profile.retired.color}}"><span class="base-config-display">Spieler-Retired</span></td>
+							<td class="v-middle"><input class="base-config-entry-color" type="color" ng-model="base_config.entry_edit.param.base_config.player_profile.retired.color" /></td>
+							<td class="v-middle">Min. Spiele</td>
+							<td class="v-middle"><input class="base-config-entry-input" type="text" ng-model="base_config.entry_edit.param.base_config.player_profile.retired.min_games" style="width: 50px" /></td>
+							<td colspan="2" class="v-middle">Min. Tage vergangen</td>
+							<td class="v-middle"><input class="base-config-entry-input" type="text" ng-model="base_config.entry_edit.param.base_config.player_profile.retired.min_days_past" style="width: 50px" /></td>
+							</tr>
+						<th class="tc-teal">Position</th>
+						<tr>
+							<td class="v-middle" style="min-width: 210px; color: {{base_config.entry_edit.param.base_config.player_profile.position.color}}"><span class="base-config-display">Position-Main</span></td>
+							<td class="v-middle"><input class="base-config-entry-color" type="color" ng-model="base_config.entry_edit.param.base_config.player_profile.position.color" /></td>
+							<td colspan="2" class="v-middle">Vergeben nach</td>
+							<td colspan="3" class="v-middle"><select class="base-config-select" ng-options="e.key as e.name for e in base_config.translate.position" ng-model="base_config.entry_edit.param.base_config.player_profile.position.option.key" style="width: 175px"></select></td>
+							</tr>
+						<th class="tc-teal">Best Of</th>
+						<tr ng-repeat="e in base_config.entry_edit.param.base_config.best_of">
+							<td colspan="2" class="v-middle" style="min-width: 210px"><input class="base-config-entry-input" type="text" ng-model="e.name" /></td>
+							<td class="v-middle" ng-if="e.min_games || e.min_games == 0">Min. Spiele</td>
+							<td class="v-middle" ng-if="e.min_games || e.min_games == 0"><input class="base-config-entry-input" type="text" ng-model="e.min_games" style="width: 50px" /></td>
+							<td colspan="2" ng-if="!e.min_games && e.min_games != 0"></td>
+							<td class="v-middle" ng-if="e.limit || e.limit == 0">Limit</td>
+							<td colspan="2" class="v-middle" ng-if="e.limit || e.limit == 0"><input class="base-config-entry-input" type="text" ng-model="e.limit" style="width: 50px" /></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			<div class="footer">
+				<div class="flex-expand"></div>
+					<button class="save-button" ng-click="base_config.update_config(base_config.entry_edit, true)">
+						<div class="image-and-button">
+							<span>Config speichern</span>
+							<div class="i-tick"></div>
+							</div>
+						</button>
+					</div>
+				</div>
+
+		<div class="api-entry" ng-if="base_config.entry_new && base_config.show.new">
+			<div class="header">
+				<div class="id-name font-bold">
+					<span>#&nbsp;{{base_config.entry_new.name}}</span>
+					<span>&nbsp;-&nbsp;<span ng-class='{"tc-green":base_config.entry_new.enabled, "tc-red":!base_config.entry_new.enabled}'>[{{base_config.entry_new.enabled ? 'Aktiviert' : 'Deaktiviert'}}]</span></span>
+					</div>
+				<div class="flex-expand"></div>
+				<div class="i-wrench"></div>
+				</div>
+			<div class="body">
+				<div>
+					<table class="table table-striped base-config-table">
+						<tr>
+							<td class="v-middle">Project-Name</td>
+							<td><input class="base-config-entry-input" type="text" ng-model="base_config.entry_new.project" /></td>
+							</tr>
+						<tr>
+							<td class="v-middle">Aktiviert</td>
+							<td>
+								<div>
+									<button ng-class='{"base-config-button-enabled":base_config.entry_new.enabled, "base-config-button":!base_config.entry_new.enabled}' class="btn i-tick" ng-disabled="base_config.entry_new.enabled" ng-click="base_config.entry_new.enabled = true"></button>
+									<button ng-class='{"base-config-button-disabled":!base_config.entry_new.enabled, "base-config-button":base_config.entry_new.enabled}' class="btn i-x" ng-disabled="!base_config.entry_new.enabled" ng-click="base_config.entry_new.enabled = false"></button>
+									</div>
+								</td>
+							</tr>
+						<tr>
+							<td class="v-middle">Config Param</td>
+							<td><textarea class="base-config-entry-area" type="text" ng-model="base_config.entry_new.param"></textarea></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			<div class="footer">
+				<div class="flex-expand"></div>
+					<button class="save-button" ng-click="base_config.create_config(base_config.entry_new)">
+						<div class="image-and-button">
+							<span>Config erstellen</span>
+							<div class="i-tick"></div>
+							</div>
+						</button>
+					</div>
+				</div>
+
+			</section>
+
+	<div class="loading-div" ng-if="view.status == 100 || base_config.status == 100"></div>
+
+	</article>

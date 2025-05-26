@@ -1,0 +1,35 @@
+.flash {
+	background: transparent url('/public/img/summoners/flash.png') no-repeat center center;
+	}
+
+.ignite {
+	background: transparent url('/public/img/summoners/ignite.jpg') no-repeat center center;
+	}
+
+.ghost {
+	background: transparent url('/public/img/summoners/ghost.png') no-repeat center center;
+	}
+
+.heal {
+	background: transparent url('/public/img/summoners/heal.jpg') no-repeat center center;
+	}
+
+.exhaust {
+	background: transparent url('/public/img/summoners/exhaust.png') no-repeat center center;
+	}
+
+.smite {
+	background: transparent url('/public/img/summoners/smite.jpg') no-repeat center center;
+	}
+
+.teleport {
+	background: transparent url('/public/img/summoners/teleport.png') no-repeat center center;
+	}
+
+.cleanse {
+	background: transparent url('/public/img/summoners/cleanse.png') no-repeat center center;
+	}
+
+.barrier {
+	background: transparent url('/public/img/summoners/barrier.png') no-repeat center center;
+	}

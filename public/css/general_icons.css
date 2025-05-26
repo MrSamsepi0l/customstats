@@ -1,0 +1,361 @@
+/* Best of Icons  */
+.i-kills {
+	background: transparent url('../img/basic/kills.png') no-repeat center center;
+	}
+
+.i-deaths {
+	background: transparent url('../img/basic/deaths.png') no-repeat center center;
+	}
+
+.i-assists {
+	background: transparent url('../img/basic/assists.png') no-repeat center center;
+	}
+
+.i-goldcoins {
+	background: transparent url('../img/basic/goldcoins.png') no-repeat center center;
+	}
+
+.i-bounce-up {
+	background: transparent url('../img/basic/bounce_up.png') no-repeat center center;
+	}
+
+.i-bounce-down {
+	background: transparent url('../img/basic/bounce_down.png') no-repeat center center;
+	}
+
+.i-arrow-up {
+	background: transparent url('../img/basic/arrow_up.png') no-repeat center center;
+	}
+
+.i-arrow-left {
+	background: transparent url('../img/basic/arrow_left.png') no-repeat center center;
+	}
+
+.i-arrow-right {
+	background: transparent url('../img/basic/arrow_right.png') no-repeat center center;
+	}
+
+.i-arrow-down {
+	background: transparent url('../img/basic/arrow_down.png') no-repeat center center;
+	}
+
+.i-collapse-white {
+	background: transparent url('../img/basic/arrow_collapse_white.png') no-repeat center center;
+	}
+
+.i-expand-white {
+	background: transparent url('../img/basic/arrow_expand_white.png') no-repeat center center;
+	}
+
+.i-broom {
+	background: transparent url('../img/basic/broom.png') no-repeat center center;
+	}
+
+.i-best-duo {
+	background: transparent url('../img/basic/best_duo.png') no-repeat center center;
+	}
+
+.i-worst-duo {
+	background: transparent url('../img/basic/worst_duo.png') no-repeat center center;
+	}
+
+.i-man-winner {
+	background: transparent url('../img/basic/man_winner.png') no-repeat center center;
+	}
+
+.i-most-banned {
+	background: transparent url('../img/basic/most_banned.png') no-repeat center center;
+	}
+
+.i-most-played-player {
+	background: transparent url('../img/basic/most_played_player.png') no-repeat center center;
+	}
+
+.i-most-cs {
+	background: transparent url('../img/basic/most_cs.png') no-repeat center center;
+	}
+
+.i-highest-winrate-champ {
+	background: transparent url('../img/basic/oldman_king.png') no-repeat center center;
+	}
+
+.i-most-played-champ {
+	background: transparent url('../img/basic/ascending_flank.png') no-repeat center center;
+	}
+
+.i-areachart {
+	background: transparent url('../img/basic/graph_teal_50.png') no-repeat center center;
+	}
+
+.i-send {
+	background: transparent url('../img/basic/send.png') no-repeat center center;
+	}
+
+.i-message-white {
+	background: transparent url('../img/basic/message_white.png') no-repeat center center;
+	}
+
+.i-list {
+	background: transparent url('../img/basic/list.png') no-repeat center center;
+	}
+
+.i-online {
+	background: transparent url('../img/basic/online.png') no-repeat center center;
+	}
+
+.i-offline {
+	background: transparent url('../img/basic/offline.png') no-repeat center center;
+	}
+
+.i-profile-white {
+	background: transparent url('../img/basic/profile.png') no-repeat center center;
+	}
+
+.i-favorite-shield {
+	background: transparent url('../img/basic/favorite_shield.png') no-repeat center center;
+	}
+
+.i-wrench {
+	background-image: url('/public/img/wrench.png');
+	background-repeat: no-repeat;
+	width: 32px;
+	height: 32px;
+	}
+
+.i-tick {
+	background-image: url('/public/img/tick.png');
+	background-repeat: no-repeat;
+	width: 32px;
+	height: 32px;
+	}
+
+.i-x {
+	background-image: url('/public/img/x.png');
+	background-repeat: no-repeat;
+	width: 32px;
+	height: 32px;
+	}
+
+.i-plus {
+	background: transparent url('../img/basic/plus.png') no-repeat center center;
+	}
+
+.i-minus {
+	background: transparent url('../img/basic/minus.png') no-repeat center center;
+	}
+
+.i-question {
+    content: url('/public/img/basic/question_mark.png');
+    }
+
+ .i-wrench {
+	background-image: url('/public/img/wrench.png');
+	background-repeat: no-repeat;
+	width: 32px;
+	height: 32px;
+	}
+
+.i-tick {
+	background-image: url('/public/img/tick.png');
+	background-repeat: no-repeat;
+	width: 32px;
+	height: 32px;
+	}
+
+.i-trophy {
+	background-image: url('/public/img/basic/trophy.png');
+	background-repeat: no-repeat;
+	width: 64px;
+	height: 64px;
+	}
+
+.i-clock-white {
+	background-image: url('/public/img/basic/clock_white.png');
+	background-repeat: no-repeat;
+	width: 64px;
+	height: 64px;
+	}
+
+.i-calendar-white {
+	background-image: url('/public/img/basic/calendar_white.png');
+	background-repeat: no-repeat;
+	width: 64px;
+	height: 64px;
+	}
+
+.i-average-white {
+	background-image: url('/public/img/basic/average_white.png');
+	background-repeat: no-repeat;
+	width: 64px;
+	height: 64px;
+	}
+
+.i-history-white {
+	background-image: url('/public/img/basic/history_white.png');
+	background-repeat: no-repeat;
+	width: 64px;
+	height: 64px;
+	}
+
+.i-history-clock {
+	background-image: url('/public/img/basic/history_clock.png');
+	background-repeat: no-repeat;
+	width: 75px;
+	height: 75px;
+	}
+
+.i-history-clock-teal {
+	background-image: url('/public/img/basic/history_clock_teal.png');
+	background-repeat: no-repeat;
+	width: 75px;
+	height: 75px;
+	}
+
+.i-favorite-shield-teal {
+	background-image: url('/public/img/basic/favorite_shield_teal.png');
+	background-repeat: no-repeat;
+	width: 75px;
+	height: 75px;
+	}
+
+.i-list-user-teal {
+	background-image: url('/public/img/basic/list_user_teal.png');
+	background-repeat: no-repeat;
+	width: 75px;
+	height: 75px;
+	}
+
+.i-archive-teal {
+	background-image: url('/public/img/basic/archive_teal.png');
+	background-repeat: no-repeat;
+	width: 75px;
+	height: 75px;
+	}
+
+.i-graph-teal {
+	background-image: url('/public/img/basic/graph_teal.png');
+	background-repeat: no-repeat;
+	width: 75px;
+	height: 75px;
+	}
+
+.i-x {
+	background-image: url('/public/img/x.png');
+	background-repeat: no-repeat;
+	width: 32px;
+	height: 32px;
+	}
+
+
+/* Navigation Icons */
+.i-player-group {
+	background-image: url('../../public/img/player.png');
+	background-repeat: no-repeat;
+	width: 64px;
+	height: 64px;
+	}
+
+.i-profile-teal {
+	background-image: url('/public/img/basic/profile_teal.png');
+	background-repeat: no-repeat;
+	width: 64px;
+	height: 64px;
+	}
+
+.i-best-of {
+	background-image: url('../../public/img/bestof.png');
+	background-repeat: no-repeat;
+	width: 64px;
+	height: 64px;
+	}
+
+.i-source {
+	background-image: url('../../public/img/source.png');
+	background-repeat: no-repeat;
+	width: 64px;
+	height: 64px;
+	}
+
+.i-profile {
+	background-image: url('../../public/img/profile.png');
+	background-repeat: no-repeat;
+	width: 64px;
+	height: 64px;
+	}
+
+.i-logout {
+	background-image: url('../../public/img/logout.png');
+	background-repeat: no-repeat;
+	width: 64px;
+	height: 64px;
+	}
+
+.i-graph {
+	background-image: url('../../public/img/graph.png');
+	background-repeat: no-repeat;
+	width: 64px;
+	height: 64px;
+	}
+
+.i-tournament {
+	background-image: url('../../public/img/tournament.png');
+	background-repeat: no-repeat;
+	width: 64px;
+	height: 64px;
+	}
+
+.i-admin {
+	background-image: url('../../public/img/admin.png');
+	background-repeat: no-repeat;
+	width: 64px;
+	height: 64px;
+	}
+
+.i-chat {
+	background-image: url('../../public/img/chat.png');
+	background-repeat: no-repeat;
+	width: 64px;
+	height: 64px;
+	}
+
+.i-dashboard {
+	background-image: url('../../public/img/dashboard.png');
+	background-repeat: no-repeat;
+	width: 64px;
+	height: 64px;
+	}
+
+.i-champions {
+	background-image: url('../../public/img/champions.png');
+	background-repeat: no-repeat;
+	width: 64px;
+	height: 64px;
+	}
+
+.match-history-gold {
+	background-image: url('../../public/img/basic/match_history_gold.png');
+	background-repeat: no-repeat;
+	width: 20px;
+	height: 20px;
+	}
+
+.match-history-cs {
+	background-image: url('../../public/img/basic/match_history_cs.png');
+	background-repeat: no-repeat;
+	width: 20px;
+	height: 20px;
+	}
+
+.match-history-kda {
+	background-image: url('../../public/img/basic/match_history_kda.png');
+	background-repeat: no-repeat;
+	width: 20px;
+	height: 20px;
+	}
+
+.match-history-kp {
+	background-image: url('../../public/img/basic/match_history_kp.png');
+	background-repeat: no-repeat;
+	width: 20px;
+	height: 20px;
+	}

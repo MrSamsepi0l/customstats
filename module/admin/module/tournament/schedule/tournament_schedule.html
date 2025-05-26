@@ -1,0 +1,135 @@
+<article ng-controller='customstats.admin_tournament:schedule_controller'>
+
+	<div class="tournament-schedule-config-search-bar">
+		<select class="ban-select new-game-select-team new-game-scrollbar" ng-options="e.tournamentID as e.name for e in schedule.tournament" ng-model="tournamentID" ng-change="schedule.get_schedule(tournamentID); schedule.get_team(tournamentID)"></select>
+		<input class="tournament-schedule-config-entry-input search" placeholder="Suche..." ng-model="schedule.filter.string" />
+		<div>
+			<button class="btn bc-green user-config-switch-btn" ng-click="schedule.set_new()">Neue Begegnung erstellen</button>
+			</div>
+		</div>
+
+	<section class="flex-box-tournament-schedule-config" ng-if="tournamentID">
+
+		<div class="api-list tournament-schedule-config-scrollbar">
+			<table class="tournament-schedule-config-table tournament-schedule-config-table-hover" style="background: #0f1519">
+				<tr class="font-bold">
+					<td style="max-height: 50px" ng-click="schedule.order_list('scheduleID')">#</td>
+					<td style="max-height: 50px" ng-click="schedule.order_list('ingame_name')">Team 1</td>
+					<td></td>
+					<td style="max-height: 50px" ng-click="schedule.order_list('createTime')">Team 2</td>
+					</tr>
+				<tbody>
+					<tr ng-repeat="e in schedule.data | orderBy:schedule.order_by | filter:schedule.filter.string track by $index" ng-click="schedule.entry = e; schedule.edit(e); schedule.show_edit = true; schedule.show_new = false">
+						<td>{{e.scheduleID}}</td>
+						<td>{{e.team_one_name}}</td>
+						<td>vs</td>
+						<td>{{e.team_two_name}}</td>
+						<!-- <td style="color: #787878">{{e.createTime | phpdate:'Y-m-d'}}</td> -->
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		<div class="api-entry" ng-if="schedule.entry_edit && schedule.show_edit">
+			<div class="header">
+				<div class="id-name font-bold">
+					<span>#{{schedule.entry.scheduleID}}</span>
+					</div>
+				<div class="flex-expand"></div>
+				<div class="i-wrench"></div>
+				</div>
+			<div class="body">
+				<div>
+					<table class="table table-striped tournament-schedule-config-table">
+						<tr>
+							<td class="v-middle">Turnier</td>
+							<td><select class="ban-select new-game-select-team new-game-scrollbar" ng-options="e.tournamentID as e.name for e in schedule.tournament" ng-model="schedule.entry_edit.tournamentID" style="width: 100%"></select></td>
+							</tr>
+						<tr>
+							<td class="v-middle">Team 1</td>
+							<td><select class="ban-select new-game-select-team new-game-scrollbar" ng-options="e.teamID as e.name for e in schedule.teamlist" ng-model="schedule.entry_edit.team_oneID" style="width: 100%"></select></td>
+							</tr>
+						<tr>
+							<td class="v-middle">Team 2</td>
+							<td><select class="ban-select new-game-select-team new-game-scrollbar" ng-options="e.teamID as e.name for e in schedule.teamlist" ng-model="schedule.entry_edit.team_twoID" style="width: 100%"></select></td>
+							</tr>
+						<tr>
+							<td class="v-middle">Begegnungstyp</td>
+							<td><select class="ban-select new-game-select-team new-game-scrollbar" ng-options="e.key as e.val for e in schedule.type_list" ng-model="schedule.entry_edit.type" style="width: 100%"></select></td>
+							</tr>
+						<tr>
+							<td class="v-middle">Estimated Start</td>
+							<td><input class="tournament-team-config-entry-input" type="text" ng-model="schedule.entry_edit.estimatedDate_from" /></td>
+							</tr>
+						<tr>
+							<td class="v-middle">Estimated End</td>
+							<td><input class="tournament-team-config-entry-input" type="text" ng-model="schedule.entry_edit.estimatedDate_to" /></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			<div class="footer">
+				<div class="flex-expand"></div>
+					<button class="save-button" ng-click="schedule.update_schedule(schedule.entry_edit)">
+						<div class="image-and-button">
+							<span>Begegnung speichern</span>
+							<div class="i-tick"></div>
+							</div>
+						</button>
+					</div>
+				</div>
+
+		<div class="api-entry" ng-if="schedule.entry_new && schedule.show_new">
+			<div class="header">
+				<div class="id-name font-bold">
+					<span># neu</span>
+					</div>
+				<div class="flex-expand"></div>
+				<div class="i-wrench"></div>
+				</div>
+			<div class="body">
+				<div>
+					<table class="table table-striped tournament-schedule-config-table">
+						<tr>
+							<td class="v-middle">Turnier</td>
+							<td><select class="ban-select new-game-select-team new-game-scrollbar" ng-options="e.tournamentID as e.name for e in schedule.tournament" ng-model="schedule.entry_new.tournamentID" ng-change="schedule.get_team(schedule.entry_new.tournamentID)" style="width: 100%"></select></td>
+							</tr>
+						<tr>
+							<td class="v-middle">Team 1</td>
+							<td><select class="ban-select new-game-select-team new-game-scrollbar" ng-options="e.teamID as e.name for e in schedule.teamlist | filter:{tournamentID:schedule.entry_new.tournamentID}" ng-model="schedule.entry_new.team_oneID" style="width: 100%"></select></td>
+							</tr>
+						<tr>
+							<td class="v-middle">Team 2</td>
+							<td><select class="ban-select new-game-select-team new-game-scrollbar" ng-options="e.teamID as e.name for e in schedule.teamlist | filter:{tournamentID:schedule.entry_new.tournamentID}" ng-model="schedule.entry_new.team_twoID" style="width: 100%"></select></td>
+							</tr>
+						<tr>
+							<td class="v-middle">Begegnungstyp</td>
+							<td><select class="ban-select new-game-select-team new-game-scrollbar" ng-options="e.key as e.val for e in schedule.type_list" ng-model="schedule.entry_new.type" style="width: 100%"></select></td>
+							</tr>
+						<tr>
+							<td class="v-middle">Estimated Start</td>
+							<td><input class="tournament-team-config-entry-input" type="text" ng-model="schedule.entry_new.estimatedDate_from" /></td>
+							</tr>
+						<tr>
+							<td class="v-middle">Estimated End</td>
+							<td><input class="tournament-team-config-entry-input" type="text" ng-model="schedule.entry_new.estimatedDate_to" /></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			<div class="footer">
+				<div class="flex-expand"></div>
+					<button class="save-button" ng-click="schedule.create_schedule(schedule.entry_new)">
+						<div class="image-and-button">
+							<span>Begegnung erstellen</span>
+							<div class="i-tick"></div>
+							</div>
+						</button>
+					</div>
+				</div>
+
+			</section>
+
+	<div class="loading-div" ng-if="view.status == 100 || schedule.status == 100"></div>
+
+	</article>

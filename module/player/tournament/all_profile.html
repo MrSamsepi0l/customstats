@@ -1,0 +1,336 @@
+<article ng-controller="customstats.tournament_all_profile_controller">
+
+	<section class="allplayer-search-bar">
+		<input class="input" type="text" ng-model="view.filter.string" ng-if="!view.entry" placeholder="Suche ..." />
+		<select class="select all-player-scrollbar" ng-options="e.playerID as e.ingame_name for e in view.list | orderBy:['-times_played']" ng-change="view.reset_render_limit(); view.get_player_profile(view.filter.playerID)" ng-model="view.filter.playerID" ng-style='{"width":!view.entry ? "200px" : "70%"}'>
+			<option value="">Alle Spieler</option>
+			</select>
+		<select class="select all-player-scrollbar" ng-options="e.value as e.key for e in view.filter.option"  ng-if="!view.entry" ng-model="view.order_by" style="width: 20%"></select>
+		<button ng-class='{"i-arrow-up": view.filter.sort_order == "asc", "i-arrow-down": view.filter.sort_order == "desc"}' class="all-player-icon i-arrow-up" ng-if="!view.entry" ng-click="view.order_list(view.filter.sort_order)" style="border: 1px solid #787878"></button>
+		<input class="input" type="number" ng-change="view.filter_player_games(view.filter.quant)" ng-if="!view.entry" placeholder="Minimum Spiele" ng-model="view.filter.quant" />
+		</section>
+
+	<section class="flex-box-allplayer" ng-if="!view.entry">
+
+		<div class="playerbox" ng-repeat="e in view.list | filter: {'ingame_name': view.filter.string} | customOrderBy:view.order_by:view.filter.sort_order" ng-click="view.filter.playerID = e.playerID; view.get_player_profile(view.filter.playerID)">
+
+					<div class="innerbox-first all-player-border-right" style="width: 35%">
+						<div class="text">
+							<span class="playername" style="border-bottom: 1px solid rgb(157 140 144 / 13%)">{{e.ingame_name}}</span><br />
+							<span class="realname">{{e.real_name}}</span>
+							</div>
+						</div>
+
+					<div class="innerbox-first all-player-border-right" style="width: 15%">
+						<div class="stat-list">
+							<div class="stat" ng-class='{"all-player-border-complete":view.order_by == "last_game"}'>
+								<span class="value">{{e.last_game | phpdate: 'd-m-Y'}}</span><br />
+								<span class="title">Letztes Spiel</span>
+								</div>
+							</div>
+						</div>
+
+					<div class="innerbox-second">
+
+						<div class="statbox">
+							<div class="stat-list">
+								<div class="stat" ng-class='{"all-player-border-complete":view.order_by == "times_played"}'>
+									<span class="value tc-number">{{e.times_played}}</span><br />
+									<span class="title">Anzahl Spiele</span>
+									</div>
+								<div class="stat" ng-class='{"all-player-border-complete":view.order_by == "times_won"}'>
+									<span class="value tc-number">{{e.times_won}}</span><br />
+									<span class="title">Gewonnen</span>
+									</div>
+								<div class="stat" ng-class='{"all-player-border-complete":view.order_by == "times_lost"}'>
+									<span class="value tc-number" >{{e.times_lost}}</span><br />
+									<span class="title">Verloren</span>
+									</div>
+								</div>
+							</div>
+
+						<div class="statbox">
+							<div class="stat-list">
+								<div class="stat" ng-class='{"all-player-border-complete":view.order_by == "playrate"}'>
+									<span class="value tc-rate">{{e.playrate | number: 2}} %</span><br />
+									<span class="title">Playrate</span>
+									</div>
+								<div class="stat" ng-class='{"all-player-border-complete":view.order_by == "winrate"}'>
+									<span class="value tc-rate">{{e.winrate | number: 2}} %</span><br />
+									<span class="title">Winrate</span>
+									</div>
+								<div class="stat" ng-class='{"all-player-border-complete":view.order_by == "kda_number"}'>
+									<span class="value tc-number">{{e.kda_number | number: 2}}</span><br />
+									<span class="title">KDA</span>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+
+			</div>
+
+		</section>
+
+		<section class="flex-box-league-profile" ng-if="view.entry">
+
+			<div class="statistic-left">
+				<div class="header">
+					<div class="headline">
+						<span>Main Stats</span>
+						</div>
+					<div class="flex-expand"></div>
+					<div class="i-areachart user-league-profile-icon"></div>
+					</div>
+				<div class="body">
+					<div class="stat">
+						<span class="value">{{view.entry.times_played}}</span><br />
+						<span class="title">Spiele gespielt</span>
+						</div>
+					<div class="stat">
+						<span class="value">{{view.entry.avg_kills | number: 1}} / {{view.entry.avg_deaths | number: 1}} / {{view.entry.avg_assists | number: 1}}</span><br />
+						<span class="title">K / D / A</span>
+						</div>
+					<div class="stat">
+						<span class="value">{{view.entry.times_won}}</span><br />
+						<span class="title">Spiele gewonnen</span>
+						</div>
+					<div class="stat">
+						<span class="value">{{view.entry.hours_played | number: 2}}</span><br />
+						<span class="title">Stunden gespielt</span>
+						</div>
+					<div class="stat">
+						<span class="value">{{view.entry.times_lost}}</span><br />
+						<span class="title">Spiele verloren</span>
+						</div>
+					<div class="stat">
+						<span class="value">{{view.entry.different_champs_played}}</span><br />
+						<span class="title">Versch. Champs</span>
+						</div>
+					<div class="stat">
+						<span class="value">{{view.entry.winrate | number: 2}} %</span><br />
+						<span class="title">Winrate</span>
+						</div>
+					<div class="stat">
+						<span class="value">{{view.entry.cs_per_game | number: 2}}</span><br />
+						<span class="title">CS / Spiel</span>
+						</div>
+					<div class="stat">
+						<span class="value">{{view.entry.playrate | number: 2}} %</span><br />
+						<span class="title">Playrate</span>
+						</div>
+					<div class="stat">
+						<span class="value">{{view.entry.cs_per_minute | number: 2}}</span><br />
+						<span class="title">CS / Minute</span>
+						</div>
+					<div class="stat">
+						<span class="value">{{view.entry.player_streak.max_win_streak}}</span><br />
+						<span class="title">max Winstreak</span>
+						</div>
+					<div class="stat">
+						<span class="value">{{view.entry.player_streak.max_lose_streak}}</span><br />
+						<span class="title">max Losestreak</span>
+						</div>
+					</div>
+				</div>
+
+			<div class="player-profile">
+
+				<div class="list">
+					<div class="header">
+						<div class="headline">
+							<span>{{view.entry.ingame_name}}</span>
+							</div>
+						<select class="tournament-profile-select" ng-model="view.filter.tournamentID" ng-change="view.get_league_profile_list(view.filter.tournamentID)" ng-options="e.tournamentID as e.name for e in view.entry.tournament_list">
+							<option value="">Alle Turniere</option>
+							</select>
+						<div class="flex-expand"></div>
+						<div class="i-profile-teal"></div>
+						</div>
+
+					<div class="box">
+						<div class="box-stats">
+							<div class="stat">
+								<span class="value" style="font-size: 1.4rem">{{view.entry.real_name}}</span><br />
+								<span class="title">Name</span>
+								</div>
+							<div class="stat">
+								<span class="value">{{view.entry.kda_number}}</span><br />
+								<span class="title">KDA</span>
+								</div>
+							<div class="stat summoner-box">
+								<div class="user-league-profile-icon summoner {{view.entry.summoner_list[0].summoner | lowercase}}" ng-if="view.entry.summoner_list[0].on_d > view.entry.summoner_list[0].on_f"><span class="sum">{{view.entry.summoner_list[0].total}} x</span></div>
+								<div class="user-league-profile-icon summoner {{view.entry.summoner_list[1].summoner | lowercase}}" ng-if="view.entry.summoner_list[0].on_d < view.entry.summoner_list[0].on_f"><span class="sum">{{view.entry.summoner_list[1].total}} x</span></div>
+								<div class="user-league-profile-icon summoner {{view.entry.summoner_list[0].summoner | lowercase}}" ng-if="view.entry.summoner_list[1].on_d > view.entry.summoner_list[1].on_f"><span class="sum">{{view.entry.summoner_list[0].total}} x</span></div>
+								<div class="user-league-profile-icon summoner {{view.entry.summoner_list[1].summoner | lowercase}}" ng-if="view.entry.summoner_list[1].on_d < view.entry.summoner_list[1].on_f"><span class="sum">{{view.entry.summoner_list[1].total}} x</span></div>
+								<span class="title">Lieblings Kombi</span>
+								</div>
+							<div class="stat">
+								<span class="value">{{view.entry.last_game | phpdate: 'd-m-Y'}}</span><br />
+								<span class="title">Letztes Spiel</span>
+								</div>
+							</div>
+
+						<!-- level -->
+						<div class="image-level-box">
+
+							<div class="tournament-profile-teamlist">
+								<div class="teambox" ng-repeat="e in view.entry.team_list | orderBy:['tournamentID', 'substitute', '-teamID']">
+									<div class="icon-name border-bottom-main">
+										<img class="icon" ng-if="e.tournamentID != 1" ng-src="public/img/tournament/team_logo/{{e.team_name_converted}}.png" />
+										<div class="name">{{e.name}}</div>
+										</div>
+									<div class="info">
+										<div class="departed" ng-if="e.departed">ausgestiegen</div>
+										<div class="substitute" ng-if="e.substitute">Substitute</div>
+										<div class="leader" ng-if="e.leader">Teamleader</div>
+										<div class="role">
+											<img class="role-img" ng-src="public/img/position/{{e.role}}.png" />
+											<div class="name">{{view.translate_position[e.role]}}</div>
+											</div>
+
+
+										</div>
+									</div>
+								</div>
+
+							<div class="profile-image">
+								<div class="main-champion {{view.entry.champion_with_player[0].champion_converted}} blurred"></div>
+								<div class="{{view.entry.champion_with_player[0].champion_converted}} not-blurred" style="width: 200px; height: 200px;"></div>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+
+				<div class="title-box">
+						<a class="tournament-title-box" ng-href="#/tournament" ng-repeat="e in view.entry.tournament_list">
+							<div class="icon {{e.name_converted}}"></div>
+							<div class="name">{{e.name}} {{e.startDate | phpdate: 'Y'}}</div>
+							</a>
+						<div class="title" custom-hover="{{e.desc}}" ng-style='{"color": e.color}' ng-repeat="e in view.entry.title_list">{{e.key}}</div>
+					</div>
+
+				</div>
+
+			<div class="random-player-list" ng-if="view.entry.ingame_name == 'Random'">
+
+				<div class="header">
+					<div class="headline">
+						<span>VERGANGENE ALS RANDOM TEILGENOMMENE SPIELER</span>
+						</div>
+					<div class="i-archive-teal user-league-profile-icon-bigger"></div>
+					</div>
+
+				<div style="display: flex; flex-wrap: wrap">
+					<div class="random-player-box" ng-repeat="f in view.random_player_list track by $index">{{f}}</div>
+					</div>
+				</div>
+
+			<div class="statistic-champions">
+
+				<div class="header">
+					<div class="headline">
+						<span>FAVORITEN</span>
+						</div>
+					<div class="i-favorite-shield-teal user-league-profile-icon-bigger"></div>
+					</div>
+
+				<div class="list">
+					<table class="user-league-profile-table">
+						<tr class="championbox background" ng-repeat="e in view.entry.champion_with_player | orderBy:['-times_played', '-winrate'] | limitTo: 7">
+							<td class="champion-image v-middle">
+								<div class="{{e.champion_converted}} image"></div>
+								</td>
+							<td class="stat ta-center v-middle" style="width: 30%">
+								<span class="value champion-name"><span class="tc-champion">{{e.champion}}</span></span><br />
+								<span class="value"><span class="tc-number">{{e.times_played}}</span><span class="title" style="margin-left: 1rem">Spiele</span></span><br />
+								</td>
+							<td class="stat ta-center v-middle">
+								<span class="value"><span class="tc-rate">{{e.winrate | number: 2}} %</span></span><br />
+								<span class="title">Winrate</span>
+								</td>
+							<td class="stat ta-center v-middle">
+								<span class="value">{{e.avg_kills | number: 1}} / {{e.avg_deaths | number: 1}} / {{e.avg_assists | number: 1}}</span><br />
+								<span class="title">K / D / A</span>
+								</td>
+							</tr>
+						</table>
+					</div>
+
+				</div>
+
+		<div class="match-history">
+			<div class="header">
+				<div class="headline">
+					<span>MATCH HISTORY</span>
+					</div>
+				<div class="i-history-clock-teal user-league-profile-icon-bigger"></div>
+				</div>
+
+			<div class="body customstats-scrollbar" when-scrolled="view.increase_render_limit(20)">
+				<div class="user-league-profile-table-match-history">
+					<div class="box-complete" ng-class='{"win":e.won, "loss":!e.won}' ng-repeat="e in view.entry.match_history | orderBy:['-gameID'] | limitTo: view.match_history.render_limit">
+						<div class="gamebox background">
+							<div class="general-stat">
+								<div class="gamedate">
+									<span ng-if="!e.date.today && !e.date.yesterday">vor {{e.relative_day}} Tagen</span>
+									<span ng-if="e.date.today">heute</span>
+									<span ng-if="e.date.yesterday">gestern</span>
+									</div>
+								<div class="win-lose">
+									<span ng-if="e.won">WIN</span>
+									<span ng-if="!e.won">LOSE</span>
+									</div>
+								<div>
+									<span>{{e.duration}} min</span>
+									</div>
+								</div>
+
+							<div class="champion-stat">
+								<div class="icon-champion {{e.champion_converted | lowercase}}" custom-hover="{{e.champion}}">
+									<span class="champion-level-static">{{e.level}}</span>
+									</div>
+								<div class="summoners-player">
+									<div class="icon-summoner {{e.summoner_one | lowercase}}"></div>
+									<div class="icon-summoner {{e.summoner_two | lowercase}}"></div>
+									</div>
+								<div class="kda-player">
+									<div class="kda-separated">
+										<span>{{e.kills}} / {{e.deaths}} / {{e.assists}}</span>
+										</div>
+									<div class="kda-combined">
+										<span>{{e.kda_number | number: 1}} KDA</span>
+										</div>
+									</div>
+								</div>
+
+							<div class="player-participant-list">
+								<div class="team-list">
+									<div ng-repeat="p in e.team_one_list" style="display: flex">
+										<div class="icon-champion {{p.champion_converted | lowercase}}" custom-hover="{{p.champion}}"></div>
+										<a class="player-link" ng-class='{"tc-white":p.playerID == view.filter.playerID}' ng-click="view.reset_render_limit(); view.get_player_profile(p.playerID)">{{p.ingame_name}}</a>
+										</div>
+									</div>
+								<div class="team-list">
+									<div ng-repeat="p in e.team_two_list" style="display: flex">
+										<div class="icon-champion {{p.champion_converted | lowercase}}" custom-hover="{{p.champion}}"></div>
+										<a class="player-link" ng-class='{"tc-white":p.playerID == view.filter.playerID}' ng-click="view.reset_render_limit(); view.get_player_profile(p.playerID)">{{p.ingame_name}}</a>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</section>
+
+	<div class="loading-div" ng-if="view.status == 100"></div>
+
+	</article>

@@ -1,0 +1,86 @@
+<section ng-controller="customstats.tournament_schedule_controller">
+
+	<div class="schedule-top-nav" ng-if="view.tournament_entry">
+			<div class="options">
+				<button class="standings-button stage-option" ng-class='{"tc-teal":view.tournament_type == "regular_season", "tc-white":view.tournament_type != "regular_season"}' ng-click="view.change_tournament_type('regular_season'); schedule.get_schedule(view.tournament_entry.tournamentID, view.tournament_type)">Reguläre&nbsp;Saison</button>
+				<button class="standings-button stage-option" ng-class='{"tc-teal":view.tournament_type == "knockout", "tc-white":view.tournament_type != "knockout"}' ng-click="view.change_tournament_type('knockout'); schedule.get_schedule(view.tournament_entry.tournamentID, view.tournament_type)">Knockout-Stage</button>
+				<select class="schedule-select" ng-options="e.teamID as e.name for e in view.team_list" ng-model="schedule.filter.teamID">
+					<option value="">Alle Teams</option>
+					</select>
+				<select class="schedule-select" ng-model="schedule.filter.gameDate">
+					<option value="">Alle Spiele</option>
+					<option value="already_played">Bereits gespielt</option>
+					<option value="open_scheduled">Noch nicht gespielt</option>
+					</select>
+				</div>
+			</div>
+
+	<div class="schedule">
+		<div class="events">
+			<div ng-repeat="(key, list) in schedule.filtered_list | orderBy:'estimatedDate_from' | groupBy:'estimatedDate_from'">
+				<div ng-repeat="(val, list) in list | filter:schedule.filter_list | groupBy:'estimatedDate_to' track by $index">
+					<div class="eventdate">
+						<div class="date" ng-if="key != val">
+							<!-- <span class="weekday">{{key | date : 'EEEE'}}</span> -->
+							<span class="monthday">{{key | phpdate : 'd'}}. {{key | date : 'LLLL'}}</span>
+							<span class="dash">bis</span>
+							<span class="monthday">{{val | phpdate : 'd'}}. {{val | date : 'LLLL'}}</span><br />
+							<span ng-if="$index === 0" style="font-size: 0.8rem; color: #8fa3b0;">Spiele gerne innerhalb dieses Zeitraums spielen; Das Gewinnerteam bitte das Ergebnis & Screenshot an Käsi oder Kluft Klaus schicken.</span>
+							</div>
+						<div class="date" ng-if="key == val">
+							<span class="dash">Spiele am </span>
+							<span class="monthday">{{key | phpdate : 'd'}}.{{key | phpdate : 'm'}}.</span>
+							</div>
+						</div>
+					<div ng-repeat="e in list | orderBy:'scheduleID'">
+						<div class="eventmatch" ng-style='{"text-decoration": e.canceled ? "line-through" : "inherit"}'>
+							<div class="eventtime">
+								<div class="time" ng-if="!e.future && e.gameDate != '9999-99-99'">
+									<span class="weekday">{{e.gameDate}}</span>
+									<span class="approx">Gamedate</span>
+									</div>
+								</div>
+							<div class="teamrow">
+								<button class="team team1 standings-button" ng-click="view.team_entry = e; view.get_tournament_team_entry(e.team_oneID); view.change_tab('team')">
+									<img class="logo" ng-if="view.tournament_entry.tournamentID != 1" ng-src='{{"public/img/tournament/team_logo/" + e.team_one_name_converted + ".png"}}' />
+									<div class="info">
+										<h2>
+											<span ng-style='{"color":e.winner_teamID == e.team_oneID ? "#7dbb87" : "#bfbfbf"}'>{{e.team_one_name}}</span>
+											</h2>
+										<!-- <div class="winloss" ng-if="!e.future">{{e.times_won_team_one}}&nbsp;S-{{e.times_lost_team_one}}&nbsp;N</div> -->
+										</div>
+									</button>
+								<div class="versus" ng-if="e.future && e.team_oneID > 0 && e.team_twoID > 0 || e.gameDate == '9999-99-99'">VS</div>
+								<div class="score" ng-if="e.gameDate != '9999-99-99'" ng-click="schedule.show.finished_game_source = true; schedule.generate_source_url(e)">
+									<span class="scoreTeam1">{{e.team_oneID == e.winner_teamID ? 1 : 0}}</span>
+									<span class="hyphen">-</span>
+									<span class="scoreTeam2">{{e.team_twoID == e.winner_teamID ? 1 : 0}}</span>
+									</div>
+								<div class="team team2" ng-click="view.get_tournament_team_entry(e.team_twoID); view.change_tab('team')">
+									<img class="logo" ng-if="view.tournament_entry.tournamentID != 1" ng-src='{{"public/img/tournament/team_logo/" + e.team_two_name_converted + ".png"}}' />
+									<div class="info">
+										<h2>
+											<span ng-style='{"color":e.winner_teamID == e.team_twoID ? "#7dbb87" : "#bfbfbf"}'>{{e.team_two_name}}</span>
+											</h2>
+										<!-- <div class="winloss" ng-if="!e.future">{{e.times_won_team_two}}&nbsp;S-{{e.times_lost_team_two}}&nbsp;N</div> -->
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+			<!-- modal for 'Legende in More Stats' -->
+		<league-popup ng-if="schedule.show.finished_game_source" xa-popup-options='{"overlayClose":true, "width":"58%", "top":"50%", "height": "650px", "left":"52%", "background":"transparent !important", "position":"fixed", "transform":"translate(-50%, -50%)"}'>
+			<body-part>
+				<div>
+					<img ng-src="{{schedule.entry.source_url}}" />
+					</div>
+				</body-part>
+			</league-popup>
+
+	</section>

@@ -1,0 +1,235 @@
+.flex-box-new-game {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 100%;
+	margin-top: 6px;
+	background: #0a0e13;
+	padding: 5px 5px 5px 5px;
+	}
+
+.flex-box-new-game .footer {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+	margin-top: 20px;
+	}
+
+.flex-box-new-game .team {
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+	}
+
+.flex-box-new-game .team .header {
+	display: flex;
+	width: 100%;
+	min-height: 50px;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	}
+
+.flex-box-new-game .team .body {
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-evenly;
+	min-height: 50px;
+	}
+
+.flex-box-new-game .team .body .player {
+	display: flex;
+	width: 100%;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	min-height: 50px;
+	}
+
+/* Summoner Spells */
+.flex-box-new-game .team .body .summoners {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	}
+
+/* Level */
+.flex-box-new-game .team .body .level {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	}
+
+/* Champion */
+.flex-box-new-game .team .body .champion {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	}
+
+/* Summoner */
+.flex-box-new-game .team .body .summoner {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	}
+
+/* Position */
+.flex-box-new-game .team .body .position {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	}
+
+/* K/D/A */
+.flex-box-new-game .team .body .kda {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	}
+
+.flex-box-new-game .team .body .kda .input {
+	width: 50px;
+	}
+
+/* CS */
+.flex-box-new-game .team .body .cs {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	}
+
+.flex-box-new-game .team .body .cs .input {
+	width: 50px;
+	}
+
+/* Gold */
+.flex-box-new-game .team .body .gold {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	}
+
+.flex-box-new-game .team .body .gold .input {
+	width: 50px;
+	}
+
+.new-game-input {
+	color: #ffffff;
+	font-size: 1.0rem;
+	line-height: 1.0rem;
+	vertical-align: middle;
+	border-style: none;
+	background: #121314;
+	outline: none;
+	padding: 10px 10px 10px 10px;
+	border-radius: 15px;
+	width: 35%;
+	margin-right: 2rem;
+	}
+
+.new-game-input-team {
+	color: #fff;
+	font-size: 1.0rem;
+	line-height: 1.0rem;
+	vertical-align: middle;
+	border-color: #2c2c2c;
+	border-style: ridge;
+	background: #121314;
+	outline: none;
+	padding: 5px 5px 5px 5px;
+	}
+
+.new-game-select-team {
+    font-size: 1.1rem;
+    text-align: center;
+    height: 32px;
+    color: #fff;
+    background: #0f1519;
+	}
+
+.new-game-button {
+    color: #fff;
+    background-color: #0f1519;
+    letter-spacing: 5px;
+    font-size: 1.2rem;
+    padding: 10px 10px 10px 10px;
+    border-radius: 15px;
+    border: 1px transparent;
+    user-select: none;
+    outline: none;
+    display: inline-block;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+	}
+
+.new-game-button:hover {
+	background-color: #0a0e13;
+	transition: all 0.3s ease;
+	}
+
+.new-game-error-message {
+    color: #fff;
+    background-color: #6e4d5b;
+    letter-spacing: 5px;
+    font-size: 1.2rem;
+    padding: 10px 10px 10px 10px;
+    border: 1px transparent;
+    border-radius: 15px;
+	}
+
+.clear-ban-btn {
+    color: #fff;
+    background-color: #372222;
+    font-size: 1.0rem;
+    padding: 10px 10px 10px 10px;
+    border: 1px transparent;
+    user-select: none;
+    outline: none;
+    border-radius: 10px;
+    display: inline-block;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+	}
+
+.clear-ban-btn:hover {
+	background-color: #1c1010;
+	transition: all 0.3s ease;
+	}
+
+.new-game-checkbox {
+	background-color: #838383;
+	}
+
+.new-game-checkbox-enabled {
+	background-color: #6daf8d;
+    width: 32px;
+    height: 32px;
+	}
+
+.new-game-checkbox-disabled {
+	background-color: #cf6060;
+    width: 32px;
+    height: 32px;
+	}
+
+/* width */
+.new-game-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+.new-game-scrollbar::-webkit-scrollbar-track {
+  background: #0a0e13;
+}
+
+/* Handle */
+.new-game-scrollbar::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+.new-game-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

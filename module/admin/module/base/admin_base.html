@@ -1,0 +1,37 @@
+<article ng-controller="customstats.admin_base_controller">
+
+	<section class="navbar-admin-base">
+		<div class="tab">
+			<div ng-click="tab = 'user_config'">
+				<span class="name">Benutzer</span>
+				</div>
+			</div>
+		<div class="tab">
+			<div ng-click="tab = 'player_config'">
+				<span class="name">Spieler</span>
+				</div>
+			</div>
+		<div class="tab">
+			<div ng-click="tab = 'champion_config'">
+				<span class="name">Champions</span>
+				</div>
+			</div>
+		<div class="tab">
+			<div ng-click="tab = 'base_config'">
+				<span class="name">Base Config</span>
+				</div>
+			</div>
+		<div class="tab">
+			<div ng-click="tab = 'leagueapi_config'">
+				<span class="name">Leagueapi</span>
+				</div>
+			</div>
+		</section>
+
+		<div ng-if="tab == 'user_config'" ng-include="'load_template/user_config'"></div>
+		<div ng-if="tab == 'base_config'" ng-include="'load_template/base_config'"></div>
+		<div ng-if="tab == 'leagueapi_config'" ng-include="'load_template/leagueapi_config'"></div>
+		<div ng-if="tab == 'player_config'" ng-include="'load_template/player_config'"></div>
+		<div ng-if="tab == 'champion_config'" ng-include="'load_template/champion_config'"></div>
+
+	</article>

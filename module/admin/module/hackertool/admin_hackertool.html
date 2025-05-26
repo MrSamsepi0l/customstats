@@ -1,0 +1,13 @@
+<article ng-controller="customstats.admin_game_controller">
+
+	<section class="navbar-admin-base">
+		<div class="tab" ng-show="app.user_has_right('customstats:admin:commandline')">
+			<div ng-click="tab = 'commandline'">
+				<span class="name">Command Line (CMD)</span>
+				</div>
+			</div>
+		</section>
+
+		<div ng-if="tab == 'commandline' && app.user_has_right('customstats:admin:commandline')" ng-include="'load_template/commandline'"></div>
+
+	</article>

@@ -1,0 +1,29 @@
+.schedule-top-nav {
+	animation: fadein .8s;
+	background-color: #0a0e13;
+    display: flex;
+    flex-direction: row;
+    text-transform: uppercase;
+    border-bottom: 1px solid #252c32;
+    font-size: 1.4rem;
+    font-weight: bold;
+    overflow-x: auto;
+	}
+
+@media only screen and (min-width: 1076px){
+
+	.schedule-top-nav {
+	    align-items: flex-end;
+	    padding-bottom: 20px;
+	    height: 80px;
+		}
+	}
+
+.schedule-select {
+	font-size: 1.1rem;
+	text-align: center;
+	height: 46px;
+	color: #fff;
+	background: #0f1519;
+	padding: 10px 10px 10px 10px;
+	}

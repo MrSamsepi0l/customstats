@@ -1,0 +1,87 @@
+<article class="dashboard-container-breakout" ng-controller="customstats.dashboard_controller">
+	<section class="dashboard">
+
+		<div class="header">
+			<div class="headline">
+				<span>Custom Games Information Dashboard</span>
+				</div>
+			</div>
+
+		<div class="information">
+			<div class="box" style="min-width: 250px">
+				<div class="i-history-white" style="margin-right: 1rem"></div>
+				<div class="text">
+					<div class="value">{{view.game_analysis.total_games}}</div>
+					<hr />
+					<div class="title">Customs gesamt</div>
+					</div>
+				</div>
+			<div class="box" style="min-width: 280px">
+				<div class="i-calendar-white" style="margin-right: 1rem"></div>
+				<div class="text">
+					<div class="value">{{view.game_analysis.last_gameDate | phpdate: 'd. M Y'}}</div>
+					<hr />
+					<div class="title">Letztes Custom</div>
+					</div>
+				</div>
+			<div class="box" style="min-width: 260px">
+				<div class="i-clock-white" style="margin-right: 1rem"></div>
+				<div class="text">
+					<div class="value">{{view.game_analysis.highest_duration}}</div>
+					<hr />
+					<div class="title">Längstes Custom</div>
+					</div>
+				</div>
+			<div class="box" style="min-width: 200px">
+				<div class="i-average-white" style="margin-right: 1rem"></div>
+				<div class="text">
+					<div class="value">{{view.game_analysis.average_duration | number: 2}}</div>
+					<hr />
+					<div class="title">&empty; Länge</div>
+					</div>
+				</div>
+			</div>
+
+		<div class="body">
+			<div class="chart-container">
+				<section class="timeline-box">
+					<league-highchart class="highcharts-container" league-instance="view.instance_1" league-highchart="view.chartdata.games_played"></league-highchart>
+					</section>
+				</div>
+			<div class="chart-container" style="width: 65.5%">
+				<section class="timeline-box">
+					<league-highchart class="highcharts-container" league-instance="view.instance_2" league-highchart="view.chartdata.duration"></league-highchart>
+					</section>
+				</div>
+			<div class="chart-container" style="width: 48.7%">
+				<section class="timeline-box">
+					<league-highchart class="highcharts-container" league-instance="view.instance_3" league-highchart="view.chartdata.played_champs"></league-highchart>
+					</section>
+				</div>
+			<div class="chart-container" style="width: 48.7%">
+				<section class="timeline-box">
+					<league-highchart class="highcharts-container" league-instance="view.instance_4" league-highchart="view.chartdata.banned_champs"></league-highchart>
+					</section>
+				</div>
+			<div class="chart-container">
+				<section class="timeline-box">
+					<league-highchart class="highcharts-container" league-instance="view.instance_5" league-highchart="view.chartdata.kills"></league-highchart>
+					</section>
+				</div>
+			<div class="chart-container">
+				<section class="timeline-box">
+					<league-highchart class="highcharts-container" league-instance="view.instance_6" league-highchart="view.chartdata.assists"></league-highchart>
+					</section>
+				</div>
+			<div class="chart-container">
+				<section class="timeline-box">
+					<league-highchart class="highcharts-container" league-instance="view.instance_7" league-highchart="view.chartdata.cs"></league-highchart>
+					</section>
+				</div>
+			</div>
+
+		</section>
+
+	<div class="loading-div" ng-if="view.status == 100"></div>
+
+	</article>

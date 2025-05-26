@@ -1,0 +1,31 @@
+<article ng-controller="customstats.login_controller">
+
+	<section class="flex-box-login">
+		<div class="card">
+			<div class="header">
+				<span class="title">Sign in</span>
+				</div>
+			<div class="body">
+				<div class="input-group">
+					<input type="text" placeholder="Username" ng-model="username" ng-keydown="$event.keyCode == 13 && send_login_request(username, password)" />
+					</div>
+				<div class="space"></div>
+				<div class="input-group">
+					<input type="password" placeholder="Password" ng-model="password" ng-keydown="$event.keyCode == 13 && send_login_request(username, password)" />
+					</div>
+				<div class="space2"></div>
+				<button class="login-button" ng-disabled="!username || !password" ng-if="!error_message" ng-click="send_login_request(username, password)">Login</button>
+				<a ng-href="#/register" ng-if="!error_message">Noch kein Konto?</a>
+				<div class="login-error" ng-if="error_message"><span class="message">{{error_message}}</span></div>
+				</div>
+			</div>
+
+	<section class="flex-box-navigation-bottom">
+
+		<!-- Rechtliches -->
+		<p class="bottom-text-start">[custom-stats.de] wurde gemäß Riot Games „Rechtliches Jibber Jabber“ -Richtlinie erstellt und nutzt Gedankengut in Besitz von Riot Games.  Dieses Projekt wird weder von Riot Games unterstützt noch gesponsert. Ausserdem wird diese Seite nicht für kommerzielle Zwecke genutzt. Alle Eingaben sind auf eigener Verantwortung/Haftung. Der Betreiber dieser Seite übernimmt keine Haftung - diese Seite ist ausschließlich für private Unterhaltung entworfen worden.</p>
+		</section>
+
+		</section>
+
+	</article>

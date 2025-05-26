@@ -1,0 +1,112 @@
+.custom-tooltip {
+  z-index: 100301;
+  opacity: 1;
+  display: none;
+  position: absolute;
+  font-size: 1.5vh;
+  background-color: #fff;
+  color: black;
+  border-radius: 5px;
+  padding: 7px 10px;
+  }
+
+.custom-tooltip-show {
+  display: inherit;
+  }
+
+.custom-tooltip-hide {
+  display: none;
+  }
+
+.custom-tooltip-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  }
+
+.custom-tooltip-down .custom-tooltip-arrow {
+  top: -5px;
+  left: 50%;
+  margin-left: -5px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #9fb4ff;
+  }
+
+.custom-tooltip-top .custom-tooltip-arrow {
+  bottom: -5px;
+  left: 50%;
+  margin-left: -5px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #222;
+  }
+
+.custom-tooltip-right .custom-tooltip-arrow {
+  left: -5px;
+  top: 50%;
+  margin-top: -3px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-right: 5px solid #222;
+  }
+
+.custom-tooltip-left .custom-tooltip-arrow {
+  right: -5px;
+  top: 50%;
+  margin-top: -3px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid #222;
+  }
+
+
+
+
+
+
+.tooltip-show {
+  display: inherit;
+  }
+
+.tooltip-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  }
+
+.tooltip-down .tooltip-arrow {
+  top: -5px;
+  left: 50%;
+  margin-left: -5px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #9fb4ff;
+  }
+
+.tooltip-top .tooltip-arrow {
+  bottom: -5px;
+  left: 50%;
+  margin-left: -5px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #222;
+  }
+
+.tooltip-right .tooltip-arrow {
+  left: -5px;
+  top: 50%;
+  margin-top: -3px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-right: 5px solid #222;
+  }
+
+.tooltip-left .tooltip-arrow {
+  right: -5px;
+  top: 50%;
+  margin-top: -3px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid #222;
+  }

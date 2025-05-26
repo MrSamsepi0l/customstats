@@ -1,0 +1,26 @@
+.navbar-admin-base {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	align-items: center;
+	padding: 0px 15px 0px 15px;
+	margin-top: 6px;
+	width: 100%;
+	background: #0f1519;
+	}
+
+.navbar-admin-base .tab {
+	padding: 15px 15px 15px 15px;
+	transition: background-color .15s ease-in-out;
+	cursor: pointer;
+	}
+
+.navbar-admin-base .tab:hover {
+	background: #0a0e13;
+	transition: all 0.3s ease;
+	}
+
+.navbar-admin-base .tab .name {
+	font-size: 1.6rem;
+	}

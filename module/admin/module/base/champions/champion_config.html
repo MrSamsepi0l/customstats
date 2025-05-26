@@ -1,0 +1,101 @@
+<article ng-controller='customstats.admin_base:champion_config_controller'>
+
+	<div class="champion-config-search-bar">
+		<input class="champion-config-entry-input search" placeholder="Suche..." ng-model="champion.filter.string" />
+		<div>
+			<button class="btn bc-green user-config-switch-btn" ng-click="champion.set_new()">Neuen Champion erstellen</button>
+			</div>
+		</div>
+
+	<section class="flex-box-champion-config">
+
+		<div class="api-list champion-config-scrollbar">
+			<table class="champion-config-table champion-config-table-hover" style="background: #0f1519">
+				<tr class="font-bold">
+					<td style="max-height: 50px" ng-click="champion.order_list('championID')">#</td>
+					<td style="max-height: 50px" ng-click="champion.order_list('name')">Name</td>
+					<td ng-click="champion.order_list('name')"></td>
+					</tr>
+				<tbody>
+					<tr ng-repeat="e in champion.data | orderBy:champion.order_by | filter:champion.filter.string track by $index" ng-click="champion.entry = e; champion.edit(e); champion.show_edit = true; champion.show_new = false" ng-class='{"champion-config-focused":champion.entry.championID == e.championID}'>
+						<td class="v-middle">{{e.championID}}</td>
+						<td class="v-middle">{{e.name}}</td>
+						<td class="v-middle">
+								<div class="{{e.champion_name_fixed | lowercase}}" style="width: 50px; height: 50px; background-size: contain"></div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		<div class="api-entry" ng-if="champion.entry_edit && champion.show_edit">
+			<div class="header">
+				<div class="id-name font-bold">
+					<span>#&nbsp;{{champion.entry.championID}} - {{champion.entry.name}}</span>
+					</div>
+				<div class="flex-expand"></div>
+				<div class="i-wrench"></div>
+				</div>
+			<div class="body">
+				<div>
+					<table class="table table-striped champion-config-table">
+						<tr>
+							<td class="v-middle">Champion-Name</td>
+							<td><input class="champion-config-entry-input" type="text" ng-model="champion.entry_edit.name" /></td>
+							</tr>
+						<tr>
+							<td class="v-middle">Gender</td>
+							<td><select class="champion-config-select" ng-options="e.value as e.key for e in champion.gender" ng-model="champion.entry_edit.gender"></select></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			<div class="footer">
+				<div class="flex-expand"></div>
+					<button class="save-button" ng-click="champion.update_champion(champion.entry_edit)">
+						<div class="image-and-button">
+							<span>Champion speichern</span>
+							<div class="i-tick"></div>
+							</div>
+						</button>
+					</div>
+				</div>
+
+		<div class="api-entry" ng-if="champion.entry_new && champion.show_new">
+			<div class="header">
+				<div class="id-name font-bold">
+					<span>#&nbsp;{{champion.entry_new.name}}</span>
+					</div>
+				<div class="flex-expand"></div>
+				<div class="i-wrench"></div>
+				</div>
+			<div class="body">
+				<div>
+					<table class="table table-striped champion-config-table">
+						<tr>
+							<td class="v-middle">Champion-Name</td>
+							<td><input class="champion-config-entry-input" type="text" ng-model="champion.entry_new.name" /></td>
+							</tr>
+						<tr>
+							<td class="v-middle">Gender</td>
+							<td><select class="champion-config-select" ng-options="e.value as e.key for e in champion.gender" ng-model="champion.entry_new.gender"></select></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			<div class="footer">
+				<div class="flex-expand"></div>
+					<button class="save-button" ng-click="champion.create_champion(champion.entry_new)">
+						<div class="image-and-button">
+							<span>Champion erstellen</span>
+							<div class="i-tick"></div>
+							</div>
+						</button>
+					</div>
+				</div>
+
+			</section>
+
+	<div class="loading-div" ng-if="view.status == 100 || champion.status == 100"></div>
+
+	</article>

@@ -1,0 +1,82 @@
+<article ng-controller='customstats.analysis:evaluation:stat_tool_controller'>
+
+	<div class="stat-tool-search-bar">
+		<div>
+			<button ng-class='{"bc-green":stat_tool.mode == "champ_and_champ", "tc-white":stat_tool != "champ_and_champ"}' class="btn stat-tool-mode-switch-btn" ng-disabled="stat_tool.mode == 'champ_and_champ'" ng-click="stat_tool.mode = 'champ_and_champ'">Champ & Champ</button>
+			<!-- <button ng-class='{"bc-green":stat_tool.mode == "player_and_champ", "tc-white":stat_tool != "player_and_champ"}' class="btn stat-tool-mode-switch-btn" ng-disabled="stat_tool.mode == 'player_and_champ'" ng-click="stat_tool.mode = 'player_and_champ'">Player & Champ</button> -->
+			<!-- <button ng-class='{"bc-green":stat_tool.mode == "player_and_player", "tc-white":stat_tool != "player_and_player"}' class="btn stat-tool-mode-switch-btn" ng-disabled="stat_tool.mode == 'player_and_player'" ng-click="stat_tool.mode = 'player_and_player'">Player & Player</button> -->
+			</div>
+		</div>
+
+	<section class="flex-box-stat-tool" ng-if="stat_tool.mode == 'champ_and_champ'">
+
+		<div class="innerbox" id="champion_list_left">
+				<div class="searchbox-complete">
+					<input class="stat-tool-entry-input search" placeholder="Suche..." ng-model="stat_tool.filter.champion_left" ng-change="stat_tool.filter_list(stat_tool.filter.champion_left, 'left')" style="flex-grow: 2;" />
+					<button class="reset-button search-i-x" ng-if="stat_tool.filter.champion_left" ng-click="stat_tool.filter.champion_left = ''; stat_tool.filter_list('', 'left')"></button>
+					</div>
+				<div class="champion-box-list stat-tool-scrollbar">
+					<div ng-click="stat_tool.filter.champion_left = e.name; stat_tool.filter_list(stat_tool.filter.champion_left, 'left')" class="champion-box" ng-class="{'champion-box-full':stat_tool.data_left.length == 1, 'champion-button': stat_tool.data_left.length != 1}" ng-repeat="e in stat_tool.data_left | orderBy:['name']" scroll-if="e.name_converted == stat_tool.entry_left.name_converted">
+						<div class="champion-icon" id="{{e.name_converted}}" ng-style="{'height': stat_tool.data_left.length == 1 ? '250px' : 'auto'}">
+							<div ng-if="stat_tool.data_left.length > 1" class="{{e.name_converted | lowercase}} logo"></div>
+							<div ng-if="stat_tool.data_left.length == 1" class="{{e.name_converted | lowercase}} logo-full" ng-click="stat_tool.filter_list('', 'left'); stat_tool.filter.champion_left = ''; stat_tool.filter_list(stat_tool.filter.champion_right, 'right')"></div>
+							</div>
+						<div class="champion-text tc-white">
+							<span ng-class="{'name-full': stat_tool.data_left.length == 1}" class="name">{{e.name}}</span>
+							</div>
+						</div>
+					</div>
+			</div>
+
+		<div class="innerbox-stat stat-tool-scrollbar" ng-if="stat_tool.data_left.length == 1 && stat_tool.data_right.length == 1">
+
+			<div class="upper" ng-if="stat_tool.stat_two_champs.times_played_against">
+				<div ng-class='{"tc-blue": stat_tool.stat_two_champs.winrate_first_vs_second == stat_tool.stat_two_champs.winrate_second_vs_first, "tc-green": stat_tool.stat_two_champs.winrate_first_vs_second > stat_tool.stat_two_champs.winrate_second_vs_first, "tc-red": stat_tool.stat_two_champs.winrate_first_vs_second < stat_tool.stat_two_champs.winrate_second_vs_first, "tc-white": !stat_tool.stat_two_champs.times_played_against}'>{{stat_tool.stat_two_champs.winrate_first_vs_second | number: 2}} %</div>
+				<div class="i-arrow-left" style="width: 40%; height: 100px;"></div>
+				</div>
+
+			<div class="middle">
+				<div class="text">
+
+					<span ng-if="stat_tool.stat_two_champs.times_played_against > 1 || !stat_tool.stat_two_champs.times_played_against">Spiele gegeneinander:</span>
+					<span ng-if="stat_tool.stat_two_champs.times_played_against == 1">Spiel gegeneinander:</span>
+					<span>&nbsp;{{stat_tool.stat_two_champs.times_played_against}}</span>
+					</div>
+				</div>
+
+			<div class="lower" ng-if="stat_tool.stat_two_champs.times_played_against">
+				<div class="i-arrow-right" style="width: 40%; height: 100px;"></div>
+				<div ng-class='{"tc-blue": stat_tool.stat_two_champs.winrate_first_vs_second == stat_tool.stat_two_champs.winrate_second_vs_first, "tc-green": stat_tool.stat_two_champs.winrate_second_vs_first > stat_tool.stat_two_champs.winrate_first_vs_second, "tc-red": stat_tool.stat_two_champs.winrate_second_vs_first < stat_tool.stat_two_champs.winrate_first_vs_second, "tc-white": !stat_tool.stat_two_champs.times_played_against}'>{{stat_tool.stat_two_champs.winrate_second_vs_first | number: 2}} %</div>
+				</div>
+
+			</div>
+
+		<div class="innerbox stat-tool-scrollbar">
+
+			<div class="searchbox-complete">
+				<input class="stat-tool-entry-input search" placeholder="Suche..." ng-model="stat_tool.filter.champion_right" ng-change="stat_tool.filter_list(stat_tool.filter.champion_right, 'right')" style="flex-grow: 2;" />
+				<button class="reset-button search-i-x" ng-if="stat_tool.filter.champion_right" ng-click="stat_tool.filter.champion_right = ''; stat_tool.filter_list('', 'right')"></button>
+				</div>
+			<div class="champion-box-list stat-tool-scrollbar">
+				<div ng-click="stat_tool.filter.champion_right = e.name; stat_tool.filter_list(stat_tool.filter.champion_right, 'right')" class="champion-box" ng-class="{'champion-box-full':stat_tool.data_right.length == 1, 'champion-button': stat_tool.data_right.length != 1}" ng-repeat="e in stat_tool.data_right | orderBy:['name']" scroll-if="e.name_converted == stat_tool.entry_right.name_converted">
+					<div class="champion-icon" ng-style="{'height': stat_tool.data_right.length == 1 ? '250px' : 'auto'}">
+						<div ng-if="stat_tool.data_right.length > 1" class="{{e.name_converted | lowercase}} logo"></div>
+						<div ng-if="stat_tool.data_right.length == 1" class="{{e.name_converted | lowercase}} logo-full" ng-click="stat_tool.filter_list('', 'right'); stat_tool.filter.champion_right = ''; stat_tool.filter_list(stat_tool.filter.champion_left, 'left')"></div>
+						</div>
+					<div class="champion-text tc-white">
+						<span ng-class="{'name-full': stat_tool.data_right.length == 1}" class="name">{{e.name}}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</section>
+
+	<div class="stat-tool-result-bar" ng-if="stat_tool.mode == 'champ_and_champ' && stat_tool.comparison_left && stat_tool.comparison_right">
+			<span class="stat-text tc-white">Spiele zusammen: {{stat_tool.stat_two_champs.times_played_together}}</span>
+			<span class="stat-text" ng-class='{"tc-green": stat_tool.stat_two_champs.winrate_together > 50, "tc-blue": stat_tool.stat_two_champs.winrate_together == 50, "tc-red": stat_tool.stat_two_champs.winrate_together < 50, "tc-white": stat_tool.stat_two_champs.times_played_together == 0}'>Winrate zusammen: {{stat_tool.stat_two_champs.winrate_together | number: 2}} %</span>
+		</div>
+
+	<div class="loading-div" ng-if="view.status == 100 || stat_tool.status == 100"></div>
+
+	</article>

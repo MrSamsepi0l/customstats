@@ -1,0 +1,94 @@
+.tournament-article-container-breakout {
+
+    /* fallback old browser */
+    margin: 1em -100%;
+
+    /* break out  */
+    margin: 1em calc(50% - 40vw);
+    }
+
+/* width */
+.user-config-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+.user-config-scrollbar::-webkit-scrollbar-track {
+  background: #0a0e13;
+}
+
+/* Handle */
+.user-config-scrollbar::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+.user-config-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+
+.bc-green {
+	background: #6daf8d;
+	}
+
+.bc-gray {
+	background: #505653;
+	}
+
+.bc-red {
+	background: #cf6060;
+	}
+
+.tc-white {
+	color: #fff;
+	}
+
+
+
+@media screen and (max-width: 1000px){
+
+	.flex-box-user-config .user-entry {
+		width: 100%;
+		max-height: 1100px;
+		}
+
+	.flex-box-user-config .user-list {
+		width: 100%;
+		max-height: 1100px;
+		margin-bottom: 25px;
+		}
+
+	.flex-box-user-config {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 100%;
+		}
+
+	.user-config-table {
+		font-size: 2.4rem;
+		}
+
+	.user-config-entry-input {
+		font-size: 2.4rem;
+		}
+
+	.flex-box-user-config .user-entry .body {
+	    overflow-y: auto;
+		}
+
+	.user-config-switch-btn {
+		font-size: 1.6rem;
+		}
+
+	.flex-box-user-config .user-entry .footer {
+		align-items: center;
+		justify-content: center;
+		height: 120px;
+		width: 100%;
+		padding: 0px 0px 0px 0px;
+		border-top: 1px solid rgb(157 140 144 / 13%);
+		}
+    }
+*/

@@ -1,0 +1,313 @@
+.stat-tool-search-bar {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	width: 50%;
+	height: 50px;
+	background: #0a0e13;
+	margin-top: 6px;
+	margin-bottom: 6px;
+	animation: fadein 2.0s forwards;
+	}
+
+.stat-tool-result-bar {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	height: 150px;
+	background: #0f1519;
+	margin-top: 6px;
+	margin-bottom: 6px;
+	animation: fadein 2.0s forwards;
+	}
+
+.stat-tool-result-bar .stat-text {
+	animation: fadein 2.0s forwards;
+	font-size: 1.5rem;
+	}
+
+.stat-tool-search-bar .search {
+	background: transparent;
+	width: 25%;
+	}
+
+.searchbox-complete {
+	font-size: 1.0rem;
+	line-height: 1.0rem;
+	vertical-align: middle;
+	border-style: none;
+	align-items: center;
+	background-color: #121314;
+	outline: none;
+	padding: 10px 10px 10px 10px;
+	width: 100%;
+	max-height: 40px;
+	display: flex; justify-content: flex-start; flex-direction: row; width: 100%;
+	animation: fadein 2.0s forwards;
+	}
+
+.search-i-x {
+	background-image: url('/public/img/x.png');
+	background-repeat: no-repeat;
+	width: 32px;
+	height: 32px;
+	}
+
+.reset-button {
+    color: #fff;
+    background-color: #0f1519;
+    letter-spacing: 5px;
+    font-size: 1.2rem;
+    padding: 10px 10px 10px 10px;
+    border: 1px transparent;
+    user-select: none;
+    outline: none;
+    display: inline-block;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    border-radius: 20px;
+	}
+
+.champion-button {
+	background-color: #0f1519;
+	border: 1px transparent;
+	user-select: none;
+	outline: none;
+	display: inline-block;
+	border-radius: 20px;
+	cursor: pointer;
+	}
+
+.champion-button:hover {
+	background-color: #aafff7;
+	transition: all 0.4s ease;
+	transform: scale(1.2);
+	box-shadow: 0px 0px 35px -15px #ddf1df;
+	}
+
+.reset-button:hover {
+	background-color: #aafff7;
+	transition: all 0.4s ease;
+	}
+
+.stat-tool-entry-input {
+	color: #ffffff;
+	font-size: 1.0rem;
+	line-height: 1.0rem;
+	vertical-align: middle;
+	border-style: none;
+	background-color: #121314;
+	outline: none;
+	padding: 10px 10px 10px 10px;
+	width: 100%;
+	max-height: 40px;
+	}
+
+button:focus { outline: none; }
+
+.stat-tool-entry-area {
+	color: #ffffff;
+	font-size: 1.0rem;
+	line-height: 1.5rem;
+	vertical-align: middle;
+	border-style: none;
+	background: #121314;
+	outline: none;
+	height: 400px;
+	padding: 10px 10px 10px 10px;
+	width: 100%;
+	}
+
+.stat-tool-entry-color {
+	font-size: 1.0rem;
+	line-height: 1.5rem;
+	vertical-align: middle;
+	border-style: none;
+	background: #121314;
+	outline: none;
+	height: 40px;
+	padding: 10px 10px 10px 10px;
+	min-width: 100px;
+	}
+
+.stat-tool-button {
+	background-color: #838383;
+	}
+
+.stat-tool-button-enabled {
+	background-color: #6daf8d;
+    width: 32px;
+    height: 32px;
+	}
+
+.stat-tool-button-disabled {
+	background-color: #cf6060;
+    width: 32px;
+    height: 32px;
+	}
+
+
+
+.flex-box-stat-tool {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	width: 100%;
+	color: #fff;
+	}
+
+.flex-box-stat-tool .innerbox {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	justify-content: center;
+	width: 48%;
+	background: white;
+	min-height: 200px;
+	max-height: 400px;
+	background-color: #0a0e13;
+	}
+
+.flex-box-stat-tool .innerbox .champion-box-list {
+	overflow-y: auto;
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	flex-wrap: wrap;
+	max-height: 400px;
+	margin-top: 10px;
+	min-height: 200px;
+	animation: fadein 2.0s forwards;
+	background-color: #0a0e13;
+	justify-content: center;
+	align-items: center;
+	}
+
+.flex-box-stat-tool .innerbox-stat {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 33%;
+	background: white;
+	min-height: 200px;
+	max-height: 400px;
+	background-color: #0a0e13;
+	animation: fadein 2.0s forwards;
+	}
+
+.flex-box-stat-tool .innerbox-stat .upper {
+	display: flex;
+	flex-direction: row;
+	height: 45%;
+	align-items: center;
+	width: 100%;
+	justify-content: center;
+	}
+
+.flex-box-stat-tool .innerbox-stat .lower {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	align-items: center;
+	height: 45%;
+	justify-content: center;
+	}
+
+.flex-box-stat-tool .innerbox .champion-box {
+	width: 70px;
+	height: 70px;
+	background-color: #0a0e13;
+	margin: 1rem 1rem 1rem 1rem;
+	}
+
+.flex-box-stat-tool .innerbox .champion-box-full {
+	width: 250px;
+	height: 290px;
+	background-color: #0a0e13;
+	margin: 1rem 1rem 1rem 1rem;
+	}
+
+.flex-box-stat-tool .innerbox .champion-box .champion-text .name-full {
+	font-size: 2rem !important;
+	}
+
+
+
+.flex-box-stat-tool .innerbox .champion-box .champion-icon {
+/*	display: flex;*/
+	justify-content: center;
+	animation: fadein 0.5s forwards;
+	height: 250px;
+	}
+
+.flex-box-stat-tool .innerbox .champion-box .champion-icon .logo {
+	width: 70px;
+	height: 70px;
+	background-size: contain;
+	animation: fadein 0.5s forwards;
+	border-radius: 5px;
+	}
+
+.flex-box-stat-tool .innerbox .champion-box .champion-icon .logo-full {
+	width: 100%;
+	height: 100%;
+	animation: fadein 0.5s forwards;
+	cursor: pointer;
+	border-radius: 15px;
+	}
+
+.flex-box-stat-tool .innerbox .champion-box .champion-icon .logo-full:hover {
+	box-shadow: 0px 0px 30px -15px #ddf1df;
+	}
+
+.flex-box-stat-tool .innerbox .champion-box .champion-text {
+	display: flex;
+	justify-content: center;
+	animation: fadein 1.0s forwards;
+	}
+
+.flex-box-stat-tool .innerbox .champion-box .champion-text .name {
+	font-size: 0.7rem;
+	}
+
+
+.stat-tool-display {
+	font-size: 1.0rem;
+	line-height: 1.0rem;
+	vertical-align: middle;
+	border-style: none;
+	background: #0a0e13;
+	outline: none;
+	padding: 10px 10px 10px 10px;
+	}
+
+.stat-tool-select {
+    font-size: 1.1rem;
+    text-align: center;
+    height: 32px;
+    color: #fff;
+    background: #0f1519;
+	}
+
+/* width */
+.stat-tool-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+.stat-tool-scrollbar::-webkit-scrollbar-track {
+  background: #0a0e13;
+}
+
+/* Handle */
+.stat-tool-scrollbar::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+.stat-tool-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

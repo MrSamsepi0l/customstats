@@ -1,0 +1,44 @@
+<article ng-controller="customstats.register_controller">
+
+	<section class="flex-box-register">
+		<div class="register-card">
+			<div class="header">
+				<span class="title">Register</span>
+				</div>
+			<div class="body">
+				<div class="input-group">
+					<input type="text" placeholder="Username" ng-model="account.username" />
+					</div>
+				<div class="space"></div>
+				<div class="input-group">
+					<input type="text" placeholder="E-Mail" ng-model="account.email" />
+					</div>
+				<div class="space"></div>
+				<div class="input-group">
+					<input type="password" placeholder="Password" ng-model="account.auth" />
+					</div>
+				<div class="space"></div>
+				<div class="input-group">
+					<input type="password" placeholder="Password check" ng-model="account.auth_check" />
+					</div>
+				<div class="space"></div>
+				<div class="input-group">
+					<input type="text" placeholder="Dein Name" ng-model="account.real_name" />
+					</div>
+				<div class="space2"></div>
+				<button class="register-button" ng-disabled="!account.username || !account.email || !account.auth || !account.auth_check || !account.real_name" ng-if="!error_message" ng-click="send_register_request(account)">Register</button>
+				<div class="register-error" ng-if="error_message"><span class="message">{{error_message}}</span></div>
+				</div>
+			</div>
+
+		<section class="flex-box-navigation-bottom">
+
+			<!-- Rechtliches -->
+			<p class="bottom-text-start">[custom-stats.de] wurde gemäß Riot Games „Rechtliches Jibber Jabber“ -Richtlinie erstellt und nutzt Gedankengut in Besitz von Riot Games.  Dieses Projekt wird weder von Riot Games unterstützt noch gesponsert. Ausserdem wird diese Seite nicht für kommerzielle Zwecke genutzt. Alle Eingaben sind auf eigener Verantwortung/Haftung. Der Betreiber dieser Seite übernimmt keine Haftung - diese Seite ist ausschließlich für private Unterhaltung entworfen worden.</p>
+			</section>
+
+		</section>
+
+	<div class="loading-div" ng-if="status == 100"></div>
+
+	</article>

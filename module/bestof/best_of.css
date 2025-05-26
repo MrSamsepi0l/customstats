@@ -1,0 +1,232 @@
+.bestof-container-breakout {
+
+    /* fallback old browser */
+    margin: 1em -100%;
+
+    /* break out */
+    margin: 1em calc(50% - 40vw);
+    }
+
+.bestof-complete {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+
+    .stat-box {
+        display: flex;
+        flex-direction: column;
+        min-height: 400px;
+        margin: 1.2rem 1.2rem 1.2rem 1.2rem;
+        transition: box-shadow 0.3s;
+        border: 1px solid #201f1f;
+        padding: 0.5rem;
+        border-radius: 5px;
+        animation: fadein .8s;
+        background-color: var(--main-bg-content-dark-1);
+
+        .header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            align-items: center;
+            width: 100%;
+            height: 75px;
+            padding: 20px 20px 20px 20px;
+            border-radius: 5px;
+            background: linear-gradient(to right, #202b2b, #14172d);
+
+            .title {
+                font-size: 1.5rem;
+                font-weight: bold;
+                letter-spacing: 2px;
+                }
+            }
+
+        .sub-header {
+            width: 100%;
+            height: 25px;
+            }
+
+        .body {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            padding: 10px 10px 10px 10px;
+            }
+        }
+
+    .stat-box:hover {
+        overflow: none;
+        box-shadow: 0px 0px 7px 3px #4d705d;
+        }
+    }
+
+.bestof-search-bar {
+    --tc-select-optgroup: #78b4ff; /* light-blue */
+    --bg-select-optgroup: #0a0e13; /* black */
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 0px 15px 0px 15px;
+    margin-top: 6px;
+    margin-bottom: 22px;
+    width: 100%;
+    height: 60px;
+    border-radius: 50px;
+    animation: fadein .8s;
+    background-color: var(----main-bg-content-dark-1);
+
+    .input {
+        vertical-align: middle;
+        font-size: 1.3rem;
+        line-height: 1.3rem;
+        border-style: none;
+        outline: none;
+        padding: 10px 10px 10px 10px;
+        width: 200px;
+        color: var(--white);
+        background: var(--main-bg-content-dark-1);
+        }
+
+    select {
+        width: 20vw;
+        height: 40px;
+        font-size: 1.3rem;
+        text-align: center;
+        border-radius: 5px;
+        color: var(--white);
+        background-color: var(--main-bg-content-dark-1);
+
+        optgroup {
+            font-weight: bold;
+            text-transform: uppercase;
+            color: var(--tc-select-optgroup);
+            background-color: var(--bg-select-optgroup);
+            }
+
+        option {
+            text-transform: none;
+            color: var(--white);
+            background-color: var(--main-bg-content-dark-1);
+            }
+        }
+    }
+
+.bestof-table-headline {
+    text-transform: uppercase;
+    word-wrap: break-word;
+    padding-top: 6px;
+    color: #abc5ff; /* light-blue */
+    letter-spacing: .2rem;
+    font-size: 0.55rem;
+    pointer-events: none;
+    }
+
+.bestof-table {
+    color: var(--white);
+    width: 100%;
+    border-collapse: collapse;
+    border-color: #000;
+    display: table;
+    text-align: start;
+    margin-bottom: 1rem;
+    text-indent: initial;
+    white-space: normal;
+    line-height: normal;
+    font-weight: normal;
+    font-size: medium;
+    font-style: normal;
+    border-spacing: 2px;
+    }
+
+.bestof-table th {
+    border: none;
+    font-size: 1.5rem;
+    }
+
+.bestof-table td {
+    padding: 1rem;
+    vertical-align: top;
+    border-top: 1px solid rgb(70 70 70 / 13%);
+    }
+
+.bestof-table-hover tr:hover {
+    background-color: #0a0e13;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    }
+
+.bestof-symbol {
+    height: 50px;
+    width: 50px;
+    display: block;
+    padding: 21px;
+    margin-left: 0.7rem;
+    }
+
+.bestof-most-played-champ-hover {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    }
+
+.bestof-most-played-champ-hover .title {
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    background: linear-gradient(to right, #202b2b, #14172d);
+    }
+
+.bestof-most-played-champ-hover .title .text {
+    font-size: 1rem;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    }
+
+.bestof-most-played-champ-hover .list {
+
+
+    }
+
+.tc-index {color: #4a4646}
+.tc-player {color: #c5ecff}
+.tc-champion {color: #ababab}
+.tc-number {color: #e9f0ff}
+.tc-rate {color: #94c7b4}
+
+.bestof-helper-headline {
+    width: 32px;
+    height: 32px;
+    margin-top: 0.25rem;
+    margin-left: 2rem;
+    padding: 4px;
+    border-radius: 5px;
+    background: #a0ccc6;
+    cursor: help;
+    box-shadow: 0 0 20px 0 #000;
+    transition: all 200ms ease-in;
+    }
+
+.bestof-helper-headline:hover {
+    border-radius: 50%;
+    transform: rotate(180deg);
+    }
+
+@media screen and (max-width: 1000px){
+    .bestof-search-bar {
+        flex-direction: column;
+        display: flex;
+        height: 300px;
+        }
+
+    .bestof-statbar {
+        height: 250px;
+        flex-wrap: wrap;
+        }
+    }

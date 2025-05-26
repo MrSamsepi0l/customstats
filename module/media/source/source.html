@@ -1,0 +1,26 @@
+<article ng-controller="customstats.league_source_controller" class="container">
+
+	<section class="champion-search-bar">
+		<input class="input" type="text" ng-model="view.filter.string" placeholder="Suche ..." />
+		<select class="select" ng-options="e for e in view.filter.date_list" ng-model="view.filter.gameDate" ng-change="view.get_source_url()">
+			<option value="">Alle Quellen</option>
+			</select>
+		</section>
+
+	<section>
+
+		<div ng-repeat="(key, list) in view.list | filter: view.filter.string | groupBy:'gameDate'" class="flex-box">
+			<span class="source-line">{{key | phpdate: 'd-m-Y'}}</span><br />
+
+			<!-- deprecated, old implementation -->
+			<img ng-if="!e.filename" ng-repeat="e in list" class="source-url" ng-src="{{e.url}}" />
+
+			<!-- new implementation -->
+			<img ng-if="e.filename" ng-repeat="e in list" class="source-url" ng-src="{{'/public/img/customgame/source/' + e.filename}}" />
+
+			</div>
+		</section>
+
+	<div ng-if="view.status == 100" class="loading-div"></div>
+
+	</article>

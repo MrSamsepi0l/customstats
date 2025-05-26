@@ -1,0 +1,525 @@
+<article class="tournament-body" ng-controller="customstats.tournament_overview_controller">
+
+	<main class="standings">
+		<div class="sidebar">
+			<div class="standings-filter">
+				<h2 class="title">Turnierliste</h2>
+				<ul class="leagues">
+					<li class="league">
+						<button class="standings-button info" ng-style='{"background": view.tournament_entry.tournamentID == e.tournamentID ? "rgb(25 32 38)" : ""}' ng-repeat="e in view.tournament_list" ng-click="view.tournament_entry = e; view.get_tournament_team(view.tournament_entry.tournamentID)" style="border-bottom: 1px solid #252c32;">
+							<img src="public/img/tournament/cleaner_schuh.png" class="image" ng-if="e.tournamentID == 1" />
+							<img src="public/img/tournament/missping.png " class="image" ng-if="e.tournamentID == 2" />
+							<div class="label">
+								<div class="name">{{e.name}}</div>
+								<div class="region">Start: {{e.startDate | date : 'dd'}}. {{e.startDate | date : 'MMMM'}} {{e.startDate | date : 'yyyy'}}</div>
+								<div class="region" ng-if="e.endDate">End: {{e.endDate | date : 'dd'}}. {{e.endDate | date : 'MMMM'}} {{e.endDate | date : 'yyyy'}}</div>
+								</div>
+							</button>
+						</li>
+					</ul>
+				</div>
+			</div>
+		<div class="results">
+			<div class="top-nav">
+				<div class="selectors">
+					<div class="league-selector">
+						<div class="league">
+							</div>
+						</div>
+					</div>
+				<div class="stage-selector" ng-if="view.tournament_entry">
+					<div class="title">Phase:</div>
+					<div class="options">
+						<button class="standings-button stage-option" ng-class='{"tc-teal":view.tournament_type == "regular_season", "tc-white":view.tournament_type != "regular_season"}' ng-click="view.change_tournament_type('regular_season')">Reguläre&nbsp;Saison</button>
+						<button class="standings-button stage-option" ng-class='{"tc-teal":view.tournament_type == "knockout", "tc-white":view.tournament_type != "knockout"}' ng-click="view.change_tournament_type('knockout')">Knockout-Stage</button>
+						</div>
+					</div>
+				</div>
+			<!-- regular_season phase -->
+			<div class="stage" ng-if="view.tournament_type == 'regular_season'">
+				<div class="standings-list num-groups-odd">
+					<div class="group">
+						<div class="title">Platzierungen</div>
+						<a class="ranking" ng-repeat="e in view.team_list | orderBy:['-times_won', '-times_played'] track by $index" ng-click="view.team_entry = e; view.get_tournament_team_entry(e.teamID); view.change_tab('team')">
+							<div custom-hover="Gewinner der {{view.tournament_entry.name}}" style="min-width: 64px">
+								<div class="i-trophy" ng-if="(e.tournamentID == 1 && e.teamID == 1) || (e.tournamentID == 2 && e.teamID == 11)"></div>
+								</div>
+							<div class="ordinal">{{$index + 1}}</div>
+							<div class="team">
+								<div class="team-logo" ng-if="view.tournament_entry.tournamentID != 1"> <!-- TEMP FIX -->
+									<img class="logo" ng-src='{{"public/img/tournament/team_logo/" + e.name_converted + ".png"}}' />
+									</div>
+								<div class="team-info">
+									<div class="name">{{e.name}}</div>
+									<div class="record">{{e.times_won}}&nbsp;S&nbsp;-&nbsp;{{e.times_lost}}&nbsp;N</div>
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+
+			<!-- knockout phase -->
+			<div class="stage" ng-if="view.tournament_type == 'knockout' && view.tournament_entry.tournamentID == 1">
+				<div class="standings-bracket-playoff customstats-scrollbar">
+					<div class="bracket">
+						<div class="row">
+							<div class="columns">
+								<!-- DYNAMIC ACTIVATE WHEN FINISHED -->
+<!-- 								<div class="column">
+									<div class="cell" ng-repeat="e in view.playoff_list | filter: {'roundID' : 1} track by $index">
+										<div class="title" ng-if="$index == 0">Runde 1</div>
+										<div class="standings-bracket-playoff-match">
+											<div class="roster">
+												<a class="team" ng-class='{"win":e.winner_teamID == e.team_oneID, "loss":e.winner_teamID != e.team_oneID}'>
+													<img class="logo" />
+													<div class="name">{{e.team_one_name}}</div>
+													<div class="tricode">RNG</div>
+													<div class="score">{{e.times_won_team_one}}</div>
+													</a>
+												<a class="team" ng-class='{"win":e.winner_teamID == e.team_twoID, "loss":e.winner_teamID != e.team_twoID}'>
+													<img class="logo" />
+													<div class="name">{{e.team_two_name}}</div>
+													<div class="tricode">EDG</div>
+													<div class="score">{{e.times_won_team_two}}</div>
+													</a>
+												</div>
+											</div>
+										</div>
+									</div> -->
+
+								<div class="column">
+									<div class="cell" ng-repeat="e in [1,2,3] track by $index">
+										<div class="title" ng-if="$index == 0">Runde 1 (Best of 3)</div>
+										<div class="standings-bracket-playoff-match">
+											<div class="roster">
+												<a class="team" ng-class='{"win":e == 2 || e == 1}'>
+													<img class="logo" />
+													<div class="name">
+														<span ng-if="e == 1" style="color: #c79e57">Roasters</span>
+														<span ng-if="e == 2" style="color: #c79e57">BDDR</span>
+														<span ng-if="e == 3">DoyS</span>
+														</div>
+													<div class="tricode"></div>
+													<div class="score" ng-if="e == 1" style="color: #c79e57">2</div>
+													<div class="score" ng-if="e == 2" style="color: #c79e57">2</div>
+													<div class="score" ng-if="e == 3">0</div>
+													</a>
+												<a class="team" ng-class='{"win":e == 3}'>
+													<img class="logo" />
+													<div class="name">
+														<span ng-if="e == 1">KTN</span>
+														<span ng-if="e == 2">Heide Park</span>
+														<span ng-if="e == 3" style="color: #c79e57">Käsitheke</span>
+														</div>
+													<div class="tricode"></div>
+													<div class="score" ng-if="e == 1">1</div>
+													<div class="score" ng-if="e == 2">0</div>
+													<div class="score" style="color: #c79e57" ng-if="e == 3">2</div>
+													</a>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								<div class="column">
+									<div class="cell" ng-repeat="e in [1,2] track by $index">
+										<div class="title" ng-if="$index == 0">Runde 2 - Spiel 4 & 5 (Best of 3)</div>
+										<div class="standings-bracket-playoff-match">
+											<div class="roster">
+												<a class="team" ng-class='{"win":e == 1}'>
+													<img class="logo" />
+													<div class="name">
+														<span ng-if="e == 1" style="color: #c79e57">Heide Park</span>
+														<span ng-if="e == 2">KTN</span>
+														</div>
+													<div class="tricode"></div>
+													<div class="score" ng-if="e == 1" style="color: #c79e57">2</div>
+													<div class="score" ng-if="e == 2">0</div>
+													</a>
+												<a class="team" ng-class='{"win":e == 2}'>
+													<img class="logo" />
+													<div class="name">
+														<span ng-if="e == 1">Käsitheke</span>
+														<span ng-if="e == 2" style="color: #c79e57">Heide Park</span>
+														</div>
+													<div class="tricode"></div>
+													<div class="score" ng-if="e == 1">0</div>
+													<div class="score" ng-if="e == 2" style="color: #c79e57">2</div>
+													</a>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								<div class="column">
+									<div class="cell" ng-repeat="e in [1,2] track by $index">
+										<div class="title" ng-if="$index == 0">Runde 3 - Spiel 6 & 7 (Best of 3)</div>
+										<div class="standings-bracket-playoff-match">
+											<div class="roster">
+												<a class="team" ng-class='{"win":e == 1}'>
+													<img class="logo" />
+													<div class="name">
+														<span ng-if="e == 1" style="color: #c79e57">Roasters</span>
+														<span ng-if="e == 2">BDDR</span>
+														</div>
+													<div class="tricode"></div>
+													<div class="score" style="color: #c79e57" ng-if="e == 1">2</div>
+													<div class="score" ng-if="e == 2">0</div>
+													</a>
+												<a class="team" ng-class='{"win":e == 2}'>
+													<img class="logo" />
+													<div class="name">
+														<span ng-if="e == 1">BDDR</span>
+														<span ng-if="e == 2" style="color: #c79e57">Heide Park</span>
+														</div>
+													<div class="tricode"></div>
+													<div class="score" ng-if="e == 1">1</div>
+													<div class="score" ng-if="e == 2" style="color: #c79e57">2</div>
+													</a>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								<div class="column">
+									<div class="cell">
+										<div class="title">Finale (Best of 5)</div>
+										<div class="standings-bracket-playoff-match">
+											<div class="roster">
+												<a class="team win">
+													<img class="logo" />
+													<div class="name">
+														<span style="color: #c79e57">Roasters</span>
+														</div>
+													<div class="tricode"></div>
+													<div class="score" style="color: #c79e57">3</div>
+													</a>
+												<a class="team">
+													<img class="logo" />
+													<div class="name">
+														<span>Heide Park</span>
+														</div>
+													<div class="tricode"></div>
+													<div class="score">2</div>
+													</a>
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+<!-- 								<div class="column">
+									<div class="cell" ng-repeat="e in view.playoff_list | filter: {'roundID' : 2} track by $index">
+										<div class="title" ng-if="$index == 0">Runde 2</div>
+										<div class="standings-bracket-playoff-match">
+											<div class="roster">
+												<a class="team" ng-class='{"name":e.scheduleID, "tbd":e.scheduleID == 0}'>
+													<img class="logo" />
+													<div class="name">
+														<span ng-if="e.team_one_name">{{e.team_one_name}}</span>
+														<span ng-if="!e.team_one_name">noch unklar</span>
+														</div>
+													<div class="tricode">RNG</div>
+													<div class="score">{{e.times_won_team_one > 0 ? e.times_won_team_one : '-'}}</div>
+													</a>
+												<a class="team">
+													<img class="logo" />
+													<div class="name">
+														<span ng-if="e.team_two_name">{{e.team_two_name}}</span>
+														<span ng-if="!e.team_two_name">noch unklar</span>
+														</div>
+													<div class="tricode">EDG</div>
+													<div class="score">{{e.times_won_team_two > 0 ? e.times_won_team_two : '-'}}</div>
+													</a>
+												</div>
+											</div>
+										</div>
+									</div> -->
+
+								<!-- <div class="column">
+									<div class="cell" ng-repeat="e in view.playoff_list" ng-if="e.roundID == 3">
+										<div class="title">Runde 3</div>
+										<div class="standings-bracket-playoff-match">
+											<div class="roster">
+												<a class="team">
+													<img class="logo" />
+													<div class="name">{{e.team_one_name}}</div>
+													<div class="tricode">RNG</div>
+													<div class="score">{{e.times_one_team_one}}</div>
+													</a>
+												<a class="team">
+													<img class="logo" />
+													<div class="name">{{e.team_two_name}}</div>
+													<div class="tricode">EDG</div>
+													<div class="score">{{e.times_one_team_two}}</div>
+													</a>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								<div class="column">
+									<div class="cell" ng-repeat="e in view.playoff_list" ng-if="e.roundID == 4">
+										<div class="title">Runde 4</div>
+										<div class="standings-bracket-playoff-match">
+											<div class="roster">
+												<a class="team">
+													<img class="logo" />
+													<div class="name">{{e.team_one_name}}</div>
+													<div class="tricode">RNG</div>
+													<div class="score">{{e.times_one_team_one}}</div>
+													</a>
+												<a class="team">
+													<img class="logo" />
+													<div class="name">{{e.team_two_name}}</div>
+													<div class="tricode">EDG</div>
+													<div class="score">{{e.times_one_team_two}}</div>
+													</a>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								<div class="column">
+									<div class="cell" ng-repeat="e in view.playoff_list" ng-if="!e.roundID">
+										<div class="title">Finale</div>
+										<div class="standings-bracket-playoff-match">
+											<div class="roster">
+												<a class="team">
+													<img class="logo" />
+													<div class="name">{{e.team_one_name}}</div>
+													<div class="tricode">RNG</div>
+													<div class="score">{{e.times_one_team_one}}</div>
+													</a>
+												<a class="team">
+													<img class="logo" />
+													<div class="name">{{e.team_two_name}}</div>
+													<div class="tricode">EDG</div>
+													<div class="score">{{e.times_one_team_two}}</div>
+													</a>
+												</div>
+											</div>
+										</div>
+									</div> -->
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+<!-- 						<a class="ranking" ng-repeat="e in view.playoff_list track by $index">
+							<div class="ordinal"></div>
+							<div class="team">
+								<div class="team-logo"></div>
+								<div class="team-info">
+									<div class="name"></div>
+									<div class="record"></div>
+									</div>
+								</div>
+							</a>
+						</div> -->
+
+
+					</div>
+
+
+
+
+
+
+				<!-- MISSPING LEAGUE -->
+				<div class="stage" ng-if="view.tournament_type == 'knockout' && view.tournament_entry.tournamentID == 2">
+					<div class="standings-bracket-playoff customstats-scrollbar">
+						<div class="bracket">
+
+							<!-- upper bracket -->
+							<div class="row">
+								<div class="columns">
+
+									<div class="column">
+										<div class="cell">
+											<div class="title"># 1 - Oberes Bracket Runde 1</div>
+											<div class="standings-bracket-playoff-match">
+												<div class="roster">
+													<a class="team win">
+														<img class="image" ng-src="public/img/tournament/team_logo/intothesalmon.png" />
+														<div class="name" style="color: #c79e57">Into the Salmon</div>
+														<div class="tricode">TBD</div>
+														<div class="score">2</div>
+														</a>
+													<a class="team">
+														<img class="image" ng-src="public/img/tournament/team_logo/keinteamname.png" />
+														<div class="name">Kein Teamname</div>
+														<div class="tricode">TBD</div>
+														<div class="score">0</div>
+														</a>
+													</div>
+												</div>
+											<div class="title" style="top: 160px"># 2</div>
+											<div class="standings-bracket-playoff-match">
+												<div class="roster">
+													<a class="team tbd">
+														<img class="image" ng-src="public/img/tournament/team_logo/infin8.png" />
+														<div class="name">Infin8</div>
+														<div class="tricode">TBD</div>
+														<div class="score">0</div>
+														</a>
+													<a class="team win">
+														<img class="image" ng-src="public/img/tournament/team_logo/fressenodergefressenwerden.png" />
+														<div class="name" style="color: #c79e57">Fressen oder Gefressen werden</div>
+														<div class="score">2</div>
+														</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									<div class="column"></div>
+									<div class="column"></div>
+									<div class="column">
+										<div class="cell">
+											<div class="title"># 6 - Oberes Bracket Runde 2</div>
+											<div class="standings-bracket-playoff-match">
+												<div class="roster">
+													<a class="team">
+														<img class="image" ng-src="public/img/tournament/team_logo/intothesalmon.png" />
+														<div class="name">Into the Salmon</div>
+														<div class="score">1</div>
+														</a>
+													<a class="team win">
+														<img class="image" ng-src="public/img/tournament/team_logo/fressenodergefressenwerden.png" />
+														<div class="name" style="color: #c79e57">Fressen oder Gefressen werden</div>
+														<div class="score">2</div>
+														</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									<div class="column">
+										<div class="cell">
+											<div class="title">Finale - Best of 5</div>
+											<div class="standings-bracket-playoff-match" style="top: 150px">
+												<div class="roster">
+													<a class="team">
+														<img class="image" ng-src="public/img/tournament/team_logo/fressenodergefressenwerden.png" />
+														<div class="name">Fressen oder Gefressen werden</div>
+														<div class="tricode">TBD</div>
+														<div class="score">1</div>
+														</a>
+													<a class="team win">
+														<img class="image" ng-src="public/img/tournament/team_logo/intothesalmon.png" />
+														<div class="name" style="color: #c79e57">Into the Salmon</div>
+														<div class="tricode">TBD</div>
+														<div class="score">3</div>
+														</a>
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+
+							<!-- lower bracket -->
+							<div class="row">
+								<div class="columns">
+
+									<div class="column">
+										<div class="cell">
+											<div class="title"># 3 - Unteres Bracket Runde 1</div>
+											<div class="standings-bracket-playoff-match">
+												<div class="roster">
+													<a class="team">
+														<img class="image" ng-src="public/img/tournament/team_logo/diemildenkerle.png" />
+														<div class="name">Die milden Kerle</div>
+														<div class="tricode">TBD</div>
+														<div class="score">1</div>
+														</a>
+													<a class="team win">
+														<img class="image" ng-src="public/img/tournament/team_logo/teamfreundschaft.png" />
+														<div class="name" style="color: #c79e57">Team Freundschaft</div>
+														<div class="tricode">TBD</div>
+														<div class="score">2</div>
+														</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									<div class="column">
+										<div class="cell">
+											<div class="title"># 4 - Unteres Bracket Runde 2</div>
+											<div class="standings-bracket-playoff-match">
+												<div class="roster">
+													<a class="team win">
+														<img class="image" ng-src="public/img/tournament/team_logo/infin8.png" />
+														<div class="name" style="color: #c79e57">Infin8</div>
+														<div class="tricode">TBD</div>
+														<div class="score">2</div>
+														</a>
+													<a class="team">
+														<img class="image" ng-src="public/img/tournament/team_logo/teamfreundschaft.png" />
+														<div class="name">Team Freundschaft</div>
+														<div class="tricode">TBD</div>
+														<div class="score">0</div>
+														</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									<div class="column">
+										<div class="cell">
+											<div class="title"># 5 - Unteres Bracket Runde 3</div>
+											<div class="standings-bracket-playoff-match">
+												<div class="roster">
+													<a class="team win">
+														<img class="image" ng-src="public/img/tournament/team_logo/keinteamname.png" />
+														<div class="name" style="color: #c79e57">Kein Teamname</div>
+														<div class="tricode">TBD</div>
+														<div class="score">2</div>
+														</a>
+													<a class="team">
+														<img class="image" ng-src="public/img/tournament/team_logo/infin8.png" />
+														<div class="name">Infin8</div>
+														<div class="tricode">TBD</div>
+														<div class="score">1</div>
+														</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									<div class="column">
+										<div class="cell">
+											<div class="title"># 7 - Unteres Bracket Finale</div>
+											<div class="standings-bracket-playoff-match">
+												<div class="roster">
+													<a class="team win">
+														<img class="image" ng-src="public/img/tournament/team_logo/intothesalmon.png" />
+														<div class="name" style="color: #c79e57">Into the Salmon</div>
+														<div class="tricode">TBD</div>
+														<div class="score">2</div>
+														</a>
+													<a class="team">
+														<img class="image" ng-src="public/img/tournament/team_logo/keinteamname.png" />
+														<div class="name">Kein Teamname</div>
+														<div class="tricode">TBD</div>
+														<div class="score">1</div>
+														</a>
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+
+
+			</div>
+		</main>
+
+	</article>

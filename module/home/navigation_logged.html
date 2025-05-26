@@ -1,0 +1,107 @@
+<article class="container" ng-controller="customstats.home_state_controller">
+
+	<section class="navbar-flex-complete">
+
+		<section class="navbar-flex-box">
+			<div class="tab" ng-if="app.user_has_right('customstats:dashboard')" ng-class='{"focused":app.current_route == "/dashboard"}'>
+				<a class="link" href="#/dashboard" title="Dashboard">
+					<div class="i-dashboard"></div>
+					<div class="title">Dashboard</div>
+					</a>
+				</div>
+			<div class="tab" ng-if="app.user_has_right('customstats:chat')" ng-class='{"focused":app.current_route == "/chat"}'>
+				<a class="link" href="#/chat" title="Chat">
+					<div class="i-chat"></div>
+					<div class="title">Chat</div>
+					</a>
+				</div>
+			<div class="tab" ng-if="app.user_has_right('customstats:matchhistory')" ng-class='{"focused":app.current_route == "/matchhistory"}'>
+				<a class="link" href="#/matchhistory" title="Match History">
+					<div class="i-source"></div>
+					<div class="title">Game History</div>
+					</a>
+				</div>
+			<div class="tab" ng-if="app.user_has_right('customstats:tabview_all_player')" ng-class='{"focused":app.current_route == "/tabview_all_player"}' >
+				<a class="link" href="#/tabview_all_player" title="Alle Spieler">
+					<div class="i-player-group"></div>
+					<div class="title">Alle Spieler</div>
+					</a>
+				</div>
+			<div class="tab" ng-if="app.user_has_right('customstats:champions')" ng-class='{"focused":app.current_route == "/champions"}'>
+				<a class="link" href="#/champions" title="Champions">
+					<div class="i-champions"></div>
+					<div class="title">Champions</div>
+					</a>
+				</div>
+			<div class="tab" ng-if="app.user_has_right('customstats:best_of')" ng-class='{"focused":app.current_route == "/best_of"}'>
+				<a class="link" href="#/best_of" title="Best Of">
+					<div class="i-best-of"></div>
+					<div class="title">Best Of</div>
+					</a>
+				</div>
+<!-- 			<div class="tab" ng-if="app.user_has_right('customstats:tabview_media')" ng-class='{"focused":app.current_route == "/tabview_media"}'>
+				<a class="link" href="#/tabview_media" title="Media">
+					<div class="i-source"></div>
+					<div class="title">Media</div>
+					</a>
+				</div> -->
+			<div class="tab" ng-if="app.user_has_right('customstats:tabview_analysis')" ng-class='{"focused":app.current_route == "/tabview_analysis"}'>
+				<a class="link" href="#/tabview_analysis" title="Analyse">
+					<div class="i-graph"></div>
+					<div class="title">Statistik</div>
+					</a>
+				</div>
+			<div class="tab" ng-if="app.user_has_right('customstats:tournament')" ng-class='{"focused":app.current_route == "/tournament"}'>
+				<a class="link" href="#/tournament" title="Turnier">
+					<div class="i-tournament"></div>
+					<div class="title">Turnier</div>
+					</a>
+				</div>
+			<div class="tab" ng-if="app.user_has_right('customstats:tabview_admin')" ng-class='{"focused":app.current_route == "/tabview_admin"}'>
+				<a class="link" href="#/tabview_admin" title="Admin">
+					<div class="i-admin"></div>
+					<div class="title">Admin</div>
+					</a>
+				</div>
+			</section>
+
+		<section class="info-flex-box">
+			<div class="inner-box">
+				<div class="info">
+					<div class="text">
+						<span class="font-bold">Moin,&nbsp;</span>
+						<span class="font-bold tc-teal">{{app.data.user.username}}</span>
+						</div>
+					<div class="text">
+						<span>Session seit:&nbsp;<i class="tc-teal">{{app.data.session_data.active_hours}} Std. u. {{app.data.session_data.active_minutes}} Min.</i></span>
+						</div>
+					<div class="text">
+						<span>Version:&nbsp;<i class="tc-teal">{{app.data.version}}</i></span>
+						</div>
+					<div class="text">
+						<span>Versionsdatum:&nbsp;<i class="tc-teal">{{app.data.version_date | phpdate: 'd-m-Y'}}</i></span>
+						</div>
+					</div>
+				<div class="tabgroup">
+					<div class="tab" ng-if="app.user_has_right('customstats:profile')" ng-class='{"focused":app.current_route == "/tabview_profile"}'>
+						<a class="link" href="#/tabview_profile" title="Profil">
+							<div class="i-profile"></div>
+							<div class="title">Profile</div>
+							</a>
+						</div>
+					<div class="tab">
+						<a class="link" href="/logout" title="Logout">
+							<div class="i-logout"></div>
+							<div class="title">Logout</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</section>
+
+		</section>
+
+		<!-- Erstelle AngularJS View (einmalig) -->
+		<div ng-view></div>
+
+	</article>

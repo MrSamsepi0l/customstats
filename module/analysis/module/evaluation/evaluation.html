@@ -1,0 +1,13 @@
+<article ng-controller="customstats.analysis:evaluation_controller">
+
+	<section class="navbar-admin-base">
+		<div class="tab">
+			<div ng-click="tab = 'ingame_combination'">
+				<span class="name">Compare Stats</span>
+				</div>
+			</div>
+		</section>
+
+		<div ng-if="tab == 'ingame_combination'" ng-include="'load_template/ingame_combination'"></div>
+
+	</article>

@@ -1,0 +1,155 @@
+<article class="tournament-body">
+	<main class="teams">
+		<div class="team-banner">
+			<div class="team-info">
+				<p class="team-name">{{view.player_entry.ingame_name}}</p>
+				<p class="league-name team-button" ng-click="view.change_tab('team')">{{view.team_entry.name}}&nbsp;-&nbsp;{{view.tournament_entry.name}}</p>
+				</div>
+			</div>
+		<div class="space">
+			<div class="message">Spielerstatistik</div>
+			</div>
+		<div class="roster">
+			<div class="player-tournamentcard" style="width: 40%">
+				<div class="info">
+					<div class="player primary" ng-repeat="e in view.team_entry.player_analysis">
+						<div class="stat">
+							<div class="value">
+								<span class="games_played">{{e.times_played}}</span>
+								</div>
+							<div class="title">Spiele&nbsp;gespielt</div>
+							</div>
+						<div class="stat">
+							<div class="value">
+								<span class="last_game">{{e.last_game ? e.last_game : '/'}}</span>
+								</div>
+							<div class="title">Letztes&nbsp;Spiel</div>
+							</div>
+						<div class="stat">
+							<div class="value">
+								<span class="games_won">{{e.times_won ? e.times_won : 0}}</span>
+								</div>
+							<div class="title">Spiele&nbsp;gewonnen</div>
+							</div>
+						<div class="stat">
+							<div class="value">
+								<span class="games_lost">{{e.times_lost ? e.times_lost : 0}}</span>
+								</div>
+							<div class="title">Spiele&nbsp;verloren</div>
+							</div>
+						<div class="stat">
+							<div class="value">
+								<span class="games_won">{{e.winrate | number: 2}}&nbsp;%</span>
+								</div>
+							<div class="title">Winrate</div>
+							</div>
+						<div class="stat">
+							<div class="value">
+								<span class="kills">{{e.avg_kills ? e.avg_kills : 0 | number: 1}}</span>
+								<span class="slash">/</span>
+								<span class="deaths">{{e.avg_deaths ? e.avg_deaths : 0 | number: 1}}</span>
+								<span class="slash">/</span>
+								<span class="assists">{{e.avg_assists ? e.avg_assists : 0 | number: 1}}</span>
+								</div>
+							<div class="title">K&nbsp;/&nbsp;T&nbsp;/&nbsp;U&nbsp;(KDA)</div>
+							</div>
+						<div class="stat">
+							<div class="value">
+								<span class="cs_per_game">{{e.cs_per_game ? e.cs_per_game : '/' | number: 2}}</span>
+								</div>
+							<div class="title">&#216;&nbsp;CS&nbsp;/&nbsp;Spiel</div>
+							</div>
+						<div class="stat">
+							<div class="value">
+								<span class="cs_per_minute">{{e.cs_per_minute ? e.cs_per_minute : '/' | number: 2}}</span>
+								</div>
+							<div class="title">&#216;&nbsp;CS&nbsp;/&nbsp;Minute</div>
+							</div>
+						<div class="stat">
+							<div class="value">
+								<span class="hours_played">{{e.minutes_played / 60 | number: 2}}</span>
+								</div>
+							<div class="title">Stunden&nbsp;gespielt</div>
+							</div>
+						<div class="stat">
+							<div class="value">
+								<span class="diff_played_champs">{{e.different_champs_played}}</span>
+								</div>
+							<div class="title">versch.&nbsp;Champs</div>
+							</div>
+						<div class="stat">
+							<div class="value">
+								<span class="most_played_role" ng-if="e.times_played">{{e.position_list[0].times_played}}x&nbsp;{{view.role_translation[e.position_list[0].role]}}</span>
+								<span class="most_played_role" ng-if="!e.times_played">/</span>
+								</div>
+							<div class="title">Häufigste&nbsp;Rolle</div>
+							</div>
+						<div class="stat">
+							<div class="value">
+								<span class="role_winrate">{{e.position_list[0].winrate | number: 2}}&nbsp;%</span>
+								</div>
+							<div class="title" ng-if="e.times_played">{{view.role_translation[e.position_list[0].role]}}&nbsp;-&nbsp;Winrate</div>
+							<div class="title" ng-if="!e.times_played">Winrate&nbsp;Rolle</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			<div class="player-tournamentcard" style="width: 60%">
+				<div class="info">
+					<div class="player primary">
+						<div class="champion-stat" ng-repeat="e in view.team_entry.player_analysis[0].champion_list">
+							<div class="{{e.champion_converted}} champion-image"></div>
+							<div class="concrete">
+								<div class="value">
+									<span class="champ_played">{{e.times_played}}</span>
+									</div>
+								<div class="title">Spiele</div><br />
+								</div>
+							<div class="concrete">
+								<div class="value">
+									<span class="champ_won">{{e.times_won}}</span>
+									</div>
+								<div class="title">Wins</div><br />
+								</div>
+							<div class="concrete">
+								<div class="value">
+									<span class="champ_lost">{{e.times_lost}}</span>
+									</div>
+								<div class="title">Loses</div><br />
+								</div>
+							<div class="concrete">
+								<div class="value">
+									<span class="winrate">{{e.winrate | number: 2}}&nbsp;%</span>
+									</div>
+								<div class="title">Winrate</div><br />
+								</div>
+							<div class="concrete">
+								<div class="value">
+									<span class="kills">{{e.avg_kills | number: 1}}</span>
+									<span class="slash">/</span>
+									<span class="deaths">{{e.avg_deaths | number: 1}}</span>
+									<span class="slash">/</span>
+									<span class="assists">{{e.avg_assists | number: 1}}</span>
+									</div>
+								<div class="title">K&nbsp;/&nbsp;T&nbsp;/&nbsp;U&nbsp;(KDA)</div>
+								</div>
+							<div class="concrete">
+								<div class="value">
+									<span class="winrate">{{e.avg_creep_score | number: 2}}</span>
+									</div>
+								<div class="title">&#216;&nbsp;CS&nbsp;/&nbsp;Spiel</div>
+								</div>
+							<div class="concrete">
+								<div class="value">
+									<span class="winrate">{{e.cs_per_minute | number: 2}}</span>
+									</div>
+								<div class="title">&#216;&nbsp;CS&nbsp;/&nbsp;Minute</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+
+	</article>

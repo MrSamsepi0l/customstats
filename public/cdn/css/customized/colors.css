@@ -1,0 +1,53 @@
+/* General text colors */
+.tc-red {color: #EF5D60 !important}
+.tc-dark-blue {color: #1D3557}
+.tc-blue {color: #0094C6 !important}
+.tc-green {color: #5DA271}
+.tc-dark-green {color: #226F54 !important}
+.tc-gray {color: #95969D}
+.tc-dark-gray {color: #898989}
+.tc-purple {color: #5C2751}
+.tc-pink {color: #FF92C2}
+.tc-black {color: #141204}
+.tc-white {color: #FFF8F0 !important}
+.tc-orange {color: #E8985E}
+.tc-yellow {color: #F3E37C}
+.tc-cyan {color: #D1F5FF}
+.tc-brown {color: #5E3023}
+
+/* General background colors */
+.bc-red {background-color: EF5D60}
+.bc-dark-red {background-color: #422525}
+.bc-blue {background-color: 0094C6}
+.bc-dark-blue {background-color: 1D3557}
+.bc-green {background-color: 5DA271}
+.bc-dark-green {background-color: 226F54}
+.bc-gray {background-color: 95969D}
+.bc-dark-gray {background-color: 898989}
+.bc-purple {background-color: 5C2751}
+.bc-teal {background-color: 76E5FC}
+.bc-pink {background-color: FF92C2}
+.bc-black {background-color: 141204}
+.bc-white {background-color: FFF8F0}
+.bc-orange {background-color: E8985E}
+.bc-yellow {background-color: F3E37C}
+.bc-cyan {background-color: D1F5FF}
+.bc-brown {background-color: 5E3023}
+
+/* General colors text and background combined */
+.c-red {background-color: EF5D60; color: EF5D60}
+.c-dark-blue {background-color: 1D3557; color: 1D3557}
+.c-blue {background-color: 0094C6; color: 0094C6}
+.c-green {background-color: 5DA271; color: 5DA271}
+.c-dark-green {background-color: 226F54; color: 226F54}
+.c-gray {background-color: 95969D; color: 95969D}
+.c-dark-gray {background-color: 898989; color: 898989}
+.c-purple {background-color: 5C2751; color: 5C2751}
+.c-teal {background-color: 76E5FC; color: 76E5FC}
+.c-pink {background-color: FF92C2; color: FF92C2}
+.c-black {background-color: 141204; color: 141204}
+.c-white {background-color: FFF8F0; color: FFF8F0}
+.c-orange {background-color: E8985E; color: E8985E}
+.c-yellow {background-color: F3E37C; color: F3E37C}
+.c-cyan {background-color: D1F5FF; color: D1F5FF}
+.c-brown {background-color: 5E3023; color: 5E3023}

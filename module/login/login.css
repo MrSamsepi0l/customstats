@@ -1,0 +1,163 @@
+a {
+	color: inherit;
+	text-decoration: inherit;
+	}
+
+a:hover {
+	color: inherit;
+	text-decoration: inherit;
+	}
+
+.flex-box-login {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	flex-direction: column;
+	height: 100%;
+
+	.card {
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		margin: auto;
+		border: 1px solid #1c1c1c;
+		transition: border 0.5s ease-in;
+		border-width: 1;
+		border-radius: 6px;
+		color: #000;
+		background: linear-gradient(to right bottom, #0f3733, #1c9093);
+
+		.header {
+			display: flex;
+			align-items: center;
+			height: 100px;
+			width: 100%;
+			padding: 0 0 0 25px;
+			border-bottom: 1px solid rgb(157 140 144 / 13%);
+
+			.title {
+				font-family: sans-serif;
+				letter-spacing: 3px;
+				}
+			}
+
+		.body {
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			width: 100%;
+			height: 80%;
+			padding: 1.4rem 2rem 1.6rem;
+
+			.input-group {
+				position: relative;
+				display: flex;
+				flex-direction: row;
+				width: 100%;
+				max-width: 400px;
+				margin: 0 auto;
+				border-radius: 6px;
+				padding: 1.4rem 2rem 1.6rem;
+				background-color: #0a0e13;
+
+				input {
+					flex-grow: 1;
+					font-size: 1.8rem;
+					line-height: 2.4rem;
+					vertical-align: middle;
+					border-style: none;
+					outline: none;
+					color: #6f8a8b;
+					background: transparent;
+					}
+				}
+
+			.space {
+				width: 100%;
+				height: 20px;
+				background: transparent;
+				}
+
+			.space2 {
+				width: 100%;
+				height: 40px;
+				background: transparent;
+				}
+
+			.login-button {
+				width: 100%;
+				color: #fff;
+				background-color: #0a0e13;
+				letter-spacing: 5px;
+				font-size: 1.4rem;
+				padding: 10px 0px 10px 0px;
+				border: 1px transparent;
+				border-radius: 6px;
+			    user-select: none;
+			    outline: none;
+				display: inline-block;
+			    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+				}
+
+			.login-button:hover {
+				transition: all 0.3s ease;
+				background-color: #0f1519;
+				}
+
+			.login-error {
+				display: flex;
+				justify-content: center;
+
+				.message {
+					letter-spacing: 5px;
+					font-size: 1.4rem;
+					}
+				}
+
+			a {
+			    color: inherit;
+			    display: block;
+			    text-overflow: ellipsis;
+			    white-space: nowrap;
+			    overflow: hidden;
+				}
+
+			a:hover {
+			    cursor: pointer;
+			    text-decoration: underline;
+				}
+			}
+		}
+	}
+
+
+@media screen and (min-width: 601px){
+
+	.flex-box-login {
+
+		.card {
+			width: 25%;
+			height: 450px;
+
+			.header {
+
+				.title {
+					font-size: 2vw;
+					}
+				}
+			}
+		}
+	}
+
+@media screen and (max-width: 1200px){
+
+	.flex-box-login {
+
+		.card {
+			width: 50%;
+			height: 550px;
+			font-size: 1.8rem;
+			}
+
+		}
+	}

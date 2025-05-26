@@ -284,16 +284,19 @@ angular.module('customstats').controller('customstats.tournament_new_game_contro
 
 			// define param
 			param = {
-				'tournamentID'		: entry.tournamentID,
-				'scheduleID'		: entry.scheduleID,
-				'gameDate'			: entry.gameDate,
+				'type'				: 'tournament_game_source',
 				'base64_image'		: entry.base64_image,
 				'extension'			: entry.extension,
 				'size'				: entry.size,
+				'param'				: {
+					'tournamentID'	: entry.tournamentID,
+					'scheduleID'	: entry.scheduleID,
+					'gameDate'		: entry.gameDate,
+					},
 				};
 
 			// check basically if request is okay
-			if(!param.tournamentID || !param.scheduleID || !param.gameDate || !param.base64_image || !param.extension || !param.size){
+			if(!param.type || !param.param.tournamentID || !param.param.scheduleID || !param.param.gameDate || !param.base64_image || !param.extension || !param.size){
 
 				// set error status
 				self.status = 400;
@@ -305,7 +308,7 @@ angular.module('customstats').controller('customstats.tournament_new_game_contro
 
 			// upload
 			$leagueapi.send_request('customstats_tournament_api_upload_tournament_image', param, {
-				200 : function(data){
+				201 : function(data){
 
 					// set image uploaded
 					self.show.image_uploaded = true;

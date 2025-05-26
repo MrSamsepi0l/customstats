@@ -11,6 +11,13 @@
 			<div class="background-div-champion" ng-if="!e.expanded"></div>
 			<div class="bg-champ-icon {{e.champion_name_fixed | lowercase}}">
 				<span class="name">{{e.name}}</span>
+				<span custom-tooltip custom-tooltip-position="right" ng-if="e.expanded && view.entry.hovered.name == e.name" ng-mouseover="e.expanded = true; view.get_timeserie(e.champion_name)" ng-click="e.clicked = !e.clicked; view.get_timeserie(e.champion_name)" class="btn inner-box-button-graphic i-graph-teal" style="width: 100px; height: 100px; left: 34%; position: absolute; top: 90px; color: white;">
+					<content-template>
+						<section style="height: 200px; width: 400px; background: #0a0a0a">
+							<div style="font-size: 1px; background-color: #0a0a0a !important;"><league-highchart class="highcharts-container" league-instance="view.instance" league-highchart="view.highchartdata"></league-highchart></div>
+							</section>
+						</content-template>
+					</span>
 <!-- 				<span league-hover-popup league-hover-popup-clickable="false" ng-if="e.expanded && view.entry.hovered.name == e.name" ng-mouseover="e.expanded = true; view.get_timeserie(e.name)" ng-click="e.clicked = !e.clicked; view.get_timeserie(e.name)" class="btn inner-box-button-graphic i-graph-big" style="width: 100px; height: 100px; left: 34%; position: absolute; top: 90px; color: white;">
 					<content-part>
 						<section style="height: 200px; width: 400px; background: #0a0a0a">

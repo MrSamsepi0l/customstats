@@ -39,14 +39,6 @@
 	background: transparent url('../img/basic/arrow_down.png') no-repeat center center;
 	}
 
-.i-collapse-white {
-	background: transparent url('../img/basic/arrow_collapse_white.png') no-repeat center center;
-	}
-
-.i-expand-white {
-	background: transparent url('../img/basic/arrow_expand_white.png') no-repeat center center;
-	}
-
 .i-broom {
 	background: transparent url('../img/basic/broom.png') no-repeat center center;
 	}
@@ -330,32 +322,4 @@
 	background-repeat: no-repeat;
 	width: 64px;
 	height: 64px;
-	}
-
-.match-history-gold {
-	background-image: url('../../public/img/basic/match_history_gold.png');
-	background-repeat: no-repeat;
-	width: 20px;
-	height: 20px;
-	}
-
-.match-history-cs {
-	background-image: url('../../public/img/basic/match_history_cs.png');
-	background-repeat: no-repeat;
-	width: 20px;
-	height: 20px;
-	}
-
-.match-history-kda {
-	background-image: url('../../public/img/basic/match_history_kda.png');
-	background-repeat: no-repeat;
-	width: 20px;
-	height: 20px;
-	}
-
-.match-history-kp {
-	background-image: url('../../public/img/basic/match_history_kp.png');
-	background-repeat: no-repeat;
-	width: 20px;
-	height: 20px;
 	}

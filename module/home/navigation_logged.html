@@ -15,12 +15,6 @@
 					<div class="title">Chat</div>
 					</a>
 				</div>
-			<div class="tab" ng-if="app.user_has_right('customstats:matchhistory')" ng-class='{"focused":app.current_route == "/matchhistory"}'>
-				<a class="link" href="#/matchhistory" title="Match History">
-					<div class="i-source"></div>
-					<div class="title">Game History</div>
-					</a>
-				</div>
 			<div class="tab" ng-if="app.user_has_right('customstats:tabview_all_player')" ng-class='{"focused":app.current_route == "/tabview_all_player"}' >
 				<a class="link" href="#/tabview_all_player" title="Alle Spieler">
 					<div class="i-player-group"></div>
@@ -39,12 +33,12 @@
 					<div class="title">Best Of</div>
 					</a>
 				</div>
-<!-- 			<div class="tab" ng-if="app.user_has_right('customstats:tabview_media')" ng-class='{"focused":app.current_route == "/tabview_media"}'>
+			<div class="tab" ng-if="app.user_has_right('customstats:tabview_media')" ng-class='{"focused":app.current_route == "/tabview_media"}'>
 				<a class="link" href="#/tabview_media" title="Media">
 					<div class="i-source"></div>
 					<div class="title">Media</div>
 					</a>
-				</div> -->
+				</div>
 			<div class="tab" ng-if="app.user_has_right('customstats:tabview_analysis')" ng-class='{"focused":app.current_route == "/tabview_analysis"}'>
 				<a class="link" href="#/tabview_analysis" title="Analyse">
 					<div class="i-graph"></div>

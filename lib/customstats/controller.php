@@ -599,6 +599,9 @@ class controller {
 
 	protected function customstats_registration($req = []){
 
+		// TEMP: disable public registration via API
+		return $this->response(501);
+
 		// if user is logged, return error
 		if($this->user_logged()) return $this->response(403);
 

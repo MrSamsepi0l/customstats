@@ -237,7 +237,7 @@ angular.module('customstats').controller('customstats.league_profile_controller'
 					chart: {
 						height: 175,
 					    backgroundColor : '#050d12',
-					    type: 'bar',
+					    type: 'spline',
 						},
 					title: {
 						text: 'WINRATE NACH POSITION',

@@ -1,11 +1,11 @@
 .chat-complete {
     --date-color: #ffefae;       /* beige */
     --time-color: #ffefae;       /* beige */
-    --bg-info-box: #18424f;      /* blue */
     --tc-info-box: #8fa3b0;      /* gray */
     --bg-member-header: #203e57; /* dark-blue */
     --bg-profile-hover: #1a2124; /* near-black */
     --tc-profile-text: #afd6df;  /* teal-blue */
+    --chat-border-color: #1e1e1e;/* dark-gray  */
 
     display: flex;
     flex-wrap: wrap;
@@ -60,7 +60,6 @@
                 flex-direction: column;
                 border-radius: 5px;
                 padding: 1.2rem 1.2rem 1.2rem 1.2rem;
-                background-color: var(--bg-info-box);
 
                 .title {
                     font-size: 2.3rem;
@@ -80,7 +79,6 @@
                 flex-direction: column;
                 border-radius: 5px;
                 padding: 1.2rem 1.2rem 1.2rem 1.2rem;
-                background-color: var(--bg-info-box);
 
                 .title {
                     font-size: 2.3rem;
@@ -100,7 +98,6 @@
                 flex-direction: column;
                 border-radius: 5px;
                 padding: 1.2rem 1.2rem 1.2rem 1.2rem;
-                background-color: var(--bg-info-box);
 
                 .title {
                     font-size: 2.3rem;
@@ -127,6 +124,8 @@
             align-items: center;
             flex-direction: column;
             width: 37%;
+            border: 1px solid var(--chat-border-color);
+            border-top: none;
 
             .header {
                 text-align: center;
@@ -165,6 +164,12 @@
                     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
                     background-color: var(--main-bg-dark-1);
 
+                    &:hover {
+                        background-color: #171c26; /* purple-near-black */
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        }
+
                     .profile {
                         display: flex;
                         justify-content: center;
@@ -177,6 +182,11 @@
                         padding: 5px 5px 5px 5px;
                         transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 
+                        &:hover {
+                            transition: all 0.3s ease;
+                            background-color: var(--bg-profile-hover);
+                            }
+
                         .icon {
                             width: 64px;
                             height: 64px;
@@ -186,11 +196,6 @@
                             font-size: 0.6rem;
                             color: var(--tc-profile-text);
                             }
-                        }
-
-                    .profile:hover {
-                        transition: all 0.3s ease;
-                        background-color: var(--bg-profile-hover);
                         }
 
                     .info {
@@ -234,11 +239,7 @@
                         }
                     }
 
-                .member:hover {
-                    background-color: #171c26; /* purple-near-black */
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                    }
+
                 }
             }
 
@@ -246,6 +247,8 @@
             display: flex;
             flex-direction: column;
             width: 65%;
+            border-top: 1px solid var(--chat-border-color);
+            border-right: 1px solid var(--chat-border-color);
 
             .body {
                 display: flex;
@@ -342,13 +345,15 @@
                     }
                 }
 
-            .footer {
+            >.footer {
                 display: flex;
                 flex-direction: row;
                 align-items: center;
                 justify-content: center;
                 width: 100%;
                 padding: 1rem 1rem 1rem 1rem;
+                border: 1px solid var(--chat-border-color);
+                border-left: none;
 
                 .message {
                     width: 100%;
@@ -369,10 +374,10 @@
                         outline: none;
                         margin: 0;
                         overflow: auto;
-                        }
 
-                    textarea:focus {
-                        outline: none !important;
+                        &:focus {
+                            outline: none !important;
+                            }
                         }
                     }
 
@@ -396,7 +401,7 @@
                             color: var(--white);
                             }
 
-                        .button:hover {
+                        &:hover {
                             cursor: pointer;
                             }
                         }

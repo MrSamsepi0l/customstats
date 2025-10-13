@@ -182,6 +182,7 @@ angular.module('customstats').controller('customstats.league_profile_controller'
 						style: {'fontSize':'1.0rem','color':'whitesmoke', 'letter-spacing': '1px'}
 						},
 					xAxis: {
+						lineColor: '#213751',
 						categories: ['Toplane', 'Jungle', 'Midlane', 'Botlane', 'Support'],
 						labels : {style : {'fontSize': '0.7rem'}},
 						},
@@ -191,6 +192,11 @@ angular.module('customstats').controller('customstats.league_profile_controller'
 							format		:'{value} x'
 							},
 						allowDecimals 	: false,
+						},
+					plotOptions: {
+						series: {
+							pointWidth: 50
+							},
 						},
 					tooltip 	: {
 						format  : ' Spiele',

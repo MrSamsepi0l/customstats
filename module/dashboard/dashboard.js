@@ -265,22 +265,34 @@ angular.module('customstats').controller('customstats.dashboard_controller', ['$
 					self.render({
 						chart : {
 							type: 'column',
+							styledMode: false,
 							},
 					    title: {
 					        text: 'Banned Champions',
 					        align: 'left'
 					    	},
 					    subtitle: {
-					        text: 'The 10 most banned champions in the last 25 games',
+					        text: 'The 5 most banned champions in the last 25 games',
 					        align: 'left'
 					    	},
 						xAxis: {
-							visible	: true
+							visible	: true,
+							labels : {
+								useHTML: true,
+								formatter: function(){
+									return '<div class="ta-center" style="display:flex; flex-direction: row; align-items: center">'
+											+'<div class="icon-champion '+self.get_champion_name_formatted(this.value)+'" style="background-size: contain;"></div>'
+											+'<span style="margin-left: 5px; color: #ff3377">' + this.value + '</span>'
+											+'</div>'
+									},
+								},
+							lineColor: '#ff3377',
+							lineWidth: 1,
 							},
 						yAxis: {
 							labels: {
 								style: {
-									color: '#82b0bd',
+									color: '#ff3377',
  									}
 								},
 							},
@@ -290,11 +302,11 @@ angular.module('customstats').controller('customstats.dashboard_controller', ['$
 								marker: {lineWidth: 1, lineColor: "#aafff7"}
 								},
 							series: {
-								pointWidth: 50
+								pointWidth: 100
 								}
 							},
 						seriesTitle: 'Times banned',
-						seriesColor: '#82b0bd',
+						seriesColor: '#ff3377',
 						}, 'banned_champs');
 					},
 				'*' : function(data, status){
@@ -341,16 +353,26 @@ angular.module('customstats').controller('customstats.dashboard_controller', ['$
 					        align: 'left'
 					    	},
 					    subtitle: {
-					        text: 'The 10 most played champions in the last 25 games',
+					        text: 'The 5 most played champions in the last 25 games',
 					        align: 'left'
 					    	},
 						xAxis: {
-							visible	: true
+							lineColor: '#88d8b0',
+							visible	: true,
+							labels : {
+								useHTML: true,
+								formatter: function(){
+									return '<div class="ta-center" style="display:flex; flex-direction: row; align-items: center">'
+											+'<div class="icon-champion '+self.get_champion_name_formatted(this.value)+'" style="background-size: contain;"></div>'
+											+'<span style="margin-left: 5px; color: #88d8b0">' + this.value + '</span>'
+											+'</div>'
+									},
+								},
 							},
 						yAxis: {
 							labels: {
 								style: {
-									color: '#788ca1',
+									color: '#88d8b0',
  									}
 								},
 							},
@@ -368,11 +390,12 @@ angular.module('customstats').controller('customstats.dashboard_controller', ['$
 					        //     showInLegend: true
 					        // 	},
 							series: {
-								pointWidth: 50
+								pointWidth: 100
 								}
 							},
 						seriesTitle: 'Times Played',
-						seriesColor: '#6b7b8c',
+						seriesColor: '#88d8b0',
+						color_by_point: false,
 						}, 'played_champs');
 					},
 				'*' : function(data, status){
@@ -489,9 +512,10 @@ angular.module('customstats').controller('customstats.dashboard_controller', ['$
 
 			// create series object
 			series = {
-				'name'	: new_chart.seriesTitle ?? '',
-				'color'	: new_chart.seriesColor ?? '#255958',
-				'data'	: Array(categories_length).fill(0),
+				'name'			: new_chart.seriesTitle ?? '',
+				'color'			: new_chart.seriesColor ?? '#255958',
+				'data'			: Array(categories_length).fill(0),
+				'colorByPoint'	: !_.isUndefined(new_chart.color_by_point) ? new_chart.color_by_point : false,
 				};
 
 				// for each timeserie player
@@ -558,6 +582,14 @@ angular.module('customstats').controller('customstats.dashboard_controller', ['$
 			// create multichart
 			var multichart = $multichart.get_new();
 			self.chartdata[data_key] = multichart.create_chart(new_chart);
+			},
+
+		/* Helper */
+		get_champion_name_formatted : function(champion){
+			var self = this;
+
+			// return champion name without spaces and lowercase
+			return (champion.split(' ').join('')).toLowerCase();
 			},
 
 		};

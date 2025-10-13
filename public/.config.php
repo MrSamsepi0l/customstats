@@ -24,6 +24,7 @@ if($this->user_logged()){
 
 	/* CSS Sheets laden */
 	$this->build_environment('header:css[]', $moduleurl.'/cdn/css/highcharts/highcharts.css', 15);
+	$this->build_environment('header:css[]', $moduleurl.'/cdn/css/highcharts/highcharts_customized.css', 15);
 	$this->build_environment('header:css[]', $moduleurl.'/cdn/css/customized/colors.css', 15);
 
 	/* Weitere JS Module laden */

@@ -82,10 +82,10 @@
 }
 
 /* Axes */
-.highcharts-axis-line {
+/*.highcharts-axis-line {
   fill: none;
   stroke: #ccd6eb;
-}
+}*/
 
 .highcharts-yaxis .highcharts-axis-line {
   stroke-width: 0;

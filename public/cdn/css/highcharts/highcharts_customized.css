@@ -1,0 +1,12 @@
+/* Remove borders around points */
+.highcharts-column-series rect.highcharts-point {
+  stroke: none
+  }
+
+/* Axes */
+
+/* Allow modifying axis colors  */
+.highcharts-axis-line {
+  fill: none;
+  stroke: revert-layer;
+  }

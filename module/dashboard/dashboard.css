@@ -18,6 +18,15 @@
     align-items: flex-start;
     width: 100%;
 
+    .icon-champion {
+        width: 35px;
+        height: 35px;
+        background-size: contain;
+        border-radius: 50%;
+        box-shadow: 0 0 20px 0 #000;
+        position: relative;
+        }
+
     .header {
         width: 100%;
         padding: 1rem 1rem 1rem 1rem;

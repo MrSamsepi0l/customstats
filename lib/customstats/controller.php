@@ -20,8 +20,8 @@ class controller {
 	    \customstats\extension\usersession_trait;
 
 	public $project = 'customstats';
-	public $version = '2.3.0';
-	public $version_date = '2024-10-30';
+	public $version = '2.4.0';
+	public $version_date = '2025-10-13';
 	public $version_int = 2;
 	public $user;
 	public $session_lifetime = 28800; // 8 hours

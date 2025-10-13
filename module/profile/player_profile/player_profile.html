@@ -159,15 +159,29 @@
 
 		<div class="match-history">
 			<div class="header">
-				<div class="headline">
-					<span>MATCH HISTORY</span>
+				<div class="title">
+					<div class="headline">
+						<span>MATCH HISTORY</span>
+						</div>
+					<div class="i-history-clock-teal user-league-profile-icon-bigger"></div>
 					</div>
-				<div class="i-history-clock-teal user-league-profile-icon-bigger"></div>
+				<div class="filter">
+					<div class="position">
+						<div class="icon" ng-class='{"selected": league_profile.match_history_position_filter_is_selected(position)}' ng-click="league_profile.match_history_position_filter(position)" ng-repeat="position in ['top', 'jungle', 'mid', 'adc', 'support']"><img ng-src="{{'public/img/position/' + position + '.png'}}" custom-hover="{{league_profile.translate_position[position]}}" /></div>
+						</div>
+					<div class="champion">
+						<select class="select {{e.champion}} customstats-scrollbar" ng-options="e.champion as e.champion for e in league_profile.entry.champion_with_player | orderBy: ['champion']" ng-model="league_profile.filter.match_history.champion">
+							<option class="{{e.champion}}" value="">Alle Champions</option>
+							</select>
+						<div ng-if="league_profile.filter.match_history.champion" class="icon {{league_profile.filter.match_history.champion}}" ng-click="league_profile.filter.match_history.champion = null"></div>
+						</div>
+					<div class="win-lose"></div>
+					</div>
 				</div>
 
 			<div class="body customstats-scrollbar" when-scrolled="league_profile.increase_render_limit(20)">
 				<div class="user-league-profile-table-match-history">
-					<div class="box-complete" ng-class='{"win":e.won, "loss":!e.won}' ng-repeat="e in league_profile.entry.match_history | orderBy:['-gameID'] | limitTo: league_profile.match_history.render_limit">
+					<div class="box-complete" ng-class='{"win":e.won, "loss":!e.won}' ng-repeat="e in league_profile.entry.match_history | filter: league_profile.filter_match_history_list | orderBy:['-gameID'] | limitTo: league_profile.match_history.render_limit">
 						<div class="gamebox background">
 							<div class="general-stat">
 								<div class="gamedate" custom-hover="{{e.gameDate | phpdate: 'd.m.Y'}}">{{e.relative_time_to_now}} ago</div>

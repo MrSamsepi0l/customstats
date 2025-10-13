@@ -25,6 +25,12 @@ angular.module('customstats').controller('customstats.league_profile_controller'
 		match_history	: {
 			render_limit: 20,
 			},
+		filter: {
+		    match_history : {
+		    	champion 	: null,
+		    	position 	: [],
+		    	},
+			},
 
 		get_league_profile : function(playerID){
 			var self = this, param;
@@ -163,6 +169,46 @@ angular.module('customstats').controller('customstats.league_profile_controller'
 
 			// increse limit to render limit
 			self.match_history.render_limit += render_limit;
+			},
+
+		filter_match_history_list : function(entry){
+
+			// define self
+			var self = $scope.league_profile;
+
+			// if position filter defined: remove all games not played in this position
+			if(!_.isEmpty(self.filter.match_history.position) && !_.contains(self.filter.match_history.position, entry.position)) return false;
+
+			// if champion filter defined: remove all games not played with this champ
+			if(self.filter.match_history.champion !== null && self.filter.match_history.champion != entry.champion) return false;
+
+			// allow everything else
+			return true;
+			},
+
+		match_history_position_filter(position){
+			var self = this;
+
+			// if position already in filter list
+			if(_.contains(self.filter.match_history.position, position)){
+
+				// filter match history position list
+				return self.filter.match_history.position = _.reject(self.filter.match_history.position, function(e){
+
+					// remove it
+					return e == position;
+					});
+				}
+
+			// add position to filter
+			self.filter.match_history.position.push(position);
+			},
+
+		match_history_position_filter_is_selected(position){
+			var self = this;
+
+			// check if position filter is currently active
+			return _.contains(self.filter.match_history.position, position);
 			},
 
 		render_position_chart : function(change_config){

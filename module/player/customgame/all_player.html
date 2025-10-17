@@ -93,45 +93,33 @@
 					<div class="i-areachart user-league-profile-icon"></div>
 					</div>
 				<div class="body">
-					<div class="stat">
-						<span class="value">{{view.entry.times_played}}</span><br />
-						<span class="title">Spiele gespielt</span>
+
+					<div class="chart-stat">
+						<div><league-highchart class="highcharts-container" league-instance="view.instance_win_lose" league-highchart="view.win_lose_chartdata"></league-highchart></div>
 						</div>
 					<div class="stat">
-						<span class="value">{{view.entry.avg_kills | number: 1}} / {{view.entry.avg_deaths | number: 1}} / {{view.entry.avg_assists | number: 1}}</span><br />
-						<span class="title">K / D / A</span>
+						<span class="value">{{view.entry.playrate | number: 1}} %</span><br />
+						<span class="title">Playrate</span>
 						</div>
 					<div class="stat">
-						<span class="value">{{view.entry.times_won}}</span><br />
-						<span class="title">Spiele gewonnen</span>
-						</div>
-					<div class="stat">
-						<span class="value">{{view.entry.hours_played}}</span><br />
+						<span class="value">{{view.entry.hours_played | number: 1}}</span><br />
 						<span class="title">Stunden gespielt</span>
 						</div>
 					<div class="stat">
-						<span class="value">{{view.entry.times_lost}}</span><br />
-						<span class="title">Spiele verloren</span>
+						<span class="value">{{view.entry.cs_per_game | number: 1}}</span><br />
+						<span class="title">CS / Spiel</span>
+						</div>
+					<div class="stat">
+						<span class="value">{{view.entry.cs_per_minute | number: 1}}</span><br />
+						<span class="title">CS / Minute</span>
 						</div>
 					<div class="stat">
 						<span class="value">{{view.entry.different_champs_played}}</span><br />
 						<span class="title">Versch. Champs</span>
 						</div>
 					<div class="stat">
-						<span class="value">{{view.entry.winrate}} %</span><br />
-						<span class="title">Winrate</span>
-						</div>
-					<div class="stat">
-						<span class="value">{{view.entry.cs_per_game}}</span><br />
-						<span class="title">CS / Spiel</span>
-						</div>
-					<div class="stat">
-						<span class="value">{{view.entry.playrate}} %</span><br />
-						<span class="title">Playrate</span>
-						</div>
-					<div class="stat">
-						<span class="value">{{view.entry.cs_per_minute}}</span><br />
-						<span class="title">CS / Minute</span>
+						<span class="value">{{view.entry.avg_kills | number: 1}} <span style='color: #4d4e56'>/</span> {{view.entry.avg_deaths | number: 1}} <span style='color: #4d4e56'>/</span> {{view.entry.avg_assists | number: 1}}</span><br />
+						<span class="title">K / D / A</span>
 						</div>
 					<div class="stat">
 						<span class="value">{{view.entry.player_streak.max_win_streak}}</span><br />

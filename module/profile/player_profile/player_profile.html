@@ -11,45 +11,32 @@
 					<div class="i-areachart user-league-profile-icon"></div>
 					</div>
 				<div class="body">
-					<div class="stat">
-						<span class="value">{{league_profile.entry.times_played}}</span><br />
-						<span class="title">Spiele gespielt</span>
+					<div class="chart-stat">
+						<div><league-highchart class="highcharts-container" league-instance="league_profile.instance_win_lose" league-highchart="league_profile.win_lose_chartdata"></league-highchart></div>
 						</div>
 					<div class="stat">
-						<span class="value">{{league_profile.entry.avg_kills | number: 1}} / {{league_profile.entry.avg_deaths | number: 1}} / {{league_profile.entry.avg_assists | number: 1}}</span><br />
-						<span class="title">K / D / A</span>
+						<span class="value">{{league_profile.entry.playrate | number: 1}} %</span><br />
+						<span class="title">Playrate</span>
 						</div>
 					<div class="stat">
-						<span class="value">{{league_profile.entry.times_won}}</span><br />
-						<span class="title">Spiele gewonnen</span>
-						</div>
-					<div class="stat">
-						<span class="value">{{league_profile.entry.hours_played}}</span><br />
+						<span class="value">{{league_profile.entry.hours_played | number: 1}}</span><br />
 						<span class="title">Stunden gespielt</span>
 						</div>
 					<div class="stat">
-						<span class="value">{{league_profile.entry.times_lost}}</span><br />
-						<span class="title">Spiele verloren</span>
+						<span class="value">{{league_profile.entry.cs_per_game | number: 1}}</span><br />
+						<span class="title">CS / Spiel</span>
+						</div>
+					<div class="stat">
+						<span class="value">{{league_profile.entry.cs_per_minute | number: 1}}</span><br />
+						<span class="title">CS / Minute</span>
 						</div>
 					<div class="stat">
 						<span class="value">{{league_profile.entry.different_champs_played}}</span><br />
 						<span class="title">Versch. Champs</span>
 						</div>
 					<div class="stat">
-						<span class="value">{{league_profile.entry.winrate}} %</span><br />
-						<span class="title">Winrate</span>
-						</div>
-					<div class="stat">
-						<span class="value">{{league_profile.entry.cs_per_game}}</span><br />
-						<span class="title">CS / Spiel</span>
-						</div>
-					<div class="stat">
-						<span class="value">{{league_profile.entry.playrate}} %</span><br />
-						<span class="title">Playrate</span>
-						</div>
-					<div class="stat">
-						<span class="value">{{league_profile.entry.cs_per_minute}}</span><br />
-						<span class="title">CS / Minute</span>
+						<span class="value">{{league_profile.entry.avg_kills | number: 1}} / {{league_profile.entry.avg_deaths | number: 1}} / {{league_profile.entry.avg_assists | number: 1}}</span><br />
+						<span class="title">K / D / A</span>
 						</div>
 					<div class="stat">
 						<span class="value">{{league_profile.entry.player_streak.max_win_streak}}</span><br />
@@ -121,6 +108,11 @@
 					</div>
 
 				</div>
+
+			<!-- <div class="flex-box-profile-chart"> -->
+				<!-- <div><league-highchart class="highcharts-container" league-instance="league_profile.instance_win_lose" league-highchart="league_profile.win_lose_chartdata"></league-highchart></div> -->
+				<!-- <div><league-highchart class="highcharts-container" league-instance="league_profile.instance_position_winrate" league-highchart="league_profile.position_winrate_chartdata"></league-highchart></div> -->
+				<!-- </div> -->
 
 			<div class="flex-box-profile-chart">
 				<div><league-highchart class="highcharts-container" league-instance="league_profile.instance_position" league-highchart="league_profile.position_chartdata"></league-highchart></div>

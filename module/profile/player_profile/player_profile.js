@@ -116,6 +116,9 @@ angular.module('customstats').controller('customstats.league_profile_controller'
 					// render position winrate chart
 					self.render_position_winrate_chart();
 
+					// render win lose chart
+					self.render_win_lose_chart();
+
 					// build players title list
 					self.entry.title_list = $leagueapi.get_player_title(data, self.title_config);
 					},
@@ -244,8 +247,13 @@ angular.module('customstats').controller('customstats.league_profile_controller'
 							pointWidth: 50
 							},
 						},
-					tooltip 	: {
-						format  : ' Spiele',
+					tooltip: {
+						pointFormat: '<span style="color: var(--light-blue-gray-1)">{point.y} Spiele</span>',
+						backgroundColor: '#000',
+						style: {
+							color: '#fff',
+							fontSize: '0.8rem',
+							},
 						},
 					series: [],
 					}, change_config);
@@ -308,7 +316,12 @@ angular.module('customstats').controller('customstats.league_profile_controller'
 						max			  	: 100,
 						},
 					tooltip: {
-						format: ' %'
+						pointFormat: '<span style="color: var(--light-blue-gray-1)">{point.y:.1f} % Winrate</span>',
+						backgroundColor: '#000',
+						style: {
+							color: '#fff',
+							fontSize: '0.8rem',
+							},
 						},
 					series: [],
 					}, change_config);
@@ -341,6 +354,92 @@ angular.module('customstats').controller('customstats.league_profile_controller'
 
 			// define global chartdata
 			self.position_winrate_chartdata = multichart.create_chart(new_chart);
+			},
+
+		render_win_lose_chart : function(change_config){
+			var self = this,
+				categories_length = 5,
+				data = self.position_winrate_rawdata,
+				series = null,
+				new_chart = angular.merge({
+					chart: {
+						height: 225,
+						width: 300,
+					    type: 'pie',
+						},
+					accessibility: {
+						point: {
+							valueSuffix: '%',
+							},
+						},
+					title: {
+						text: '<span style="color: var(--light-blue-gray-1); letter-spacing: 1px">Anzahl Spiele: <span style="color: #fff">'+self.entry.times_played+'</span></span>',
+						useHTML: true,
+						},
+			        subtitle: {
+			            text:   '<span style="font-size: 1.0rem; color: #e4f4ff; letter-spacing: 1px">'+self.entry.winrate+' %</span>'
+			            		+'<br>'
+			            		+'<span style="font-size: 0.8rem"> Winrate</span>',
+			            floating: true,
+			            useHTML: true,
+			            verticalAlign: 'middle',
+			            y: 28
+			        	},
+					tooltip: {
+						pointFormat: '',
+						backgroundColor: '#000',
+						style: {
+							color: '#fff',
+							fontSize: '1rem',
+							},
+						},
+					legend: {
+						enabled: false
+						},
+					plotOptions: {
+						series: {
+							allowPointSelect: false,
+							cursor: 'pointer',
+							dataLabels: [
+							{
+								enabled: true,
+								distance: -20,
+								format: '{point.y:.0f}',
+								style: {
+									fontSize: '0.9em'
+									},
+								}],
+							showInLegend: true
+							},
+						pie: {
+							size: 175,
+							},
+						},
+					series: [],
+					}, change_config);
+
+			// create series
+			series = {
+				'name'	: $scope.league_profile.entry.ingame_name,
+				'colorByPoint': true,
+				'innerSize': '60%',
+				'data'		: [
+					{name: 'WINS', y: parseInt(self.entry.times_won), colorIndex: 50},
+					{name: 'LOSES', y: parseInt(self.entry.times_lost), colorIndex: 51},
+					],
+				};
+
+			// add series to chart
+			new_chart.series.push(series);
+
+			// take series values
+			new_chart.series = _.values(new_chart.series);
+
+			// create single multichart
+			var multichart = $multichart.get_new();
+
+			// define global chartdata
+			self.win_lose_chartdata = multichart.create_chart(new_chart);
 			},
 
 		};

@@ -1,12 +1,37 @@
+:root {
+  --highcharts-background-color: transparent;
+
+  --highcharts-color-50: #bdeaee;
+  --highcharts-color-51: #894fe0;
+  }
+
 /* Remove borders around points */
 .highcharts-column-series rect.highcharts-point {
   stroke: none
   }
-
-/* Axes */
 
 /* Allow modifying axis colors  */
 .highcharts-axis-line {
   fill: none;
   stroke: revert-layer;
   }
+
+.highcharts-grid-line {
+    fill: none;
+    stroke: #0f1519;
+}
+
+.highcharts-tooltip-box {
+    stroke-width: 0;
+    fill: #1b1e1e;
+}
+
+.highcharts-color-50 {
+    fill: var(--highcharts-color-50);
+    stroke: var(--highcharts-color-50);
+}
+
+.highcharts-color-51 {
+    fill: var(--highcharts-color-51);
+    stroke: var(--highcharts-color-51);
+}

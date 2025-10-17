@@ -506,6 +506,12 @@ angular.module('customstats').controller('customstats.dashboard_controller', ['$
 							marker: {lineWidth: 1, lineColor: "#aafff7"}
 							},
 						},
+					tooltip: {
+						style: {
+							color: 'var(--light-blue-gray-1)',
+							fontSize: '0.8rem'
+							},
+						},
 					series: [],
 					withTrend: false,
 					}, change_config);

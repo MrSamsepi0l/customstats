@@ -390,6 +390,18 @@ angular.module('customstats').factory('$leagueapi', ['$http', '$app', '$phpdate'
                 ];
             },
 
+        get_champion_name_converted : function(champion_name = null){
+
+            // if no champion name given, return null
+            if(_.isEmpty(champion_name)) return champion_name;
+
+            // lowercase champion name without letter spaces
+            champion_name = (champion_name.split(' ').join('')).toLowerCase();
+
+            // return converted champion name
+            return champion_name;
+            },
+
         get_player_title : function(profile, title_config){
             var self = this, list = [], player;
 

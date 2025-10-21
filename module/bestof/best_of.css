@@ -7,7 +7,22 @@
     margin: 1em calc(50% - 40vw);
     }
 
+.tc-index {color: #4a4646}
+.tc-player {color: #c5ecff}
+.tc-champion {color: #ababab}
+.tc-number {color: #e9f0ff}
+.tc-rate {color: #94c7b4}
+.c-kda-separator {
+    color: var(--c-kda-separator);
+    }
+.bc-stat-box {
+    background-color: var(--main-bg-content-dark-1);;
+    }
+
 .bestof-complete {
+    --c-first-rank: #101c23;
+    --c-kda-separator: #494949; /* dark gray */
+
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -193,12 +208,6 @@
 
 
     }
-
-.tc-index {color: #4a4646}
-.tc-player {color: #c5ecff}
-.tc-champion {color: #ababab}
-.tc-number {color: #e9f0ff}
-.tc-rate {color: #94c7b4}
 
 .bestof-helper-headline {
     width: 32px;

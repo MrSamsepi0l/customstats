@@ -1,5 +1,5 @@
 <?php
-/* Last update: 2024-06-29
+/* Last update: 2024-10-25
 	Jeremiah Meyer - mobile TREND GmbH
 	*/
 use \jmeyer\error as e;
@@ -20,8 +20,8 @@ class controller {
 	    \customstats\extension\usersession_trait;
 
 	public $project = 'customstats';
-	public $version = '2.4.0';
-	public $version_date = '2025-10-13';
+	public $version = '2.5.0';
+	public $version_date = '2025-10-25';
 	public $version_int = 2;
 	public $user;
 	public $session_lifetime = 28800; // 8 hours

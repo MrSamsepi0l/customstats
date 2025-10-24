@@ -90,10 +90,13 @@ angular.module('customstats').controller('customstats.tournament_all_profile_con
 					self.entry = _.findWhere(data, {'playerID': self.filter.playerID});
 
 					// search champion by route param
-					if(!_.isUndefined($routeParams.ingame_name)){
+					if(!_.isUndefined($routeParams.ingame_name) || !_.isEmpty($routeParams.playerID)){
+
+						// define search obj
+						var search_obj = !_.isUndefined($routeParams.ingame_name) ? {'ingame_name': $routeParams.ingame_name} : {'playerID': parseInt($routeParams.playerID)};
 
 						// set entry
-						self.entry = _.findWhere(data, {'ingame_name': $routeParams.ingame_name});
+						self.entry = _.findWhere(data, search_obj);
 
 						// filter select by player ID
 						self.filter.playerID = self.entry.playerID;
@@ -115,6 +118,7 @@ angular.module('customstats').controller('customstats.tournament_all_profile_con
 			if(!playerID){
 
 				// reset route param
+				if(!_.isUndefined($routeParams.playerID)) $location.search('playerID', null);
 				if(!_.isUndefined($routeParams.ingame_name)) $location.search('ingame_name', null);
 
 				// reset entry

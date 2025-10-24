@@ -11,6 +11,11 @@
 				<span class="name" ng-class='{"tc-teal":tab == "schedule"}'>Spielplan</span>
 				</div>
 			</div>
+		<div class="tab" ng-show="app.user_has_right('customstats:tournament')">
+			<a class="link" href="#/tournament_all_profile" title="Alle Spieler">
+				<div class="name">Alle Spieler</div>
+				</a>
+			</div>
 		</section>
 
 		<div ng-if="tab == 'overview'" ng-include="'load_template/overview_tournament'"></div>

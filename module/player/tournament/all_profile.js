@@ -31,17 +31,6 @@ angular.module('customstats').controller('customstats.tournament_all_profile_con
 			'adc'		: 'Botlane',
 			'support'	: 'Support',
 			},
-		random_player_list : [
-			'A friendly Bot', 'balance pls', 'AirDnB', 'dogger57', 'Hot female IRL',
-			'Hans der Schreck', 'ZorkzZZ', 'PaulDieNummer9', 'ReginaRudolf', 'Cestrion', 'Dash Nightfall',
-			'AufDiePlötze', 'Bruno Bacardi', 'Adrenalinshadow', 'Horny Luigi', 'Bxsse', 'Boosting Hahn',
-			'ZUiUKY', 'ReLeAsEtHeKrAkEn', 'dreyooo', 'Xenoblade Shulk', 'KnolliTheSmain', 'DP Ebony n Ivory', 'zezinho 23',
-			'Kornliebhaber23', 'KrakenGod', 'Happy Blueberry', 'Downlaoder', 'Waterwalker', 'V12Motor',
-			'Kill That Feets', 'BalSagoth', 'SheSaidShesLvl18', 'fiTheXisTeD', 'Nelanix', 'Pensi', 'Happy Blueberry', 'prasilda66',
-			'Pogotronic', 'Stormdom', 'Torte57', 'burn in fires', 'NJ VENOM', 'Too Much Sauce 1', 'Quinntuple',
-			'Dr Holiday', 'BIG AND HAIRY', 'MostDoomedAcc', 'ChimpinhÀ', 'Sinfect', 'INT el LEE gent', '1547849', 'ContainerClaus',
-			'Thalset', 'Academia Hammer', 'janpulle', 'KloßmitSoß', 'SHaccoTacco',
-			],
 		title_config	: {
 			},
 		match_history	: {

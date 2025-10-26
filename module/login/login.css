@@ -14,6 +14,7 @@ a:hover {
 	justify-content: space-around;
 	flex-direction: column;
 	height: 100%;
+	animation: fadein 1.0s;
 
 	.card {
 		display: flex;
@@ -23,9 +24,11 @@ a:hover {
 		border: 1px solid #1c1c1c;
 		transition: border 0.5s ease-in;
 		border-width: 1;
-		border-radius: 6px;
+		border-radius: 10px;
 		color: #000;
-		background: linear-gradient(to right bottom, #0f3733, #1c9093);
+		/*background: linear-gradient(to right bottom, #0f3733, #1c9093);*/
+		background: #148585;
+		background: linear-gradient(90deg,rgba(20, 133, 133, 1) 0%, rgba(13, 93, 128, 1) 47%, rgba(59, 143, 133, 1) 100%);
 
 		.header {
 			display: flex;
@@ -33,7 +36,7 @@ a:hover {
 			height: 100px;
 			width: 100%;
 			padding: 0 0 0 25px;
-			border-bottom: 1px solid rgb(157 140 144 / 13%);
+			border-bottom: 1px solid rgb(237 230 232 / 13%);
 
 			.title {
 				font-family: sans-serif;
@@ -101,7 +104,7 @@ a:hover {
 
 			.login-button:hover {
 				transition: all 0.3s ease;
-				background-color: #0f1519;
+				background-color: #142329;
 				}
 
 			.login-error {
@@ -137,7 +140,7 @@ a:hover {
 
 		.card {
 			width: 25%;
-			height: 450px;
+			height: 475px;
 
 			.header {
 

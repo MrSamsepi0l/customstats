@@ -61,7 +61,11 @@ a:hover {
 .flex-box-navigation-bottom {
 	display: flex;
 	justify-content: center;
-	width: 75%;
+	width: 65%;
+	}
+
+.bottom-text-start {
+	font-size: 0.7rem;
 	}
 
 .button-login {

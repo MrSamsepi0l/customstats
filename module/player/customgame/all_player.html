@@ -204,7 +204,7 @@
 							<span class="value"><span class="tc-number">{{e.times_played}}</span><span class="title" style="margin-left: 1rem">Spiele</span></span><br />
 							</td>
 						<td class="stat ta-center v-middle">
-							<span class="value"><span class="tc-rate">{{e.winrate | number: 2}} %</span></span><br />
+							<span class="value"><span ng-class='{"tc-rate-win": e.winrate >= 50, "tc-rate-lose": e.winrate < 50}'>{{e.winrate | number: 2}} %</span></span><br />
 							<span class="title">Winrate</span>
 							</td>
 						<td class="stat ta-center v-middle">

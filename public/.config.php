@@ -36,6 +36,7 @@ if($this->user_logged()){
 
 	/* Highcharts JS einbinden */
 	$this->build_environment('header:js[]', $moduleurl.'/cdn/javascript/highcharts/highcharts_v12.js', 40);
-	$this->build_environment('header:js[]', $moduleurl.'/cdn/javascript/highcharts/highcharts-more.js', 41);
-	$this->build_environment('header:js[]', $moduleurl.'/js/highcharts.js', 42);
+	// $this->build_environment('header:js[]', $moduleurl.'/cdn/javascript/highcharts/highcharts-more.js', 41);
+	$this->build_environment('header:js[]', $moduleurl.'/cdn/javascript/highcharts/highcharts_histogram.js', 42);
+	$this->build_environment('header:js[]', $moduleurl.'/js/highcharts.js', 43);
 	}

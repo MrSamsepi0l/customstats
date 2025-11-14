@@ -127,6 +127,10 @@ angular.module('customstats').factory('$multichart', [function(){
 
 		create_chart : function(new_chart, formatter){
 
+			// check axis
+			if(_.isArray(new_chart.xAxis)) this.config.xAxis = [{}];
+			if(_.isArray(new_chart.yAxis)) this.config.yAxis = [{}];
+
 			// add defaults
 			new_chart = angular.merge({}, this.config, new_chart);
 
@@ -289,6 +293,10 @@ angular.module('customstats').directive('leagueHighchart', [function(){
 
 				// check if we have a new chart
 				if(!new_chart) return;
+
+				// check axis
+				if(_.isArray(new_chart.xAxis)) default_config.xAxis = [{}];
+				if(_.isArray(new_chart.yAxis)) default_config.yAxis = [{}];
 
 				// extend with default config
 				new_chart = angular.merge({}, default_config, new_chart);

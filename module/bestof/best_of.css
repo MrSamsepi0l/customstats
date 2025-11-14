@@ -12,6 +12,8 @@
 .tc-champion {color: #ababab}
 .tc-number {color: #e9f0ff}
 .tc-rate {color: #94c7b4}
+.tc-rate-win {color: #a7d5a7}
+.tc-rate-lose {color: #f7afaf}
 .c-kda-separator {
     color: var(--c-kda-separator);
     }

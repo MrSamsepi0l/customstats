@@ -53,7 +53,8 @@ angular.module('customstats').controller('customstats.dashboard_controller', ['$
 							},
 					    title: {
 					        text: 'Total Games Played',
-					        align: 'left'
+					        align: 'left',
+					        style: {'fontSize':'0.9rem','color':'whitesmoke'}
 					    	},
 					    subtitle: {
 					        text: 'in the last 12 months',
@@ -404,67 +405,97 @@ angular.module('customstats').controller('customstats.dashboard_controller', ['$
 			},
 
 		get_timeserie_game_duration : function(){
-			var self = this;
+			var self = this,
+				new_chart;
 
 			// define param
 			var param = {
 				'type'			: 'duration',
 				'run'			: 'dashboard',
+				'range_num'		: 1000,
 				'category'		: 'date',
-				'range_num'		: 50,
 				};
 
 			// load
 			$leagueapi.send_request('customstats_get_timeserie', param, {
 				200 : function(data){
 
-					// take rawdata
-					self.rawdata = data.reverse();
-
 					// render timeserie
-					self.render({
-						chart : {
-							type: 'area',
+					new_chart = {
+				    	chart : {
+				    		height: 225,
+				    		},
+						title: {
+							text: 'Game Duration Distribution',
+							align: 'left',
+							style: {'fontSize':'0.9rem','color':'whitesmoke'}
 							},
-					    title: {
-					        text: 'Game Duration Trend',
-					        align: 'left'
-					    	},
-					    subtitle: {
-					        text: 'in the last 50 games',
-					        align: 'left'
-					    	},
-						xAxis: {
-							visible: false
+						subtitle: {
+							text: 'of all '+_.size(data)+' custom games',
+							align: 'left',
 							},
-						yAxis: {
-							min: 10,
-							labels: {
-								format: '{value} min',
-					        	style : {
-					        		color: '#522150',
-					        		},
-								},
-							},
+						xAxis: [
+							{title: {}, labels: { format: '{value:.0f} min'}},
+							],
+						yAxis: [
+							{title: {text: 'Games'}},
+							{visible: false, min: -1, max: 1}
+							],
 						plotOptions: {
-							area: {
-								lineWidth: 1, lineColor: "#522150",
-								marker: {
-									enabled: false
-									},
+							series : {
+								pointWidth: 20,
 								}
 							},
-						withTrend: true,
-						trendColor: '#d6a5d5',
-						seriesColor: '#1c0c1c',
-						seriesTitle: 'Game duration',
-						seriesKey: 'duration',
-						}, 'duration');
+						tooltip: {
+							useHTML: true,
+						    pointFormatter: function(){
+						        const start = this.x.toFixed(1);
+						        const end = this.x2.toFixed(1);
+						        return `<div style="padding:4px 0;">
+						        	<span style="font-weight: 200; font-size: 11px;">Duration Range</span><br/>
+									<span style="font-weight: 200; color: #888">${start} – ${end} min</span><br>
+									<span style="font-size: 14px">Games: <b style="font-size: 13px">${this.y}</b></span>
+									</div>`;
+						        },
+							style: {
+								color: 'var(--light-blue-gray-1)',
+								fontSize: '0.8rem'
+								},
+							},
+				        series: [
+				        	{
+				            	name: 'Games played',
+				            	type: 'histogram',
+				            	data,
+				            	zIndex: 1,
+				            	opacity: 0.9,
+				            	},
+				            {
+				            	name: 'Observations',
+				            	type: 'scatter',
+				            	data: data.map(x => [x, 0]), // Data is one dimensional with values being displayed on the x-axis
+				            	yAxis: 1,
+				            	marker: {
+				                	radius: 1.5
+				            		},
+				            	jitter: {
+				                	y: 1
+				            		},
+				            	opacity: 0.5,
+				            	enableMouseTracking: false
+				        		},
+				        	],
+				    	};
+
+					// create multichart
+					var multichart = $multichart.get_new();
+					self.chartdata['duration'] = multichart.create_chart(new_chart);
 					},
 				'*' : function(data, status){
 
 					}
 				});
+
 			},
 
 		render : function(change_config, data_key = null){

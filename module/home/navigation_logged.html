@@ -129,16 +129,16 @@
 									<span class="text">BASE</span>
 									</div>
 								<div class="body" style="grid-template-columns: repeat(3,minmax(0,1fr)); min-width: 500px;">
-									<div class="item" style="margin-right: 3rem">
+									<div class="item" style="margin-right: 3rem" ng-if="app.user_has_right('customstats:admin_base:base_config')">
 										<a class="text" href="#/base_config">Config</a>
 										</div>
-									<div class="item" style="margin-right: 3rem">
+									<div class="item" style="margin-right: 3rem" ng-if="app.user_has_right('customstats:admin_base:user_config')">
 										<a class="text" href="#/user_config">User</a>
 										</div>
-									<div class="item" style="margin-right: 3rem">
+									<div class="item" style="margin-right: 3rem" ng-if="app.user_has_right('customstats:admin_base:champion_config')">
 										<a class="text" href="#/champion_config">Champions</a>
 										</div>
-									<div class="item" style="margin-right: 3rem">
+									<div class="item" style="margin-right: 3rem" ng-if="app.user_has_right('customstats:admin_base:leagueapi_config')">
 										<a class="text" href="#/leagueapi_config">Leagueapi</a>
 										</div>
 									</div>
@@ -158,10 +158,10 @@
 									<span class="text">CUSTOMGAMES</span>
 									</div>
 								<div class="body" style="grid-template-columns: repeat(2,minmax(0,1fr));">
-									<div class="item" style="margin-right: 3rem">
+									<div class="item" style="margin-right: 3rem" ng-if="app.user_has_right('customstats:admin:new_game')">
 										<a class="text" href="#/new_game">New Game</a>
 										</div>
-									<div class="item" style="margin-right: 3rem">
+									<div class="item" style="margin-right: 3rem" ng-if="app.user_has_right('customstats:admin_base:player_config')">
 										<a class="text" href="#/player_config">Player</a>
 										</div>
 									</div>
@@ -171,7 +171,7 @@
 									<span class="text">TURNIERE</span>
 									</div>
 								<div class="body">
-									<div class="item" style="margin-right: 3rem">
+									<div class="item" style="margin-right: 3rem" ng-if="app.user_has_right('customstats:admin_tournament')">
 										<a class="text" href="#/admin_tournament">Configuration</a>
 										</div>
 									</div>

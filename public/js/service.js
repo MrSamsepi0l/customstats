@@ -104,7 +104,7 @@ angular.module('customstats').factory('$app', ['$rootScope', '$http', '$interval
                     $stash.board_status = data;
 
                     // also set users tournament playerID if possible
-                    if(!_.isUndefined(data.user.data.league) && !_.isUndefined(data.user.data.league.tournament.playerID)){
+                    if(!_.isUndefined(data.user) && !_.isUndefined(data.user.data) && !_.isUndefined(data.user.data.league) && !_.isUndefined(data.user.data.league.tournament.playerID)){
 
                         // add tournament playerID to board user
                         $stash.board_status.user.t_playerID = data.user.data.league.tournament.playerID;

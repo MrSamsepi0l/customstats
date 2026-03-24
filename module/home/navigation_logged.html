@@ -6,10 +6,10 @@
 			<div class="h-full flex items-center mx-4 grow">
 				<div class="items-center flex-row h-full lg-flex">
 					<div class="group lg-flex xl-pd-14 h-full">
-						<div class="flex flex-row h-full items-center cursor-pointer justify-between" style="width: 16ch">
+						<div class="flex flex-row h-full items-center cursor-pointer justify-between" style="width: 16ch" ng-if="app.user_has_right('customstats:dashboard')">
 							<a class="inline-block link" style="font-size: 18px" href="#/dashboard" title="Dashboard">Dashboard</a>
 							</div>
-						<div class="flex flex-row h-full items-center cursor-pointer justify-between" style="width: 10ch">
+						<div class="flex flex-row h-full items-center cursor-pointer justify-between" style="width: 10ch" ng-if="app.user_has_right('customstats:chat')">
 							<a class="inline-block link" style="font-size: 18px" href="#/chat">Chat</a>
 							</div>
 						<div class="flex flex-row h-full link items-center cursor-pointer justify-between" style="width: 16ch" custom-tooltip-nav custom-tooltip-delay="0" custom-tooltip-option='{"background":"#0a0e13", "border":"1px solid rgb(255, 255, 255 / 0.3)","border-width":"1px"}' custom-tooltip-append-id="header-nav-customgame" custom-tooltip-position="down" id="header-nav-customgame">
@@ -20,13 +20,13 @@
 											<span class="text">GENERAL</span>
 											</div>
 										<div class="body">
-											<div class="item" style="margin-right: 3rem">
+											<div class="item" ng-if="app.user_has_right('customstats:tabview_all_player')" style="margin-right: 3rem">
 												<a class="text" href="#/all_player">Alle Spieler</a>
 												</div>
-											<div class="item" style="margin-right: 3rem">
+											<div class="item" ng-if="app.user_has_right('customstats:champions')" style="margin-right: 3rem">
 												<a class="text" href="#/champions">Champions</a>
 												</div>
-											<div class="item">
+											<div class="item" ng-if="app.user_has_right('customstats:tabview_media')">
 												<a class="text" href="#/sources">Quellen</a>
 												</div>
 											</div>
@@ -36,10 +36,10 @@
 											<span class="text">STATS</span>
 											</div>
 										<div class="body">
-											<div class="item">
+											<div class="item" ng-if="app.user_has_right('customstats:best_of')">
 												<a class="text" href="#/best_of">Best Of</a>
 												</div>
-											<div class="item" style="margin-right: 2rem">
+											<div class="item" ng-if="app.user_has_right('customstats:tabview_analysis')" style="margin-right: 2rem">
 												<a class="text" href="#/ingame_combination">Comparison</a>
 												</div>
 											</div>
@@ -54,7 +54,7 @@
 								<path fill-rule="evenodd" clip-rule="evenodd" fill="#bbedff" d="M18.2929 15.2893C18.6834 14.8988 18.6834 14.2656 18.2929 13.8751L13.4007 8.98766C12.6195 8.20726 11.3537 8.20757 10.5729 8.98835L5.68257 13.8787C5.29205 14.2692 5.29205 14.9024 5.68257 15.2929C6.0731 15.6835 6.70626 15.6835 7.09679 15.2929L11.2824 11.1073C11.673 10.7168 12.3061 10.7168 12.6966 11.1073L16.8787 15.2893C17.2692 15.6798 17.9024 15.6798 18.2929 15.2893Z" fill="#0F0F0F"/>
 								</svg> -->
 							</div>
-						<div class="flex flex-row h-full link items-center cursor-pointer justify-between" style="margin-left: 30px; width: 13ch" custom-tooltip-nav custom-tooltip-delay="0" custom-tooltip-option='{"background":"#0a0e13", "border":"1px solid rgb(255, 255, 255 / 0.3)","border-width":"1px"}' custom-tooltip-append-id="header-nav-tournament" custom-tooltip-position="down" id="header-nav-tournament">
+						<div class="flex flex-row h-full link items-center cursor-pointer justify-between" ng-if="app.user_has_right('customstats:tournament')" style="margin-left: 30px; width: 13ch" custom-tooltip-nav custom-tooltip-delay="0" custom-tooltip-option='{"background":"#0a0e13", "border":"1px solid rgb(255, 255, 255 / 0.3)","border-width":"1px"}' custom-tooltip-append-id="header-nav-tournament" custom-tooltip-position="down" id="header-nav-tournament">
 							<content-template ng-show="false">
 								<div class="flex open-nav-menu flex-col">
 									<div class="flex flex-col menu">
@@ -102,10 +102,10 @@
 									<div class="item" ng-if="app.user_has_right('customstats:profile')" style="margin-right: 3rem">
 										<a class="text" ng-href="#/profile" ><span>Account</span></a>
 										</div>
-									<div class="item" style="margin-right: 3rem">
+									<div class="item" style="margin-right: 3rem" ng-if="app.user_has_right('customstats:all_player')">
 										<a class="text" ng-href="#/all_player?playerID={{app.board_get_value('playerID')}}"><span>Customgames</span></a>
 										</div>
-									<div class="item">
+									<div class="item" ng-if="app.user_has_right('customstats:tournament:all_profile')">
 										<a class="text" ng-href="#/tournament_all_profile?playerID={{app.board_get_value('t_playerID')}}"><span>Turniere</span></a>
 										</div>
 									</div>

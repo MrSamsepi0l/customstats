@@ -14,6 +14,7 @@ angular.module('customstats').factory('$app', ['$rootScope', '$http', '$interval
             version_date: null,
             request_time: 0,
             force_reload: null,
+            logged_in   : false,
 
             // user specific data
             user        : {
@@ -24,6 +25,7 @@ angular.module('customstats').factory('$app', ['$rootScope', '$http', '$interval
                 api_key     : null,
                 real_name   : null,
                 createTime  : null,
+                total_logins: 0,
                 playerID    : 0,
                 t_playerID  : 0,
                 data        : [],
@@ -88,6 +90,9 @@ angular.module('customstats').factory('$app', ['$rootScope', '$http', '$interval
                             self.board_load_status();
                             }, reload_interval);
                         }
+
+                    // mark user as logged in
+                    data.logged_in = true;
 
                     // first, define data also globally
                     self.data = data;

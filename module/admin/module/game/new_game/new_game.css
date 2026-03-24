@@ -1,121 +1,145 @@
-.flex-box-new-game {
+.new-customgame {
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
-	align-items: center;
-	flex-direction: column;
 	width: 100%;
-	margin-top: 6px;
-	background: #0a0e13;
-	padding: 5px 5px 5px 5px;
+
+    >.header {
+        width: 100%;
+        padding: 3rem 3rem 3rem 3rem;
+        animation: fadein .8s;
+
+        /* new */
+        background-color: #0f1519;
+
+        >.headline {
+            font-size: 3rem;
+            letter-spacing: 3px;
+            color: var(--tc-headline);
+            }
+        }
+
+	>.body {
+		display: flex;
+		justify-content: center;
+
+		>.flex-box-new-game {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			width: 65%;
+			background: #0a0e13;
+			padding: 1rem 1rem 1rem 1rem;
+
+			>.footer {
+				display: flex;
+				width: 100%;
+				justify-content: space-between;
+				margin-top: 20px;
+				}
+
+			>.team {
+				display: flex;
+				width: 100%;
+				flex-direction: column;
+
+				>.header {
+					display: flex;
+					width: 100%;
+					min-height: 50px;
+					flex-direction: row;
+					align-items: center;
+					justify-content: space-between;
+					}
+
+				>.body {
+					display: flex;
+					width: 100%;
+					flex-direction: column;
+					align-items: center;
+					justify-content: space-evenly;
+					min-height: 50px;
+
+					>.player {
+						display: flex;
+						width: 100%;
+						flex-direction: row;
+						align-items: center;
+						justify-content: space-between;
+						min-height: 50px;
+
+						>.summoner {
+							display: flex;
+							flex-direction: row;
+							flex-wrap: wrap;
+							}
+
+						>.summoners {
+							display: flex;
+							flex-direction: row;
+							flex-wrap: wrap;
+							}
+
+						>.level {
+							display: flex;
+							flex-direction: row;
+							flex-wrap: wrap;
+							}
+
+						>.champion {
+							display: flex;
+							flex-direction: row;
+							flex-wrap: wrap;
+							}
+
+						/* Position */
+						>.position {
+							display: flex;
+							flex-direction: row;
+							flex-wrap: wrap;
+							}
+
+						/* K/D/A */
+						>.kda {
+							display: flex;
+							flex-direction: row;
+							flex-wrap: wrap;
+
+							>.input {
+								width: 50px;
+								}
+							}
+
+						/* CS */
+						>.cs {
+							display: flex;
+							flex-direction: row;
+							flex-wrap: wrap;
+
+							>.input {
+								width: 50px;
+								}
+							}
+
+						/* Gold */
+						>.gold {
+							display: flex;
+							flex-direction: row;
+							flex-wrap: wrap;
+
+							>.input {
+								width: 50px;
+								}
+							}
+						}
+					}
+				}
+			}
+
+		}
 	}
 
-.flex-box-new-game .footer {
-	display: flex;
-	width: 100%;
-	justify-content: space-between;
-	margin-top: 20px;
-	}
-
-.flex-box-new-game .team {
-	display: flex;
-	width: 100%;
-	flex-direction: column;
-	}
-
-.flex-box-new-game .team .header {
-	display: flex;
-	width: 100%;
-	min-height: 50px;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
-	}
-
-.flex-box-new-game .team .body {
-	display: flex;
-	width: 100%;
-	flex-direction: column;
-	align-items: center;
-	justify-content: space-evenly;
-	min-height: 50px;
-	}
-
-.flex-box-new-game .team .body .player {
-	display: flex;
-	width: 100%;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
-	min-height: 50px;
-	}
-
-/* Summoner Spells */
-.flex-box-new-game .team .body .summoners {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	}
-
-/* Level */
-.flex-box-new-game .team .body .level {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	}
-
-/* Champion */
-.flex-box-new-game .team .body .champion {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	}
-
-/* Summoner */
-.flex-box-new-game .team .body .summoner {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	}
-
-/* Position */
-.flex-box-new-game .team .body .position {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	}
-
-/* K/D/A */
-.flex-box-new-game .team .body .kda {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	}
-
-.flex-box-new-game .team .body .kda .input {
-	width: 50px;
-	}
-
-/* CS */
-.flex-box-new-game .team .body .cs {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	}
-
-.flex-box-new-game .team .body .cs .input {
-	width: 50px;
-	}
-
-/* Gold */
-.flex-box-new-game .team .body .gold {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	}
-
-.flex-box-new-game .team .body .gold .input {
-	width: 50px;
-	}
 
 .new-game-input {
 	color: #ffffff;

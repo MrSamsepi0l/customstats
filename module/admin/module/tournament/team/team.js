@@ -83,8 +83,6 @@ angular.module('customstats').controller('customstats.admin_tournament:team_cont
 						if(_.contains(e.tag, 'departed')) e.departed = true;
 						});
 
-					console.log(data);
-
 					// take data
 					self.entry_edit.team_player = data;
 					},

@@ -419,6 +419,345 @@ angular.module('customstats').directive('customTooltip', ['$document', '$timeout
 		};
 	}]);
 
+// Directive: popup (popup/modal directive)
+angular.module('customstats').directive('customTooltipNav', ['$document', '$timeout', '$compile', '$window', '$location', '$rootScope', function($document, $timeout, $compile, $window, $location, $rootScope){
+
+	/*
+	- custom tooltip directive for any html code inside a tooltip, triggered on any element
+
+	Example HTML (no table):
+	<span custom-tooltip class='float-right tc-white fas fa-cog p-1' custom-tooltip-position='down' custom-tooltip-option='{"width":"200px"}'>
+		<content-template>
+			<h6>Test</h6>
+			</content-template>
+		</span>
+
+	Example HTML (table)
+	<tr custom-tooltip custom-tooltip-option='{"width":"200px"}' custom-tooltip-in-table="true" custom-tooltip-append-id="bestof-tooltip-append" custom-tooltip-position="right" id="bestof-tooltip-append">
+		<td ng-show="false">
+		<content-template>
+			<span>Test</span>
+			</content-template></td>
+		<td></td>
+		<td></td>
+		</tr>
+
+	Parameters:
+	- custom-tooltip
+	- custom-tooltip-position="down|top|left|right"		// default top
+	- custom-tooltip-option="{'width':''|'height':''|'z-index':''}"	// default: none
+	- custom-tooltip-delay="int"						// default: 0.5 seconds
+	- custom-tooltip-append-id="string"					// default: none
+	*/
+
+	// set unique ID for directive
+	var uniqueId = 2;
+
+	return {
+		restrict: 'A',
+		scope : true,
+		link: function($scope, element, attrs){
+			$scope.customTooltipClass = ["custom-tooltip-nav"];
+			$scope.customTooltipStyle = {};
+			var x = $scope.$eval(attrs.customTooltipOption),
+				timer_show = null,
+				timer_hide = null,
+				clicked = false,
+				hover = $compile(
+						'<div ng-class="customTooltipClass" ng-style="customTooltipStyle" ng-attr-id="{{::uniqueTooltipId}}">'
+							+'<div class="float-right"><span class="span-button fas fa-times" ng-click="closeCustomTooltip();"></span></div>'
+							+'<custom-tooltip-content></custom-tooltip-content>' /*class="p-3"*/
+							+'</div>')($scope),
+				hover_show = 'custom-tooltip-nav-show',
+				hover_hide = 'custom-tooltip-nav-hide',
+				clickable = ($scope.$eval(attrs.customTooltipClickable) == false) ? $scope.$eval(attrs.customTooltipClickable) : false;
+
+			// set unique ID for each directive
+			$scope.uniqueTooltipId = 'ct-u-'+uniqueId++;
+
+			// function for closing tooltip
+			$scope.closeCustomTooltip = function(){
+
+				// set clicked on false
+				clicked = false;
+
+				// hide tooltip
+				click_hide();
+				}
+
+			// if tooltip option width/height is set
+			if(x && x.width){
+				$scope.customTooltipStyle.width = x.width;
+				}
+			if(x && x.height){
+				$scope.customTooltipStyle.height = x.height;
+				}
+			if(x && x.background){
+				$scope.customTooltipStyle.background = x.background;
+				}
+			if(x && x['z-index']){
+				$scope.customTooltipStyle['z-index'] = x['z-index'];
+				}
+
+			// if tooltip position is set
+			if(attrs.customTooltipPosition){
+				$scope.customTooltipClass.push('custom-tooltip-nav-' + attrs.customTooltipPosition);
+				}
+			else {
+				$scope.customTooltipClass.push('custom-tooltip-nav-down');
+				}
+
+			// append hover on the document
+			function appendHover(){
+
+				// if element is inside a table (problems with rendering and getting child element of <tr>)
+				if(attrs.customTooltipInTable) hover.children('custom-tooltip-content').append(element.children('td').children('content-template'));
+
+				// append the "content-template" on hover
+				else hover.find('custom-tooltip-content').append(element.children('content-template').children());
+
+				// if attribute customTooltipAppendId is set, append hover on element with this ID
+				if(attrs.customTooltipAppendId) angular.element(document.getElementById(attrs.customTooltipAppendId)).append(hover);
+
+				// otherwise append hover on body class (default)
+				else angular.element(document.getElementById('custom-stats')).append(hover);
+				}
+
+			function tooltip_position(e){
+
+				// add class to show element
+				hover.addClass(hover_show);
+
+				// some default values
+				var pos = e[0].getBoundingClientRect(),
+					offset = hover.offset(),
+					hoverHeight = hover.outerHeight(),
+					hoverWidth = hover.outerWidth(),
+					elWidth = pos.width || pos.right - pos.left,
+					elHeight = pos.height || pos.bottom - pos.top,
+					hoverOffset = 0,
+					scrollOnBody = $document.find('body')[0].scrollTop;
+
+				// console.log(pos, offset, hoverHeight, hoverWidth, elWidth, elHeight);
+
+				// some calculation
+				if(hover.hasClass('custom-tooltip-nav-down')) {
+					offset.top = pos.top + elHeight + hoverOffset + scrollOnBody;
+					offset.left = pos.left - (hoverWidth / 2) + (elWidth / 2);
+					}
+				else if(hover.hasClass('custom-tooltip-nav-left')) {
+					offset.top = pos.top - (hoverHeight / 2) + (elHeight / 2) + scrollOnBody;
+					offset.left = pos.left - hoverWidth - hoverOffset;
+					}
+				else if(hover.hasClass('custom-tooltip-nav-right')) {
+					offset.top = pos.top - (hoverHeight / 2) + (elHeight / 2) + scrollOnBody;
+					offset.left = pos.right + hoverOffset;
+					}
+				else {	// tooltip-top
+					offset.top = pos.top - hoverHeight - hoverOffset + scrollOnBody;
+					offset.left = pos.left - (hoverWidth / 2) + (elWidth / 2);
+					}
+
+				// set offset for template
+				hover.offset(offset);
+
+				// take some params
+				var hover_pos = hover[0].getBoundingClientRect(),
+					window_width = $window.innerWidth,
+					offset = hover.offset();
+
+				// if hover element right position is bigger than viewport, recalculate right and left
+				if(hover_pos.right > window_width){
+					offset.right = hover_pos.right - window_width;
+					offset.left = offset.left - offset.right;
+					}
+				else if(hover_pos.left < 0){
+					offset.left = 0;
+					offset.right = offset.right + Math.abs(hover_pos.left);
+					}
+
+				// set offset again
+				hover.offset(offset);
+				}
+
+			function pre_check(){
+
+				// cancel hide timeout
+				$timeout.cancel(timer_hide);
+				timer_hide = null;
+
+				// return if already show
+				// if(hover[0] && hover[0].classList.contains(hover_show)) return;
+
+				// append
+				appendHover();
+				}
+
+			function mouse_enter(e){
+
+				// pre check + appendHover
+				pre_check();
+
+				// if delay is defined
+				if(attrs.customTooltipDelay) {
+
+					// timeout for showing
+					timer_show = $timeout(function(){
+						tooltip_position(e);
+						}, attrs.customTooltipDelay * 1000);
+					}
+				else {
+
+					// timeout for showing
+					timer_show = $timeout(function(){
+						tooltip_position(e);
+						}, 50);
+					}
+				}
+
+			function mouse_leave(){
+
+				// dont close if clicked before
+				if(clicked) return;
+
+				// cancel open timeout
+				$timeout.cancel(timer_show);
+				timer_show = null;
+
+				// after 300ms, add class to animation hide
+				timer_hide = $timeout(function(){
+
+					// add class hover_hide (fade out of tooltip)
+					hover.addClass(hover_hide);
+
+					// after length of animation (75ms), remove classes and element from document
+					$timeout(function() {
+						hover.removeClass(hover_show);
+						hover.removeClass(hover_hide);
+
+						var node = document.getElementById($scope.uniqueTooltipId);
+						if(node) node.parentNode.removeChild(node);
+						}, 75);
+					}, 100);
+				}
+
+			function click_show(e){
+
+				// pre check + appendHover
+				pre_check();
+
+				// "timeout" for showing
+				timer_show = $timeout(function(){
+					tooltip_position(e);
+					}, 0);
+				}
+
+			function click_hide(){
+
+				// cancel timeout and reset
+				$timeout.cancel(timer_show);
+				timer_show = null;
+
+				// remove class
+				hover.removeClass(hover_show);
+				}
+
+			function toggle_click(e){
+
+				// toggle click
+				clicked = !clicked;
+
+				if(!clicked) click_hide();
+				else click_show(e);
+				}
+
+			// click event on icon
+			element.on('click', function(e){
+
+				// if not allowed to click
+				if(!clickable) return;
+
+				// toggle click
+				toggle_click(element);
+				});
+
+			// mouseenter
+			element.on('mouseenter', function(e){
+
+				timer_show = $timeout(function(){
+
+					mouse_enter(element);
+					}, 55);
+
+				// show tooltip
+				// $timeout.cancel(timer_hide);
+				// timer_hide = null;
+
+				});
+
+			// mouseleave
+			element.on('mouseleave', function(e){
+
+				// "timeout" for showing
+				timer_hide = $timeout(function(){
+
+					// call mouse leave event
+					mouse_leave();
+					}, 1);
+				});
+
+			// on mouseenter event on hover template
+			hover.on('mouseenter', function(e){
+
+				// cancel hide timeout
+				// $timeout.cancel(timer_hide);
+				// timer_hide = null;
+				});
+
+			// on mouseleave event on hover template
+			hover.on('mouseleave', function(e){
+
+				// "timeout" for showing
+				timer_hide = $timeout(function(){
+
+					// call mouse leave event
+					mouse_leave();
+					}, 1);
+				});
+
+			// this happens if element is destroyed, remove everything
+			$scope.$on('$destroy', function(){
+
+				// "timeout" for showing
+				timer_hide = $timeout(function(){
+
+					// call mouse leave event
+					mouse_leave();
+					}, 1);
+				});
+
+			// if location changed: force close popup instantly
+			$scope.$on('$locationChangeSuccess', function(){
+				var new_domain = $location.host();
+				var current_domain = null;
+
+				// if domain changed successfully
+				if(new_domain !== current_domain){
+
+					// safe new domain
+					current_domain = new_domain;
+
+					// call mouse leave event
+					mouse_leave();
+
+					// Execute callback
+					$scope.$eval(attrs.domainWatcher);
+					}
+				});
+			}
+		};
+	}]);
+
 // Directive: league-popup (popup/modal directive)
 angular.module('customstats').directive('leaguePopup', function($document){
 	return {

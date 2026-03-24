@@ -1,25 +1,42 @@
 <article ng-controller="customstats.league_source_controller" class="container">
 
-	<section class="champion-search-bar">
-		<input class="input" type="text" ng-model="view.filter.string" placeholder="Suche ..." />
-		<select class="select" ng-options="e for e in view.filter.date_list" ng-model="view.filter.gameDate" ng-change="view.get_source_url()">
-			<option value="">Alle Quellen</option>
-			</select>
-		</section>
+	<div class="sources">
 
-	<section>
-
-		<div ng-repeat="(key, list) in view.list | filter: view.filter.string | groupBy:'gameDate'" class="flex-box">
-			<span class="source-line">{{key | phpdate: 'd-m-Y'}}</span><br />
-
-			<!-- deprecated, old implementation -->
-			<img ng-if="!e.filename" ng-repeat="e in list" class="source-url" ng-src="{{e.url}}" />
-
-			<!-- new implementation -->
-			<img ng-if="e.filename" ng-repeat="e in list" class="source-url" ng-src="{{'/public/img/customgame/source/' + e.filename}}" />
-
+		<div class="header">
+			<div class="headline ta-center">
+				<span class="text">Quellen</span>
+				</div>
+			<section class="source-search">
+				<input class="input" type="text" ng-model="view.filter.string" placeholder="Suche ..." />
+				<select class="select" ng-options="e for e in view.filter.date_list" ng-model="view.filter.gameDate" ng-change="view.get_source_url()">
+					<option value="">Alle Quellen</option>
+					</select>
+				</section>
 			</div>
-		</section>
+
+		<div class="body">
+			<div>
+				<div ng-repeat="(key, list) in view.list | filter: view.filter.string | groupBy:'gameDate'" class="flex-box">
+					<span class="source-line">{{key | phpdate: 'd.m.Y'}}</span><br />
+
+					<!-- deprecated, old implementation -->
+					<img ng-if="!e.filename" ng-repeat="e in list" class="source-url" ng-src="{{e.url}}" ng-click="view.entry = e" />
+
+					<!-- new implementation -->
+					<img ng-if="e.filename" ng-repeat="e in list" class="source-url" ng-click="view.entry = e"  ng-src="{{'/public/img/customgame/source/' + e.filename}}" />
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	<league-popup ng-if="view.entry" xa-popup-options='{"overlayClose":true, "width":"58%", "top":"50%", "height": "650px", "left":"52%", "background":"transparent !important", "position":"fixed", "transform":"translate(-50%, -50%)"}'>
+		<body-part>
+			<div>
+				<img ng-src="{{'/public/img/customgame/source/' + view.entry.filename}}" />
+				</div>
+			</body-part>
+		</league-popup>
 
 	<div ng-if="view.status == 100" class="loading-div"></div>
 

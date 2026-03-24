@@ -181,6 +181,14 @@ class controller {
 		// take user data
 		$user = $this->user;
 
+		// load session list
+		$res = base_session::get_session([
+			'identifier'	=> $user->api_key,
+			]);
+
+		// on success
+		$total_logins = ($res->status == 200) ? count($res->data) : 0;
+
 		// define status object
 		$status = (object)[
 
@@ -193,16 +201,17 @@ class controller {
 
 			// user specific stats
 			'user'			=> (object)[
-				'username'	=> $user->username,
-				'email'		=> $user->email,
-				'enabled'	=> $user->enabled,
-				'donation'	=> $user->donation,
-				'api_key'	=> $user->api_key,
-				'real_name'	=> $user->real_name,
-				'createTime'=> $user->createTime,
-				'playerID'	=> $user->playerID,
-				'data'		=> $user->data,
-				'right'		=> $user->right ?? [],
+				'username'		=> $user->username,
+				'email'			=> $user->email,
+				'enabled'		=> $user->enabled,
+				'donation'		=> $user->donation,
+				'api_key'		=> $user->api_key,
+				'real_name'		=> $user->real_name,
+				'createTime'	=> $user->createTime,
+				'playerID'		=> $user->playerID,
+				'data'			=> $user->data,
+				'right'			=> $user->right ?? [],
+				'total_logins'	=> $total_logins,
 				],
 
 			// session lifetime stats

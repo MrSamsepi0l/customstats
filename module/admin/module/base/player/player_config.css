@@ -1,3 +1,22 @@
+.admin-player-config {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	min-height: 800px;
+
+	>.header {
+
+		}
+
+	>.body {
+		width: 65%;
+
+		}
+
+	}
+
 .player-config-search-bar {
 	display: flex;
 	justify-content: flex-start;
@@ -107,7 +126,7 @@
 .flex-box-player-config .api-entry {
 	display: flex;
 	width: 65%;
-	max-height: 625px;
+	max-height: 650px;
 	flex-direction: column;
 	background: linear-gradient(to right bottom, #050a0c, #320518);
 	}

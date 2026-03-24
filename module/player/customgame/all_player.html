@@ -1,67 +1,75 @@
 <article ng-controller="customstats.all_player_controller">
 
-	<section class="allplayer-search-bar">
-		<input type="text" ng-model="view.filter.string" ng-if="!view.entry" placeholder="Suche ..." />
-		<select class="select all-player-scrollbar" ng-options="e.playerID as e.ingame_name for e in view.list | orderBy:['-times_played']" ng-change="view.reset_render_limit(); view.get_player_profile(view.filter.playerID)" ng-model="view.filter.playerID" ng-style='{"width":!view.entry ? "200px" : "70%"}'>
-			<option value="">Alle Spieler</option>
-			</select>
-		<select class="select all-player-scrollbar" ng-options="e.value as e.key for e in view.filter.option" ng-if="!view.entry" ng-model="view.order_by" style="width: 20%"></select>
-		<button ng-class='{"i-arrow-up": view.filter.sort_order == "asc", "i-arrow-down": view.filter.sort_order == "desc"}' class="all-player-icon i-arrow-up" ng-if="!view.entry" ng-click="view.order_list(view.filter.sort_order)" style="border: 1px solid #787878"></button>
-		<input class="input" type="number" ng-change="view.filter_player_games(view.filter.quant)" ng-if="!view.entry" placeholder="Minimum Spiele" ng-model="view.filter.quant" />
-		</section>
+	<section class="all-player">
 
-	<section class="playerlist" ng-if="!view.entry">
-		<div class="player" ng-repeat="e in view.list | filter: {'ingame_name': view.filter.string} | customOrderBy:view.order_by:view.filter.sort_order" ng-click="view.get_player_profile(e.playerID)">
-
-			<div class="name-box">
-				<div class="ingame">{{e.ingame_name}}</div>
-				<div class="real">{{e.real_name}}</div>
+		<div class="header">
+			<div class="headline ta-center">
+				<span class="text">Alle Spieler</span>
 				</div>
-
-			<!-- special case for Käsi (playerID == 7 including dev|production) -->
-			<div class="champ-box" ng-if="e.playerID == 7">
-				<div class="icon teemo"></div>
-				<div class="name">Teemo</div>
+			<div class="allplayer-search-bar">
+				<input type="text" ng-model="view.filter.string" ng-if="!view.entry" placeholder="Suche ..." />
+				<select class="select all-player-scrollbar" ng-options="e.playerID as e.ingame_name for e in view.list | orderBy:['-times_played']" ng-change="view.reset_render_limit(); view.get_player_profile(view.filter.playerID)" ng-model="view.filter.playerID" style="width: 200px">
+					<option value="">Alle Spieler</option>
+					</select>
+				<select class="select all-player-scrollbar" ng-options="e.value as e.key for e in view.filter.option" ng-if="!view.entry" ng-model="view.order_by" style="width: 20%"></select>
+				<button ng-class='{"i-arrow-up": view.filter.sort_order == "asc", "i-arrow-down": view.filter.sort_order == "desc"}' class="all-player-icon i-arrow-up" ng-if="!view.entry" ng-click="view.order_list(view.filter.sort_order)" style="border: 1px solid #787878"></button>
+				<input class="input" type="number" ng-change="view.filter_player_games(view.filter.quant)" ng-if="!view.entry" placeholder="Minimum Spiele" ng-model="view.filter.quant" />
 				</div>
-
-			<!-- all other players get their most played champion -->
-			<div class="champ-box" ng-if="e.playerID != 7">
-				<div class="icon {{e.champion_with_player[0].champion_converted}}"></div>
-				<div class="name">{{e.champion_with_player[0].champion}}</div>
-				</div>
-
-			<div class="last-game-box">
-				<div class="date">{{e.last_game | phpdate: 'd.m.Y'}}</div>
-				<div class="title">Letztes Spiel</div>
-				</div>
-
-			<div class="kda-box">
-				<div class="kda">{{e.kda_number | number: 1}}</div>
-				<div class="title">KDA</div>
-				</div>
-
-			<div class="play-rate-box">
-				<div class="chart">
-					<div><league-highchart class="highcharts-container" league-instance="view.instance_playrate[e.playerID]" league-highchart="view.playrate_chartdata_list[e.playerID]"></league-highchart></div>
-					</div>
-				</div>
-
-			<div class="win-lose-box">
-				<div class="chart">
-					<div><league-highchart class="highcharts-container" league-instance="view.instance_win_lose_list[e.playerID]" league-highchart="view.win_lose_chartdata_list[e.playerID]"></league-highchart></div>
-					</div>
-				</div>
-
-			<div class="donation-box">
-				<div class="donation" ng-if="e.donation">{{e.donation}} €</div>
-				<div class="donation" ng-if="!e.donation">0.00 €</div>
-				<div class="title">Donation</div>
-				</div>
-
 			</div>
-		</section>
 
-	<section class="flex-box-league-profile" ng-if="view.entry">
+		<div class="body">
+			<div class="playerlist" ng-show="!view.entry">
+				<div class="player" ng-style="{'--item-index': $index}" ng-repeat="e in view.list | filter: {'ingame_name': view.filter.string} | customOrderBy:view.order_by:view.filter.sort_order" ng-click="view.get_player_profile(e.playerID)">
+
+					<div class="name-box">
+						<div class="ingame">{{e.ingame_name}}</div>
+						<div class="real">{{e.real_name}}</div>
+						</div>
+
+					<!-- special case for Käsi (playerID == 7 including dev|production) -->
+					<div class="champ-box" ng-if="e.playerID == 7">
+						<div class="icon teemo"></div>
+						<div class="name">Teemo</div>
+						</div>
+
+					<!-- all other players get their most played champion -->
+					<div class="champ-box" ng-if="e.playerID != 7">
+						<div class="icon {{e.champion_with_player[0].champion_converted}}"></div>
+						<div class="name">{{e.champion_with_player[0].champion}}</div>
+						</div>
+
+					<div class="last-game-box">
+						<div class="date">{{e.last_game | phpdate: 'd.m.Y'}}</div>
+						<div class="title">Letztes Spiel</div>
+						</div>
+
+					<div class="kda-box">
+						<div class="kda">{{e.kda_number | number: 1}}</div>
+						<div class="title">KDA</div>
+						</div>
+
+					<div class="play-rate-box">
+						<div class="chart">
+							<div><league-highchart class="highcharts-container" league-instance="view.instance_playrate[e.playerID]" league-highchart="view.playrate_chartdata_list[e.playerID]"></league-highchart></div>
+							</div>
+						</div>
+
+					<div class="win-lose-box">
+						<div class="chart">
+							<div><league-highchart class="highcharts-container" league-instance="view.instance_win_lose_list[e.playerID]" league-highchart="view.win_lose_chartdata_list[e.playerID]"></league-highchart></div>
+							</div>
+						</div>
+
+					<div class="donation-box">
+						<div class="donation" ng-if="e.donation">{{e.donation}} €</div>
+						<div class="donation" ng-if="!e.donation">0.00 €</div>
+						<div class="title">Donation</div>
+						</div>
+
+					</div>
+				</div>
+
+	<div class="flex-box-league-profile" ng-if="view.entry">
 
 		<div class="statistic-left">
 			<div class="header">
@@ -303,8 +311,22 @@
 			</div>
 
 		</div>
-	</section>
+	</div>
+
+			</div>
+
+		</section>
 
 	<div class="loading-div" ng-if="view.status == 100"></div>
+
+<!-- 	<section class="allplayer-search-bar">
+		<input type="text" ng-model="view.filter.string" ng-if="!view.entry" placeholder="Suche ..." />
+		<select class="select all-player-scrollbar" ng-options="e.playerID as e.ingame_name for e in view.list | orderBy:['-times_played']" ng-change="view.reset_render_limit(); view.get_player_profile(view.filter.playerID)" ng-model="view.filter.playerID" ng-style='{"width":!view.entry ? "200px" : "70%"}'>
+			<option value="">Alle Spieler</option>
+			</select>
+		<select class="select all-player-scrollbar" ng-options="e.value as e.key for e in view.filter.option" ng-if="!view.entry" ng-model="view.order_by" style="width: 20%"></select>
+		<button ng-class='{"i-arrow-up": view.filter.sort_order == "asc", "i-arrow-down": view.filter.sort_order == "desc"}' class="all-player-icon i-arrow-up" ng-if="!view.entry" ng-click="view.order_list(view.filter.sort_order)" style="border: 1px solid #787878"></button>
+		<input class="input" type="number" ng-change="view.filter_player_games(view.filter.quant)" ng-if="!view.entry" placeholder="Minimum Spiele" ng-model="view.filter.quant" />
+		</section> -->
 
 	</article>

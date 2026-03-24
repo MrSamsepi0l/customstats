@@ -1,55 +1,74 @@
 <article ng-controller="customstats.admin_hackertool.commandline">
 
-	<section class="cmd-complete">
+	<div class="cmd">
 
-		<div class="cmd">
-			<div class="header">
-				<div class="title-bar">
-					<span class="text">CMD</span>
-					</div>
-				<div class="status-bar">
-					<select class="select all-player-scrollbar" ng-options="e.remote_fqdn as e.server_name for e in cmd.serverlist" ng-model="cmd.server">
-						</select>
-					<div class="status-badge" ng-if="cmd.info">
-						<span class="text info">{{cmd.info}}</span>
-						</div>
-					<div class="status-badge" ng-if="cmd.httpstatus">
-						<span class="text">HTTP-Statuscode: </span>
-						<span class="status">{{cmd.httpstatus}}</span>
-						</div>
-					<div class="status-badge" ng-if="cmd.libstatus">
-						<span class="text">Lib-Statuscode: </span>
-						<span class="status">{{cmd.libstatus}}</span>
-						</div>
-					<div class="status-badge" ng-if="cmd.benchmark.runtime_ms && cmd.benchmark.complete_ms">
-						<span class="text">Runtime: </span>
-						<span class="status">{{cmd.benchmark.runtime_ms}} ms / {{cmd.benchmark.complete_ms}} ms</span>
-						</div>
-					<div class="status-badge" ng-if="cmd.benchmark.diffTime">
-						<span class="text">Request Duration: </span>
-						<span class="status">{{cmd.benchmark.diffTime}} ms</span>
-						</div>
-					</div>
-
-				<!-- <button></button> -->
-				</div>
-			<div class="body">
-				<div class="result cmd-scroll">
-					<pre class="text" ng-if="cmd.format == 'text'">{{cmd.result}}</pre>
-					<div class="text" ng-if="cmd.format == 'html'" ng-bind-html="cmd.result | parseHTML"></div>
-					<pre class="text" ng-if="cmd.format == 'json'">{{cmd.result | parseJSON | json: 4}}</pre>
-					</div>
-				<div class="console">
-					<textarea class="cmd-scroll" spellcheck="false" ng-model="cmd.command"></textarea>
-					</div>
-				</div>
-			<div class="footer">
-				<div class="button-bar">
-					<button class="send-command" ng-click="cmd.send(cmd.command)">Execute</button>
-					</div>
+		<div class="header">
+			<div class="headline ta-center">
+				<span>Command Line</span>
 				</div>
 			</div>
 
-		</section>
+
+		<div class="body">
+
+			<div class="cmd-complete">
+
+				<div class="cmd">
+					<div class="header">
+<!-- 						<div class="title-bar">
+							<span class="text">CMD</span>
+							</div> -->
+						<div class="status-bar">
+<!-- 							<select class="select all-player-scrollbar" ng-options="e.remote_fqdn as e.server_name for e in cmd.serverlist" ng-model="cmd.server">
+								</select> -->
+							<div class="status-badge" ng-if="cmd.info">
+								<span class="text info">{{cmd.info}}</span>
+								</div>
+							<div class="status-badge" ng-if="cmd.httpstatus">
+								<span class="text">HTTP-Statuscode: </span>
+								<span class="status">{{cmd.httpstatus}}</span>
+								</div>
+							<div class="status-badge" ng-if="cmd.libstatus">
+								<span class="text">Lib-Statuscode: </span>
+								<span class="status">{{cmd.libstatus}}</span>
+								</div>
+							<div class="status-badge" ng-if="cmd.benchmark.runtime_ms && cmd.benchmark.complete_ms">
+								<span class="text">Runtime: </span>
+								<span class="status">{{cmd.benchmark.runtime_ms}} ms / {{cmd.benchmark.complete_ms}} ms</span>
+								</div>
+							<div class="status-badge" ng-if="cmd.benchmark.diffTime">
+								<span class="text">Request Duration: </span>
+								<span class="status">{{cmd.benchmark.diffTime}} ms</span>
+								</div>
+							<div class="status-badge" style="background-color: #2d3b50; color: #fff;">
+								<span class="text">{{cmd.server.server_name}} Server</span>
+								</div>
+							</div>
+
+						<!-- <button></button> -->
+						</div>
+					<div class="body">
+						<div class="result cmd-scroll">
+							<pre class="text" ng-if="cmd.format == 'text'">{{cmd.result}}</pre>
+							<div class="text" ng-if="cmd.format == 'html'" ng-bind-html="cmd.result | parseHTML"></div>
+							<pre class="text" ng-if="cmd.format == 'json'">{{cmd.result | parseJSON | json: 4}}</pre>
+							</div>
+						<div class="console">
+							<textarea class="cmd-scroll" placeholder="Type Command..." spellcheck="false" ng-model="cmd.command"></textarea>
+							</div>
+						</div>
+					<div class="footer">
+						<div class="button-bar">
+							<button class="send-command" ng-click="cmd.send(cmd.command)">Execute</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+
 
 	</article>

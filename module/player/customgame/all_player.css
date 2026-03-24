@@ -1,199 +1,275 @@
-.allplayer-search-bar {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    padding: 0px 15px 0px 15px;
-    margin-top: 6px;
-    margin-bottom: 12px;
-    width: 100%;
-    border-radius: 5px;
-    height: 60px;
-    background-color: var(--main-bg-content-dark-1);
+.all-player {
+    min-height: 800px;
+    --tc-headline: #bbedff;
 
-    > input {
-        color: var(--white);
-        font-size: 1.3rem;
-        line-height: 1.3rem;
-        vertical-align: middle;
-        border-style: none;
-        background-color: var(--main-bg-content-dark-1);
-        outline: none;
-        padding: 10px 10px 10px 10px;
-        width: 200px;
-        }
-
-    > select {
-        width: 70%;
-        height: 50px;
-        font-size: 1.3rem;
-        text-align: center;
-        border-radius: 5px;
-        color: #bbedff;
-        background-color: var(--main-bg-content-dark-1);
-        }
-    }
-
-.playerlist {
-    --player-box-hover: #171c26;
-    --name-separation-border-bottom: rgb(198 255 250 / 13%);
-    --date-color: #8f8f8f;
-    --donation-color: #ffd9b8;
-
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    flex-direction: column;
-
-    >.player {
+    .header {
+        width: 100%;
+        padding: 3rem 3rem 3rem 3rem;
+        animation: fadein .8s;
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        width: 100%;
-        background-color: var(--main-bg-content-dark-1);
-        margin-bottom: 5px;
-        animation: fadein 1.0s;
-        transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        justify-content: center;
 
-        &:hover {
-            background-color: var(--player-box-hover);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            }
+        /* new */
+        background-color: #0f1519;
 
-        >.name-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-width: 200px;
+        .headline {
+            width: 80%;
 
-            >.ingame {
-                font-size: 1.5rem;
-                border-bottom: 1px solid var(--name-separation-border-bottom);;
-                margin-bottom: 5px;
-                }
-
-            >.real {
-                font-size: 1.3rem;
-                color: var(--light-blue-gray-1);
-                letter-spacing: .1rem;
-                font-weight: bold;
-                font-size: 0.5rem;
-                text-transform: uppercase;
-                word-wrap: break-word;
+            .text {
+                font-size: 3rem;
+                letter-spacing: 3px;
+                color: var(--tc-headline);
                 }
             }
 
-        >.champ-box {
+        .allplayer-search-bar {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
+            flex-direction: row;
+            justify-content: space-evenly;
             align-items: center;
-            min-width: 90px;
+            padding: 0px 15px 0px 15px;
+            margin-top: 6px;
+            margin-bottom: 12px;
+            width: 100%;
+            border-radius: 5px;
+            height: 60px;
+            background-color: var(--main-bg-content-dark-1);
 
-            >.icon {
-                width: 45px;
-                height: 45px;
-                background-size: contain;
-                border-radius: 50%;
+            > input {
+                color: var(--white);
+                font-size: 1.0rem;
+                line-height: 1.0rem;
+                vertical-align: middle;
+                border-style: none;
+                background-color: var(--main-bg-content-dark-1);
+                outline: none;
+                padding: 10px 10px 10px 10px;
+                width: 200px;
+                border-bottom: 1px solid #163341;
                 }
 
-            >.name {
-                font-size: 0.8rem;
-                color: var(--light-blue-gray-1);
-                letter-spacing: .1rem;
-                }
-            }
-
-        >.last-game-box {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-
-            >.date {
-                font-size: 1.1rem;
-                color: var(--date-color);
-                }
-
-            >.title {
-                color: var(--light-blue-gray-1);
-                letter-spacing: .1rem;
-                font-weight: bold;
-                font-size: 0.5rem;
-                text-transform: uppercase;
-                word-wrap: break-word;
-                }
-            }
-
-        >.kda-box {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-
-            >.kda {
-                font-size: 1.1rem;
+            > select {
+                width: 70%;
+                /*height: 40px;*/
+                font-size: 1.0rem;
+                text-align: center;
+                padding: 10px 10px 10px 10px;
+                border-radius: 5px;
                 color: #fff;
+                background-color: var(--main-bg-content-dark-1);
+                outline: none;
+                box-shadow: none;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
                 }
-
-            >.title {
-                color: var(--light-blue-gray-1);
-                letter-spacing: .1rem;
-                font-weight: bold;
-                font-size: 0.5rem;
-                text-transform: uppercase;
-                word-wrap: break-word;
-                }
-            }
-
-        >.donation-box {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            min-width: 75px;
-
-            >.donation {
-                font-size: 1.1rem;
-                color: var(--donation-color);
-                }
-
-            >.title {
-                color: var(--light-blue-gray-1);
-                letter-spacing: .1rem;
-                font-weight: bold;
-                font-size: 0.5rem;
-                text-transform: uppercase;
-                word-wrap: break-word;
-                }
-            }
-
-        >.win-lose-box {
-            display: flex;
-            min-width: 100px;
-            }
-
-        >.play-rate-box {
-            display: flex;
-            flex-direction: column;
-            min-width: 100px;
             }
         }
+
+    .body {
+        display: flex;
+        justify-content: center;
+
+        .playerlist {
+            --player-box-hover: #171c26;
+            --name-separation-border-bottom: rgb(198 255 250 / 13%);
+            --date-color: #8f8f8f;
+            --donation-color: #ffd9b8;
+
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            flex-direction: column;
+            padding: 1rem 1rem 1rem 1rem;
+            width: 65%;
+
+            >.visible {
+                opacity: 1;
+                transform: translateY(0);
+                }
+
+            >.player {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                flex-wrap: wrap;
+                width: 100%;
+                background-color: var(--main-bg-content-dark-1);
+                margin-bottom: 5px;
+
+                /* CSS Containment - huge performance boost */
+                contain: layout style paint;
+
+                /* Content visibility - only render visible items */
+                content-visibility: auto;
+
+                /* GPU acceleration */
+                transform: translateZ(0);
+                backface-visibility: hidden;
+
+                /* Prevent subpixel rendering issues */
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+
+                @keyframes fadeIn {
+                    from {
+                        opacity: 0;
+                        transform: translateY(20px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                        }
+                    }
+
+                animation: fadeIn 2.8s ease both;
+                animation-delay: calc(var(--item-index, 0) * 0.07s);
+
+                &:hover {
+                    background-color: var(--player-box-hover);
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    }
+
+                >.name-box {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    min-width: 200px;
+
+                    >.ingame {
+                        font-size: 1.5rem;
+                        border-bottom: 1px solid var(--name-separation-border-bottom);;
+                        margin-bottom: 5px;
+                        }
+
+                    >.real {
+                        font-size: 1.3rem;
+                        color: var(--light-blue-gray-1);
+                        letter-spacing: .1rem;
+                        font-weight: bold;
+                        font-size: 0.5rem;
+                        text-transform: uppercase;
+                        word-wrap: break-word;
+                        }
+                    }
+
+                >.champ-box {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    min-width: 90px;
+
+                    >.icon {
+                        width: 45px;
+                        height: 45px;
+                        background-size: contain;
+                        border-radius: 50%;
+                        }
+
+                    >.name {
+                        font-size: 0.8rem;
+                        color: var(--light-blue-gray-1);
+                        letter-spacing: .1rem;
+                        }
+                    }
+
+                >.last-game-box {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    flex-wrap: wrap;
+
+                    >.date {
+                        font-size: 1.1rem;
+                        color: var(--date-color);
+                        }
+
+                    >.title {
+                        color: var(--light-blue-gray-1);
+                        letter-spacing: .1rem;
+                        font-weight: bold;
+                        font-size: 0.5rem;
+                        text-transform: uppercase;
+                        word-wrap: break-word;
+                        }
+                    }
+
+                >.kda-box {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    flex-wrap: wrap;
+
+                    >.kda {
+                        font-size: 1.1rem;
+                        color: #fff;
+                        }
+
+                    >.title {
+                        color: var(--light-blue-gray-1);
+                        letter-spacing: .1rem;
+                        font-weight: bold;
+                        font-size: 0.5rem;
+                        text-transform: uppercase;
+                        word-wrap: break-word;
+                        }
+                    }
+
+                >.donation-box {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    min-width: 75px;
+
+                    >.donation {
+                        font-size: 1.1rem;
+                        color: var(--donation-color);
+                        }
+
+                    >.title {
+                        color: var(--light-blue-gray-1);
+                        letter-spacing: .1rem;
+                        font-weight: bold;
+                        font-size: 0.5rem;
+                        text-transform: uppercase;
+                        word-wrap: break-word;
+                        }
+                    }
+
+                >.win-lose-box {
+                    display: flex;
+                    min-width: 100px;
+                    }
+
+                >.play-rate-box {
+                    display: flex;
+                    flex-direction: column;
+                    min-width: 100px;
+                    }
+                }
+            }
+        }
+
     }
+
+
 
 
 .flex-box-league-profile {
     display: flex;
-    width: 100%;
+    width: 65%;
     justify-content: space-between;
-    margin-top: 6px;
+    /*margin-top: 6px;*/
     flex-wrap: wrap;
+    padding: 1rem 1rem 1rem 1rem;
 
     .statistic-left {
         display: flex;
@@ -202,6 +278,7 @@
         flex-direction: column;
         border-radius: 5px;
         animation: fadein 1.0s forwards;
+        max-height: 1000px;
 
         .header {
             display: flex;
@@ -518,6 +595,7 @@
         background-color: var(--main-bg-content-dark-1);
         flex-direction: column;
         border-radius: 5px;
+        max-height: 1000px;
 
         .header {
             display: flex;

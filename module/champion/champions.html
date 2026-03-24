@@ -1,57 +1,70 @@
 <article ng-controller="customstats.league:champion_controller">
 
-	<section class="champion-search-bar">
-		<input class="input" type="text" ng-model="view.filter.string" placeholder="Suche ..." />
-		<select class="select" ng-options="e.value as e.key for e in view.filter_option" ng-model="view.order"></select>
-		<input class="input" type="number" ng-change="view.filter_champion_games(view.filter_quant)" placeholder="Minimum Spiele" ng-model="view.filter_quant" />
-		</section>
+	<section class="champions">
 
-	<section class="flex-box-champion">
-		<div class="flex-inner-box-champion" ng-repeat="e in view.data | filter:view.filter.string | orderBy:view.order" ng-mouseover="view.entry.hovered = e; e.expanded = true" ng-mouseleave="e.expanded = false">
-			<div class="background-div-champion" ng-if="!e.expanded"></div>
-			<div class="bg-champ-icon {{e.champion_name_fixed | lowercase}}">
-				<span class="name">{{e.name}}</span>
-<!-- 				<span league-hover-popup league-hover-popup-clickable="false" ng-if="e.expanded && view.entry.hovered.name == e.name" ng-mouseover="e.expanded = true; view.get_timeserie(e.name)" ng-click="e.clicked = !e.clicked; view.get_timeserie(e.name)" class="btn inner-box-button-graphic i-graph-big" style="width: 100px; height: 100px; left: 34%; position: absolute; top: 90px; color: white;">
-					<content-part>
-						<section style="height: 200px; width: 400px; background: #0a0a0a">
-							<div style="font-size: 1px; background-color: #0a0a0a !important;"><league-highchart class="highcharts-container" league-instance="view.instance" league-highchart="view.highchartdata"></league-highchart></div>
-							</section>
-						</content-part>
-					</span> -->
-				<table class="champion-table">
-					<tbody>
-						<tr class="v-middle">
-							<td class="key">Spiele:</td>
-							<td class="stat">{{e.times_played}} x</td>
-							</tr>
-						<tr class="v-middle">
-							<td>Gebannt:</td>
-							<td class="stat">{{e.times_banned}} x</td>
-							</tr>
-						<tr class="v-middle">
-							<td>Präsenz:</td>
-							<td class="stat">{{e.present_rate | number: 2}} %</td>
-							</tr>
-						<tr class="v-middle">
-							<td>Siege:</td>
-							<td class="stat">{{e.times_won}} x</td>
-							</tr>
-						<tr class="v-middle">
-							<td>Niederlagen:</td>
-							<td class="stat">{{e.times_lost}} x</td>
-							</tr>
-						<tr class="v-middle">
-							<td>Winrate:</td>
-							<td class="stat">{{e.winrate | number: 2}} %</td>
-							</tr>
-						<tr class="v-middle">
-							<td>Banrate:</td>
-							<td class="stat">{{e.banrate | number: 2}} %</td>
-							</tr>
-						</tbody>
-					</table>
+		<div class="header">
+			<div class="headline ta-center">
+				<span class="text">Champions</span>
+				</div>
+			<div class="champion-search-bar">
+				<input type="text" ng-model="view.filter.string" placeholder="Suche ..." />
+				<select ng-options="e.value as e.key for e in view.filter_option" ng-model="view.order"></select>
+				<input type="number" ng-change="view.filter_champion_games(view.filter_quant)" placeholder="Minimum Spiele" ng-model="view.filter_quant" />
 				</div>
 			</div>
+
+		<div class="body">
+
+			<div class="flex-box-champion">
+				<div class="flex-inner-box-champion" ng-repeat="e in view.data | filter:view.filter.string | orderBy:view.order" ng-mouseover="view.entry.hovered = e; e.expanded = true" ng-mouseleave="e.expanded = false">
+					<div class="background-div-champion" ng-if="!e.expanded"></div>
+					<div class="bg-champ-icon {{e.champion_name_fixed | lowercase}}">
+						<span class="name">{{e.name}}</span>
+		<!-- 				<span league-hover-popup league-hover-popup-clickable="false" ng-if="e.expanded && view.entry.hovered.name == e.name" ng-mouseover="e.expanded = true; view.get_timeserie(e.name)" ng-click="e.clicked = !e.clicked; view.get_timeserie(e.name)" class="btn inner-box-button-graphic i-graph-big" style="width: 100px; height: 100px; left: 34%; position: absolute; top: 90px; color: white;">
+							<content-part>
+								<section style="height: 200px; width: 400px; background: #0a0a0a">
+									<div style="font-size: 1px; background-color: #0a0a0a !important;"><league-highchart class="highcharts-container" league-instance="view.instance" league-highchart="view.highchartdata"></league-highchart></div>
+									</section>
+								</content-part>
+							</span> -->
+						<table class="champion-table">
+							<tbody>
+								<tr class="v-middle">
+									<td class="key">Spiele:</td>
+									<td class="stat">{{e.times_played}} x</td>
+									</tr>
+								<tr class="v-middle">
+									<td>Gebannt:</td>
+									<td class="stat">{{e.times_banned}} x</td>
+									</tr>
+								<tr class="v-middle">
+									<td>Präsenz:</td>
+									<td class="stat">{{e.present_rate | number: 2}} %</td>
+									</tr>
+								<tr class="v-middle">
+									<td>Siege:</td>
+									<td class="stat">{{e.times_won}} x</td>
+									</tr>
+								<tr class="v-middle">
+									<td>Niederlagen:</td>
+									<td class="stat">{{e.times_lost}} x</td>
+									</tr>
+								<tr class="v-middle">
+									<td>Winrate:</td>
+									<td class="stat">{{e.winrate | number: 2}} %</td>
+									</tr>
+								<tr class="v-middle">
+									<td>Banrate:</td>
+									<td class="stat">{{e.banrate | number: 2}} %</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
 		</section>
 
 	<div class="loading-div" ng-if="view.status == 100"></div>

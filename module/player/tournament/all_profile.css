@@ -151,7 +151,7 @@
     }
 
 
-.allplayer-search-bar {
+/*.allplayer-search-bar {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -163,9 +163,9 @@
     border-radius: 5px;
     height: 60px;
     background: #0f1519;
-    }
+    }*/
 
-.allplayer-search-bar .input {
+/*.allplayer-search-bar .input {
     color: #fff;
     font-size: 1.3rem;
     line-height: 1.3rem;
@@ -185,7 +185,7 @@
     border-radius: 5px;
     color: #bbedff;
     background: #0f1519;
-    }
+    }*/
 
 .bg-champ-icon {
     display: flex;

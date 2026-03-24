@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('customstats').controller('customstats.all_player_controller', ['$scope', '$app', '$leagueapi', '$phpdate', '$routeParams', '$location', '$multichart', function($scope, $app, $leagueapi, $phpdate, $routeParams, $location, $multichart){
+angular.module('customstats').controller('customstats.all_player_controller', ['$scope', '$app', '$leagueapi', '$phpdate', '$routeParams', '$location', '$multichart', '$timeout', function($scope, $app, $leagueapi, $phpdate, $routeParams, $location, $multichart, $timeout){
 
 	$scope.view = {
 		list 		: [],
@@ -102,8 +102,10 @@ angular.module('customstats').controller('customstats.all_player_controller', ['
 							});
 						});
 
-					// take playerlist
-					self.list = data;
+					// render elements sequentially into list for non-blocking UI (2 = batch size)
+					self.render_sequentially(data, 2);
+
+					// copy playerlist
 					self.list_copy = data;
 
 					// search player by route param
@@ -749,6 +751,41 @@ angular.module('customstats').controller('customstats.all_player_controller', ['
 
 			// check if position filter is currently active
 			return _.contains(self.filter.match_history.position, position);
+			},
+
+		// sequential rendering function
+		render_sequentially : function(list, items_per_batch){
+			var self = this, idx = 0;
+			var batch_size = items_per_batch || 50;
+
+			// copy list
+			list = angular.copy(list);
+
+			// inner function
+			function render_batch(){
+
+				// if end reached, stop
+				if(idx >= list.length) return;
+
+				// compute end
+				const end = Math.min(idx + batch_size, list.length);
+
+				// run loop
+				for(let i = idx; i < end; i++){
+
+					// push entries sequentially into list
+					self.list.push(list[i]);
+					}
+
+				// update index
+				idx = end;
+
+				// if end reached, stop execution
+				if(idx < list.length) $timeout(render_batch, 0);
+				}
+
+			// init
+			render_batch();
 			},
 
 		};

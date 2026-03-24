@@ -41,4 +41,13 @@ $this->build_environment('body:routing[]', (object)[
 	'priority'	=> 10,
 	]);
 
+$this->build_environment('body:routing[]', (object)[
+	'name'		=> 'Navigation Footer',
+	'group'		=> 'navigation:unlogged',
+	'route'		=> 'footer',
+	'path'		=> $moduleurl.'/footer.html',
+	'enabled'	=> true,
+	'priority'	=> 10,
+	]);
+
 $this->build_environment('header:css[]', $moduleurl.'/navigation.css', 50);

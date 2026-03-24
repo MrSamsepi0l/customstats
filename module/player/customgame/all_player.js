@@ -117,11 +117,15 @@ angular.module('customstats').controller('customstats.all_player_controller', ['
 						// set entry
 						self.entry = _.findWhere(data, search_obj);
 
-						// filter select by player ID
-						self.filter.playerID = self.entry.playerID;
+						// if found
+						if(!_.isUndefined(self.entry)){
 
-						// load profile
-						self.get_player_profile(self.entry.playerID);
+							// filter select by player ID
+							self.filter.playerID = self.entry.playerID;
+
+							// load profile
+							self.get_player_profile(self.entry.playerID);
+							}
 						}
 
 					// otherwise

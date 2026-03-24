@@ -20,9 +20,9 @@ class controller {
 	    \customstats\extension\usersession_trait;
 
 	public $project = 'customstats';
-	public $version = '2.5.0';
-	public $version_date = '2025-10-25';
-	public $version_int = 2;
+	public $version = '3.0.0';
+	public $version_date = '2026-03-25';
+	public $version_int = 3;
 	public $user;
 	public $session_lifetime = 28800; // 8 hours
 	public $hook_routing = [];

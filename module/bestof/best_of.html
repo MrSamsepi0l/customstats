@@ -1,503 +1,569 @@
-<article class="bestof-container-breakout" ng-controller="customstats.league:bestof_controller">
+<article ng-controller="customstats.league:bestof_controller">
 
-	<section class="bestof-search-bar">
-		<select ng-options="e.key as e.name group by e.group for e in view.config" ng-model="view.filter.selected" ng-change="view.filter_list(view.filter.selected)">
-			<option value="">Alle anzeigen</option>
-			</select>
-		</section>
+	<section class="best-of">
 
-	<section class="bestof-complete" ng-if="view.status != 100">
-
-		<div class="stat-box" ng-if="view.list.most_banned_champ">
-			<div class="header">
-				<span class="title">{{view.config.most_banned_champ.name}}</span>
-				<span class="i-most-banned bestof-symbol"></span>
+		<div class="header">
+			<div class="headline ta-center">
+				<span class="text">Best Of</span>
 				</div>
-			<div class="sub-header"></div>
-			<div class="body">
-				<table class="bestof-table bestof-table-hover">
-						<tr class="headline">
-							<td></td>
-							<td colspan="2">Champion</td>
-							<td>Times banned</td>
-							<td>Banrate</td>
-							</tr>
-						<tr ng-repeat="e in view.list.most_banned_champ" ng-click="view.redirect_template('champions', e.champion_name)" custom-tooltip custom-tooltip-delay="0.3" custom-tooltip-clickable="false" custom-tooltip-option='{"width":"350px", "background":"rgb(8 10 10)"}' custom-tooltip-in-table="true" custom-tooltip-append-id="bestof-most-banned-champ" custom-tooltip-position="right" id="bestof-most-banned-champ">
-							<td ng-show="false">
-								<content-template>
-									<div class="bestof-most-played-champ-hover">
-										<div class="title">
-											<span class="text">Most Played By</span>
+			<div class="bestof-search-bar">
+				<select ng-options="e.key as e.name group by e.group for e in view.config" ng-model="view.filter.selected" ng-change="view.filter_list(view.filter.selected)">
+					<option value="">Alle anzeigen</option>
+					</select>
+				</div>
+			</div>
+
+		<div class="body">
+
+			<div class="bestof-complete" ng-if="view.status != 100">
+
+				<div class="stat-box" ng-if="view.list.most_banned_champ">
+					<div class="header">
+						<span class="title">{{view.config.most_banned_champ.name}}</span>
+						<span class="i-most-banned bestof-symbol"></span>
+						</div>
+					<div class="sub-header"></div>
+					<div class="body">
+						<table class="bestof-table bestof-table-hover">
+								<tr class="bestof-table-headline">
+									<td></td>
+									<td colspan="2">Champion</td>
+									<td>Times banned</td>
+									<td>Banrate</td>
+									</tr>
+								<tr ng-repeat="e in view.list.most_banned_champ" ng-click="view.redirect_template('champions', e.champion_name)" custom-tooltip custom-tooltip-delay="0.3" custom-tooltip-clickable="false" custom-tooltip-option='{"width":"350px", "background":"rgb(8 10 10)"}' custom-tooltip-in-table="true" custom-tooltip-append-id="bestof-most-banned-champ" custom-tooltip-position="right" id="bestof-most-banned-champ">
+									<td ng-show="false">
+										<content-template>
+											<div class="bestof-most-played-champ-hover">
+												<div class="title">
+													<span class="text">Most Played By</span>
+													</div>
+												<div class="list">
+													<table class="bestof-table">
+														<tr class="headline">
+															<td></td>
+															<td>Player</td>
+															<td class="ta-center">Times Played</td>
+															</tr>
+														<tr ng-repeat="p in e.player_list | limitTo: 3">
+															<td class="tc-index">{{$index + 1}}</td>
+															<td class="tc-player">{{p.ingame_name}}</td>
+															<td class="tc-number ta-center"><span style="font-weight: bold">{{p.times_played}}</span> x</td>
+															</tr>
+														</table>
+													</div>
+												</div>
+											</content-template>
+										</td>
+									<td class="tc-index">{{$index + 1}}</td>
+									<td class="{{view.get_champion_name_converted(e.champion_name)}}" style="background-size: contain"></td>
+									<td class="tc-champion">{{e.champion_name}}</td>
+									<td class="ta-center tc-number">{{e.times_banned}} <span class="c-kda-separator">x</span></td>
+									<td class="tc-rate">{{e.banrate | number:2}}&nbsp;%</td>
+									</tr>
+							</table>
+						</div>
+					</div>
+
+				<div class="stat-box" ng-if="view.list.most_played_champ">
+					<div class="header">
+						<span class="title">{{view.config.most_played_champ.name}}</span>
+						<span class="i-most-played-champ bestof-symbol"></span>
+						</div>
+					<div class="sub-header" id="bestof-tooltip-append"></div>
+					<div class="body">
+						<table class="bestof-table bestof-table-hover">
+								<tr class="bestof-table-headline">
+									<td></td>
+									<td colspan="2">Champion</td>
+									<td>Times played</td>
+									<td>Playrate</td>
+									</tr>
+								<tr ng-repeat="e in view.list.most_played_champ" ng-click="view.redirect_template('champions', e.champion_name)" custom-tooltip custom-tooltip-delay="0.3" custom-tooltip-clickable="false" custom-tooltip-option='{"width":"350px", "background":"rgb(8 10 10)"}' custom-tooltip-in-table="true" custom-tooltip-append-id="bestof-most-played-champ" custom-tooltip-position="right" id="bestof-most-played-champ">
+									<td ng-show="false">
+									<content-template>
+										<div class="bestof-most-played-champ-hover">
+											<div class="title">
+												<span class="text">Most Played By</span>
+												</div>
+											<div class="list">
+												<table class="bestof-table">
+													<tr class="bestof-table-headline">
+														<td></td>
+														<td>Player</td>
+														<td class="ta-center">Times Played</td>
+														</tr>
+													<tr ng-repeat="p in e.player_list | limitTo: 3">
+														<td class="tc-index">{{$index + 1}}</td>
+														<td class="tc-player">{{p.ingame_name}}</td>
+														<td class="tc-number ta-center"><span style="font-weight: bold">{{p.times_played}}</span> x</td>
+														</tr>
+													</table>
+												</div>
 											</div>
-										<div class="list">
-											<table class="bestof-table">
-												<tr class="headline">
-													<td></td>
-													<td>Player</td>
-													<td class="ta-center">Times Played</td>
-													</tr>
-												<tr ng-repeat="p in e.player_list | limitTo: 3">
-													<td class="tc-index">{{$index + 1}}</td>
-													<td class="tc-player">{{p.ingame_name}}</td>
-													<td class="tc-number ta-center"><span style="font-weight: bold">{{p.times_played}}</span> x</td>
-													</tr>
-												</table>
-											</div>
-										</div>
-									</content-template>
-								</td>
-							<td class="tc-index">{{$index + 1}}</td>
-							<td class="{{e.champion_name | lowercase}}" style="background-size: contain; background-color: #0f1519"></td>
-							<td class="tc-champion">{{e.champion_name}}</td>
-							<td class="ta-center tc-number">{{e.times_banned}} x</td>
-							<td class="tc-rate">{{e.banrate | number:2}}&nbsp;%</td>
-							</tr>
-					</table>
+										</content-template>
+										</td>
+									<td class="tc-index">{{$index + 1}}</td>
+									<td class="{{view.get_champion_name_converted(e.champion_name)}}" style="background-size: contain"></td>
+									<td class="tc-champion">{{e.champion_name}}</td>
+									<td class="ta-center tc-number">{{e.times_played}} <span class="c-kda-separator">x</span></td>
+									<td class="tc-rate">{{e.playrate | number:2}}&nbsp;%</td>
+									</tr>
+							</table>
+						</div>
+					</div>
+
+				<div class="stat-box" ng-if="view.list.highest_winrate_champ">
+					<div class="header">
+						<span class="title">{{view.config.highest_winrate_champ.name}}</span>
+						<span class="i-highest-winrate-champ bestof-symbol"></span>
+						<span class="i-question bestof-helper-headline" custom-hover="Der Champ muss mindestens {{view.config.highest_winrate_champ.min_games}} Mal gespielt worden sein."></span>
+						</div>
+					<div class="sub-header"></div>
+					<div class="body">
+						<table class="bestof-table bestof-table-hover">
+								<tr class="bestof-table-headline">
+									<td></td>
+									<td colspan="2">Champion</td>
+									<td class="ta-center">Times played</td>
+									<td>Winrate</td>
+									</tr>
+								<tr ng-repeat="e in view.list.highest_winrate_champ" ng-click="view.redirect_template('champions', e.champion_name)" custom-tooltip custom-tooltip-delay="0.3" custom-tooltip-clickable="false" custom-tooltip-option='{"width":"350px", "background":"rgb(8 10 10)"}' custom-tooltip-in-table="true" custom-tooltip-append-id="bestof-highest-winrate-champ" custom-tooltip-position="right" id="bestof-highest-winrate-champ">
+									<td ng-show="false">
+										<content-template>
+											<div class="bestof-most-played-champ-hover">
+												<div class="title">
+													<span class="text">Most Played By</span>
+													</div>
+												<div class="list">
+													<table class="bestof-table">
+														<tr class="bestof-table-headline">
+															<td></td>
+															<td>Player</td>
+															<td class="ta-center">Times Played</td>
+															</tr>
+														<tr ng-repeat="p in e.player_list | limitTo: 3">
+															<td class="tc-index">{{$index + 1}}</td>
+															<td class="tc-player">{{p.ingame_name}}</td>
+															<td class="tc-number ta-center"><span style="font-weight: bold">{{p.times_played}}</span> x</td>
+															</tr>
+														</table>
+													</div>
+												</div>
+											</content-template>
+										</td>
+									<td class="tc-index">{{$index + 1}}</td>
+									<td class="{{view.get_champion_name_converted(e.champion_name)}}" style="background-size: contain"></td>
+									<td class="tc-champion">{{e.champion_name}}</td>
+									<td class="ta-center tc-number">{{e.times_played}} <span class="c-kda-separator">x</span></td>
+									<td class="tc-rate">{{e.winrate | number:2}}&nbsp;%</td>
+									</tr>
+							</table>
+						</div>
+					</div>
+
+				<div class="stat-box" ng-if="view.list.most_played_player">
+					<div class="header">
+						<span class="title">{{view.config.most_played_player.name}}</span>
+						<span class="i-most-played-player bestof-symbol"></span>
+						</div>
+					<div class="sub-header"></div>
+					<div class="body">
+						<table class="bestof-table bestof-table-hover">
+								<tr class="bestof-table-headline">
+									<td></td>
+									<td>Player</td>
+									<td>Times played</td>
+									<td>Playrate</td>
+									</tr>
+								<tr ng-repeat="e in view.list.most_played_player" ng-click="view.redirect_template('all_player', e.ingame_name)">
+									<td class="tc-index">{{$index + 1}}</td>
+									<td class="tc-player">{{e.ingame_name}}</td>
+									<td class="ta-center tc-number">{{e.times_played}} x</td>
+									<td class="tc-rate">{{e.playrate | number:2}}&nbsp;%</td>
+									</tr>
+							</table>
+						</div>
+					</div>
+
+				<div class="stat-box" ng-if="view.list.highest_winrate_player">
+					<div class="header">
+						<span class="title">{{view.config.highest_winrate_player.name}}</span>
+						<span class="i-man-winner bestof-symbol"></span>
+						<span class="i-question bestof-helper-headline" custom-hover="Spieler muss mindestens {{view.config.highest_winrate_player.min_games}} Spiele gespielt haben."></span>
+						</div>
+					<div class="sub-header"></div>
+					<div class="body">
+						<table class="bestof-table bestof-table-hover">
+								<tr class="bestof-table-headline">
+									<td></td>
+									<td>Player</td>
+									<td class="ta-center">Times played</td>
+									<td>Winrate</td>
+									</tr>
+								<tr ng-repeat="e in view.list.highest_winrate_player" ng-click="view.redirect_template('all_player', e.ingame_name)">
+									<td class="tc-index">{{$index + 1}}</td>
+									<td class="tc-player">{{e.ingame_name}}</td>
+									<td class="ta-center tc-number">{{e.times_played}} <span class="c-kda-separator">x</span></td>
+									<td class="tc-rate">{{e.winrate | number:2}}&nbsp;%</td>
+									</tr>
+							</table>
+						</div>
+					</div>
+
+				<div class="stat-box" ng-if="view.list.highest_kda_player">
+					<div class="header">
+						<span class="title">{{view.config.highest_kda_player.name}}</span>
+						<span class="i-sword-shield bestof-symbol"></span>
+						<span class="i-question bestof-helper-headline" custom-hover="Spieler muss mindestens {{view.config.highest_kda_player.min_games}} Spiele gespielt haben."></span>
+						</div>
+					<div class="sub-header"></div>
+					<div class="body">
+						<table class="bestof-table bestof-table-hover">
+								<tr class="bestof-table-headline">
+									<td></td>
+									<td>Player</td>
+									<td class="ta-center">Times played</td>
+									<td>KDA</td>
+									</tr>
+								<tr ng-repeat="e in view.list.highest_kda_player" ng-click="view.redirect_template('all_player', e.ingame_name)">
+									<td class="tc-index">{{$index + 1}}</td>
+									<td class="tc-player">{{e.ingame_name}}</td>
+									<td class="ta-center tc-number">{{e.times_played}} <span class="c-kda-separator">x</span></td>
+									<td class="tc-rate">{{e.kda | number:2}}</td>
+									</tr>
+							</table>
+						</div>
+					</div>
+
+				<div class="stat-box" ng-if="view.list.most_summoner_one">
+					<div class="header">
+						<span class="title">{{view.config.most_summoner_one.name}}</span>
+						</div>
+					<div class="sub-header"></div>
+					<div class="body">
+						<table class="bestof-table bestof-table-hover">
+								<tr class="bestof-table-headline">
+									<td></td>
+									<td colspan="2">Summoner 1</td>
+									<td>Times picked</td>
+									<td>Pickrate</td>
+									</tr>
+								<tr ng-repeat="e in view.list.most_summoner_one">
+									<td class="tc-index">{{$index + 1}}</td>
+									<td class="{{e.summoner_one | lowercase}}" style="background-size: contain"></td>
+									<td class="tc-player">{{e.summoner_one}}</td>
+									<td class="ta-center tc-number">{{e.times_picked}} <span class="c-kda-separator">x</span></td>
+									<td class="tc-rate">{{e.pickrate | number:2}}&nbsp;%</td>
+									</tr>
+							</table>
+						</div>
+					</div>
+
+				<div class="stat-box" ng-if="view.list.most_summoner_two">
+					<div class="header">
+						<span class="title">{{view.config.most_summoner_two.name}}</span>
+						</div>
+					<div class="sub-header"></div>
+					<div class="body">
+						<table class="bestof-table bestof-table-hover">
+								<tr class="bestof-table-headline">
+									<td></td>
+									<td colspan="2">Summoner 2</td>
+									<td>Times picked</td>
+									<td>Pickrate</td>
+									</tr>
+								<tr ng-repeat="e in view.list.most_summoner_two">
+									<td class="tc-index">{{$index + 1}}</td>
+									<td class="{{e.summoner_two | lowercase}}" style="background-size: contain"></td>
+									<td class="tc-player">{{e.summoner_two}}</td>
+									<td class="ta-center tc-number">{{e.times_picked}} <span class="c-kda-separator">x</span></td>
+									<td class="tc-rate">{{e.pickrate | number:2}}&nbsp;%</td>
+									</tr>
+							</table>
+						</div>
+					</div>
+
+				<div class="stat-box" ng-if="view.list.most_kills_single_game">
+					<div class="header">
+						<span class="title">{{view.config.most_kills_single_game.name}}</span>
+						<span class="i-kills bestof-symbol"></span>
+						<span class="i-question bestof-helper-headline" custom-hover="Sortiert nach: Kills absteigend -> Deaths aufsteigend -> Assists absteigend."></span>
+						</div>
+					<div class="sub-header"></div>
+					<div class="body">
+						<table class="bestof-table bestof-table-hover">
+								<tr class="bestof-table-headline">
+									<td></td>
+									<td>Player</td>
+									<td>Kills</td>
+									<td class="ta-center" colspan="3">Champ & K / D / A</td>
+									</tr>
+								<tr ng-repeat="e in view.list.most_kills_single_game" ng-click="view.redirect_template('all_player', e.ingame_name)">
+									<td class="tc-index">{{$index + 1}}</td>
+									<td class="tc-player">{{e.ingame_name}}</td>
+									<td class="ta-center tc-number">{{e.kills}}</td>
+									<td class="{{view.get_champion_name_converted(e.name)}}" style="background-size: contain"></td>
+									<td class="tc-champion">{{e.name}}</td>
+									<td class="tc-rate">{{e.kills}} <span class="c-kda-separator">/</span> {{e.deaths}} <span class="c-kda-separator">/</span> {{e.assists}}</td>
+									</tr>
+							</table>
+						</div>
+					</div>
+
+				<div class="stat-box" ng-if="view.list.most_deaths_single_game">
+					<div class="header">
+						<span class="title">{{view.config.most_deaths_single_game.name}}</span>
+						<span class="i-deaths bestof-symbol"></span>
+						<span class="i-question bestof-helper-headline" custom-hover="Sortiert nach: Deaths absteigend -> Kills aufsteigend -> Assists aufsteigend."></span>
+						</div>
+					<div class="sub-header"></div>
+					<div class="body">
+						<table class="bestof-table bestof-table-hover">
+								<tr class="bestof-table-headline">
+									<td></td>
+									<td>Player</td>
+									<td>Deaths</td>
+									<td class="ta-center" colspan="3">Champ & K / D / A</td>
+									</tr>
+								<tr ng-repeat="e in view.list.most_deaths_single_game" ng-click="view.redirect_template('all_player', e.ingame_name)">
+									<td class="tc-index">{{$index + 1}}</td>
+									<td class="tc-player">{{e.ingame_name}}</td>
+									<td class="ta-center tc-number">{{e.deaths}}</td>
+									<td class="{{view.get_champion_name_converted(e.name)}}" style="background-size: contain"></td>
+									<td class="tc-champion">{{e.name}}</td>
+									<td class="tc-rate">{{e.kills}} <span class="c-kda-separator">/</span> {{e.deaths}} <span class="c-kda-separator">/</span> {{e.assists}}</td>
+									</tr>
+							</table>
+						</div>
+					</div>
+
+				<div class="stat-box" ng-if="view.list.most_assists_single_game">
+					<div class="header">
+						<span class="title">{{view.config.most_assists_single_game.name}}</span>
+						<span class="i-assists bestof-symbol"></span>
+						<span class="i-question bestof-helper-headline" custom-hover="Sortiert nach: Assists absteigend -> Deaths aufsteigend -> Kills absteigend."></span>
+						</div>
+					<div class="sub-header"></div>
+					<div class="body">
+						<table class="bestof-table bestof-table-hover">
+								<tr class="bestof-table-headline">
+									<td></td>
+									<td>Player</td>
+									<td>Assists</td>
+									<td class="ta-center" colspan="3">Champ & K / D / A</td>
+									</tr>
+								<tr ng-repeat="e in view.list.most_assists_single_game" ng-click="view.redirect_template('all_player', e.ingame_name)">
+									<td class="tc-index">{{$index + 1}}</td>
+									<td class="tc-player">{{e.ingame_name}}</td>
+									<td class="ta-center tc-number">{{e.assists}}</td>
+									<td class="{{view.get_champion_name_converted(e.name)}}" style="background-size: contain"></td>
+									<td class="tc-champion">{{e.name}}</td>
+									<td class="tc-rate">{{e.kills}} <span class="c-kda-separator">/</span> {{e.deaths}} <span class="c-kda-separator">/</span> {{e.assists}}</td>
+									</tr>
+							</table>
+						</div>
+					</div>
+
+				<div class="stat-box" ng-if="view.list.highest_kda_single_game">
+					<div class="header">
+						<span class="title">{{view.config.highest_kda_single_game.name}}</span>
+						<span class="i-sword-shield bestof-symbol"></span>
+						</div>
+					<div class="sub-header"></div>
+					<div class="body">
+						<table class="bestof-table bestof-table-hover">
+								<tr class="bestof-table-headline">
+									<td></td>
+									<td>Player</td>
+									<td>KDA</td>
+									<td class="ta-center" colspan="3">Champ & K / D / A</td>
+									</tr>
+								<tr ng-repeat="e in view.list.highest_kda_single_game" ng-click="view.redirect_template('all_player', e.ingame_name)">
+									<td class="tc-index">{{$index + 1}}</td>
+									<td class="tc-player">{{e.ingame_name}}</td>
+									<td class="ta-center tc-number">{{e.kda | number: 1}}</td>
+									<td class="{{e.name | lowercase}}" style="background-size: contain"></td>
+									<td class="tc-champion">{{e.name}}</td>
+									<td class="tc-rate">{{e.kills}} <span class="c-kda-separator">/</span> {{e.deaths}} <span class="c-kda-separator">/</span> {{e.assists}}</td>
+									</tr>
+							</table>
+						</div>
+					</div>
+
+				<div class="stat-box" ng-if="view.list.most_cs_single_game">
+					<div class="header">
+						<span class="title">{{view.config.most_cs_single_game.name}}</span>
+						<span class="i-most-cs bestof-symbol"></span>
+						</div>
+					<div class="sub-header"></div>
+					<div class="body">
+						<table class="bestof-table bestof-table-hover">
+								<tr class="bestof-table-headline">
+									<td></td>
+									<td>Player</td>
+									<td>CS</td>
+									<td colspan="2">Champ</td>
+									</tr>
+								<tr ng-repeat="e in view.list.most_cs_single_game" ng-click="view.redirect_template('all_player', e.ingame_name)">
+									<td class="tc-index">{{$index + 1}}</td>
+									<td class="tc-player">{{e.ingame_name}}</td>
+									<td class="tc-number">{{e.creep_score}}</td>
+									<td class="{{view.get_champion_name_converted(e.name)}}" style="background-size: contain"></td>
+									<td class="tc-champion">{{e.name}}</td>
+									</tr>
+							</table>
+						</div>
+					</div>
+
+				<div class="stat-box" ng-if="view.list.most_gold_single_game">
+					<div class="header">
+						<span class="title">{{view.config.most_gold_single_game.name}}</span>
+						<span class="i-goldcoins bestof-symbol"></span>
+						</div>
+					<div class="sub-header"></div>
+					<div class="body">
+						<table class="bestof-table bestof-table-hover">
+								<tr class="bestof-table-headline">
+									<td></td>
+									<td>Player</td>
+									<td>Gold</td>
+									<td colspan="2">Champ</td>
+									</tr>
+								<tr ng-repeat="e in view.list.most_gold_single_game" ng-click="view.redirect_template('all_player', e.ingame_name)" ng-class='{"bc-first-rank":$index == 0}'>
+									<td class="tc-index">{{$index + 1}}</td>
+									<td class="tc-player">{{e.ingame_name}}</td>
+									<td class="tc-number">{{e.gold}}</td>
+									<td class="{{view.get_champion_name_converted(e.name)}}" style="background-size: contain"></td>
+									<td class="tc-champion">{{e.name}}</td>
+									</tr>
+							</table>
+						</div>
+					</div>
+
+				<div class="stat-box" ng-if="view.list.highest_win_streak_player">
+					<div class="header">
+						<span class="title">{{view.config.highest_win_streak_player.name}}</span>
+						<span class="i-bounce-up bestof-symbol"></span>
+						</div>
+					<div class="sub-header"></div>
+					<div class="body">
+						<table class="bestof-table bestof-table-hover">
+								<tr class="bestof-table-headline">
+									<td></td>
+									<td>Player</td>
+									<td>max streak</td>
+									<td>current streak</td>
+									</tr>
+								<tr ng-repeat="e in view.list.highest_win_streak_player" ng-click="view.redirect_template('all_player', e.ingame_name)" ng-class='{"bc-first-rank":$index == 0}'>
+									<td class="tc-index">{{$index + 1}}</td>
+									<td class="tc-player">{{e.ingame_name}}</td>
+									<td class="ta-center tc-number">{{e.max_win_streak}} x</td>
+									<td class="ta-center tc-number">
+										<span>{{e.actual_win_streak}}</span>
+										<span ng-if="e.actual_win_streak == 1">Win</span>
+										<span ng-if="e.actual_win_streak != 1">Wins</span>
+										</td>
+									</tr>
+							</table>
+						</div>
+					</div>
+
+				<div class="stat-box" ng-if="view.list.highest_lose_streak_player">
+					<div class="header">
+						<span class="title">{{view.config.highest_lose_streak_player.name}}</span>
+						<span class="i-bounce-down bestof-symbol"></span>
+						</div>
+					<div class="sub-header"></div>
+					<div class="body">
+						<table class="bestof-table bestof-table-hover">
+								<tr class="bestof-table-headline">
+									<td></td>
+									<td>Player</td>
+									<td>max streak</td>
+									<td>current streak</td>
+									</tr>
+								<tr ng-repeat="e in view.list.highest_lose_streak_player" ng-click="view.redirect_template('all_player', e.ingame_name)" ng-class='{"bc-first-rank":$index == 0}'>
+									<td class="tc-index">{{$index + 1}}</td>
+									<td class="tc-player">{{e.ingame_name}}</td>
+									<td class="ta-center tc-number">{{e.max_lose_streak}} x</td>
+									<td class="ta-center tc-number">
+										<span>{{e.actual_lose_streak}}</span>
+										<span ng-if="e.actual_lose_streak == 1">Lose</span>
+										<span ng-if="e.actual_lose_streak != 1">Loses</span>
+										</td>
+									</tr>
+							</table>
+						</div>
+					</div>
+
+				<div class="stat-box" ng-if="view.list.best_player_duo">
+					<div class="header">
+						<span class="title">{{view.config.best_player_duo.name}}</span>
+						<span class="i-best-duo bestof-symbol"></span>
+						<span class="i-question bestof-helper-headline" custom-hover="Beide müssen zusammen mindestens {{view.config.best_player_duo.min_games}} Spiele gespielt haben."></span>
+						</div>
+					<div class="sub-header"></div>
+					<div class="body">
+						<table class="bestof-table bestof-table-hover">
+								<tr class="bestof-table-headline">
+									<td></td>
+									<td>Player 1 / Player 2</td>
+									<td>Times played</td>
+									<td>W / L</td>
+									<td>Winrate</td>
+									</tr>
+								<tr ng-repeat="e in view.list.best_player_duo | orderBy:['-winrate_p1_with_p2', '-times_played_in_team']" ng-class='{"bc-first-rank":$index == 0}'>
+									<td class="tc-index">{{$index + 1}}</td>
+									<td class="font-one-five">
+										<span class="tc-player">{{e.player_one_name}}</span>
+										<span class="c-kda-separator">&nbsp;&&nbsp;</span>
+										<span class="tc-player">{{e.player_two_name}}</span>
+										</td>
+									<td class="ta-center tc-number">{{e.times_played_in_team}} x</td>
+									<td class="ta-center tc-number font-one-five">{{e.times_won_in_team}} <span class="c-kda-separator">/</span> {{e.times_lost_in_team}}</td>
+									<td class="tc-rate">{{e.winrate_p1_with_p2 | number:2}}&nbsp;%</td>
+									</tr>
+							</table>
+						</div>
+					</div>
+
+				<div class="stat-box" ng-if="view.list.worst_player_duo">
+					<div class="header">
+						<span class="title">{{view.config.worst_player_duo.name}}</span>
+						<span class="i-worst-duo bestof-symbol"></span>
+						<span class="i-question bestof-helper-headline" custom-hover="Beide müssen zusammen mindestens {{view.config.worst_player_duo.min_games}} Spiele gespielt haben."></span>
+						</div>
+					<div class="sub-header"></div>
+					<div class="body">
+						<table class="bestof-table bestof-table-hover">
+								<tr class="bestof-table-headline">
+									<td></td>
+									<td>Player 1 <span class="c-kda-separator">/</span> Player 2</td>
+									<td>Times played</td>
+									<td>W <span class="c-kda-separator">/</span> L</td>
+									<td>Winrate</td>
+									</tr>
+								<tr ng-repeat="e in view.list.worst_player_duo" ng-class='{"bc-first-rank":$index == 0}'>
+									<td class="tc-index">{{$index + 1}}</td>
+								<td class="font-one-five">
+									<span class="tc-player">{{e.player_one_name}}</span>
+									<span class="c-kda-separator">&nbsp;&&nbsp;</span>
+									<span class="tc-player">{{e.player_two_name}}</span>
+									</td>
+									<td class="ta-center tc-number">{{e.times_played_in_team}} x</td>
+									<td class="ta-center tc-number font-one-five">{{e.times_won_in_team}} <span class="c-kda-separator">/</span> {{e.times_lost_in_team}}</td>
+									<td class="tc-rate">{{e.winrate_p1_with_p2 | number:2}}&nbsp;%</td>
+									</tr>
+							</table>
+						</div>
+					</div>
+
 				</div>
+
 			</div>
 
-		<div class="stat-box" ng-if="view.list.most_played_champ">
-			<div class="header">
-				<span class="title">{{view.config.most_played_champ.name}}</span>
-				<span class="i-most-played-champ bestof-symbol"></span>
-				</div>
-			<div class="sub-header" id="bestof-tooltip-append"></div>
-			<div class="body">
-				<table class="bestof-table bestof-table-hover">
-						<tr class="bestof-table-headline">
-							<td></td>
-							<td colspan="2">Champion</td>
-							<td>Times played</td>
-							<td>Playrate</td>
-							</tr>
-						<tr ng-repeat="e in view.list.most_played_champ" ng-click="view.redirect_template('champions', e.champion_name)" custom-tooltip custom-tooltip-delay="0.3" custom-tooltip-clickable="false" custom-tooltip-option='{"width":"350px", "background":"rgb(8 10 10)"}' custom-tooltip-in-table="true" custom-tooltip-append-id="bestof-most-played-champ" custom-tooltip-position="right" id="bestof-most-played-champ">
-							<td ng-show="false">
-							<content-template>
-								<div class="bestof-most-played-champ-hover">
-									<div class="title">
-										<span class="text">Most Played By</span>
-										</div>
-									<div class="list">
-										<table class="bestof-table">
-											<tr class="bestof-table-headline">
-												<td></td>
-												<td>Player</td>
-												<td class="ta-center">Times Played</td>
-												</tr>
-											<tr ng-repeat="p in e.player_list | limitTo: 3">
-												<td class="tc-index">{{$index + 1}}</td>
-												<td class="tc-player">{{p.ingame_name}}</td>
-												<td class="tc-number ta-center"><span style="font-weight: bold">{{p.times_played}}</span> x</td>
-												</tr>
-											</table>
-										</div>
-									</div>
-								</content-template>
-								</td>
-							<td class="tc-index">{{$index + 1}}</td>
-							<td class="{{e.champion_name | lowercase}}" style="background-size: contain; background-color: #0f1519"></td>
-							<td class="tc-champion">{{e.champion_name}}</td>
-							<td class="ta-center tc-number">{{e.times_played}} x</td>
-							<td class="tc-rate">{{e.playrate | number:2}}&nbsp;%</td>
-							</tr>
-					</table>
-				</div>
-			</div>
 
-		<div class="stat-box" ng-if="view.list.highest_winrate_champ">
-			<div class="header">
-				<span class="title">{{view.config.highest_winrate_champ.name}}</span>
-				<span class="i-highest-winrate-champ bestof-symbol"></span>
-				<span class="i-question bestof-helper-headline" custom-hover="Der Champ muss mindestens {{view.config.highest_winrate_champ.min_games}} Mal gespielt worden sein."></span>
-				</div>
-			<div class="sub-header"></div>
-			<div class="body">
-				<table class="bestof-table bestof-table-hover">
-						<tr class="bestof-table-headline">
-							<td></td>
-							<td colspan="2">Champion</td>
-							<td class="ta-center">Times played</td>
-							<td>Winrate</td>
-							</tr>
-						<tr ng-repeat="e in view.list.highest_winrate_champ" ng-click="view.redirect_template('champions', e.champion_name)" custom-tooltip custom-tooltip-delay="0.3" custom-tooltip-clickable="false" custom-tooltip-option='{"width":"350px", "background":"rgb(8 10 10)"}' custom-tooltip-in-table="true" custom-tooltip-append-id="bestof-highest-winrate-champ" custom-tooltip-position="right" id="bestof-highest-winrate-champ">
-							<td ng-show="false">
-								<content-template>
-									<div class="bestof-most-played-champ-hover">
-										<div class="title">
-											<span class="text">Most Played By</span>
-											</div>
-										<div class="list">
-											<table class="bestof-table">
-												<tr class="bestof-table-headline">
-													<td></td>
-													<td>Player</td>
-													<td class="ta-center">Times Played</td>
-													</tr>
-												<tr ng-repeat="p in e.player_list | limitTo: 3">
-													<td class="tc-index">{{$index + 1}}</td>
-													<td class="tc-player">{{p.ingame_name}}</td>
-													<td class="tc-number ta-center"><span style="font-weight: bold">{{p.times_played}}</span> x</td>
-													</tr>
-												</table>
-											</div>
-										</div>
-									</content-template>
-								</td>
-							<td class="tc-index">{{$index + 1}}</td>
-							<td class="{{e.champion_name | lowercase}}" style="background-size: contain; background-color: #0f1519"></td>
-							<td class="tc-champion">{{e.champion_name}}</td>
-							<td class="ta-center tc-number">{{e.times_played}} x</td>
-							<td class="tc-rate">{{e.winrate | number:2}}&nbsp;%</td>
-							</tr>
-					</table>
-				</div>
-			</div>
-
-		<div class="stat-box" ng-if="view.list.most_played_player">
-			<div class="header">
-				<span class="title">{{view.config.most_played_player.name}}</span>
-				<span class="i-most-played-player bestof-symbol"></span>
-				</div>
-			<div class="sub-header"></div>
-			<div class="body">
-				<table class="bestof-table bestof-table-hover">
-						<tr class="bestof-table-headline">
-							<td></td>
-							<td>Player</td>
-							<td>Times played</td>
-							<td>Playrate</td>
-							</tr>
-						<tr ng-repeat="e in view.list.most_played_player" ng-click="view.redirect_template('all_player', e.ingame_name)">
-							<td class="tc-index">{{$index + 1}}</td>
-							<td class="tc-player">{{e.ingame_name}}</td>
-							<td class="ta-center tc-number">{{e.times_played}} x</td>
-							<td class="tc-rate">{{e.playrate | number:2}}&nbsp;%</td>
-							</tr>
-					</table>
-				</div>
-			</div>
-
-		<div class="stat-box" ng-if="view.list.highest_winrate_player">
-			<div class="header">
-				<span class="title">{{view.config.highest_winrate_player.name}}</span>
-				<span class="i-man-winner bestof-symbol"></span>
-				<span class="i-question bestof-helper-headline" custom-hover="Spieler muss mindestens {{view.config.highest_winrate_player.min_games}} Spiele gespielt haben."></span>
-				</div>
-			<div class="sub-header"></div>
-			<div class="body">
-				<table class="bestof-table bestof-table-hover">
-						<tr class="bestof-table-headline">
-							<td></td>
-							<td>Player</td>
-							<td class="ta-center">Times played</td>
-							<td>Winrate</td>
-							</tr>
-						<tr ng-repeat="e in view.list.highest_winrate_player" ng-click="view.redirect_template('all_player', e.ingame_name)">
-							<td class="tc-index">{{$index + 1}}</td>
-							<td class="tc-player">{{e.ingame_name}}</td>
-							<td class="ta-center tc-number">{{e.times_played}} x</td>
-							<td class="tc-rate">{{e.winrate | number:2}}&nbsp;%</td>
-							</tr>
-					</table>
-				</div>
-			</div>
-
-		<div class="stat-box" ng-if="view.list.most_summoner_one">
-			<div class="header">
-				<span class="title">{{view.config.most_summoner_one.name}}</span>
-				</div>
-			<div class="sub-header"></div>
-			<div class="body">
-				<table class="bestof-table bestof-table-hover">
-						<tr class="bestof-table-headline">
-							<td></td>
-							<td colspan="2">Summoner 1</td>
-							<td>Times picked</td>
-							<td>Pickrate</td>
-							</tr>
-						<tr ng-repeat="e in view.list.most_summoner_one">
-							<td class="tc-index">{{$index + 1}}</td>
-							<td class="{{e.summoner_one | lowercase}}" style="background-size: contain; background-color: #0f1519"></td>
-							<td class="tc-player">{{e.summoner_one}}</td>
-							<td class="ta-center tc-number">{{e.times_picked}} x</td>
-							<td class="tc-rate">{{e.pickrate | number:2}}&nbsp;%</td>
-							</tr>
-					</table>
-				</div>
-			</div>
-
-		<div class="stat-box" ng-if="view.list.most_summoner_two">
-			<div class="header">
-				<span class="title">{{view.config.most_summoner_two.name}}</span>
-				</div>
-			<div class="sub-header"></div>
-			<div class="body">
-				<table class="bestof-table bestof-table-hover">
-						<tr class="bestof-table-headline">
-							<td></td>
-							<td colspan="2">Summoner 2</td>
-							<td>Times picked</td>
-							<td>Pickrate</td>
-							</tr>
-						<tr ng-repeat="e in view.list.most_summoner_two">
-							<td class="tc-index">{{$index + 1}}</td>
-							<td class="{{e.summoner_two | lowercase}}" style="background-size: contain; background-color: #0f1519"></td>
-							<td class="tc-player">{{e.summoner_two}}</td>
-							<td class="ta-center tc-number">{{e.times_picked}} x</td>
-							<td class="tc-rate">{{e.pickrate | number:2}}&nbsp;%</td>
-							</tr>
-					</table>
-				</div>
-			</div>
-
-		<div class="stat-box" ng-if="view.list.most_kills_single_game">
-			<div class="header">
-				<span class="title">{{view.config.most_kills_single_game.name}}</span>
-				<span class="i-kills bestof-symbol"></span>
-				<span class="i-question bestof-helper-headline" custom-hover="Sortiert nach: Kills absteigend -> Deaths aufsteigend -> Assists absteigend."></span>
-				</div>
-			<div class="sub-header"></div>
-			<div class="body">
-				<table class="bestof-table bestof-table-hover">
-						<tr class="bestof-table-headline">
-							<td></td>
-							<td>Player</td>
-							<td>Kills</td>
-							<td class="ta-center" colspan="3">Champ & K / D / A</td>
-							</tr>
-						<tr ng-repeat="e in view.list.most_kills_single_game" ng-click="view.redirect_template('all_player', e.ingame_name)">
-							<td class="tc-index">{{$index + 1}}</td>
-							<td class="tc-player">{{e.ingame_name}}</td>
-							<td class="ta-center tc-number">{{e.kills}}</td>
-							<td class="{{e.name | lowercase}}" style="background-size: contain; background-color: #0f1519"></td>
-							<td class="tc-champion">{{e.name}}</td>
-							<td class="tc-rate">{{e.kills}} / {{e.deaths}} / {{e.assists}}</td>
-							</tr>
-					</table>
-				</div>
-			</div>
-
-		<div class="stat-box" ng-if="view.list.most_deaths_single_game">
-			<div class="header">
-				<span class="title">{{view.config.most_deaths_single_game.name}}</span>
-				<span class="i-deaths bestof-symbol"></span>
-				<span class="i-question bestof-helper-headline" custom-hover="Sortiert nach: Deaths absteigend -> Kills aufsteigend -> Assists aufsteigend."></span>
-				</div>
-			<div class="sub-header"></div>
-			<div class="body">
-				<table class="bestof-table bestof-table-hover">
-						<tr class="bestof-table-headline">
-							<td></td>
-							<td>Player</td>
-							<td>Deaths</td>
-							<td class="ta-center" colspan="3">Champ & K / D / A</td>
-							</tr>
-						<tr ng-repeat="e in view.list.most_deaths_single_game" ng-click="view.redirect_template('all_player', e.ingame_name)">
-							<td class="tc-index">{{$index + 1}}</td>
-							<td class="tc-player">{{e.ingame_name}}</td>
-							<td class="ta-center tc-number">{{e.deaths}}</td>
-							<td class="{{e.name | lowercase}}" style="background-size: contain; background-color: #0f1519"></td>
-							<td class="tc-champion">{{e.name}}</td>
-							<td class="tc-rate">{{e.kills}} / {{e.deaths}} / {{e.assists}}</td>
-							</tr>
-					</table>
-				</div>
-			</div>
-
-		<div class="stat-box" ng-if="view.list.most_assists_single_game">
-			<div class="header">
-				<span class="title">{{view.config.most_assists_single_game.name}}</span>
-				<span class="i-assists bestof-symbol"></span>
-				<span class="i-question bestof-helper-headline" custom-hover="Sortiert nach: Assists absteigend -> Deaths aufsteigend -> Kills absteigend."></span>
-				</div>
-			<div class="sub-header"></div>
-			<div class="body">
-				<table class="bestof-table bestof-table-hover">
-						<tr class="bestof-table-headline">
-							<td></td>
-							<td>Player</td>
-							<td>Assists</td>
-							<td class="ta-center" colspan="3">Champ & K / D / A</td>
-							</tr>
-						<tr ng-repeat="e in view.list.most_assists_single_game" ng-click="view.redirect_template('all_player', e.ingame_name)">
-							<td class="tc-index">{{$index + 1}}</td>
-							<td class="tc-player">{{e.ingame_name}}</td>
-							<td class="ta-center tc-number">{{e.assists}}</td>
-							<td class="{{e.champion_converted | lowercase}}" style="background-size: contain; background-color: #0f1519"></td>
-							<td class="tc-champion">{{e.name}}</td>
-							<td class="tc-rate">{{e.kills}} / {{e.deaths}} / {{e.assists}}</td>
-							</tr>
-					</table>
-				</div>
-			</div>
-
-		<div class="stat-box" ng-if="view.list.most_cs_single_game">
-			<div class="header">
-				<span class="title">{{view.config.most_cs_single_game.name}}</span>
-				<span class="i-most-cs bestof-symbol"></span>
-				</div>
-			<div class="sub-header"></div>
-			<div class="body">
-				<table class="bestof-table bestof-table-hover">
-						<tr class="bestof-table-headline">
-							<td></td>
-							<td>Player</td>
-							<td>CS</td>
-							<td colspan="2">Champ</td>
-							</tr>
-						<tr ng-repeat="e in view.list.most_cs_single_game" ng-click="view.redirect_template('all_player', e.ingame_name)">
-							<td class="tc-index">{{$index + 1}}</td>
-							<td class="tc-player">{{e.ingame_name}}</td>
-							<td class="tc-number">{{e.creep_score}}</td>
-							<td class="{{e.name | lowercase}}" style="background-size: contain; background-color: #0f1519"></td>
-							<td class="tc-champion">{{e.name}}</td>
-							</tr>
-					</table>
-				</div>
-			</div>
-
-		<div class="stat-box" ng-if="view.list.most_gold_single_game">
-			<div class="header">
-				<span class="title">{{view.config.most_gold_single_game.name}}</span>
-				<span class="i-goldcoins bestof-symbol"></span>
-				</div>
-			<div class="sub-header"></div>
-			<div class="body">
-				<table class="bestof-table bestof-table-hover">
-						<tr class="bestof-table-headline">
-							<td></td>
-							<td>Player</td>
-							<td>Gold</td>
-							<td colspan="2">Champ</td>
-							</tr>
-						<tr ng-repeat="e in view.list.most_gold_single_game" ng-click="view.redirect_template('all_player', e.ingame_name)">
-							<td class="tc-index">{{$index + 1}}</td>
-							<td class="tc-player">{{e.ingame_name}}</td>
-							<td class="tc-number">{{e.gold}}</td>
-							<td class="{{e.name | lowercase}}" style="background-size: contain; background-color: #0f1519"></td>
-							<td class="tc-champion">{{e.name}}</td>
-							</tr>
-					</table>
-				</div>
-			</div>
-
-		<div class="stat-box" ng-if="view.list.highest_win_streak_player">
-			<div class="header">
-				<span class="title">{{view.config.highest_win_streak_player.name}}</span>
-				<span class="i-bounce-up bestof-symbol"></span>
-				</div>
-			<div class="sub-header"></div>
-			<div class="body">
-				<table class="bestof-table bestof-table-hover">
-						<tr class="bestof-table-headline">
-							<td></td>
-							<td>Player</td>
-							<td>max streak</td>
-							<td>current streak</td>
-							</tr>
-						<tr ng-repeat="e in view.list.highest_win_streak_player" ng-click="view.redirect_template('all_player', e.ingame_name)">
-							<td class="tc-index">{{$index + 1}}</td>
-							<td class="tc-player">{{e.ingame_name}}</td>
-							<td class="ta-center tc-number">{{e.max_win_streak}} x</td>
-							<td class="ta-center tc-number">
-								<span>{{e.actual_win_streak}}</span>
-								<span ng-if="e.actual_win_streak == 1">Win</span>
-								<span ng-if="e.actual_win_streak != 1">Wins</span>
-								</td>
-							</tr>
-					</table>
-				</div>
-			</div>
-
-		<div class="stat-box" ng-if="view.list.highest_lose_streak_player">
-			<div class="header">
-				<span class="title">{{view.config.highest_lose_streak_player.name}}</span>
-				<span class="i-bounce-down bestof-symbol"></span>
-				</div>
-			<div class="sub-header"></div>
-			<div class="body">
-				<table class="bestof-table bestof-table-hover">
-						<tr class="bestof-table-headline">
-							<td></td>
-							<td>Player</td>
-							<td>max streak</td>
-							<td>current streak</td>
-							</tr>
-						<tr ng-repeat="e in view.list.highest_lose_streak_player" ng-click="view.redirect_template('all_player', e.ingame_name)">
-							<td class="tc-index">{{$index + 1}}</td>
-							<td class="tc-player">{{e.ingame_name}}</td>
-							<td class="ta-center tc-number">{{e.max_lose_streak}} x</td>
-							<td class="ta-center tc-number">
-								<span>{{e.actual_lose_streak}}</span>
-								<span ng-if="e.actual_lose_streak == 1">Lose</span>
-								<span ng-if="e.actual_lose_streak != 1">Loses</span>
-								</td>
-							</tr>
-					</table>
-				</div>
-			</div>
-
-		<div class="stat-box" ng-if="view.list.best_player_duo">
-			<div class="header">
-				<span class="title">{{view.config.best_player_duo.name}}</span>
-				<span class="i-best-duo bestof-symbol"></span>
-				<span class="i-question bestof-helper-headline" custom-hover="Beide müssen zusammen mindestens {{view.config.best_player_duo.min_games}} Spiele gespielt haben."></span>
-				</div>
-			<div class="sub-header"></div>
-			<div class="body">
-				<table class="bestof-table bestof-table-hover">
-						<tr class="bestof-table-headline">
-							<td></td>
-							<td>Player 1 / Player 2</td>
-							<td>Times played</td>
-							<td>W / L</td>
-							<td>Winrate</td>
-							</tr>
-						<tr ng-repeat="e in view.list.best_player_duo | orderBy:['-winrate_p1_with_p2', '-times_played_in_team']">
-							<td class="tc-index">{{$index + 1}}</td>
-							<td class="font-one-five">
-								<span class="tc-player">{{e.player_one_name}}</span>
-								<span>&nbsp;&&nbsp;</span>
-								<span class="tc-player">{{e.player_two_name}}</span>
-								</td>
-							<td class="ta-center tc-number">{{e.times_played_in_team}} x</td>
-							<td class="ta-center tc-number font-one-five">{{e.times_won_in_team}} / {{e.times_lost_in_team}}</td>
-							<td class="tc-rate">{{e.winrate_p1_with_p2 | number:2}}&nbsp;%</td>
-							</tr>
-					</table>
-				</div>
-			</div>
-
-		<div class="stat-box" ng-if="view.list.worst_player_duo">
-			<div class="header">
-				<span class="title">{{view.config.worst_player_duo.name}}</span>
-				<span class="i-worst-duo bestof-symbol"></span>
-				<span class="i-question bestof-helper-headline" custom-hover="Beide müssen zusammen mindestens {{view.config.worst_player_duo.min_games}} Spiele gespielt haben."></span>
-				</div>
-			<div class="sub-header"></div>
-			<div class="body">
-				<table class="bestof-table bestof-table-hover">
-						<tr class="bestof-table-headline">
-							<td></td>
-							<td>Player 1 / Player 2</td>
-							<td>Times played</td>
-							<td>W / L</td>
-							<td>Winrate</td>
-							</tr>
-						<tr ng-repeat="e in view.list.worst_player_duo">
-							<td class="tc-index">{{$index + 1}}</td>
-						<td class="font-one-five">
-							<span class="tc-player">{{e.player_one_name}}</span>
-							<span>&nbsp;&&nbsp;</span>
-							<span class="tc-player">{{e.player_two_name}}</span>
-							</td>
-							<td class="ta-center tc-number">{{e.times_played_in_team}} x</td>
-							<td class="ta-center tc-number font-one-five">{{e.times_won_in_team}} / {{e.times_lost_in_team}}</td>
-							<td class="tc-rate">{{e.winrate_p1_with_p2 | number:2}}&nbsp;%</td>
-							</tr>
-					</table>
-				</div>
-			</div>
 
 		</section>
 

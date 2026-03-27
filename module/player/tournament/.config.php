@@ -20,7 +20,7 @@ if($this->user_logged()){
 			]);
 
 		/* JS & CSS Modul laden */
-		// $this->build_environment('header:css[]', $moduleurl.'/all_profile.css', 50);
+		$this->build_environment('header:css[]', $moduleurl.'/all_profile.css', 50);
 		$this->build_environment('header:js[]', $moduleurl.'/all_profile.js', 50);
 
 		// Ausführbare Funktionen inkl. benötigtes Recht

@@ -1,6 +1,223 @@
-<article class="container" ng-controller="customstats.home_state_controller">
+<article ng-controller="customstats.home_state_controller">
 
-	<section class="navbar-flex-complete">
+	<header class="header-main-nav sticky top-0 z-50 w-full text-white font-mono flex justify-center">
+		<div class="flex h-70 px-4 lg:pl-11 lg:pr-0 items-center self-center grow lg-pdl-11 lg-pdr-0">
+			<a class="logo" href="#/all_player">Customstats</a>
+			<div class="h-full flex items-center mx-4 grow">
+				<div class="items-center flex-row h-full lg-flex">
+					<div class="group lg-flex xl-pd-14 h-full">
+						<div class="flex flex-row h-full items-center cursor-pointer justify-between" style="width: 16ch" ng-if="app.user_has_right('customstats:dashboard')">
+							<a class="inline-block link" style="font-size: 18px" href="#/dashboard" title="Dashboard">Dashboard</a>
+							</div>
+						<div class="flex flex-row h-full items-center cursor-pointer justify-between" style="width: 10ch" ng-if="app.user_has_right('customstats:chat')">
+							<a class="inline-block link" style="font-size: 18px" href="#/chat">Chat</a>
+							</div>
+						<div class="flex flex-row h-full link items-center cursor-pointer justify-between" style="width: 16ch" custom-tooltip-nav custom-tooltip-delay="0" custom-tooltip-option='{"background":"#0a0e13", "border":"1px solid rgb(255, 255, 255 / 0.3)","border-width":"1px"}' custom-tooltip-append-id="header-nav-customgame" custom-tooltip-position="down" id="header-nav-customgame">
+							<content-template ng-show="false">
+								<div class="flex open-nav-menu flex-col">
+									<div class="flex flex-col menu">
+										<div class="header">
+											<span class="text">GENERAL</span>
+											</div>
+										<div class="body">
+											<div class="item" ng-if="app.user_has_right('customstats:tabview_all_player')" style="margin-right: 3rem">
+												<a class="text" href="#/all_player">Alle Spieler</a>
+												</div>
+											<div class="item" ng-if="app.user_has_right('customstats:champions')" style="margin-right: 3rem">
+												<a class="text" href="#/champions">Champions</a>
+												</div>
+											<div class="item" ng-if="app.user_has_right('customstats:tabview_media')">
+												<a class="text" href="#/sources">Quellen</a>
+												</div>
+											</div>
+										</div>
+									<div class="flex flex-col menu" style="margin-top: 2rem">
+										<div class="header">
+											<span class="text">STATS</span>
+											</div>
+										<div class="body">
+											<div class="item" ng-if="app.user_has_right('customstats:best_of')">
+												<a class="text" href="#/best_of">Best Of</a>
+												</div>
+											<div class="item" ng-if="app.user_has_right('customstats:tabview_analysis')" style="margin-right: 2rem">
+												<a class="text" href="#/ingame_combination">Comparison</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</content-template>
+							<span class="inline-block group-hover:font-bold" style="font-size: 18px">Customgames</span>
+							<svg width="32" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path fill-rule="evenodd" clip-rule="evenodd" fill="#bbedff" d="M5.70711 9.71069C5.31658 10.1012 5.31658 10.7344 5.70711 11.1249L10.5993 16.0123C11.3805 16.7927 12.6463 16.7924 13.4271 16.0117L18.3174 11.1213C18.708 10.7308 18.708 10.0976 18.3174 9.70708C17.9269 9.31655 17.2937 9.31655 16.9032 9.70708L12.7176 13.8927C12.3271 14.2833 11.6939 14.2832 11.3034 13.8927L7.12132 9.71069C6.7308 9.32016 6.09763 9.32016 5.70711 9.71069Z" />
+								</svg>
+<!-- 							<svg ng-show="hover_customgame" width="32" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path fill-rule="evenodd" clip-rule="evenodd" fill="#bbedff" d="M18.2929 15.2893C18.6834 14.8988 18.6834 14.2656 18.2929 13.8751L13.4007 8.98766C12.6195 8.20726 11.3537 8.20757 10.5729 8.98835L5.68257 13.8787C5.29205 14.2692 5.29205 14.9024 5.68257 15.2929C6.0731 15.6835 6.70626 15.6835 7.09679 15.2929L11.2824 11.1073C11.673 10.7168 12.3061 10.7168 12.6966 11.1073L16.8787 15.2893C17.2692 15.6798 17.9024 15.6798 18.2929 15.2893Z" fill="#0F0F0F"/>
+								</svg> -->
+							</div>
+						<div class="flex flex-row h-full link items-center cursor-pointer justify-between" ng-if="app.user_has_right('customstats:tournament')" style="margin-left: 30px; width: 13ch" custom-tooltip-nav custom-tooltip-delay="0" custom-tooltip-option='{"background":"#0a0e13", "border":"1px solid rgb(255, 255, 255 / 0.3)","border-width":"1px"}' custom-tooltip-append-id="header-nav-tournament" custom-tooltip-position="down" id="header-nav-tournament">
+							<content-template ng-show="false">
+								<div class="flex open-nav-menu flex-col">
+									<div class="flex flex-col menu">
+										<div class="header">
+											<span class="text">GENERAL</span>
+											</div>
+										<div class="body">
+											<div class="item" style="margin-right: 3rem">
+												<a class="text" href="#/tournament">Overview</a>
+												</div>
+											<div class="item" style="margin-right: 3rem">
+												<a class="text" href="#/tournament_all_profile">Alle Spieler</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</content-template>
+							<span class="inline-block group-hover:font-bold" style="font-size: 18px">Turniere</span>
+							<svg width="32" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path fill-rule="evenodd" clip-rule="evenodd" fill="#bbedff" d="M5.70711 9.71069C5.31658 10.1012 5.31658 10.7344 5.70711 11.1249L10.5993 16.0123C11.3805 16.7927 12.6463 16.7924 13.4271 16.0117L18.3174 11.1213C18.708 10.7308 18.708 10.0976 18.3174 9.70708C17.9269 9.31655 17.2937 9.31655 16.9032 9.70708L12.7176 13.8927C12.3271 14.2833 11.6939 14.2832 11.3034 13.8927L7.12132 9.71069C6.7308 9.32016 6.09763 9.32016 5.70711 9.71069Z" />
+								</svg>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			<div class="h-full flex items-center mx-4 grow ta-center xl-gap" style="justify-content: end">
+
+				<div class="flex flex-row h-full items-center cursor-pointer justify-between" style="margin-left: 30px" custom-tooltip-nav custom-tooltip-delay="0" custom-tooltip-option='{"background":"#0a0e13", "border":"1px solid rgb(255, 255, 255 / 0.3)","border-width":"1px"}' custom-tooltip-append-id="header-nav-profile" custom-tooltip-position="down" id="header-nav-profile">
+
+					<div ng-if="!app.user_has_right('customstats:all_player')">
+						<span class="font-bold" style="font-size: 18px">Moin,&nbsp;<span class="tc-teal">{{app.data.user.username}}</span>!</span>
+						</div>
+					<div ng-if="app.user_has_right('customstats:all_player')">
+						<span class="font-bold" style="font-size: 18px">Moin,&nbsp;<a class="tc-teal" ng-href="#/all_player?playerID={{app.board_get_value('playerID')}}">{{app.data.user.username}}</a>!</span>
+						</div>
+
+					<content-template ng-show="false">
+						<div class="flex open-nav-menu flex-col">
+							<div class="flex flex-col menu">
+								<div class="header">
+									<span class="text">DEINE PROFILE</span>
+									</div>
+								<div class="body" style="grid-template-columns: repeat(1,minmax(0,1fr))">
+									<div class="item" ng-if="app.user_has_right('customstats:profile')" style="margin-right: 3rem">
+										<a class="text" ng-href="#/profile" ><span>Account</span></a>
+										</div>
+									<div class="item" style="margin-right: 3rem" ng-if="app.user_has_right('customstats:all_player')">
+										<a class="text" ng-href="#/all_player?playerID={{app.board_get_value('playerID')}}"><span>Customgames</span></a>
+										</div>
+									<div class="item" ng-if="app.user_has_right('customstats:tournament:all_profile')">
+										<a class="text" ng-href="#/tournament_all_profile?playerID={{app.board_get_value('t_playerID')}}"><span>Turniere</span></a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</content-template>
+					</div>
+
+
+
+
+
+<!-- 				<div>
+					<span>Gut investierte Zeit:&nbsp;<i class="tc-teal">{{app.data.session_data.active_hours}}:{{app.data.session_data.active_minutes}} h</i></span>
+					</div> -->
+				<div class="flex flex-row h-full link items-center cursor-pointer justify-between" ng-if="app.user_has_right('customstats:tabview_admin')" style="width: 9ch" custom-tooltip-nav custom-tooltip-delay="0" custom-tooltip-option='{"background":"#0a0e13", "border":"1px solid rgb(255, 255, 255 / 0.3)","border-width":"1px"}' custom-tooltip-append-id="header-nav-admin" custom-tooltip-position="down" id="header-nav-admin">
+					<content-template ng-show="false">
+						<div class="flex open-nav-menu flex-col">
+							<div class="flex flex-col menu">
+								<div class="header">
+									<span class="text">BASE</span>
+									</div>
+								<div class="body" style="grid-template-columns: repeat(3,minmax(0,1fr)); min-width: 500px;">
+									<div class="item" style="margin-right: 3rem" ng-if="app.user_has_right('customstats:admin_base:base_config')">
+										<a class="text" href="#/base_config">Config</a>
+										</div>
+									<div class="item" style="margin-right: 3rem" ng-if="app.user_has_right('customstats:admin_base:user_config')">
+										<a class="text" href="#/user_config">User</a>
+										</div>
+									<div class="item" style="margin-right: 3rem" ng-if="app.user_has_right('customstats:admin_base:champion_config')">
+										<a class="text" href="#/champion_config">Champions</a>
+										</div>
+									<div class="item" style="margin-right: 3rem" ng-if="app.user_has_right('customstats:admin_base:leagueapi_config')">
+										<a class="text" href="#/leagueapi_config">Leagueapi</a>
+										</div>
+									</div>
+								</div>
+							<div class="flex flex-col menu" style="margin-top: 2rem">
+								<div class="header">
+									<span class="text">Developer</span>
+									</div>
+								<div class="body" style="grid-template-columns: repeat(2,minmax(0,1fr)); min-width: 500px;">
+									<div class="item" ng-if="app.user_has_right('customstats:admin:commandline')">
+										<a class="text" href="#/commandline">CMD</a>
+										</div>
+									</div>
+								</div>
+							<div class="flex flex-col menu" style="margin-top: 2rem">
+								<div class="header">
+									<span class="text">CUSTOMGAMES</span>
+									</div>
+								<div class="body" style="grid-template-columns: repeat(2,minmax(0,1fr));">
+									<div class="item" style="margin-right: 3rem" ng-if="app.user_has_right('customstats:admin:new_game')">
+										<a class="text" href="#/new_game">New Game</a>
+										</div>
+									<div class="item" style="margin-right: 3rem" ng-if="app.user_has_right('customstats:admin_base:player_config')">
+										<a class="text" href="#/player_config">Player</a>
+										</div>
+									</div>
+								</div>
+							<div class="flex flex-col menu" style="margin-top: 2rem">
+								<div class="header">
+									<span class="text">TURNIERE</span>
+									</div>
+								<div class="body">
+									<div class="item" style="margin-right: 3rem" ng-if="app.user_has_right('customstats:admin_tournament')">
+										<a class="text" href="#/admin_tournament">Configuration</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</content-template>
+					<span class="inline-block group-hover:font-bold" style="font-size: 18px">Admin</span>
+					<svg width="32" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path fill-rule="evenodd" clip-rule="evenodd" fill="#bbedff" d="M5.70711 9.71069C5.31658 10.1012 5.31658 10.7344 5.70711 11.1249L10.5993 16.0123C11.3805 16.7927 12.6463 16.7924 13.4271 16.0117L18.3174 11.1213C18.708 10.7308 18.708 10.0976 18.3174 9.70708C17.9269 9.31655 17.2937 9.31655 16.9032 9.70708L12.7176 13.8927C12.3271 14.2833 11.6939 14.2832 11.3034 13.8927L7.12132 9.71069C6.7308 9.32016 6.09763 9.32016 5.70711 9.71069Z" />
+						</svg>
+					</div>
+<!-- 						<div class="flex flex-row h-full link items-center cursor-pointer justify-between" style="width: 9ch" custom-tooltip-nav custom-tooltip-delay="0" custom-tooltip-option='{"background":"#0a0e13", "border":"1px solid rgb(255, 255, 255 / 0.3)","border-width":"1px"}' custom-tooltip-append-id="header-nav-tournament-profile" custom-tooltip-position="down" id="header-nav-tournament-profile">
+							<content-template ng-show="false">
+								<div class="flex open-nav-menu flex-col">
+									<div class="flex flex-col menu">
+										<div class="header">
+											<span class="text">GENERAL</span>
+											</div>
+										<div class="body">
+											<div class="item" ng-if="app.user_has_right('customstats:profile')" style="margin-right: 3rem">
+												<a class="text" ng-href="#/profile" ><span>Account</span></a>
+												</div>
+											<div class="item" style="margin-right: 3rem">
+												<a class="text" ng-href="#/all_player?playerID={{app.board_get_value('playerID')}}"><span>Customgames</span></a>
+												</div>
+											<div class="item">
+												<a class="text" ng-href="#/tournament_all_profile?playerID={{app.board_get_value('t_playerID')}}"><span>Turniere</span></a>
+												</div>
+
+											</div>
+										</div>
+									</div>
+								</content-template>
+							<span class="inline-block group-hover:font-bold" style="font-size: 18px">Deins</span>
+							<svg width="32" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path fill-rule="evenodd" clip-rule="evenodd" fill="#bbedff" d="M5.70711 9.71069C5.31658 10.1012 5.31658 10.7344 5.70711 11.1249L10.5993 16.0123C11.3805 16.7927 12.6463 16.7924 13.4271 16.0117L18.3174 11.1213C18.708 10.7308 18.708 10.0976 18.3174 9.70708C17.9269 9.31655 17.2937 9.31655 16.9032 9.70708L12.7176 13.8927C12.3271 14.2833 11.6939 14.2832 11.3034 13.8927L7.12132 9.71069C6.7308 9.32016 6.09763 9.32016 5.70711 9.71069Z" />
+								</svg>
+							</div> -->
+				<a class="inline-block link" style="font-size: 18px" href="/logout">Logout</a>
+				</div>
+			</div>
+
+
+		</header>
+
+<!-- 	<section class="navbar-flex-complete">
 
 		<section class="navbar-flex-box">
 			<div class="tab" ng-if="app.user_has_right('customstats:dashboard')" ng-class='{"focused":app.current_route == "/dashboard"}'>
@@ -23,6 +240,8 @@
 				</div>
 			<div class="tab" ng-if="app.user_has_right('customstats:tabview_all_player')" ng-class='{"focused":app.current_route == "/tabview_all_player"}' >
 				<a class="link" href="#/tabview_all_player" title="Alle Spieler">
+			<div class="tab" ng-if="app.user_has_right('customstats:tabview_all_player')" ng-class='{"focused":app.current_route == "/all_player"}' >
+				<a class="link" href="#/all_player" title="Alle Spieler">
 					<div class="i-player-group"></div>
 					<div class="title">Alle Spieler</div>
 					</a>
@@ -39,7 +258,7 @@
 					<div class="title">Best Of</div>
 					</a>
 				</div>
-<!-- 			<div class="tab" ng-if="app.user_has_right('customstats:tabview_media')" ng-class='{"focused":app.current_route == "/tabview_media"}'>
+				<div class="tab" ng-if="app.user_has_right('customstats:tabview_media')" ng-class='{"focused":app.current_route == "/tabview_media"}'>
 				<a class="link" href="#/tabview_media" title="Media">
 					<div class="i-source"></div>
 					<div class="title">Media</div>
@@ -86,7 +305,7 @@
 					<div class="tab" ng-if="app.user_has_right('customstats:profile')" ng-class='{"focused":app.current_route == "/tabview_profile"}'>
 						<a class="link" href="#/tabview_profile" title="Profil">
 							<div class="i-profile"></div>
-							<div class="title">Profile</div>
+							<div class="title">Profil</div>
 							</a>
 						</div>
 					<div class="tab">

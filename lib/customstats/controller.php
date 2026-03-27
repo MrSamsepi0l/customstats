@@ -1,5 +1,5 @@
 <?php
-/* Last update: 2024-06-29
+/* Last update: 2024-10-25
 	Jeremiah Meyer - mobile TREND GmbH
 	*/
 use \jmeyer\error as e;
@@ -20,9 +20,9 @@ class controller {
 	    \customstats\extension\usersession_trait;
 
 	public $project = 'customstats';
-	public $version = '2.3.0';
-	public $version_date = '2024-10-30';
-	public $version_int = 2;
+	public $version = '3.0.0';
+	public $version_date = '2026-03-25';
+	public $version_int = 3;
 	public $user;
 	public $session_lifetime = 28800; // 8 hours
 	public $hook_routing = [];
@@ -181,6 +181,14 @@ class controller {
 		// take user data
 		$user = $this->user;
 
+		// load session list
+		$res = base_session::get_session([
+			'identifier'	=> $user->api_key,
+			]);
+
+		// on success
+		$total_logins = ($res->status == 200) ? count($res->data) : 0;
+
 		// define status object
 		$status = (object)[
 
@@ -193,16 +201,17 @@ class controller {
 
 			// user specific stats
 			'user'			=> (object)[
-				'username'	=> $user->username,
-				'email'		=> $user->email,
-				'enabled'	=> $user->enabled,
-				'donation'	=> $user->donation,
-				'api_key'	=> $user->api_key,
-				'real_name'	=> $user->real_name,
-				'createTime'=> $user->createTime,
-				'playerID'	=> $user->playerID,
-				'data'		=> $user->data,
-				'right'		=> $user->right ?? [],
+				'username'		=> $user->username,
+				'email'			=> $user->email,
+				'enabled'		=> $user->enabled,
+				'donation'		=> $user->donation,
+				'api_key'		=> $user->api_key,
+				'real_name'		=> $user->real_name,
+				'createTime'	=> $user->createTime,
+				'playerID'		=> $user->playerID,
+				'data'			=> $user->data,
+				'right'			=> $user->right ?? [],
+				'total_logins'	=> $total_logins,
 				],
 
 			// session lifetime stats
@@ -598,6 +607,9 @@ class controller {
 		}
 
 	protected function customstats_registration($req = []){
+
+		// TEMP: disable public registration via API
+		return $this->response(501);
 
 		// if user is logged, return error
 		if($this->user_logged()) return $this->response(403);

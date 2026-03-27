@@ -23,7 +23,8 @@ $this->build_environment('header:js[]', $moduleurl.'/cdn/javascript/underscore/u
 if($this->user_logged()){
 
 	/* CSS Sheets laden */
-	$this->build_environment('header:css[]', $moduleurl.'/cdn/css/highcharts/highcharts.css', 15);
+	$this->build_environment('header:css[]', $moduleurl.'/cdn/css/highcharts/highcharts_v12.css', 14);
+	$this->build_environment('header:css[]', $moduleurl.'/cdn/css/highcharts/highcharts_customized.css', 15);
 	$this->build_environment('header:css[]', $moduleurl.'/cdn/css/customized/colors.css', 15);
 
 	/* Weitere JS Module laden */
@@ -34,7 +35,8 @@ if($this->user_logged()){
 	$this->build_environment('header:js[]', $moduleurl.'/js/filter.js', 31);
 
 	/* Highcharts JS einbinden */
-	$this->build_environment('header:js[]', $moduleurl.'/cdn/javascript/highcharts/highcharts.js', 40);
-	$this->build_environment('header:js[]', $moduleurl.'/cdn/javascript/highcharts/highcharts-more.js', 41);
-	$this->build_environment('header:js[]', $moduleurl.'/js/highcharts.js', 42);
+	$this->build_environment('header:js[]', $moduleurl.'/cdn/javascript/highcharts/highcharts_v12.js', 40);
+	// $this->build_environment('header:js[]', $moduleurl.'/cdn/javascript/highcharts/highcharts-more.js', 41);
+	$this->build_environment('header:js[]', $moduleurl.'/cdn/javascript/highcharts/highcharts_histogram.js', 42);
+	$this->build_environment('header:js[]', $moduleurl.'/js/highcharts.js', 43);
 	}

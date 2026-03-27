@@ -6,7 +6,7 @@ angular.module('customstats').controller('customstats.league_source_controller',
 	$scope.view = {
 		list 			: [],
 		filter 			: {
-			date_list	: ['2019', '2020', '2021', '2022', '2023', '2024'],
+			date_list	: ['2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027'],
 			gameDate	: '',
 			string		: '',
 			},

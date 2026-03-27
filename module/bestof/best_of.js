@@ -64,6 +64,12 @@ angular.module('customstats').controller('customstats.league:bestof_controller',
 				});
 			},
 
+		get_champion_name_converted : function(champion_name){
+
+			// use service function to convert name of champion
+			return $leagueapi.get_champion_name_converted(champion_name);
+			},
+
 		filter_list : function(search_key){
 			var self = this, original;
 

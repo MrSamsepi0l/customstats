@@ -11,7 +11,7 @@ if($_SERVER['SERVER_NAME'] == 'customstats.localhost'){
 	$_SERVER['DOMAIN'] = 'http://customstats.localhost';
 
 	// Htdocs Pfad als neues Root Verzeichnis setzen
-	$_SERVER['ROOT_DIRECTORY'] = 'C:/xampp/htdocs';
+	$_SERVER['ROOT_DIRECTORY'] = 'Q:/xampp/htdocs';
 
 	// Setze Entwicklungsmodus
 	$_SERVER['PROJECT_MODE'] = 'dev';

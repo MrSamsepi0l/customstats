@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('customstats').controller('customstats.tournament_all_profile_controller', ['$scope', '$app', '$leagueapi', '$phpdate', '$routeParams', '$location', function($scope, $app, $leagueapi, $phpdate, $routeParams, $location){
+angular.module('customstats').controller('customstats.tournament_all_profile_controller', ['$scope', '$app', '$leagueapi', '$phpdate', '$timeout', '$routeParams', '$location', '$multichart', function($scope, $app, $leagueapi, $phpdate, $timeout, $routeParams, $location, $multichart){
 
 	$scope.view = {
 		list 		: [],
@@ -31,22 +31,13 @@ angular.module('customstats').controller('customstats.tournament_all_profile_con
 			'adc'		: 'Botlane',
 			'support'	: 'Support',
 			},
-		random_player_list : [
-			'A friendly Bot', 'balance pls', 'AirDnB', 'dogger57', 'Hot female IRL',
-			'Hans der Schreck', 'ZorkzZZ', 'PaulDieNummer9', 'ReginaRudolf', 'Cestrion', 'Dash Nightfall',
-			'AufDiePlötze', 'Bruno Bacardi', 'Adrenalinshadow', 'Horny Luigi', 'Bxsse', 'Boosting Hahn',
-			'ZUiUKY', 'ReLeAsEtHeKrAkEn', 'dreyooo', 'Xenoblade Shulk', 'KnolliTheSmain', 'DP Ebony n Ivory', 'zezinho 23',
-			'Kornliebhaber23', 'KrakenGod', 'Happy Blueberry', 'Downlaoder', 'Waterwalker', 'V12Motor',
-			'Kill That Feets', 'BalSagoth', 'SheSaidShesLvl18', 'fiTheXisTeD', 'Nelanix', 'Pensi', 'Happy Blueberry', 'prasilda66',
-			'Pogotronic', 'Stormdom', 'Torte57', 'burn in fires', 'NJ VENOM', 'Too Much Sauce 1', 'Quinntuple',
-			'Dr Holiday', 'BIG AND HAIRY', 'MostDoomedAcc', 'ChimpinhÀ', 'Sinfect', 'INT el LEE gent', '1547849', 'ContainerClaus',
-			'Thalset', 'Academia Hammer', 'janpulle', 'KloßmitSoß', 'SHaccoTacco',
-			],
 		title_config	: {
 			},
 		match_history	: {
 			render_limit: 20,
 			},
+		win_lose_chartdata_list : {},
+		playrate_chartdata_list : {},
 
 		get_league_profile_list : function(tournamentID){
 			var self = this, param;
@@ -72,6 +63,16 @@ angular.module('customstats').controller('customstats.tournament_all_profile_con
 						// convert
 						e.ingame_name_canonical = e.ingame_name.split(' ').join('').toLowerCase();
 
+						// convert some int values
+						e.times_lost = parseInt(e.times_lost);
+						e.times_won = parseInt(e.times_won);
+						e.total_cs = parseInt(e.total_cs);
+						e.total_kills = parseInt(e.total_kills);
+						e.total_deaths = parseInt(e.total_deaths);
+						e.total_assists = parseInt(e.total_assists);
+						e.total_gold = parseInt(e.total_gold);
+						e.total_games_general = parseInt(e.total_games_general);
+
 						_.each(e.team_list, function(f){
 
 							// extend entry
@@ -83,24 +84,37 @@ angular.module('customstats').controller('customstats.tournament_all_profile_con
 							})
 						});
 
-					// take playerlist
-					self.list = data;
+					// copy playerlist
 					self.list_copy = data;
 
-					self.entry = _.findWhere(data, {'playerID': self.filter.playerID});
-
 					// search champion by route param
-					if(!_.isUndefined($routeParams.ingame_name)){
+					if(!_.isUndefined($routeParams.ingame_name) || !_.isEmpty($routeParams.playerID)){
+
+						// define search obj
+						var search_obj = !_.isUndefined($routeParams.ingame_name) ? {'ingame_name': $routeParams.ingame_name} : {'playerID': parseInt($routeParams.playerID)};
 
 						// set entry
-						self.entry = _.findWhere(data, {'ingame_name': $routeParams.ingame_name});
+						self.entry = _.findWhere(data, search_obj);
 
 						// filter select by player ID
 						self.filter.playerID = self.entry.playerID;
-
-						// load profile
-						self.get_player_profile(self.entry.playerID);
 						}
+
+					// otherwise
+					else {
+
+						// for each player
+						_.each(data, function(e){
+
+							// render charts
+							self.render_win_lose_chart_list({}, e);
+							self.render_playrate_chart_list({}, e);
+							});
+						}
+
+					// render elements sequentially into list for non-blocking UI (2 = batch size)
+					// self.render_sequentially(data, 1);
+					self.list = data;
 					},
 				'*' : function(data, status){
 					self.status = status;
@@ -115,6 +129,7 @@ angular.module('customstats').controller('customstats.tournament_all_profile_con
 			if(!playerID){
 
 				// reset route param
+				if(!_.isUndefined($routeParams.playerID)) $location.search('playerID', null);
 				if(!_.isUndefined($routeParams.ingame_name)) $location.search('ingame_name', null);
 
 				// reset entry
@@ -190,6 +205,255 @@ angular.module('customstats').controller('customstats.tournament_all_profile_con
 
 			// reset to 20
 			self.match_history.render_limit = 20;
+			},
+
+		render_win_lose_chart_list : function(change_config, player){
+			var self = this,
+				series = null,
+				new_chart = angular.merge({
+					chart: {
+						height: 75,
+						width: 200,
+						spacing: [0,0,0,0],
+					    type: 'bar',
+						},
+					xAxis: {
+						lineWidth: 0,
+						minorGridLineWidth: 0,
+						labels: {
+							enabled: false
+							},
+						minorTickLength: 0,
+						tickLength: 0
+						},
+				    yAxis: {
+				        gridLineWidth: 0,
+				        labels: {
+				            enabled: false,
+				        },
+				        title: {
+				        	useHTML: true,
+				        	text: '<span style="color: #fff; font-size: 0.6rem; letter-spacing: .1rem; font-weight: bold; textTransform: uppercase">'+player.winrate+' %<span style="color: var(--light-blue-gray-1)"> Winrate</span></span>',
+				            y: -10,
+				        	}
+				    	},
+					tooltip: {
+						enabled: false,
+						pointFormat: '',
+						backgroundColor: '#000',
+						style: {
+							color: '#fff',
+							fontSize: '1rem',
+							},
+						},
+					legend: {
+						enabled: false
+						},
+					plotOptions: {
+						series: {
+							allowPointSelect: false,
+							enableMouseTracking: false,
+							cursor: 'pointer',
+							dataLabels: [
+							{
+								enabled: true,
+								format: '{point.y:.0f} {point.name}',
+								style: {
+									fontSize: '0.7em',
+									color: '#000',
+									fontWeight: 'normal',
+									},
+								}],
+							showInLegend: false,
+							states : {
+								hover : {
+									enabled: false,
+									}
+								}
+							},
+						bar: {
+							stacking: 'percent',
+							},
+						},
+					series: [],
+					}, change_config);
+
+			// define lose series for stacked bar chart
+			series = {
+				'name'		: 'LOSES',
+				'colorIndex': 51,
+				'data'		: [
+					{'name'	: 'L', 'y': player.times_lost},
+					],
+				};
+
+			// add series to chart
+			new_chart.series.push(series);
+
+			// define win series for stacked bar chart
+			series = {
+				'name'		: 'WINS',
+				'colorIndex': 50,
+				'data'		: [
+					{'name'	: 'W', 'y': player.times_won},
+					],
+				};
+
+			// add series to chart
+			new_chart.series.push(series);
+
+			// take series values
+			new_chart.series = _.values(new_chart.series);
+
+			// create single multichart
+			var multichart = $multichart.get_new();
+
+			// define global chartdata
+			self.win_lose_chartdata_list[player.playerID] = multichart.create_chart(new_chart);
+			},
+
+		render_playrate_chart_list : function(change_config, player){
+			var self = this,
+				series = null,
+				new_chart = angular.merge({
+					chart: {
+						height: 75,
+						width: 200,
+						spacing: [0,0,0,0],
+					    type: 'bar',
+						},
+					xAxis: {
+						lineWidth: 0,
+						minorGridLineWidth: 0,
+						labels: {
+							enabled: false
+							},
+						minorTickLength: 0,
+						tickLength: 0
+						},
+				    yAxis: {
+				        gridLineWidth: 0,
+				        labels: {
+				            enabled: false,
+				        },
+				        title: {
+				        	useHTML: true,
+				        	text: '<span style="color: #fff; font-size: 0.6rem; letter-spacing: .1rem; font-weight: bold; textTransform: uppercase">'+player.playrate+' %<span style="color: var(--light-blue-gray-1)"> Playrate</span></span>',
+				            y: -10,
+				        	}
+				    	},
+					tooltip: {
+						enabled: false,
+						pointFormat: '',
+						backgroundColor: '#000',
+						style: {
+							color: '#fff',
+							fontSize: '1rem',
+							},
+						},
+					legend: {
+						enabled: false
+						},
+					plotOptions: {
+						series: {
+							allowPointSelect: false,
+							enableMouseTracking: false,
+							cursor: 'pointer',
+							dataLabels: [
+							{
+								enabled: true,
+								inside: true,
+								align: 'center',
+								verticalAlign: 'middle',
+								allowOverlap: true,
+								format: '{point.y:.0f} / '+player.total_games_general,
+								borderWidth: 0,
+								style: {
+									fontSize: '0.7em',
+									color: '#000',
+									fontWeight: 'normal',
+									},
+								}],
+							showInLegend: false,
+							states : {
+								hover : {
+									enabled: false,
+									}
+								}
+							},
+						bar: {
+							stacking: 'percent',
+							},
+						},
+					series: [],
+					}, change_config);
+
+			// add total games general series for stacked bar chart
+			series = {
+				'colorIndex': 52,
+				'data'		: [
+					{'name'	: 'total_games_general', 'y': player.total_games_general - player.times_played},
+					],
+				'dataLabels': [{enabled: false, crop: false, allowOverlap: true}],
+				};
+
+			// add series to chart
+			new_chart.series.push(series);
+
+			// add times played of player series for stacked bar chart
+			series = {
+				'colorIndex': 50,
+				'data'		: [
+					{'name'	: 'times_played', 'y': player.times_played},
+					],
+				};
+
+			// add series to chart
+			new_chart.series.push(series);
+
+			// take series values
+			new_chart.series = _.values(new_chart.series);
+
+			// create single multichart
+			var multichart = $multichart.get_new();
+
+			// define global chartdata
+			self.playrate_chartdata_list[player.playerID] = multichart.create_chart(new_chart);
+			},
+
+		// sequential rendering function
+		render_sequentially : function(list, items_per_batch){
+			var self = this, idx = 0;
+			var batch_size = items_per_batch || 50;
+
+			// copy list
+			list = angular.copy(list);
+
+			// inner function
+			function render_batch(){
+
+				// if end reached, stop
+				if(idx >= list.length) return;
+
+				// compute end
+				const end = Math.min(idx + batch_size, list.length);
+
+				// run loop
+				for(let i = idx; i < end; i++){
+
+					// push entries sequentially into list
+					self.list.push(list[i]);
+					}
+
+				// update index
+				idx = end;
+
+				// if end reached, stop execution
+				if(idx < list.length) $timeout(render_batch, 0);
+				}
+
+			// init
+			render_batch();
 			},
 
 		};

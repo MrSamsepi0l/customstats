@@ -13,31 +13,38 @@ a:hover {
 	align-items: center;
 	justify-content: space-around;
 	flex-direction: column;
-	height: 100%;
+	/*height: 100%;*/
+	animation: fadein 1.0s;
+	padding: 3rem 3rem 3rem 3rem;
+	min-height: 624px;
 
 	.card {
 		display: flex;
 		justify-content: center;
 		flex-direction: column;
-		margin: auto;
+		/*margin: auto;*/
 		border: 1px solid #1c1c1c;
 		transition: border 0.5s ease-in;
 		border-width: 1;
-		border-radius: 6px;
+		border-radius: 10px;
 		color: #000;
-		background: linear-gradient(to right bottom, #0f3733, #1c9093);
+		/*background: linear-gradient(to right bottom, #0f3733, #1c9093);*/
+		background: #148585;
+		background: linear-gradient(90deg,rgba(20, 133, 133, 1) 0%, rgba(13, 93, 128, 1) 47%, rgba(59, 143, 133, 1) 100%);
 
 		.header {
 			display: flex;
 			align-items: center;
-			height: 100px;
+			height: 70px;
 			width: 100%;
-			padding: 0 0 0 25px;
-			border-bottom: 1px solid rgb(157 140 144 / 13%);
+			padding: 1.5rem 1.5rem 1.5rem 1.5rem;
+			border-bottom: 1px solid rgb(237 230 232 / 13%);
 
 			.title {
-				font-family: sans-serif;
-				letter-spacing: 3px;
+				font-size: 2rem;
+				color: #bbedff;
+				/*font-family: sans-serif;*/
+				letter-spacing: 1px;
 				}
 			}
 
@@ -47,7 +54,7 @@ a:hover {
 			justify-content: flex-start;
 			width: 100%;
 			height: 80%;
-			padding: 1.4rem 2rem 1.6rem;
+			padding: 1.5rem 1.5rem 1.5rem 1.5rem;
 
 			.input-group {
 				position: relative;
@@ -57,13 +64,13 @@ a:hover {
 				max-width: 400px;
 				margin: 0 auto;
 				border-radius: 6px;
-				padding: 1.4rem 2rem 1.6rem;
+				padding: 1rem 1rem 1rem 1rem;
 				background-color: #0a0e13;
 
 				input {
 					flex-grow: 1;
-					font-size: 1.8rem;
-					line-height: 2.4rem;
+					font-size: 1.2rem;
+					line-height: 1.2rem;
 					vertical-align: middle;
 					border-style: none;
 					outline: none;
@@ -88,9 +95,9 @@ a:hover {
 				width: 100%;
 				color: #fff;
 				background-color: #0a0e13;
-				letter-spacing: 5px;
-				font-size: 1.4rem;
-				padding: 10px 0px 10px 0px;
+				letter-spacing: 3px;
+				font-size: 1.0rem;
+				padding: 8px 0px 8px 0px;
 				border: 1px transparent;
 				border-radius: 6px;
 			    user-select: none;
@@ -101,7 +108,7 @@ a:hover {
 
 			.login-button:hover {
 				transition: all 0.3s ease;
-				background-color: #0f1519;
+				background-color: #142329;
 				}
 
 			.login-error {
@@ -136,13 +143,13 @@ a:hover {
 	.flex-box-login {
 
 		.card {
-			width: 25%;
-			height: 450px;
+			width: 20%;
+			height: 400px;
 
 			.header {
 
 				.title {
-					font-size: 2vw;
+					font-size: 1.2rem;
 					}
 				}
 			}
@@ -154,9 +161,10 @@ a:hover {
 	.flex-box-login {
 
 		.card {
-			width: 50%;
-			height: 550px;
-			font-size: 1.8rem;
+            width: 40%;
+            min-width: 330px;
+            height: 500px;
+            font-size: 1.2em;
 			}
 
 		}

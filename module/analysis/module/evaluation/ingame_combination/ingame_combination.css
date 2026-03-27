@@ -1,3 +1,40 @@
+.champion-comparison {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+
+	.header {
+		width: 100%;
+		padding: 1rem 1rem 1rem 1rem;
+		animation: fadein .8s;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+
+		/* new */
+		background-color: #0f1519;
+
+		.headline {
+		    width: 80%;
+
+		    .text {
+		        font-size: 3rem;
+		        letter-spacing: 3px;
+		        color: var(--tc-headline);
+		        }
+		    }
+		}
+
+	.body {
+		padding: 1rem 1rem 1rem 1rem;
+		min-height: 800px;
+		width: 75%;
+
+		}
+	}
+
 .stat-tool-search-bar {
 	display: flex;
 	justify-content: flex-start;

@@ -1,9 +1,30 @@
-<article ng-controller="customstats.login_controller">
+<article class="nav-article-unlogged" ng-controller="customstats.login_controller">
+
+	<header class="header-main-nav sticky top-0 z-50 w-full text-white font-mono flex justify-center">
+		<div class="flex h-70 px-4 lg:pl-11 lg:pr-0 items-center self-center grow lg-pdl-11 lg-pdr-0">
+			<a class="logo" href="#/dashboard">Customstats</a>
+			<div class="h-full flex items-center mx-4 grow">
+				<div class="items-center flex-row h-full lg-flex">
+					<div class="group lg-flex xl-pd-14 h-full">
+
+						</div>
+					</div>
+				</div>
+			<div class="h-full flex items-center mx-4 grow ta-center xl-gap" style="justify-content: end">
+				<a class="inline-block link" style="font-size: 18px" href="#/login" title="Dashboard">Login</a>
+				</div>
+<!-- 			<div class="h-full flex items-center mx-4 grow ta-center xl-gap" style="justify-content: end">
+				<a class="inline-block link" style="font-size: 18px" href="#/register" title="Dashboard">Registrieren</a>
+				</div> -->
+			</div>
+
+
+		</header>
 
 	<section class="flex-box-login">
 		<div class="card">
 			<div class="header">
-				<span class="title">Sign in</span>
+				<i class="title">Welcome back!</i>
 				</div>
 			<div class="body">
 				<div class="input-group">
@@ -15,16 +36,11 @@
 					</div>
 				<div class="space2"></div>
 				<button class="login-button" ng-disabled="!username || !password" ng-if="!error_message" ng-click="send_login_request(username, password)">Login</button>
-				<a ng-href="#/register" ng-if="!error_message">Noch kein Konto?</a>
+				<!-- <a ng-href="#/register" ng-if="!error_message">Noch kein Konto?</a> -->
+				<i class="ta-center" ng-if="!error_message" style="margin-top: 10px">Zugang ausschließlich mit bestehendem Account möglich.</i>
 				<div class="login-error" ng-if="error_message"><span class="message">{{error_message}}</span></div>
 				</div>
 			</div>
-
-	<section class="flex-box-navigation-bottom">
-
-		<!-- Rechtliches -->
-		<p class="bottom-text-start">[custom-stats.de] wurde gemäß Riot Games „Rechtliches Jibber Jabber“ -Richtlinie erstellt und nutzt Gedankengut in Besitz von Riot Games.  Dieses Projekt wird weder von Riot Games unterstützt noch gesponsert. Ausserdem wird diese Seite nicht für kommerzielle Zwecke genutzt. Alle Eingaben sind auf eigener Verantwortung/Haftung. Der Betreiber dieser Seite übernimmt keine Haftung - diese Seite ist ausschließlich für private Unterhaltung entworfen worden.</p>
-		</section>
 
 		</section>
 

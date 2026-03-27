@@ -28,8 +28,12 @@
 		<?php
 
 			if(!$this->user_logged()) echo '<div ng-view></div>';
+
+			echo '<ng-include src="\'load_template/footer\'"></ng-include>';
 			?>
-		<a class="home-icons-8" href="https://icons8.de">Bilder von Icons8</a>
-		<a class="privacy-policy" href="#/impressum">Datenschutzerklärung</a>
+
 		</body>
+
+
+
 	</html>

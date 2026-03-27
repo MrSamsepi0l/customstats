@@ -21,7 +21,6 @@ if($this->user_logged()){
 
 		/* JS & CSS Modul laden */
 		$this->build_environment('header:css[]', $moduleurl.'/tabview.css', 50);
-		// $this->build_environment('header:js[]', $moduleurl.'/tabview.js', 50);
 		}
 
 	}

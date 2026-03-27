@@ -41,7 +41,7 @@ angular.module('customstats').controller('customstats.admin_hackertool.commandli
 				'method'	: 'POST',
 				'url'		: '/ajax/cmd.json',
 				'data'		: {
-					'remote'		: self.server,
+					'remote'		: self.server.remote_fqdn,
 					'php_script'	: cmd.replace(/\\/g, '\\\\'),
 					}
 				};
@@ -134,9 +134,11 @@ angular.module('customstats').controller('customstats.admin_hackertool.commandli
 		get_serverlist : function(){
 			var self = this;
 
+			self.server = {serverID: 1, server_name: 'Local', remote_fqdn: null};
+
             self.serverlist = [
-                {serverID: 1, server_name: 'Local Dev', remote_fqdn: null},
-                {serverID: 2, server_name: 'Live System', remote_fqdn: 'custom-stats.de'},
+                {serverID: 1, server_name: 'Local', remote_fqdn: null},
+                // {serverID: 2, server_name: 'Live System', remote_fqdn: 'custom-stats.de'},
                 ];
 			},
 

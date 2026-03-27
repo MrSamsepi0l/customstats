@@ -1,0 +1,94 @@
+<article ng-controller="customstats.profile_controller">
+
+	<div class="account">
+		<div class="header">
+			<div class="headline ta-center">
+				<span class="text">Account Overview</span>
+				</div>
+			</div>
+		<div class="body">
+			<div class="account-info">
+				<div class="headline">
+					<span class="text" style="margin-right: 1rem"><i>Profildaten&nbsp;-&nbsp;</i>{{app.data.user.username}}&nbsp;</span>
+					<span class="text" ng-class='{"tc-green":app.data.user.enabled, "tc-red":!app.data.user.enabled}' style="margin-right: 1rem">[{{app.data.user.enabled ? 'Aktiviert' : 'Deaktiviert'}}]</span>
+					<span class="text tc-teal" ng-if="app.user_has_right('customstats:tabview_admin')">[Admin]</span>
+					</div>
+				<div class="info">
+					<div class="key">
+						<span class="text">E-Mail Adresse</span>
+						</div>
+					<div class="val">
+						<span class="text">{{app.data.user.email}}</span>
+						</div>
+					</div>
+				<div class="info">
+					<div class="key">
+						<span class="text">Username</span>
+						</div>
+					<div class="val">
+						<span class="text">{{app.data.user.username}}</span>
+						</div>
+					</div>
+				<div class="info">
+					<div class="key">
+						<span class="text">Dein Name</span>
+						</div>
+					<div class="val">
+						<span class="text">{{app.data.user.real_name}}</span>
+						</div>
+					</div>
+				<div class="info">
+					<div class="key">
+						<span class="text">Deine Donation</span>
+						</div>
+					<div class="val">
+						<span class="text" ng-class='{"tc-green": app.data.user.donation > 0, "tc-red": app.data.user.donation == 0}'>{{app.data.user.donation | number: 2}} €</span>
+						</div>
+					</div>
+				<div class="info">
+					<div class="key">
+						<span class="text">API-Key</span>
+						</div>
+					<div class="val">
+						<span class="text">{{app.data.user.api_key}}</span>
+						</div>
+					</div>
+				<div class="info">
+					<div class="key">
+						<span class="text">Registriert am</span>
+						</div>
+					<div class="val">
+						<span class="text">{{app.data.user.createTime | phpdate: 'd.m.Y H:i:s'}}</span>
+						</div>
+					</div>
+				<div class="info" ng-if="app.data.user.total_logins">
+					<div class="key">
+						<span class="text">Logins seitdem</span>
+						</div>
+					<div class="val">
+						<span class="text tc-teal">{{app.data.user.total_logins}}</span>
+						</div>
+					</div>
+				<div class="info">
+					<div class="key">
+						<span class="text">Customgame Teilnehmer</span>
+						</div>
+					<div class="val">
+						<span class="text tc-green" ng-if="app.data.user.playerID">JA</span>
+						<span class="text tc-red" ng-if="app.data.user.playerID == 0">NEIN</span>
+						</div>
+					</div>
+				<div class="info">
+					<div class="key">
+						<span class="text">Turnier Teilnehmer</span>
+						</div>
+					<div class="val">
+						<span class="text tc-green" ng-if="app.data.user.t_playerID">JA</span>
+						<span class="text tc-red" ng-if="!app.data.user.t_playerID">NEIN</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</article>

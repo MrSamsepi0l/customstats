@@ -1,8 +1,8 @@
 <article class="container">
 
 	<section class="flex-box-tabview">
-		<a class="button-main-tab from-left" ng-href="#/player_profile" ng-if="app.user_has_right('customstats:league_profile')"><span>League-Profil</span></a>
-		<a class="button-main-tab from-left" ng-href="#/tournament_profile" ng-if="app.user_has_right('customstats:tournament_profile')" ><span>Turnier-Profil</span></a>
+		<a class="button-main-tab from-left" ng-href="#/all_player?playerID={{app.board_get_value('playerID')}}" ng-if="app.user_has_right('customstats:all_player')"><span>League-Profil</span></a>
+		<a class="button-main-tab from-left" ng-href="#/tournament_all_profile?playerID={{app.board_get_value('t_playerID')}}" ng-if="app.user_has_right('customstats:tournament:all_profile')" ><span>Turnier-Profil</span></a>
 		<a class="button-main-tab from-left" ng-href="#/profile" ng-if="app.user_has_right('customstats:profile')" ><span>Account-Profil</span></a>
 		</section>
 

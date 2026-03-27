@@ -47,6 +47,9 @@ angular.module('customstats').run(function($http, $rootScope, $app, $location){
     // get hook data
     $hook_view.load_hook();
 
+    // make app service global accessible
+    $rootScope.app_service = $app;
+
     // return service
     return $hook_view;
     });

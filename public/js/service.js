@@ -14,6 +14,7 @@ angular.module('customstats').factory('$app', ['$rootScope', '$http', '$interval
             version_date: null,
             request_time: 0,
             force_reload: null,
+            logged_in   : false,
 
             // user specific data
             user        : {
@@ -24,7 +25,9 @@ angular.module('customstats').factory('$app', ['$rootScope', '$http', '$interval
                 api_key     : null,
                 real_name   : null,
                 createTime  : null,
+                total_logins: 0,
                 playerID    : 0,
+                t_playerID  : 0,
                 data        : [],
                 right       : [],
                 },
@@ -88,6 +91,9 @@ angular.module('customstats').factory('$app', ['$rootScope', '$http', '$interval
                             }, reload_interval);
                         }
 
+                    // mark user as logged in
+                    data.logged_in = true;
+
                     // first, define data also globally
                     self.data = data;
 
@@ -96,6 +102,13 @@ angular.module('customstats').factory('$app', ['$rootScope', '$http', '$interval
 
                     // replace complete board status
                     $stash.board_status = data;
+
+                    // also set users tournament playerID if possible
+                    if(data.user && data.user.data && data.user.data.league && data.user.data.league.tournament.playerID){
+
+                        // add tournament playerID to board user
+                        $stash.board_status.user.t_playerID = data.user.data.league.tournament.playerID;
+                        }
 
                     // if board is already ready
                     if($stash.board_ready){
@@ -311,6 +324,16 @@ angular.module('customstats').factory('$app', ['$rootScope', '$http', '$interval
             return this.ajax({"method": "POST", "url": url, "data": postdata}, 'Base API Request: '+postdata.fn, qfn);
             },
 
+        // connect to chat socket
+        connect_chat_socket : function(param, qfn){
+
+            // check for timeout of set default
+            var timeout = (param && !_.isUndefined(param.timeout)) ? param.timeout : 35000; // ms = 35 seconds
+
+            // execute request and run callback function
+            return this.ajax({'method': 'GET', 'url': 'chat/socket/connect.json', 'timeout': timeout}, 'Connect Chat Socket', qfn);
+            },
+
         send_api_ocr_space_request(url, apikey, param, qfn){
 
             // API request url
@@ -388,6 +411,18 @@ angular.module('customstats').factory('$leagueapi', ['$http', '$app', '$phpdate'
                 'Dr Holiday', 'BIG AND HAIRY', 'MostDoomedAcc', 'ChimpinhÀ', 'Sinfect', 'INT el LEE gent', '1547849', 'ContainerClaus',
                 'Thalset', 'Academia Hammer', 'janpulle', 'KloßmitSoß', 'SHaccoTacco',
                 ];
+            },
+
+        get_champion_name_converted : function(champion_name = null){
+
+            // if no champion name given, return null
+            if(_.isEmpty(champion_name)) return champion_name;
+
+            // lowercase champion name without letter spaces
+            champion_name = (champion_name.split(' ').join('')).toLowerCase();
+
+            // return converted champion name
+            return champion_name;
             },
 
         get_player_title : function(profile, title_config){

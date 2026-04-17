@@ -1,3 +1,22 @@
+.admin-tournament-player {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	min-height: 800px;
+
+	>.header {
+
+		}
+
+	>.body {
+		width: 65%;
+
+		}
+
+	}
+
 .tournament-player-config-search-bar {
 	display: flex;
 	justify-content: flex-start;

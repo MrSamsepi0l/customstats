@@ -1,173 +1,183 @@
 <article ng-controller='customstats.admin_tournament:team_controller'>
 
-	<div class="tournament-team-config-search-bar">
-		<select class="ban-select new-game-select-team new-game-scrollbar" ng-options="e.tournamentID as e.name for e in team.tournament" ng-model="team.tournamentID" ng-change="team.get_team(team.tournamentID)"></select>
-		<input class="tournament-team-config-entry-input search" placeholder="Suche..." ng-model="team.filter.string" />
-		<div>
-			<button ng-class='{"bc-green":team.show_info, "tc-white":!team.show_info}' class="btn team-config-switch-btn" ng-disabled="team.show_info" ng-click="team.show_player = false; team.show_info = true; team.show_new = false">Team-Info</button>
-			<button ng-class='{"bc-green":team.show_player, "tc-white":!team.show_player}' class="btn team-config-switch-btn" ng-disabled="team.show_player" ng-click="team.show_info = false; team.show_player = true; team.show_new = false">Team-Spieler</button>
-			<button class="btn bc-green team-config-switch-btn" ng-click="team.set_new()">Neues Team erstellen</button>
+	<div class="admin-tournament-team">
+
+		<div class="header"></div>
+
+		<div class="body">
+
+			<div class="tournament-team-config-search-bar">
+				<select class="ban-select new-game-select-team new-game-scrollbar" ng-options="e.tournamentID as e.name for e in team.tournament" ng-model="team.tournamentID" ng-change="team.get_team(team.tournamentID)"></select>
+				<input class="tournament-team-config-entry-input search" placeholder="Suche..." ng-model="team.filter.string" />
+				<div>
+					<button ng-class='{"bc-green":team.show_info, "tc-white":!team.show_info}' class="btn team-config-switch-btn" ng-disabled="team.show_info" ng-click="team.show_player = false; team.show_info = true; team.show_new = false">Team-Info</button>
+					<button ng-class='{"bc-green":team.show_player, "tc-white":!team.show_player}' class="btn team-config-switch-btn" ng-disabled="team.show_player" ng-click="team.show_info = false; team.show_player = true; team.show_new = false">Team-Spieler</button>
+					<button class="btn bc-green team-config-switch-btn" ng-click="team.set_new()">Neues Team erstellen</button>
+					</div>
+				</div>
+
+			<section class="flex-box-tournament-team-config">
+
+				<div class="api-list tournament-team-config-scrollbar">
+					<table class="tournament-team-config-table tournament-team-config-table-hover" style="background: #0f1519">
+						<tr class="font-bold">
+							<td style="max-height: 50px" ng-click="team.order_list('teamID')">#</td>
+							<td style="max-height: 50px" ng-click="team.order_list('name')">Teamname</td>
+							<td style="max-height: 50px" ng-click="team.order_list('createTime')">Erstelldatum</td>
+							</tr>
+						<tbody>
+							<tr ng-repeat="e in team.data | orderBy:team.order_by | filter:team.filter.string track by $index" ng-click="team.entry = e; team.edit(e); team.show_edit = true; team.show_new = false; team.get_team_player(e.teamID)">
+								<td>{{e.teamID}}</td>
+								<td>{{e.name}}</td>
+								<td style="color: #787878">{{e.createTime | phpdate:'Y-m-d'}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+				<div class="api-entry" ng-if="team.entry_edit && team.show_edit && team.show_info">
+					<div class="header">
+						<div class="id-name font-bold">
+							<span>#{{team.entry.teamID}}&nbsp;-&nbsp;{{team.entry.name}}</span>
+							</div>
+						<div class="flex-expand"></div>
+						<div class="i-wrench"></div>
+						</div>
+					<div class="body">
+						<div>
+							<table class="table table-striped tournament-team-config-table">
+								<tr>
+									<td class="v-middle">Teamname</td>
+									<td><input class="tournament-team-config-entry-input" type="text" ng-model="team.entry_edit.name" /></td>
+									</tr>
+								<tr>
+									<td class="v-middle">Turnier</td>
+									<td><select class="ban-select new-game-select-team new-game-scrollbar" ng-options="e.tournamentID as e.name for e in team.tournament" ng-model="team.entry_edit.tournamentID"></select></td>
+									</tr>
+								<tr>
+									<td class="v-middle">Erstellzeit</td>
+									<td><span>{{team.entry_edit.createTime}}</span></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					<div class="footer">
+						<div class="flex-expand"></div>
+							<button class="save-button" ng-click="team.update_team(team.entry_edit)">
+								<div class="image-and-button">
+									<span>Team speichern</span>
+									<div class="i-tick"></div>
+									</div>
+								</button>
+							</div>
+						</div>
+
+				<div class="api-entry" ng-if="team.entry_edit && team.show_player">
+					<div class="header">
+						<div class="id-name font-bold">
+							<span>#{{team.entry_edit.teamID}}&nbsp;-&nbsp;{{team.entry_edit.name}}</span>
+							</div>
+						<div class="flex-expand"></div>
+						<div class="icon i-wrench"></div>
+						</div>
+					<div class="body tournament-team-config-scrollbar">
+						<div>
+							<table class="table table-striped tournament-team-config-table">
+								<tr>
+									<td>#</td>
+									<td class="ta-center">Name</td>
+									<td class="ta-center">Leader</td>
+									<td class="ta-center">Rolle</td>
+									<td class="ta-center">Substitute</td>
+									<td class="ta-center">Ausgestiegen</td>
+									</tr>
+								<tr ng-repeat="e in team.entry_edit.team_player">
+									<td class="v-middle">
+										<button class="btn i-x tournament-team-config-button-disabled" ng-click="team.remove_player(e)" title="Spieler aus Team entfernen"></button>
+										</td>
+									<td class="v-middle">{{e.ingame_name}}</td>
+									<td class="ta-center">
+										<div>
+											<button ng-class='{"tournament-team-config-button-enabled":e.leader, "tournament-team-config-button":!e.leader}' class="btn i-tick" ng-disabled="e.leader" ng-click="e.leader = true"></button>
+											<button ng-class='{"tournament-team-config-button-disabled":!e.leader, "tournament-team-config-button":e.leader}' class="btn i-x" ng-disabled="!e.leader" ng-click="e.leader = false"></button>
+											</div>
+										</td>
+									<td>
+										<select class="ban-select new-game-select-team new-game-scrollbar" ng-options="e as e for e in ['top','jungle','mid','adc','support']" ng-model="e.role"></select>
+										</td>
+									<td class="ta-center">
+										<div>
+											<button ng-class='{"tournament-team-config-button-enabled":e.substitute, "tournament-team-config-button":!e.substitute}' class="btn i-tick" ng-disabled="e.substitute" ng-click="e.substitute = true"></button>
+											<button ng-class='{"tournament-team-config-button-disabled":!e.substitute, "tournament-team-config-button":e.substitute}' class="btn i-x" ng-disabled="!e.substitute" ng-click="e.substitute = false"></button>
+											</div>
+										</td>
+									<td class="ta-center">
+										<div>
+											<button ng-class='{"tournament-team-config-button-enabled":e.departed, "tournament-team-config-button":!e.departed}' class="btn i-tick" ng-disabled="e.departed" ng-click="e.departed = true"></button>
+											<button ng-class='{"tournament-team-config-button-disabled":!e.departed, "tournament-team-config-button":e.departed}' class="btn i-x" ng-disabled="!e.departed" ng-click="e.departed = false"></button>
+											</div>
+										</td>
+									</tr>
+								<tr>
+									<td class="v-middle" colspan="2">
+										<select class="ban-select new-game-select-team new-game-scrollbar" ng-options="e as e.ingame_name for e in team.player_data" ng-model="team.entry_edit.new_team_player"></select>
+										</td>
+									<td class="v-middle" colspan="3">
+										<button class="flex-box-tournament-team-config-save-button" ng-click="team.add_player(team.entry_edit.new_team_player)">Spieler hinzufügen</button>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					<div class="footer">
+						<div class="flex-expand"></div>
+							<button class="save-button" ng-click="team.update_team_player(team.entry_edit.team_player)" style="min-width: 275px">
+								<div class="image-and-button">
+									<span>Teamspieler speichern</span>
+									<div class="i-tick"></div>
+									</div>
+								</button>
+							</div>
+						</div>
+
+				<div class="api-entry" ng-if="team.entry_new && team.show_new">
+					<div class="header">
+						<div class="id-name font-bold">
+							<span>#&nbsp;{{team.entry_new.name}}</span>
+							</div>
+						<div class="flex-expand"></div>
+						<div class="i-wrench"></div>
+						</div>
+					<div class="body">
+						<div>
+							<table class="table table-striped tournament-team-config-table">
+								<tr>
+									<td class="v-middle">Teamname</td>
+									<td><input class="tournament-team-config-entry-input" type="text" ng-model="team.entry_new.name" /></td>
+									</tr>
+								<tr>
+									<td class="v-middle">Turnier</td>
+									<td><select class="ban-select new-game-select-team new-game-scrollbar" ng-options="e.tournamentID as e.name for e in team.tournament" ng-model="team.entry_new.tournamentID"></select></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					<div class="footer">
+						<div class="flex-expand"></div>
+							<button class="save-button" ng-click="team.create_team(team.entry_new)">
+								<div class="image-and-button">
+									<span>Team erstellen</span>
+									<div class="i-tick"></div>
+									</div>
+								</button>
+							</div>
+						</div>
+
+					</section>
+
 			</div>
+
 		</div>
-
-	<section class="flex-box-tournament-team-config">
-
-		<div class="api-list tournament-team-config-scrollbar">
-			<table class="tournament-team-config-table tournament-team-config-table-hover" style="background: #0f1519">
-				<tr class="font-bold">
-					<td style="max-height: 50px" ng-click="team.order_list('teamID')">#</td>
-					<td style="max-height: 50px" ng-click="team.order_list('name')">Teamname</td>
-					<td style="max-height: 50px" ng-click="team.order_list('createTime')">Erstelldatum</td>
-					</tr>
-				<tbody>
-					<tr ng-repeat="e in team.data | orderBy:team.order_by | filter:team.filter.string track by $index" ng-click="team.entry = e; team.edit(e); team.show_edit = true; team.show_new = false; team.get_team_player(e.teamID)">
-						<td>{{e.teamID}}</td>
-						<td>{{e.name}}</td>
-						<td style="color: #787878">{{e.createTime | phpdate:'Y-m-d'}}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-
-		<div class="api-entry" ng-if="team.entry_edit && team.show_edit && team.show_info">
-			<div class="header">
-				<div class="id-name font-bold">
-					<span>#{{team.entry.teamID}}&nbsp;-&nbsp;{{team.entry.name}}</span>
-					</div>
-				<div class="flex-expand"></div>
-				<div class="i-wrench"></div>
-				</div>
-			<div class="body">
-				<div>
-					<table class="table table-striped tournament-team-config-table">
-						<tr>
-							<td class="v-middle">Teamname</td>
-							<td><input class="tournament-team-config-entry-input" type="text" ng-model="team.entry_edit.name" /></td>
-							</tr>
-						<tr>
-							<td class="v-middle">Turnier</td>
-							<td><select class="ban-select new-game-select-team new-game-scrollbar" ng-options="e.tournamentID as e.name for e in team.tournament" ng-model="team.entry_edit.tournamentID"></select></td>
-							</tr>
-						<tr>
-							<td class="v-middle">Erstellzeit</td>
-							<td><span>{{team.entry_edit.createTime}}</span></td>
-							</tr>
-						</table>
-					</div>
-				</div>
-			<div class="footer">
-				<div class="flex-expand"></div>
-					<button class="save-button" ng-click="team.update_team(team.entry_edit)">
-						<div class="image-and-button">
-							<span>Team speichern</span>
-							<div class="i-tick"></div>
-							</div>
-						</button>
-					</div>
-				</div>
-
-		<div class="api-entry" ng-if="team.entry_edit && team.show_player">
-			<div class="header">
-				<div class="id-name font-bold">
-					<span>#{{team.entry_edit.teamID}}&nbsp;-&nbsp;{{team.entry_edit.name}}</span>
-					</div>
-				<div class="flex-expand"></div>
-				<div class="icon i-wrench"></div>
-				</div>
-			<div class="body tournament-team-config-scrollbar">
-				<div>
-					<table class="table table-striped tournament-team-config-table">
-						<tr>
-							<td>#</td>
-							<td class="ta-center">Name</td>
-							<td class="ta-center">Leader</td>
-							<td class="ta-center">Rolle</td>
-							<td class="ta-center">Substitute</td>
-							<td class="ta-center">Ausgestiegen</td>
-							</tr>
-						<tr ng-repeat="e in team.entry_edit.team_player">
-							<td class="v-middle">
-								<button class="btn i-x tournament-team-config-button-disabled" ng-click="team.remove_player(e)" title="Spieler aus Team entfernen"></button>
-								</td>
-							<td class="v-middle">{{e.ingame_name}}</td>
-							<td class="ta-center">
-								<div>
-									<button ng-class='{"tournament-team-config-button-enabled":e.leader, "tournament-team-config-button":!e.leader}' class="btn i-tick" ng-disabled="e.leader" ng-click="e.leader = true"></button>
-									<button ng-class='{"tournament-team-config-button-disabled":!e.leader, "tournament-team-config-button":e.leader}' class="btn i-x" ng-disabled="!e.leader" ng-click="e.leader = false"></button>
-									</div>
-								</td>
-							<td>
-								<select class="ban-select new-game-select-team new-game-scrollbar" ng-options="e as e for e in ['top','jungle','mid','adc','support']" ng-model="e.role"></select>
-								</td>
-							<td class="ta-center">
-								<div>
-									<button ng-class='{"tournament-team-config-button-enabled":e.substitute, "tournament-team-config-button":!e.substitute}' class="btn i-tick" ng-disabled="e.substitute" ng-click="e.substitute = true"></button>
-									<button ng-class='{"tournament-team-config-button-disabled":!e.substitute, "tournament-team-config-button":e.substitute}' class="btn i-x" ng-disabled="!e.substitute" ng-click="e.substitute = false"></button>
-									</div>
-								</td>
-							<td class="ta-center">
-								<div>
-									<button ng-class='{"tournament-team-config-button-enabled":e.departed, "tournament-team-config-button":!e.departed}' class="btn i-tick" ng-disabled="e.departed" ng-click="e.departed = true"></button>
-									<button ng-class='{"tournament-team-config-button-disabled":!e.departed, "tournament-team-config-button":e.departed}' class="btn i-x" ng-disabled="!e.departed" ng-click="e.departed = false"></button>
-									</div>
-								</td>
-							</tr>
-						<tr>
-							<td class="v-middle" colspan="2">
-								<select class="ban-select new-game-select-team new-game-scrollbar" ng-options="e as e.ingame_name for e in team.player_data" ng-model="team.entry_edit.new_team_player"></select>
-								</td>
-							<td class="v-middle" colspan="3">
-								<button class="flex-box-tournament-team-config-save-button" ng-click="team.add_player(team.entry_edit.new_team_player)">Spieler hinzufügen</button>
-								</td>
-							</tr>
-						</table>
-					</div>
-				</div>
-			<div class="footer">
-				<div class="flex-expand"></div>
-					<button class="save-button" ng-click="team.update_team_player(team.entry_edit.team_player)" style="min-width: 275px">
-						<div class="image-and-button">
-							<span>Teamspieler speichern</span>
-							<div class="i-tick"></div>
-							</div>
-						</button>
-					</div>
-				</div>
-
-		<div class="api-entry" ng-if="team.entry_new && team.show_new">
-			<div class="header">
-				<div class="id-name font-bold">
-					<span>#&nbsp;{{team.entry_new.name}}</span>
-					</div>
-				<div class="flex-expand"></div>
-				<div class="i-wrench"></div>
-				</div>
-			<div class="body">
-				<div>
-					<table class="table table-striped tournament-team-config-table">
-						<tr>
-							<td class="v-middle">Teamname</td>
-							<td><input class="tournament-team-config-entry-input" type="text" ng-model="team.entry_new.name" /></td>
-							</tr>
-						<tr>
-							<td class="v-middle">Turnier</td>
-							<td><select class="ban-select new-game-select-team new-game-scrollbar" ng-options="e.tournamentID as e.name for e in team.tournament" ng-model="team.entry_new.tournamentID"></select></td>
-							</tr>
-						</table>
-					</div>
-				</div>
-			<div class="footer">
-				<div class="flex-expand"></div>
-					<button class="save-button" ng-click="team.create_team(team.entry_new)">
-						<div class="image-and-button">
-							<span>Team erstellen</span>
-							<div class="i-tick"></div>
-							</div>
-						</button>
-					</div>
-				</div>
-
-			</section>
 
 	<div class="loading-div" ng-if="view.status == 100 || team.status == 100"></div>
 

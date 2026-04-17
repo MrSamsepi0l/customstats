@@ -1,122 +1,132 @@
 <article ng-controller='customstats.admin_tournament:player_controller'>
 
-	<div class="tournament-player-config-search-bar">
-		<input class="tournament-player-config-entry-input search" placeholder="Suche..." ng-model="player.filter.string" />
-		<div>
-			<button class="btn bc-green user-config-switch-btn" ng-click="player.set_new()">Neuen Spieler erstellen</button>
+	<div class="admin-tournament-player">
+
+		<div class="header"></div>
+
+		<div class="body">
+
+			<div class="tournament-player-config-search-bar">
+				<input class="tournament-player-config-entry-input search" placeholder="Suche..." ng-model="player.filter.string" />
+				<div>
+					<button class="btn bc-green user-config-switch-btn" ng-click="player.set_new()">Neuen Spieler erstellen</button>
+					</div>
+				</div>
+
+			<section class="flex-box-tournament-player-config">
+
+				<div class="api-list tournament-player-config-scrollbar">
+					<table class="tournament-player-config-table tournament-player-config-table-hover" style="background: #0f1519">
+						<tr class="font-bold">
+							<td style="max-height: 50px" ng-click="player.order_list('playerID')">#</td>
+							<td style="max-height: 50px" ng-click="player.order_list('ingame_name')">Beschwörername</td>
+							<td style="max-height: 50px" ng-click="player.order_list('createTime')">Erstelldatum</td>
+							</tr>
+						<tbody>
+							<tr ng-repeat="e in player.data | orderBy:player.order_by | filter:player.filter.string track by $index" ng-click="player.entry = e; player.edit(e); player.show_edit = true; player.show_new = false">
+								<td>{{e.playerID}}</td>
+								<td>{{e.ingame_name}}</td>
+								<td style="color: #787878">{{e.createTime | phpdate:'Y-m-d'}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+				<div class="api-entry" ng-if="player.entry_edit && player.show_edit">
+					<div class="header">
+						<div class="id-name font-bold">
+							<span>#{{player.entry.playerID}}&nbsp;-&nbsp;{{player.entry.ingame_name}}</span>
+							<span>&nbsp;-&nbsp;<span ng-class='{"tc-green":player.entry.enabled, "tc-red":!player.entry.enabled}'>[{{player.entry.enabled ? 'Aktiviert' : 'Deaktiviert'}}]</span></span>
+							</div>
+						<div class="flex-expand"></div>
+						<div class="i-wrench"></div>
+						</div>
+					<div class="body">
+						<div>
+							<table class="table table-striped tournament-player-config-table">
+								<tr>
+									<td class="v-middle">Beschwörername</td>
+									<td><input class="tournament-player-config-entry-input" type="text" ng-model="player.entry_edit.ingame_name" /></td>
+									</tr>
+								<tr>
+									<td class="v-middle">Echter Name</td>
+									<td><input class="tournament-player-config-entry-input" type="text" ng-model="player.entry_edit.real_name" /></td>
+									</tr>
+								<tr>
+									<td class="v-middle">Aktiviert</td>
+									<td>
+										<div>
+											<button ng-class='{"tournament-player-config-button-enabled":player.entry_edit.enabled, "tournament-player-config-button":!player.entry_edit.enabled}' class="btn i-tick" ng-disabled="player.entry_edit.enabled" ng-click="player.entry_edit.enabled = true"></button>
+											<button ng-class='{"tournament-player-config-button-disabled":!player.entry_edit.enabled, "tournament-player-config-button":player.entry_edit.enabled}' class="btn i-x" ng-disabled="!player.entry_edit.enabled" ng-click="player.entry_edit.enabled = false"></button>
+											</div>
+										</td>
+									</tr>
+								<tr>
+									<td class="v-middle">Erstellzeit</td>
+									<td><span>{{player.entry_edit.createTime}}</span></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					<div class="footer">
+						<div class="flex-expand"></div>
+							<button class="save-button" ng-click="player.update_player(player.entry_edit)">
+								<div class="image-and-button">
+									<span>Spieler speichern</span>
+									<div class="i-tick"></div>
+									</div>
+								</button>
+							</div>
+						</div>
+
+				<div class="api-entry" ng-if="player.entry_new && player.show_new">
+					<div class="header">
+						<div class="id-name font-bold">
+							<span>#&nbsp;{{player.entry_new.name}}</span>
+							<span>&nbsp;-&nbsp;<span ng-class='{"tc-green":player.entry_new.enabled, "tc-red":!player.entry_new.enabled}'>[{{player.entry_new.enabled ? 'Aktiviert' : 'Deaktiviert'}}]</span></span>
+							</div>
+						<div class="flex-expand"></div>
+						<div class="i-wrench"></div>
+						</div>
+					<div class="body">
+						<div>
+							<table class="table table-striped tournament-player-config-table">
+								<tr>
+									<td class="v-middle">Beschwörername</td>
+									<td><input class="tournament-player-config-entry-input" type="text" ng-model="player.entry_new.ingame_name" /></td>
+									</tr>
+								<tr>
+									<td class="v-middle">Echter Name</td>
+									<td><input class="tournament-player-config-entry-input" type="text" ng-model="player.entry_new.real_name" /></td>
+									</tr>
+								<tr>
+									<td class="v-middle">Aktiviert</td>
+									<td>
+										<div>
+											<button ng-class='{"tournament-player-config-button-enabled":player.entry_new.enabled, "tournament-player-config-button":!player.entry_new.enabled}' class="btn i-tick" ng-disabled="player.entry_new.enabled" ng-click="player.entry_new.enabled = true"></button>
+											<button ng-class='{"tournament-player-config-button-disabled":!player.entry_new.enabled, "tournament-player-config-button":player.entry_new.enabled}' class="btn i-x" ng-disabled="!player.entry_new.enabled" ng-click="player.entry_new.enabled = false"></button>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					<div class="footer">
+						<div class="flex-expand"></div>
+							<button class="save-button" ng-click="player.create_player(player.entry_new)">
+								<div class="image-and-button">
+									<span>Spieler erstellen</span>
+									<div class="i-tick"></div>
+									</div>
+								</button>
+							</div>
+						</div>
+
+					</section>
+
 			</div>
+
 		</div>
-
-	<section class="flex-box-tournament-player-config">
-
-		<div class="api-list tournament-player-config-scrollbar">
-			<table class="tournament-player-config-table tournament-player-config-table-hover" style="background: #0f1519">
-				<tr class="font-bold">
-					<td style="max-height: 50px" ng-click="player.order_list('playerID')">#</td>
-					<td style="max-height: 50px" ng-click="player.order_list('ingame_name')">Beschwörername</td>
-					<td style="max-height: 50px" ng-click="player.order_list('createTime')">Erstelldatum</td>
-					</tr>
-				<tbody>
-					<tr ng-repeat="e in player.data | orderBy:player.order_by | filter:player.filter.string track by $index" ng-click="player.entry = e; player.edit(e); player.show_edit = true; player.show_new = false">
-						<td>{{e.playerID}}</td>
-						<td>{{e.ingame_name}}</td>
-						<td style="color: #787878">{{e.createTime | phpdate:'Y-m-d'}}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-
-		<div class="api-entry" ng-if="player.entry_edit && player.show_edit">
-			<div class="header">
-				<div class="id-name font-bold">
-					<span>#{{player.entry.playerID}}&nbsp;-&nbsp;{{player.entry.ingame_name}}</span>
-					<span>&nbsp;-&nbsp;<span ng-class='{"tc-green":player.entry.enabled, "tc-red":!player.entry.enabled}'>[{{player.entry.enabled ? 'Aktiviert' : 'Deaktiviert'}}]</span></span>
-					</div>
-				<div class="flex-expand"></div>
-				<div class="i-wrench"></div>
-				</div>
-			<div class="body">
-				<div>
-					<table class="table table-striped tournament-player-config-table">
-						<tr>
-							<td class="v-middle">Beschwörername</td>
-							<td><input class="tournament-player-config-entry-input" type="text" ng-model="player.entry_edit.ingame_name" /></td>
-							</tr>
-						<tr>
-							<td class="v-middle">Echter Name</td>
-							<td><input class="tournament-player-config-entry-input" type="text" ng-model="player.entry_edit.real_name" /></td>
-							</tr>
-						<tr>
-							<td class="v-middle">Aktiviert</td>
-							<td>
-								<div>
-									<button ng-class='{"tournament-player-config-button-enabled":player.entry_edit.enabled, "tournament-player-config-button":!player.entry_edit.enabled}' class="btn i-tick" ng-disabled="player.entry_edit.enabled" ng-click="player.entry_edit.enabled = true"></button>
-									<button ng-class='{"tournament-player-config-button-disabled":!player.entry_edit.enabled, "tournament-player-config-button":player.entry_edit.enabled}' class="btn i-x" ng-disabled="!player.entry_edit.enabled" ng-click="player.entry_edit.enabled = false"></button>
-									</div>
-								</td>
-							</tr>
-						<tr>
-							<td class="v-middle">Erstellzeit</td>
-							<td><span>{{player.entry_edit.createTime}}</span></td>
-							</tr>
-						</table>
-					</div>
-				</div>
-			<div class="footer">
-				<div class="flex-expand"></div>
-					<button class="save-button" ng-click="player.update_player(player.entry_edit)">
-						<div class="image-and-button">
-							<span>Spieler speichern</span>
-							<div class="i-tick"></div>
-							</div>
-						</button>
-					</div>
-				</div>
-
-		<div class="api-entry" ng-if="player.entry_new && player.show_new">
-			<div class="header">
-				<div class="id-name font-bold">
-					<span>#&nbsp;{{player.entry_new.name}}</span>
-					<span>&nbsp;-&nbsp;<span ng-class='{"tc-green":player.entry_new.enabled, "tc-red":!player.entry_new.enabled}'>[{{player.entry_new.enabled ? 'Aktiviert' : 'Deaktiviert'}}]</span></span>
-					</div>
-				<div class="flex-expand"></div>
-				<div class="i-wrench"></div>
-				</div>
-			<div class="body">
-				<div>
-					<table class="table table-striped tournament-player-config-table">
-						<tr>
-							<td class="v-middle">Beschwörername</td>
-							<td><input class="tournament-player-config-entry-input" type="text" ng-model="player.entry_new.ingame_name" /></td>
-							</tr>
-						<tr>
-							<td class="v-middle">Echter Name</td>
-							<td><input class="tournament-player-config-entry-input" type="text" ng-model="player.entry_new.real_name" /></td>
-							</tr>
-						<tr>
-							<td class="v-middle">Aktiviert</td>
-							<td>
-								<div>
-									<button ng-class='{"tournament-player-config-button-enabled":player.entry_new.enabled, "tournament-player-config-button":!player.entry_new.enabled}' class="btn i-tick" ng-disabled="player.entry_new.enabled" ng-click="player.entry_new.enabled = true"></button>
-									<button ng-class='{"tournament-player-config-button-disabled":!player.entry_new.enabled, "tournament-player-config-button":player.entry_new.enabled}' class="btn i-x" ng-disabled="!player.entry_new.enabled" ng-click="player.entry_new.enabled = false"></button>
-									</div>
-								</td>
-							</tr>
-						</table>
-					</div>
-				</div>
-			<div class="footer">
-				<div class="flex-expand"></div>
-					<button class="save-button" ng-click="player.create_player(player.entry_new)">
-						<div class="image-and-button">
-							<span>Spieler erstellen</span>
-							<div class="i-tick"></div>
-							</div>
-						</button>
-					</div>
-				</div>
-
-			</section>
 
 	<div class="loading-div" ng-if="view.status == 100 || player.status == 100"></div>
 

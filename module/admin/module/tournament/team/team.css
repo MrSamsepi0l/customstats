@@ -1,3 +1,25 @@
+article {
+	min-height: 550px;
+	}
+
+.admin-tournament-team {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+
+	>.header {
+
+		}
+
+	>.body {
+		width: 65%;
+
+		}
+
+	}
+
 .tournament-team-config-search-bar {
 	display: flex;
 	justify-content: flex-start;

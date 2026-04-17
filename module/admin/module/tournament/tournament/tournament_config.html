@@ -1,110 +1,120 @@
 <article ng-controller="customstats.admin_tournament:tournament_controller">
 
-	<div class="tournament-config-search-bar">
-		<input class="tournament-config-entry-input search" placeholder="Suche..." ng-model="tournament.filter.string" />
-		<div>
-			<button class="btn bc-green user-config-switch-btn" ng-click="tournament.set_new()">Neues Turnier erstellen</button>
+	<div class="admin-tournament-config">
+
+		<div class="header"></div>
+
+		<div class="body">
+
+			<div class="tournament-config-search-bar">
+				<input class="tournament-config-entry-input search" placeholder="Suche..." ng-model="tournament.filter.string" />
+				<div>
+					<button class="btn bc-green user-config-switch-btn" ng-click="tournament.set_new()">Neues Turnier erstellen</button>
+					</div>
+				</div>
+
+			<section class="flex-box-tournament-config">
+
+				<div class="api-list tournament-config-scrollbar">
+					<table class="tournament-config-table tournament-config-table-hover" style="background: #0f1519">
+						<tr class="font-bold">
+							<td style="max-height: 50px" ng-click="tournament.order_list('tournamentID')">#</td>
+							<td style="max-height: 50px" ng-click="tournament.order_list('name')">Name</td>
+							<td style="max-height: 50px" ng-click="tournament.order_list('createTime')">Erstelldatum</td>
+							</tr>
+						<tbody>
+							<tr ng-repeat="e in tournament.data | orderBy:tournament.order_by | filter:tournament.filter.string track by $index" ng-click="tournament.entry = e; tournament.edit(e); tournament.show_edit = true; tournament.show_new = false">
+								<td class="v-middle">{{e.tournamentID}}</td>
+								<td class="v-middle">{{e.name}}</td>
+								<td class="v-middle" style="color: #787878">{{e.createTime | phpdate:'Y-m-d'}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+				<div class="api-entry" ng-if="tournament.entry_edit && tournament.show_edit">
+					<div class="header">
+						<div class="id-name font-bold">
+							<span>#{{tournament.entry.tournamentID}}&nbsp;-&nbsp;{{tournament.entry.name}}</span>
+							</div>
+						<div class="flex-expand"></div>
+						<div class="i-wrench"></div>
+						</div>
+					<div class="body">
+						<div>
+							<table class="table table-striped tournament-config-table">
+								<tr>
+									<td class="v-middle">Turnier-Name</td>
+									<td><input class="tournament-config-entry-input" type="text" ng-model="tournament.entry_edit.name" /></td>
+									</tr>
+								<tr>
+									<td class="v-middle">Turnierbeginn</td>
+									<td><input class="tournament-config-entry-input" type="text" ng-model="tournament.entry_edit.startDate" /></td>
+									</tr>
+								<tr>
+									<td class="v-middle">Turnierende</td>
+									<td><input class="tournament-config-entry-input" type="text" ng-model="tournament.entry_edit.endDate" /></td>
+									</tr>
+								<tr>
+									<td class="v-middle">Erstellzeit</td>
+									<td><span>{{tournament.entry_edit.createTime}}</span></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					<div class="footer">
+						<div class="flex-expand"></div>
+							<button class="save-button" ng-click="tournament.update_tournament(tournament.entry_edit)">
+								<div class="image-and-button">
+									<span>Turnier speichern</span>
+									<div class="i-tick"></div>
+									</div>
+								</button>
+							</div>
+						</div>
+
+				<div class="api-entry" ng-if="tournament.entry_new && tournament.show_new">
+					<div class="header">
+						<div class="id-name font-bold">
+							<span>#&nbsp;{{tournament.entry_new.name}}</span>
+							</div>
+						<div class="flex-expand"></div>
+						<div class="i-wrench"></div>
+						</div>
+					<div class="body">
+						<div>
+							<table class="table table-striped tournament-config-table">
+								<tr>
+									<td class="v-middle">Turnier-Name</td>
+									<td><input class="tournament-config-entry-input" type="text" ng-model="tournament.entry_new.name" /></td>
+									</tr>
+								<tr>
+									<td class="v-middle">Turnierbeginn</td>
+									<td><input class="tournament-config-entry-input" type="text" ng-model="tournament.entry_new.startDate" /></td>
+									</tr>
+								<tr>
+									<td class="v-middle">Turnierende</td>
+									<td><input class="tournament-config-entry-input" type="text" ng-model="tournament.entry_new.endDate" /></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					<div class="footer">
+						<div class="flex-expand"></div>
+							<button class="save-button" ng-click="tournament.create_tournament(tournament.entry_new)">
+								<div class="image-and-button">
+									<span>Turnier erstellen</span>
+									<div class="i-tick"></div>
+									</div>
+								</button>
+							</div>
+						</div>
+
+					</section>
+
 			</div>
+
 		</div>
-
-	<section class="flex-box-tournament-config">
-
-		<div class="api-list tournament-config-scrollbar">
-			<table class="tournament-config-table tournament-config-table-hover" style="background: #0f1519">
-				<tr class="font-bold">
-					<td style="max-height: 50px" ng-click="tournament.order_list('tournamentID')">#</td>
-					<td style="max-height: 50px" ng-click="tournament.order_list('name')">Name</td>
-					<td style="max-height: 50px" ng-click="tournament.order_list('createTime')">Erstelldatum</td>
-					</tr>
-				<tbody>
-					<tr ng-repeat="e in tournament.data | orderBy:tournament.order_by | filter:tournament.filter.string track by $index" ng-click="tournament.entry = e; tournament.edit(e); tournament.show_edit = true; tournament.show_new = false">
-						<td class="v-middle">{{e.tournamentID}}</td>
-						<td class="v-middle">{{e.name}}</td>
-						<td class="v-middle" style="color: #787878">{{e.createTime | phpdate:'Y-m-d'}}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-
-		<div class="api-entry" ng-if="tournament.entry_edit && tournament.show_edit">
-			<div class="header">
-				<div class="id-name font-bold">
-					<span>#{{tournament.entry.tournamentID}}&nbsp;-&nbsp;{{tournament.entry.name}}</span>
-					</div>
-				<div class="flex-expand"></div>
-				<div class="i-wrench"></div>
-				</div>
-			<div class="body">
-				<div>
-					<table class="table table-striped tournament-config-table">
-						<tr>
-							<td class="v-middle">Turnier-Name</td>
-							<td><input class="tournament-config-entry-input" type="text" ng-model="tournament.entry_edit.name" /></td>
-							</tr>
-						<tr>
-							<td class="v-middle">Turnierbeginn</td>
-							<td><input class="tournament-config-entry-input" type="text" ng-model="tournament.entry_edit.startDate" /></td>
-							</tr>
-						<tr>
-							<td class="v-middle">Turnierende</td>
-							<td><input class="tournament-config-entry-input" type="text" ng-model="tournament.entry_edit.endDate" /></td>
-							</tr>
-						<tr>
-							<td class="v-middle">Erstellzeit</td>
-							<td><span>{{tournament.entry_edit.createTime}}</span></td>
-							</tr>
-						</table>
-					</div>
-				</div>
-			<div class="footer">
-				<div class="flex-expand"></div>
-					<button class="save-button" ng-click="tournament.update_tournament(tournament.entry_edit)">
-						<div class="image-and-button">
-							<span>Turnier speichern</span>
-							<div class="i-tick"></div>
-							</div>
-						</button>
-					</div>
-				</div>
-
-		<div class="api-entry" ng-if="tournament.entry_new && tournament.show_new">
-			<div class="header">
-				<div class="id-name font-bold">
-					<span>#&nbsp;{{tournament.entry_new.name}}</span>
-					</div>
-				<div class="flex-expand"></div>
-				<div class="i-wrench"></div>
-				</div>
-			<div class="body">
-				<div>
-					<table class="table table-striped tournament-config-table">
-						<tr>
-							<td class="v-middle">Turnier-Name</td>
-							<td><input class="tournament-config-entry-input" type="text" ng-model="tournament.entry_new.name" /></td>
-							</tr>
-						<tr>
-							<td class="v-middle">Turnierbeginn</td>
-							<td><input class="tournament-config-entry-input" type="text" ng-model="tournament.entry_new.startDate" /></td>
-							</tr>
-						<tr>
-							<td class="v-middle">Turnierende</td>
-							<td><input class="tournament-config-entry-input" type="text" ng-model="tournament.entry_new.endDate" /></td>
-							</tr>
-						</table>
-					</div>
-				</div>
-			<div class="footer">
-				<div class="flex-expand"></div>
-					<button class="save-button" ng-click="tournament.create_tournament(tournament.entry_new)">
-						<div class="image-and-button">
-							<span>Turnier erstellen</span>
-							<div class="i-tick"></div>
-							</div>
-						</button>
-					</div>
-				</div>
-
-			</section>
 
 	<div class="loading-div" ng-if="view.status == 100 || tournament.status == 100"></div>
 

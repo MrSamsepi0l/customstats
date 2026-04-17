@@ -1,119 +1,129 @@
 <article ng-controller="customstats.tournament_new_game_controller">
 
-	<section class="flex-box-new-game">
+	<div class="admin-tournament-new-game">
 
-		<div class="newgame-select-box">
-	  	<select class="tournament-newgame-select" ng-options="e.tournamentID as e.name for e in newgame.tournament_list" ng-model="newgame.tournament_entry.tournamentID" ng-change="newgame.get_tournament_team(newgame.tournament_entry.tournamentID); newgame.get_schedule(newgame.tournament_entry.tournamentID, newgame.tournament_type)" style="margin-right: 10px"></select>
-	  	<select class="tournament-newgame-select" ng-options="e.val as e.key for e in newgame.type_list" ng-if="newgame.tournament_entry.tournamentID" ng-model="newgame.tournament_type" ng-change="newgame.get_schedule(newgame.tournament_entry.tournamentID, newgame.tournament_type)"></select>
-	  	</div>
+		<div class="header"></div>
 
-	  <div class="team" ng-if="newgame.tournament_entry.tournamentID && newgame.tournament_type">
-	  	<div class="header">
-	  		<select class="tournament-newgame-select tc-blue" ng-options="e.teamID as e.name for e in newgame.team_list" ng-change="newgame.reduce_team_playerlist(newgame.newgame.team_oneID, 1); newgame.check_schedule(newgame.newgame.team_oneID, newgame.newgame.team_twoID)" ng-model="newgame.newgame.team_oneID"></select>
-	  		<select ng-repeat="index_champion in [0,1,2,3,4]" class="tc-red tournament-newgame-select new-game-scrollbar" ng-options="e.championID as e.name for e in newgame.champion_list" ng-model="newgame.newgame.data.game_ban_t1[index_champion].championID"></select>
-	  		<button class="clear-ban-btn cleanup-icon-tournament" ng-click="newgame.newgame.data.game_ban_t1 = []" custom-hover="Reset Banlist Team 1"></button>
-				<div>
-					<button ng-class='{"new-game-checkbox-enabled":newgame.newgame.team_one_won, "new-game-checkbox":!newgame.newgame.team_one_won}' class="btn i-tick" custom-hover="Gewinner" ng-disabled="newgame.newgame.team_one_won" ng-click="newgame.newgame.team_one_won = true; newgame.newgame.team_two_won = false"></button>
-					<button ng-class='{"new-game-checkbox-disabled":!newgame.newgame.team_one_won, "new-game-checkbox":newgame.newgame.team_one_won}' class="btn i-x" custom-hover="Verlierer" ng-disabled="!newgame.newgame.team_one_won" ng-click="newgame.newgame.team_one_won = false; newgame.newgame.team_two_won = true"></button>
+		<div class="body">
+			<section class="flex-box-new-game">
+
+				<div class="newgame-select-box">
+			  	<select class="tournament-newgame-select" ng-options="e.tournamentID as e.name for e in newgame.tournament_list" ng-model="newgame.tournament_entry.tournamentID" ng-change="newgame.get_tournament_team(newgame.tournament_entry.tournamentID); newgame.get_schedule(newgame.tournament_entry.tournamentID, newgame.tournament_type)" style="margin-right: 10px"></select>
+			  	<select class="tournament-newgame-select" ng-options="e.val as e.key for e in newgame.type_list" ng-if="newgame.tournament_entry.tournamentID" ng-model="newgame.tournament_type" ng-change="newgame.get_schedule(newgame.tournament_entry.tournamentID, newgame.tournament_type)"></select>
+			  	</div>
+
+			  <div class="team" ng-if="newgame.tournament_entry.tournamentID && newgame.tournament_type">
+			  	<div class="header">
+			  		<select class="tournament-newgame-select tc-blue" ng-options="e.teamID as e.name for e in newgame.team_list" ng-change="newgame.reduce_team_playerlist(newgame.newgame.team_oneID, 1); newgame.check_schedule(newgame.newgame.team_oneID, newgame.newgame.team_twoID)" ng-model="newgame.newgame.team_oneID"></select>
+			  		<select ng-repeat="index_champion in [0,1,2,3,4]" class="tc-red tournament-newgame-select new-game-scrollbar" ng-options="e.championID as e.name for e in newgame.champion_list" ng-model="newgame.newgame.data.game_ban_t1[index_champion].championID"></select>
+			  		<button class="clear-ban-btn cleanup-icon-tournament" ng-click="newgame.newgame.data.game_ban_t1 = []" custom-hover="Reset Banlist Team 1"></button>
+						<div>
+							<button ng-class='{"new-game-checkbox-enabled":newgame.newgame.team_one_won, "new-game-checkbox":!newgame.newgame.team_one_won}' class="btn i-tick" custom-hover="Gewinner" ng-disabled="newgame.newgame.team_one_won" ng-click="newgame.newgame.team_one_won = true; newgame.newgame.team_two_won = false"></button>
+							<button ng-class='{"new-game-checkbox-disabled":!newgame.newgame.team_one_won, "new-game-checkbox":newgame.newgame.team_one_won}' class="btn i-x" custom-hover="Verlierer" ng-disabled="!newgame.newgame.team_one_won" ng-click="newgame.newgame.team_one_won = false; newgame.newgame.team_two_won = true"></button>
+							</div>
+			  		</div>
+			  	<div class="body">
+						<div class="player" ng-repeat="index_player in [0,1,2,3,4] track by $index">
+							<div class="summoners">
+							<select class="tournament-newgame-select" ng-options="e for e in newgame.summoner_list" ng-model="newgame.newgame.data.game_player[index_player].summoner_one"></select>
+							<select class="tournament-newgame-select" ng-options="e for e in newgame.summoner_list" ng-model="newgame.newgame.data.game_player[index_player].summoner_two"></select>
+								</div>
+							<div class="level">
+								<select class="tournament-newgame-select" ng-model="newgame.newgame.data.game_player[index_player].level" ng-options="e for e in newgame.level_list"></select>
+								</div>
+							<div class="champion">
+								<select class="tournament-newgame-select champ-color new-game-scrollbar" ng-options="e.championID as e.name for e in newgame.champion_list" ng-model="newgame.newgame.data.game_player[index_player].championID"></select>
+								</div>
+							<div class="summoner">
+								<select class="tournament-newgame-select" ng-options="e.playerID as e.ingame_name for e in newgame.newgame.playerlist_t1" ng-model="newgame.newgame.data.game_player[index_player].playerID"></select>
+								</div>
+							<div class="position">
+								<select class="tournament-newgame-select" ng-options="e for e in newgame.position_list" ng-model="newgame.newgame.data.game_player[index_player].position"></select>
+								</div>
+							<div class="kda">
+								<input class="input new-game-input-team" type="text" maxlength="2" ng-model="newgame.newgame.data.game_player[index_player].kills" placeholder="K" style="width: 40px" />
+								<input class="input new-game-input-team" type="text" maxlength="2" ng-model="newgame.newgame.data.game_player[index_player].deaths" placeholder="D" style="width: 40px" />
+								<input class="input new-game-input-team" type="text" maxlength="2" ng-model="newgame.newgame.data.game_player[index_player].assists" placeholder="A" style="width: 40px" />
+								</div>
+							<div class="cs">
+								<input class="input new-game-input-team" type="text" maxlength="3" ng-model="newgame.newgame.data.game_player[index_player].creep_score" placeholder="CS" style="width: 70px" />
+								</div>
+							<div class="gold">
+								<input class="input new-game-input-team" type="text" maxlength="5" ng-model="newgame.newgame.data.game_player[index_player].gold" placeholder="Gold" style="width: 70px" />
+								</div>
+							</div>
+			  		</div>
+			  	</div>
+
+			  <div class="team" ng-if="newgame.tournament_entry.tournamentID && newgame.tournament_type">
+			  	<div class="header">
+			  		<select class="tournament-newgame-select tc-blue" ng-options="e.teamID as e.name for e in newgame.team_list" ng-change="newgame.reduce_team_playerlist(newgame.newgame.team_twoID, 2); newgame.check_schedule(newgame.newgame.team_oneID, newgame.newgame.team_twoID)" ng-model="newgame.newgame.team_twoID"></select>
+			  		<select ng-repeat="index_champion in [5,6,7,8,9]" class="tc-red tournament-newgame-select new-game-scrollbar" ng-options="e.championID as e.name for e in newgame.champion_list" ng-model="newgame.newgame.data.game_ban_t2[index_champion].championID"></select>
+			  		<button class="clear-ban-btn cleanup-icon-tournament" ng-click="newgame.newgame.data.game_ban_t2 = []" custom-hover="Reset Banlist Team 2"></button>
+						<div>
+							<button ng-class='{"new-game-checkbox-enabled":newgame.newgame.team_two_won, "new-game-checkbox":!newgame.newgame.team_two_won}' class="btn i-tick" custom-hover="Gewinner" ng-disabled="newgame.newgame.team_two_won" ng-click="newgame.newgame.team_two_won = true; newgame.newgame.team_one_won = false"></button>
+							<button ng-class='{"new-game-checkbox-disabled":!newgame.newgame.team_two_won, "new-game-checkbox":newgame.newgame.team_two_won}' class="btn i-x" custom-hover="Verlierer"  ng-disabled="!newgame.newgame.team_two_won" ng-click="newgame.newgame.team_two_won = false; newgame.newgame.team_one_won = true"></button>
+							</div>
+			  		</div>
+			  	<div class="body">
+						<div class="player" ng-repeat="index_player in [5,6,7,8,9] track by $index">
+							<div class="summoners">
+							<select class="tournament-newgame-select" ng-options="e for e in newgame.summoner_list" ng-model="newgame.newgame.data.game_player[index_player].summoner_one"></select>
+							<select class="tournament-newgame-select" ng-options="e for e in newgame.summoner_list" ng-model="newgame.newgame.data.game_player[index_player].summoner_two"></select>
+								</div>
+							<div class="level">
+								<select class="tournament-newgame-select" ng-model="newgame.newgame.data.game_player[index_player].level" ng-options="e for e in newgame.level_list"></select>
+								</div>
+							<div class="champion">
+								<select class="tournament-newgame-select champ-color new-game-scrollbar" ng-options="e.championID as e.name for e in newgame.champion_list" ng-model="newgame.newgame.data.game_player[index_player].championID"></select>
+								</div>
+							<div class="summoner">
+								<select class="tournament-newgame-select" ng-options="e.playerID as e.ingame_name for e in newgame.newgame.playerlist_t2" ng-model="newgame.newgame.data.game_player[index_player].playerID"></select>
+								</div>
+							<div class="position">
+								<select class="tournament-newgame-select" ng-options="e for e in newgame.position_list" ng-model="newgame.newgame.data.game_player[index_player].position"></select>
+								</div>
+							<div class="kda">
+							<input class="input new-game-input-team" type="text" maxlength="2" ng-model="newgame.newgame.data.game_player[index_player].kills" placeholder="K" style="width: 40px" />
+							<input class="input new-game-input-team" type="text" maxlength="2" ng-model="newgame.newgame.data.game_player[index_player].deaths" placeholder="D" style="width: 40px" />
+							<input class="input new-game-input-team" type="text" maxlength="2" ng-model="newgame.newgame.data.game_player[index_player].assists" placeholder="A" style="width: 40px" />
+								</div>
+							<div class="cs">
+								<input class="input new-game-input-team" type="text" maxlength="3" ng-model="newgame.newgame.data.game_player[index_player].creep_score" placeholder="CS" style="width: 70px" />
+								</div>
+							<div class="gold">
+								<input class="input new-game-input-team" type="text" maxlength="5" ng-model="newgame.newgame.data.game_player[index_player].gold" placeholder="Gold" style="width: 70px" />
+								</div>
+							</div>
+			  		</div>
+			  	</div>
+
+			  <div class="footer" ng-if="newgame.tournament_entry.tournamentID && newgame.tournament_type">
+					<select class="tournament-newgame-select tc-dark-green" ng-options="e.scheduleID as '(' + e.scheduleID + ') ' + e.team_one_name + ' - ' + e.team_two_name + ' | Estimated: ' + e.estimatedDate_from + ' - ' + e.estimatedDate_to for e in newgame.schedule_list" ng-model="newgame.newgame.scheduleID">
+						<option value="0">Begegnung auswählen</option>
+						</select>
+					<input class="tournament-newgame-fileinput" type="file" ng-if="!newgame.show.image_uploaded" name="file" id="file" ng-file="uploadfiles" />
+					<button class="btn newgame-check-entries-add-game" ng-if="!newgame.show.image_uploaded && newgame.newgame.scheduleID && newgame.newgame.gameDate && newgame.status != 100" value="Upload" id="upload" ng-click="newgame.prepare_image_upload()">Quelle&nbsp;hochladen</button>
+					<span class="abu-text-player newgame-success-message" ng-if="newgame.show.image_uploaded">Quelle&nbsp;erfolgreich&nbsp;hochgeladen</span>
+			  	</div>
+
+				<div class="footer" ng-if="newgame.tournament_entry.tournamentID && newgame.tournament_type">
+					<input class="new-game-input" type="text" maxlength="5" placeholder="Spieldauer (43.21)" ng-model="newgame.newgame.duration" />
+					<input class="new-game-input" type="" maxlength="10" placeholder="Spieldatum (YYYY-MM-DD)" ng-model="newgame.newgame.gameDate">
+					<button class="new-game-button" ng-if="!newgame.error_message && !newgame.precheck_success" ng-click="newgame.precheck_new_game(newgame.newgame)" style="margin-right: 2rem">Eingaben überprüfen</button>
+					<button class="new-game-button" ng-if="!newgame.error_message" ng-disabled="!newgame.newgame.complete" ng-click="newgame.create_new_game(newgame.newgame.complete)">Spiel hinzufügen</button>
+					<span class="new-game-error-message" ng-if="newgame.error_message">{{newgame.error_message}}</span>
+					<span class="new-game-precheck-success-message" ng-if="newgame.precheck_success">Eingaben korrekt</span>
+					<span class="new-game-new-game-created-success-message" ng-if="newgame.new_game_created">Spiel wurde erstellt!</span>
+					<span></span>
 					</div>
-	  		</div>
-	  	<div class="body">
-				<div class="player" ng-repeat="index_player in [0,1,2,3,4] track by $index">
-					<div class="summoners">
-					<select class="tournament-newgame-select" ng-options="e for e in newgame.summoner_list" ng-model="newgame.newgame.data.game_player[index_player].summoner_one"></select>
-					<select class="tournament-newgame-select" ng-options="e for e in newgame.summoner_list" ng-model="newgame.newgame.data.game_player[index_player].summoner_two"></select>
-						</div>
-					<div class="level">
-						<select class="tournament-newgame-select" ng-model="newgame.newgame.data.game_player[index_player].level" ng-options="e for e in newgame.level_list"></select>
-						</div>
-					<div class="champion">
-						<select class="tournament-newgame-select champ-color new-game-scrollbar" ng-options="e.championID as e.name for e in newgame.champion_list" ng-model="newgame.newgame.data.game_player[index_player].championID"></select>
-						</div>
-					<div class="summoner">
-						<select class="tournament-newgame-select" ng-options="e.playerID as e.ingame_name for e in newgame.newgame.playerlist_t1" ng-model="newgame.newgame.data.game_player[index_player].playerID"></select>
-						</div>
-					<div class="position">
-						<select class="tournament-newgame-select" ng-options="e for e in newgame.position_list" ng-model="newgame.newgame.data.game_player[index_player].position"></select>
-						</div>
-					<div class="kda">
-						<input class="input new-game-input-team" type="text" maxlength="2" ng-model="newgame.newgame.data.game_player[index_player].kills" placeholder="K" style="width: 40px" />
-						<input class="input new-game-input-team" type="text" maxlength="2" ng-model="newgame.newgame.data.game_player[index_player].deaths" placeholder="D" style="width: 40px" />
-						<input class="input new-game-input-team" type="text" maxlength="2" ng-model="newgame.newgame.data.game_player[index_player].assists" placeholder="A" style="width: 40px" />
-						</div>
-					<div class="cs">
-						<input class="input new-game-input-team" type="text" maxlength="3" ng-model="newgame.newgame.data.game_player[index_player].creep_score" placeholder="CS" style="width: 70px" />
-						</div>
-					<div class="gold">
-						<input class="input new-game-input-team" type="text" maxlength="5" ng-model="newgame.newgame.data.game_player[index_player].gold" placeholder="Gold" style="width: 70px" />
-						</div>
-					</div>
-	  		</div>
-	  	</div>
 
-	  <div class="team" ng-if="newgame.tournament_entry.tournamentID && newgame.tournament_type">
-	  	<div class="header">
-	  		<select class="tournament-newgame-select tc-blue" ng-options="e.teamID as e.name for e in newgame.team_list" ng-change="newgame.reduce_team_playerlist(newgame.newgame.team_twoID, 2); newgame.check_schedule(newgame.newgame.team_oneID, newgame.newgame.team_twoID)" ng-model="newgame.newgame.team_twoID"></select>
-	  		<select ng-repeat="index_champion in [5,6,7,8,9]" class="tc-red tournament-newgame-select new-game-scrollbar" ng-options="e.championID as e.name for e in newgame.champion_list" ng-model="newgame.newgame.data.game_ban_t2[index_champion].championID"></select>
-	  		<button class="clear-ban-btn cleanup-icon-tournament" ng-click="newgame.newgame.data.game_ban_t2 = []" custom-hover="Reset Banlist Team 2"></button>
-				<div>
-					<button ng-class='{"new-game-checkbox-enabled":newgame.newgame.team_two_won, "new-game-checkbox":!newgame.newgame.team_two_won}' class="btn i-tick" custom-hover="Gewinner" ng-disabled="newgame.newgame.team_two_won" ng-click="newgame.newgame.team_two_won = true; newgame.newgame.team_one_won = false"></button>
-					<button ng-class='{"new-game-checkbox-disabled":!newgame.newgame.team_two_won, "new-game-checkbox":newgame.newgame.team_two_won}' class="btn i-x" custom-hover="Verlierer"  ng-disabled="!newgame.newgame.team_two_won" ng-click="newgame.newgame.team_two_won = false; newgame.newgame.team_one_won = true"></button>
-					</div>
-	  		</div>
-	  	<div class="body">
-				<div class="player" ng-repeat="index_player in [5,6,7,8,9] track by $index">
-					<div class="summoners">
-					<select class="tournament-newgame-select" ng-options="e for e in newgame.summoner_list" ng-model="newgame.newgame.data.game_player[index_player].summoner_one"></select>
-					<select class="tournament-newgame-select" ng-options="e for e in newgame.summoner_list" ng-model="newgame.newgame.data.game_player[index_player].summoner_two"></select>
-						</div>
-					<div class="level">
-						<select class="tournament-newgame-select" ng-model="newgame.newgame.data.game_player[index_player].level" ng-options="e for e in newgame.level_list"></select>
-						</div>
-					<div class="champion">
-						<select class="tournament-newgame-select champ-color new-game-scrollbar" ng-options="e.championID as e.name for e in newgame.champion_list" ng-model="newgame.newgame.data.game_player[index_player].championID"></select>
-						</div>
-					<div class="summoner">
-						<select class="tournament-newgame-select" ng-options="e.playerID as e.ingame_name for e in newgame.newgame.playerlist_t2" ng-model="newgame.newgame.data.game_player[index_player].playerID"></select>
-						</div>
-					<div class="position">
-						<select class="tournament-newgame-select" ng-options="e for e in newgame.position_list" ng-model="newgame.newgame.data.game_player[index_player].position"></select>
-						</div>
-					<div class="kda">
-					<input class="input new-game-input-team" type="text" maxlength="2" ng-model="newgame.newgame.data.game_player[index_player].kills" placeholder="K" style="width: 40px" />
-					<input class="input new-game-input-team" type="text" maxlength="2" ng-model="newgame.newgame.data.game_player[index_player].deaths" placeholder="D" style="width: 40px" />
-					<input class="input new-game-input-team" type="text" maxlength="2" ng-model="newgame.newgame.data.game_player[index_player].assists" placeholder="A" style="width: 40px" />
-						</div>
-					<div class="cs">
-						<input class="input new-game-input-team" type="text" maxlength="3" ng-model="newgame.newgame.data.game_player[index_player].creep_score" placeholder="CS" style="width: 70px" />
-						</div>
-					<div class="gold">
-						<input class="input new-game-input-team" type="text" maxlength="5" ng-model="newgame.newgame.data.game_player[index_player].gold" placeholder="Gold" style="width: 70px" />
-						</div>
-					</div>
-	  		</div>
-	  	</div>
-
-	  <div class="footer" ng-if="newgame.tournament_entry.tournamentID && newgame.tournament_type">
-			<select class="tournament-newgame-select tc-dark-green" ng-options="e.scheduleID as '(' + e.scheduleID + ') ' + e.team_one_name + ' - ' + e.team_two_name + ' | Estimated: ' + e.estimatedDate_from + ' - ' + e.estimatedDate_to for e in newgame.schedule_list" ng-model="newgame.newgame.scheduleID">
-				<option value="0">Begegnung auswählen</option>
-				</select>
-			<input class="tournament-newgame-fileinput" type="file" ng-if="!newgame.show.image_uploaded" name="file" id="file" ng-file="uploadfiles" />
-			<button class="btn newgame-check-entries-add-game" ng-if="!newgame.show.image_uploaded && newgame.newgame.scheduleID && newgame.newgame.gameDate && newgame.status != 100" value="Upload" id="upload" ng-click="newgame.prepare_image_upload()">Quelle&nbsp;hochladen</button>
-			<span class="abu-text-player newgame-success-message" ng-if="newgame.show.image_uploaded">Quelle&nbsp;erfolgreich&nbsp;hochgeladen</span>
-	  	</div>
-
-		<div class="footer" ng-if="newgame.tournament_entry.tournamentID && newgame.tournament_type">
-			<input class="new-game-input" type="text" maxlength="5" placeholder="Spieldauer (43.21)" ng-model="newgame.newgame.duration" />
-			<input class="new-game-input" type="" maxlength="10" placeholder="Spieldatum (YYYY-MM-DD)" ng-model="newgame.newgame.gameDate">
-			<button class="new-game-button" ng-if="!newgame.error_message && !newgame.precheck_success" ng-click="newgame.precheck_new_game(newgame.newgame)" style="margin-right: 2rem">Eingaben überprüfen</button>
-			<button class="new-game-button" ng-if="!newgame.error_message" ng-disabled="!newgame.newgame.complete" ng-click="newgame.create_new_game(newgame.newgame.complete)">Spiel hinzufügen</button>
-			<span class="new-game-error-message" ng-if="newgame.error_message">{{newgame.error_message}}</span>
-			<span class="new-game-precheck-success-message" ng-if="newgame.precheck_success">Eingaben korrekt</span>
-			<span class="new-game-new-game-created-success-message" ng-if="newgame.new_game_created">Spiel wurde erstellt!</span>
-			<span></span>
+				</section>
 			</div>
 
-		</section>
+		</div>
+
+
 
 	<div class="loading-div" ng-if="view.status == 100 || newgame.status == 100"></div>
 

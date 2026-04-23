@@ -36,8 +36,8 @@
 					</div>
 				<div class="space2"></div>
 				<button class="login-button" ng-disabled="!username || !password" ng-if="!error_message" ng-click="send_login_request(username, password)">Login</button>
-				<!-- <a ng-href="#/register" ng-if="!error_message">Noch kein Konto?</a> -->
-				<i class="ta-center" ng-if="!error_message" style="margin-top: 10px">Zugang ausschließlich mit bestehendem Account möglich.</i>
+				<a ng-href="#/register" ng-if="!error_message">Noch kein Konto?</a>
+				<!-- <i class="ta-center" ng-if="!error_message" style="margin-top: 10px">Zugang ausschließlich mit bestehendem Account möglich.</i> -->
 				<div class="login-error" ng-if="error_message"><span class="message">{{error_message}}</span></div>
 				</div>
 			</div>

@@ -1,0 +1,282 @@
+<article ng-controller="customstats.tournament_dashboard">
+
+	<section class="tournament-dashboard">
+
+		<div class="header ta-center">
+			<span class="headline">Tournament Dashboard</span>
+			<div class="official-logo">
+				<img ng-if="view.tournamentID == 3" class="logo" ng-src='{{"public/img/tournament/return_from_retirement.png"}}' />
+				</div>
+			</div>
+
+		<div class="body" ng-if="!view.tournamentID">
+			<i>Currently no active tournament running...</i>
+			</div>
+
+		<div class="body" ng-if="view.tournamentID">
+
+			<div class="base-info">
+				<div class="box">
+					<div style="margin-right: 1rem"></div>
+					<div class="text">
+						<div class="value">{{view.tournament.name}}</div>
+						<hr />
+						<div class="title">Tournament</div>
+						</div>
+					</div>
+				<div class="box">
+					<div></div>
+					<div class="text">
+						<div class="value">{{view.standings.length}}</div>
+						<hr />
+						<div class="title">Total Teams</div>
+						</div>
+					</div>
+				<div class="box">
+					<div></div>
+					<div class="text">
+						<div class="value">{{view.current_phase}}</div>
+						<hr />
+						<div class="title">Current Phase</div>
+						</div>
+					</div>
+				<div class="box">
+					<div></div>
+					<div class="text">
+						<div class="value">{{view.match_history.length}}</div>
+						<hr />
+						<div class="title">Matches Played</div>
+						</div>
+					</div>
+				</div>
+
+			<div class="advanced-info">
+
+				<div class="schedule">
+					<div class="header">
+						<div class="headline">
+							<span class="text">Upcoming Matches</span>
+							</div>
+						</div>
+					<div class="body">
+						<div class="info-box" ng-repeat="e in view.schedule">
+							<div class="header">
+								<!-- <div class="date">Today - 30.4.2026 18:00</div> -->
+								<div class="date">{{e.estimatedDate_from | phpdate: 'd.m.Y'}}</div>
+								</div>
+							<div class="match">
+								<div class="teamspot">
+									<div class="team">
+										<img class="logo" ng-if="e.image_exists" ng-src='{{e.image_url}}' />
+										<span class="name">{{e.team_one_name}}</span>
+										</div>
+									<div class="vs">VS</div>
+									<div class="team">
+										<span class="name">{{e.team_two_name}}</span>
+										<img class="logo" ng-if="e.image_exists" ng-src='{{e.image_url}}' />
+										</div>
+									</div>
+								</div>
+							</div>
+						<div class="info-box" ng-if="view.schedule.length == 0">
+							<div class="nothing-scheduled-info"><i>Currently no matches scheduled...</i></div>
+							</div>
+						</div>
+					</div>
+
+				<div class="standings">
+
+					<div class="header">
+						<div class="headline">
+							<span class="text">Standings</span>
+							</div>
+						</div>
+
+					<div class="body">
+
+						<div class="teamlist">
+							<div class="team-row" ng-repeat="e in view.standings track by $index">
+								<div class="rank">{{e.rank}}</div>
+								<div class="name-logo">
+									<img class="logo" ng-if="e.image_exists" ng-src='{{e.image_url}}' />
+									<div class="name">{{e.name}}</div>
+									</div>
+								<div class="w-l">{{e.times_won}}-{{e.times_lost}}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				<div class="playoffs" ng-if="view.tournament_phase == 'playoffs'"></div>
+
+				<div class="match-history">
+					<div class="header">
+						<div class="headline">
+							<span class="text">Match-History</span>
+							</div>
+						</div>
+
+					<div class="body tournament-dashboard-scrollbar">
+
+						<div class="date-group">
+
+							<!-- <div class="date">{{gameDate | phpdate: 'd.m.Y'}}</div> ng-repeat="(gameDate, list) in view.data | groupBy: 'gameDate' " -->
+
+							<div class="info-box" ng-if="view.match_history.length == 0">
+								<div><i>No matches played so far...</i></div>
+								</div>
+
+							<div class="game-complete" ng-repeat="e in view.match_history">
+
+								<div class="information">
+									<div class="data">
+										<!-- <span class="mapname">Kluft der Beschwörer I</span> -->
+										<span class="gameID">gameID: {{e.gameID}} ({{e.type}}) I</span>
+										<span class="duration">{{e.duration}} min I</span>
+										<span class="gameDate">{{e.gameDate | phpdate: 'd. M. Y'}}</span>
+										</div>
+									<div class="source" ng-if="e.source_url">
+										<button ng-click="view.popup.source.url = e.source_url; view.popup.source.show = true"><img ng-src="{{e.source_url}}" style="width: 50px; height: 25px; margin-right: 10px" />Quelle anzeigen</button>
+										</div>
+									<div class="unfold" ng-style='{"margin-left": e.source_url ? "unset" : "auto"}'>
+										<button ng-class='{"i-collapse-white": e.match_history_expanded, "i-expand-white": !e.match_history_expanded}' ng-click="e.match_history_expanded = !e.match_history_expanded" style="background-color: transparent; margin-left: 10px"></button>
+										</div>
+									</div>
+
+								<div class="both-teams">
+
+									<div class="team-one-left" ng-class='{"win-bg": e.team_one.stat_complete.has_won, "lose-bg": !e.team_one.stat_complete.has_won}'>
+
+										<div class="header">
+											<span class="win-text" ng-if="e.team_one.stat_complete.has_won">GEWONNEN</span>
+											<span class="lose-text" ng-if="!e.team_one.stat_complete.has_won">VERLOREN</span>
+											<span ng-class='{"win-team-name": e.team_one.stat_complete.has_won, "lose-team-name": !e.team_one.stat_complete.has_won}'>{{e.team_one.name}}</span>
+											<span custom-hover="Gold">{{e.team_one.stat_complete.gold_string}}</span>
+											<div class="kda-box" custom-hover="Kills">
+												<span>{{e.team_one.stat_complete.kills}}</span>
+												<div class="match-history-kda" style="margin-left: 5px"></div>
+												</div>
+											</div>
+										<div class="body" ng-if="e.match_history_expanded">
+											<div class="player-content" ng-repeat="p in e.team_one.stat_player_list track by $index">
+												<div ng-if="$first" style="width: 100%; display: flex; flex-direction: row; align-items: center">
+													<div style="width: 40%"></div>
+													<div custom-hover="K / D / A" style="width: 25%; display: flex; justify-content: center">
+														<div class="match-history-kda"></div>
+														</div>
+													<div custom-hover="Kill Participation" style="width: 15%; display: flex; justify-content: center">
+														<div class="match-history-kp"></div>
+														</div>
+													<div custom-hover="Creep Score" style="width: 10%; display: flex; justify-content: center">
+														<div class="match-history-cs"></div>
+														</div>
+													<div custom-hover="Gold" style="width: 10%; display: flex; justify-content: center">
+														<div class="match-history-gold"></div>
+														</div>
+													</div>
+												<div class="icon-name-box">
+													<div class="match-history-champion-icon {{p.name_converted}}" ng-class='{"activer-filter-border": view.filter.champion_full.championID == p.championID}' custom-hover="{{p.champion_name}}" style="width: 40px; height: 40px; margin-right: 15px">
+														<span class="champion-level-static">{{p.level}}</span>
+														<img class="position-level-static" ng-src="{{'public/img/position/' + p.position + '.png'}}" />
+														</div>
+													<a ng-class='{"active-filter": view.filter.player_full.playerID == p.playerID, "player-equals-account": app.board_get_value("t_playerID") == p.playerID}' ng-click="view.redirect_template(p.ingame_name)">{{p.ingame_name}}</a>
+													</div>
+												<div class="kda-box">
+													<span ng-class='{"player-equals-account": app.board_get_value("t_playerID") == p.playerID}'>{{p.total_kills}} <span class="match-history-kda-sep">/</span> {{p.total_deaths}} <span class="match-history-kda-sep">/</span> {{p.total_assists}}</span>
+													</div>
+												<div class="kp-box">
+													<span ng-class='{"player-equals-account": app.board_get_value("t_playerID") == p.playerID}'>{{p.kill_participation | number: 1}} %</span>
+													</div>
+												<div class="cs-box">
+													<span ng-class='{"player-equals-account": app.board_get_value("t_playerID") == p.playerID}'>{{p.creep_score}}</span>
+													</div>
+												<div class="gold-box">
+													<span ng-class='{"player-equals-account": app.board_get_value("t_playerID") == p.playerID}'>{{p.total_gold_string}}</span>
+													</div>
+												</div>
+											</div>
+										<div class="footer"></div>
+
+										</div>
+
+									<div class="team-two-right" ng-class='{"win-bg": e.team_two.stat_complete.has_won, "lose-bg": !e.team_two.stat_complete.has_won}'>
+
+										<div class="header">
+											<div class="kda-box" custom-hover="Kills">
+												<span>{{e.team_two.stat_complete.kills}}</span>
+												<div class="match-history-kda" style="margin-left: 5px"></div>
+												</div>
+											<span custom-hover="Gold">{{e.team_two.stat_complete.gold_string}}</span>
+											<span ng-class='{"win-team-name": e.team_two.stat_complete.has_won, "lose-team-name": !e.team_two.stat_complete.has_won}'>{{e.team_two.name}}</span>
+											<span class="win-text" ng-if="e.team_two.stat_complete.has_won">GEWONNEN</span>
+											<span class="lose-text" ng-if="!e.team_two.stat_complete.has_won">VERLOREN</span>
+											</div>
+
+										<div class="body" ng-if="e.match_history_expanded">
+											<div class="player-content" ng-repeat="p in e.team_two.stat_player_list track by $index">
+												<div ng-if="$first" style="width: 100%; display: flex; flex-direction: row; align-items: center">
+													<div custom-hover="Gold" style="width: 10%; display: flex; justify-content: center">
+														<div class="match-history-gold"></div>
+														</div>
+													<div custom-hover="Creep Score" style="width: 10%; display: flex; justify-content: center">
+														<div class="match-history-cs"></div>
+														</div>
+													<div custom-hover="K / D / A" style="width: 25%; display: flex; justify-content: center">
+														<div class="match-history-kda"></div>
+														</div>
+													<div custom-hover="Kill Participation" style="width: 15%; display: flex; justify-content: center">
+														<div class="match-history-kp"></div>
+														</div>
+													<div style="width: 40%"></div>
+													</div>
+												<div class="gold-box">
+													<span ng-class='{"player-equals-account": app.board_get_value("t_playerID") == p.playerID}'>{{p.total_gold_string}}</span>
+													</div>
+												<div class="cs-box">
+													<span ng-class='{"player-equals-account": app.board_get_value("t_playerID") == p.playerID}'>{{p.creep_score}}</span>
+													</div>
+												<div class="kda-box">
+													<span ng-class='{"player-equals-account": app.board_get_value("t_playerID") == p.playerID}'>{{p.total_kills}} / {{p.total_deaths}} / {{p.total_assists}}</span>
+													</div>
+												<div class="kp-box">
+													<span ng-class='{"player-equals-account": app.board_get_value("t_playerID") == p.playerID}'>{{p.kill_participation | number: 1}} %</span>
+													</div>
+												<div class="icon-name-box" style="justify-content: flex-end">
+													<a ng-class='{"active-filter": view.filter.player_full.playerID == p.playerID, "player-equals-account": app.board_get_value("t_playerID") == p.playerID}' ng-click="view.redirect_template(p.ingame_name)">{{p.ingame_name}}</a>
+													<div class="match-history-champion-icon {{p.name_converted}}" ng-class='{"activer-filter-border": view.filter.champion_full.championID == p.championID}' custom-hover="{{p.champion_name}}" style="width: 40px; height: 40px; margin-left: 15px">
+														<span class="champion-level-static">{{p.level}}</span>
+														<img class="position-level-static" ng-src="{{'public/img/position/' + p.position + '.png'}}" />
+														</div>
+													</div>
+
+												</div>
+											</div>
+										<div class="footer"></div>
+
+										</div>
+
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+
+			</div>
+
+		</section>
+
+	<league-popup ng-if="view.popup.source.show" xa-popup-options='{"overlayClose":true, "width":"58%", "top":"50%", "height": "650px", "left":"52%", "background":"transparent !important", "position":"fixed", "transform":"translate(-50%, -50%)"}'>
+		<body-part>
+			<div>
+				<img ng-src="{{view.popup.source.url}}" />
+				</div>
+			</body-part>
+		</league-popup>
+
+	<div class="loading-div" ng-if="view.status == 100"></div>
+
+	</article>

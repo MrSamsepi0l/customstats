@@ -9,6 +9,7 @@
 						<button class="standings-button info" ng-style='{"background": view.tournament_entry.tournamentID == e.tournamentID ? "rgb(25 32 38)" : ""}' ng-repeat="e in view.tournament_list | orderBy: '-tournamentID'" ng-click="view.tournament_entry = e; view.get_tournament_team(view.tournament_entry.tournamentID)" style="border-bottom: 1px solid #252c32;">
 							<img src="public/img/tournament/cleaner_schuh.png" class="image" ng-if="e.tournamentID == 1" />
 							<img src="public/img/tournament/missping.png " class="image" ng-if="e.tournamentID == 2" />
+							<img src="public/img/tournament/return_from_retirement.png" class="image" style="height: 72px;" ng-if="e.tournamentID == 3" />
 							<div class="label">
 								<div class="name">{{e.name}}</div>
 								<div class="region">Start: {{e.startDate | date : 'dd'}}. {{e.startDate | date : 'MMMM'}} {{e.startDate | date : 'yyyy'}}</div>

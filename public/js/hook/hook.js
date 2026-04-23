@@ -17,7 +17,7 @@ angular.module('customstats').run(function($http, $rootScope, $app, $location){
             if(panel_state == 'login'){
 
                 // redirect to dashboard (if user has not the right, no route will be selected)
-                $location.url('/dashboard');
+                $location.url('/tournament_dashboard');
 
                 // update state
                 localStorage.setItem('panel_state', 'logged_in');

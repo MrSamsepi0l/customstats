@@ -53,8 +53,13 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 					// for each team
 					_.each(data, function(e){
 
+						// remove whitespace and lowercase
+						e.team_one_name_converted = e.team_one_name.split(' ').join('').toLowerCase().replace(/'/g, "");
+						e.team_two_name_converted = e.team_two_name.split(' ').join('').toLowerCase().replace(/'/g, "");
+
 						// define full image url
-						e.image_url = self.image_base_url + '/' + e.name_converted + '.png';
+						e.image_url_team_one = self.image_base_url + '/' + e.team_one_name_converted + '.png';
+						e.image_url_team_two = self.image_base_url + '/' + e.team_two_name_converted + '.png';
 
 						// check if image exists
 						$app.does_image_exist(e.image_url).then(function(exists){
@@ -62,10 +67,6 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 							// define if image exists
 							e.image_exists = exists;
 							});
-
-						// remove whitespace and lowercase
-						e.team_one_name_converted = e.team_one_name.split(' ').join('').toLowerCase();
-						e.team_two_name_converted = e.team_two_name.split(' ').join('').toLowerCase();
 
 						// if match in future - add to list
 						if(new Date() <= new Date(e.estimatedDate_from)) self.schedule.push(e);
@@ -99,7 +100,7 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 						e.times_played = parseInt(e.times_played);
 
 						// remove whitespace and lowercase
-						e.name_converted = e.name.split(' ').join('').toLowerCase();
+						e.name_converted = e.name.split(' ').join('').toLowerCase().replace(/'/g, "");
 
 						// define full image url
 						e.image_url = self.image_base_url + '/' + e.name_converted + '.png';

@@ -68,7 +68,7 @@ angular.module('customstats').controller('customstats.tournament_controller', ['
 					_.each(data, function(e){
 
 						// convert teamname without spaces and lowercase
-						e.name_converted = e.name.split(' ').join('').toLowerCase();
+						e.name_converted = e.name.split(' ').join('').toLowerCase().replace(/'/g, "");
 						});
 
 					// take team

@@ -270,7 +270,8 @@ a {
   display: flex;
   flex: 1;
   justify-content: end;
-  font-size: 24px;
+  /*font-size: 24px;*/
+  font-size: 4.5vh;
   color: #bbedff;
 }
 
@@ -314,7 +315,8 @@ a {
 
 					.link-group {
 						font-weight: bold;
-						font-size: 22px;
+						/*font-size: 22px;*/
+						font-size: 4.5vh;
 						color: #bbedff;
 						flex: 1;
 						padding: 24px 0;
@@ -357,7 +359,8 @@ a {
 				}
 
 			.mobile-link {
-				font-size: 16px;
+				/*font-size: 16px;*/
+				font-size: 3.5vh;
 				padding: 24px 0;
 				border-bottom: 1px solid #163341;
 				}

@@ -22,7 +22,7 @@
         background-color: #0f1519;
 
         .headline {
-            font-size: 3rem;
+            font-size: 1rem;
             letter-spacing: 3px;
             color: var(--tc-headline);
             }
@@ -31,7 +31,7 @@
     .body-header {
         display: flex;
         flex-direction: row;
-        width: 75%;
+        width: 65%;
         padding: 1rem 1rem 1rem 1rem;
 
         .box-left {
@@ -51,12 +51,12 @@
                     color: var(--date-color);
 
                     .date {
-                        font-size: 1.6rem;
+                        font-size: 1.4rem;
                         letter-spacing: 0.3rem;
                         }
 
                     .separator {
-                        font-size: 1.6rem;
+                        font-size: 1.4rem;
                         }
                     }
 
@@ -66,7 +66,7 @@
                     justify-content: center;
 
                     .time {
-                        font-size: 4.7rem;
+                        font-size: 2.7rem;
                         letter-spacing: 1rem;
                         color: var(--time-color);
                         }
@@ -110,14 +110,15 @@
                         align-items: center;
                         flex-direction: row;
                         width: 100%;
-                        margin-bottom: 0.5rem;
-                        /*padding: 1rem 1rem 1rem 1rem;*/
+                        /*margin-bottom: 0.5rem;*/
+                        padding: 1rem 1rem 1rem 1rem;
                         border: 1px transparent;
                         border-radius: 5px;
                         user-select: none;
                         outline: none;
                         transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
                         background-color: var(--main-bg-dark-1);
+                        gap: 20px;
 
                         &:hover {
                             background-color: #171c26; /* purple-near-black */
@@ -136,6 +137,7 @@
                             border-radius: 5px;
                             padding: 5px 5px 5px 5px;
                             transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+                            flex: 0.5;
 
                             &:hover {
                                 transition: all 0.3s ease;
@@ -143,8 +145,8 @@
                                 }
 
                             .icon {
-                                width: 64px;
-                                height: 64px;
+                                width: 32px;
+                                height: 32px;
                                 }
 
                             .text {
@@ -160,6 +162,7 @@
                             flex-direction: column;
                             width: 60%;
                             height: 100%;
+                            flex: 1;
 
                             .username {
                                 font-size: 1.2rem;
@@ -179,8 +182,8 @@
                             flex-direction: column;
 
                             .online-icon {
-                                width: 64px;
-                                height: 64px;
+                                width: 32px;
+                                height: 32px;
                                 }
 
                             .text {
@@ -221,14 +224,14 @@
                     padding: 1.2rem 1.2rem 1.2rem 1.2rem;
 
                     .title {
-                        font-size: 2.3rem;
+                        font-size: 1.3rem;
                         letter-spacing: 0.5rem;
                         color: var(--tc-info-box);
                         }
 
                     .value {
                         text-align: center;
-                        font-size: 2.3rem;
+                        font-size: 1.3rem;
                         font-weight: bold;
                         }
                     }
@@ -240,7 +243,7 @@
                     padding: 1.2rem 1.2rem 1.2rem 1.2rem;
 
                     .title {
-                        font-size: 2.3rem;
+                        font-size: 1.3rem;
                         letter-spacing: 0.5rem;
                         color: var(--tc-info-box);
                         }
@@ -248,7 +251,7 @@
                     .value {
                         text-align: center;
                         font-weight: bold;
-                        font-size: 2.3rem;
+                        font-size: 1.3rem;
                         }
                     }
 
@@ -259,7 +262,7 @@
                     padding: 1.2rem 1.2rem 1.2rem 1.2rem;
 
                     .title {
-                        font-size: 2.3rem;
+                        font-size: 1.3rem;
                         letter-spacing: 0.5rem;
                         color: var(--tc-info-box);
                         }
@@ -267,7 +270,7 @@
                     .value {
                         text-align: center;
                         font-weight: bold;
-                        font-size: 2.3rem;
+                        font-size: 1.3rem;
                         }
                     }
                 }
@@ -460,12 +463,12 @@
                     color: var(--date-color);
 
                     .date {
-                        font-size: 1.6rem;
+                        font-size: 1.4rem;
                         letter-spacing: 0.3rem;
                         }
 
                     .separator {
-                        font-size: 1.6rem;
+                        font-size: 1.4rem;
                         }
                     }
 
@@ -474,7 +477,7 @@
                     flex-direction: row;
 
                     .time {
-                        font-size: 4.7rem;
+                        font-size: 2.7rem;
                         letter-spacing: 1rem;
                         color: var(--time-color);
                         }

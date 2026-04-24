@@ -281,7 +281,7 @@ a {
   }
 
   .mobile-nav-bar * {
-  	display: none;
+  	display: none !important;
   	}
 
   .menu-toggle {

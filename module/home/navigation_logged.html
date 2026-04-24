@@ -1,5 +1,6 @@
 <article ng-controller="customstats.home_state_controller">
 
+	<!-- Desktop Navigation Bar (logo and symbol [☰] still rendered for mobile navbar) -->
 	<header class="header-main-nav sticky top-0 z-50 w-full text-white font-mono flex justify-center">
 		<div class="flex h-70 px-4 lg:pl-11 lg:pr-0 items-center self-center grow lg-pdl-11 lg-pdr-0">
 			<a class="logo" href="#/all_player">Customstats</a>
@@ -51,9 +52,6 @@
 							<svg width="32" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path fill-rule="evenodd" clip-rule="evenodd" fill="#bbedff" d="M5.70711 9.71069C5.31658 10.1012 5.31658 10.7344 5.70711 11.1249L10.5993 16.0123C11.3805 16.7927 12.6463 16.7924 13.4271 16.0117L18.3174 11.1213C18.708 10.7308 18.708 10.0976 18.3174 9.70708C17.9269 9.31655 17.2937 9.31655 16.9032 9.70708L12.7176 13.8927C12.3271 14.2833 11.6939 14.2832 11.3034 13.8927L7.12132 9.71069C6.7308 9.32016 6.09763 9.32016 5.70711 9.71069Z" />
 								</svg>
-<!-- 							<svg ng-show="hover_customgame" width="32" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path fill-rule="evenodd" clip-rule="evenodd" fill="#bbedff" d="M18.2929 15.2893C18.6834 14.8988 18.6834 14.2656 18.2929 13.8751L13.4007 8.98766C12.6195 8.20726 11.3537 8.20757 10.5729 8.98835L5.68257 13.8787C5.29205 14.2692 5.29205 14.9024 5.68257 15.2929C6.0731 15.6835 6.70626 15.6835 7.09679 15.2929L11.2824 11.1073C11.673 10.7168 12.3061 10.7168 12.6966 11.1073L16.8787 15.2893C17.2692 15.6798 17.9024 15.6798 18.2929 15.2893Z" fill="#0F0F0F"/>
-								</svg> -->
 							</div>
 						<div class="flex flex-row h-full link items-center cursor-pointer justify-between" ng-if="app.user_has_right('customstats:tournament')" style="margin-left: 30px; width: 13ch" custom-tooltip-nav custom-tooltip-delay="0" custom-tooltip-option='{"background":"#0a0e13", "border":"1px solid rgb(255, 255, 255 / 0.3)","border-width":"1px"}' custom-tooltip-append-id="header-nav-tournament" custom-tooltip-position="down" id="header-nav-tournament">
 							<content-template ng-show="false">
@@ -81,21 +79,17 @@
 								<path fill-rule="evenodd" clip-rule="evenodd" fill="#bbedff" d="M5.70711 9.71069C5.31658 10.1012 5.31658 10.7344 5.70711 11.1249L10.5993 16.0123C11.3805 16.7927 12.6463 16.7924 13.4271 16.0117L18.3174 11.1213C18.708 10.7308 18.708 10.0976 18.3174 9.70708C17.9269 9.31655 17.2937 9.31655 16.9032 9.70708L12.7176 13.8927C12.3271 14.2833 11.6939 14.2832 11.3034 13.8927L7.12132 9.71069C6.7308 9.32016 6.09763 9.32016 5.70711 9.71069Z" />
 								</svg>
 							</div>
-
 						</div>
 					</div>
 				</div>
 			<div class="h-full flex items-center mx-4 grow ta-center xl-gap nav-links" style="justify-content: end">
-
 				<div class="flex flex-row h-full link items-center cursor-pointer justify-between" style="margin-left: 30px" custom-tooltip-nav custom-tooltip-delay="0" custom-tooltip-option='{"background":"#0a0e13", "border":"1px solid rgb(255, 255, 255 / 0.3)","border-width":"1px"}' custom-tooltip-append-id="header-nav-profile" custom-tooltip-position="down" id="header-nav-profile">
-
 					<div ng-if="!app.user_has_right('customstats:all_player')">
 						<span class="font-bold" style="font-size: 18px">Moin,&nbsp;<span class="tc-teal">{{app.data.user.username}}</span>!</span>
 						</div>
 					<div ng-if="app.user_has_right('customstats:all_player')">
 						<span class="font-bold" style="font-size: 18px">Moin,&nbsp;<a class="tc-teal" ng-href="#/all_player?playerID={{app.board_get_value('playerID')}}">{{app.data.user.username}}</a>!</span>
 						</div>
-
 					<content-template ng-show="false">
 						<div class="flex open-nav-menu flex-col">
 							<div class="flex flex-col menu">
@@ -117,14 +111,6 @@
 							</div>
 						</content-template>
 					</div>
-
-
-
-
-
-<!-- 				<div>
-					<span>Gut investierte Zeit:&nbsp;<i class="tc-teal">{{app.data.session_data.active_hours}}:{{app.data.session_data.active_minutes}} h</i></span>
-					</div> -->
 				<div class="flex flex-row h-full link items-center cursor-pointer justify-between" ng-if="app.user_has_right('customstats:tabview_admin')" style="width: 9ch" custom-tooltip-nav custom-tooltip-delay="0" custom-tooltip-option='{"background":"#0a0e13", "border":"1px solid rgb(255, 255, 255 / 0.3)","border-width":"1px"}' custom-tooltip-append-id="header-nav-admin" custom-tooltip-position="down" id="header-nav-admin">
 					<content-template ng-show="false">
 						<div class="flex open-nav-menu flex-col">
@@ -187,176 +173,105 @@
 						<path fill-rule="evenodd" clip-rule="evenodd" fill="#bbedff" d="M5.70711 9.71069C5.31658 10.1012 5.31658 10.7344 5.70711 11.1249L10.5993 16.0123C11.3805 16.7927 12.6463 16.7924 13.4271 16.0117L18.3174 11.1213C18.708 10.7308 18.708 10.0976 18.3174 9.70708C17.9269 9.31655 17.2937 9.31655 16.9032 9.70708L12.7176 13.8927C12.3271 14.2833 11.6939 14.2832 11.3034 13.8927L7.12132 9.71069C6.7308 9.32016 6.09763 9.32016 5.70711 9.71069Z" />
 						</svg>
 					</div>
-<!-- 						<div class="flex flex-row h-full link items-center cursor-pointer justify-between" style="width: 9ch" custom-tooltip-nav custom-tooltip-delay="0" custom-tooltip-option='{"background":"#0a0e13", "border":"1px solid rgb(255, 255, 255 / 0.3)","border-width":"1px"}' custom-tooltip-append-id="header-nav-tournament-profile" custom-tooltip-position="down" id="header-nav-tournament-profile">
-							<content-template ng-show="false">
-								<div class="flex open-nav-menu flex-col">
-									<div class="flex flex-col menu">
-										<div class="header">
-											<span class="text">GENERAL</span>
-											</div>
-										<div class="body">
-											<div class="item" ng-if="app.user_has_right('customstats:profile')" style="margin-right: 3rem">
-												<a class="text" ng-href="#/profile" ><span>Account</span></a>
-												</div>
-											<div class="item" style="margin-right: 3rem">
-												<a class="text" ng-href="#/all_player?playerID={{app.board_get_value('playerID')}}"><span>Customgames</span></a>
-												</div>
-											<div class="item">
-												<a class="text" ng-href="#/tournament_all_profile?playerID={{app.board_get_value('t_playerID')}}"><span>Turniere</span></a>
-												</div>
-
-											</div>
-										</div>
-									</div>
-								</content-template>
-							<span class="inline-block group-hover:font-bold" style="font-size: 18px">Deins</span>
-							<svg width="32" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path fill-rule="evenodd" clip-rule="evenodd" fill="#bbedff" d="M5.70711 9.71069C5.31658 10.1012 5.31658 10.7344 5.70711 11.1249L10.5993 16.0123C11.3805 16.7927 12.6463 16.7924 13.4271 16.0117L18.3174 11.1213C18.708 10.7308 18.708 10.0976 18.3174 9.70708C17.9269 9.31655 17.2937 9.31655 16.9032 9.70708L12.7176 13.8927C12.3271 14.2833 11.6939 14.2832 11.3034 13.8927L7.12132 9.71069C6.7308 9.32016 6.09763 9.32016 5.70711 9.71069Z" />
-								</svg>
-							</div> -->
 				<a class="inline-block link" style="font-size: 18px" href="/logout">Logout</a>
 				</div>
 			</div>
-
-
 		</header>
 
+		<!-- Mobile Navigation Bar -->
 		<div ng-if="open_nav_menu" class="mobile-nav-bar">
 			<div class="nav-list">
-				<a class="mobile-link" href="#/dashboard" ng-if="app.user_has_right('customstats:dashboard')">Dashboard</a>
-				<a class="mobile-link" href="#/chat" ng-if="app.user_has_right('customstats:chat')">Chat</a>
 				<div class="mobile-group">
-					<span class="link-group">Customgames</span>
-					<a class="mobile-link sub-link" href="#/all_player" ng-if="app.user_has_right('customstats:tabview_all_player')">Alle Spieler</a>
-					<a class="mobile-link sub-link" href="#/champions" ng-if="app.user_has_right('customstats:champions')">Champions</a>
-					<a class="mobile-link sub-link" href="#/sources" ng-if="app.user_has_right('customstats:tabview_media')">Quellen</a>
-					<a class="mobile-link sub-link" href="#/best_of" ng-if="app.user_has_right('customstats:best_of')">Best Of</a>
-					<a class="mobile-link sub-link" href="#/ingame_combination" ng-if="app.user_has_right('customstats:tabview_analysis')">Comparison</a>
+					<div class="mobile-group-header" ng-click="expand_base = !expand_base">
+						<span class="link-group">Base</span>
+						<div ng-if="!expand_base">
+							<svg width="27" height="27" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" fill="#bbedff" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path></svg>
+							</div>
+						<div ng-if="expand_base">
+							<svg width="27" height="27" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" fill="#bbedff" d="M19 13H5v-2h14z"></path></svg>
+							</div>
+						</div>
+					<div class="mobile-group-body" ng-class='{"open": expand_base}'>
+						<a class="mobile-link sub-link" href="#/dashboard" ng-if="app.user_has_right('customstats:dashboard')">Dashboard</a>
+						<a class="mobile-link sub-link" href="#/chat" ng-if="app.user_has_right('customstats:chat')">Chat</a>
+						<a class="mobile-link sub-link" href="/logout">Logout</a>
+						</div>
+					</div>
+				<div class="mobile-group">
+					<div class="mobile-group-header" ng-click="expand_customgames = !expand_customgames">
+						<span class="link-group">Customgames</span>
+						<div ng-if="!expand_customgames">
+							<svg width="27" height="27" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" fill="#bbedff" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path></svg>
+							</div>
+						<div ng-if="expand_customgames">
+							<svg width="27" height="27" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" fill="#bbedff" d="M19 13H5v-2h14z"></path></svg>
+							</div>
+						</div>
+					<div class="mobile-group-body" ng-class='{"open": expand_customgames}'>
+						<a class="mobile-link sub-link" href="#/all_player" ng-if="app.user_has_right('customstats:tabview_all_player')">Alle Spieler</a>
+						<a class="mobile-link sub-link" href="#/champions" ng-if="app.user_has_right('customstats:champions')">Champions</a>
+						<a class="mobile-link sub-link" href="#/sources" ng-if="app.user_has_right('customstats:tabview_media')">Quellen</a>
+						<a class="mobile-link sub-link" href="#/best_of" ng-if="app.user_has_right('customstats:best_of')">Best Of</a>
+						<a class="mobile-link sub-link" href="#/ingame_combination" ng-if="app.user_has_right('customstats:tabview_analysis')">Comparison</a>
+						</div>
 					</div>
 				<div class="mobile-group" ng-if="app.user_has_right('customstats:tournament')">
-					<span class="link-group">Tournament</span>
-					<a class="mobile-link sub-link" href="#/tournament_dashboard">Dashboard</a>
-					<a class="mobile-link sub-link" href="#/tournament">Overview</a>
-					<a class="mobile-link sub-link" href="#/tournament_all_profile">Alle Spieler</a>
+					<div class="mobile-group-header" ng-click="expand_tournament = !expand_tournament">
+						<span class="link-group">Tournament</span>
+						<div class="plus-minus-icon">
+							<div ng-show="!expand_tournament">
+								<svg width="27" height="27" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" fill="#bbedff" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path></svg>
+								</div>
+							<div ng-show="expand_tournament">
+								<svg width="27" height="27" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" fill="#bbedff" d="M19 13H5v-2h14z"></path></svg>
+								</div>
+							</div>
+						</div>
+					<div class="mobile-group-body" ng-class='{"open": expand_tournament}'>
+						<a class="mobile-link sub-link" href="#/tournament_dashboard">Dashboard</a>
+						<a class="mobile-link sub-link" href="#/tournament">Overview</a>
+						<a class="mobile-link sub-link" href="#/tournament_all_profile">Alle Spieler</a>
+						</div>
 					</div>
 				<div class="mobile-group">
-					<span class="link-group">Profile</span>
-					<a class="mobile-link sub-link" ng-href="#/profile" ng-if="app.user_has_right('customstats:profile')">Account</a>
-					<a class="mobile-link sub-link" ng-href="#/all_player?playerID={{app.board_get_value('playerID')}}" ng-if="app.user_has_right('customstats:all_player')">Customgames</a>
-					<a class="mobile-link sub-link" ng-href="#/tournament_all_profile?playerID={{app.board_get_value('t_playerID')}}" ng-if="app.user_has_right('customstats:tournament:all_profile')">Tournament</a>
+					<div class="mobile-group-header" ng-click="expand_profile = !expand_profile">
+						<span class="link-group">Profile</span>
+						<div ng-if="!expand_profile">
+							<svg width="27" height="27" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" fill="#bbedff" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path></svg>
+							</div>
+						<div ng-if="expand_profile">
+							<svg width="27" height="27" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" fill="#bbedff" d="M19 13H5v-2h14z"></path></svg>
+							</div>
+						</div>
+					<div class="mobile-group-body" ng-class='{"open": expand_profile}'>
+						<a class="mobile-link sub-link" ng-href="#/profile" ng-if="app.user_has_right('customstats:profile')">Account</a>
+						<a class="mobile-link sub-link" ng-href="#/all_player?playerID={{app.board_get_value('playerID')}}" ng-if="app.user_has_right('customstats:all_player')">Customgames</a>
+						<a class="mobile-link sub-link" ng-href="#/tournament_all_profile?playerID={{app.board_get_value('t_playerID')}}" ng-if="app.user_has_right('customstats:tournament:all_profile')">Tournament</a>
+						</div>
 					</div>
 				<div class="mobile-group" ng-if="app.user_has_right('customstats:tabview_admin')">
-					<span class="link-group">Admin</span>
-					<a class="mobile-link sub-link" ng-href="#/base_config" ng-if="app.user_has_right('customstats:admin_base:base_config')">Config</a>
-					<a class="mobile-link sub-link" ng-href="#/user_config" ng-if="app.user_has_right('customstats:admin_base:user_config')">User</a>
-					<a class="mobile-link sub-link" ng-href="#/champion_config" ng-if="app.user_has_right('customstats:admin_base:champion_config')">Champions</a>
-					<a class="mobile-link sub-link" ng-href="#/leagueapi_config" ng-if="app.user_has_right('customstats:admin_base:leagueapi_config')">Leagueapi</a>
-					<a class="mobile-link sub-link" ng-href="#/commandline" ng-if="app.user_has_right('customstats:admin:commandline')">CMD</a>
-					<a class="mobile-link sub-link" ng-href="#/new_game" ng-if="app.user_has_right('customstats:admin:new_game')">New Game</a>
-					<a class="mobile-link sub-link" ng-href="#/player_config" ng-if="app.user_has_right('customstats:admin_base:player_config')">Player</a>
-					<a class="mobile-link sub-link" ng-href="#/admin_tournament" ng-if="app.user_has_right('customstats:admin_tournament')">Tournament</a>
-
+					<div class="mobile-group-header" ng-click="expand_admin = !expand_admin">
+						<span class="link-group">Admin</span>
+						<div ng-if="!expand_admin">
+							<svg width="27" height="27" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" fill="#bbedff" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"></path></svg>
+							</div>
+						<div ng-if="expand_admin">
+							<svg width="27" height="27" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" fill="#bbedff" d="M19 13H5v-2h14z"></path></svg>
+							</div>
+						</div>
+					<div class="mobile-group-body" ng-class='{"open": expand_admin}'>
+						<a class="mobile-link sub-link" ng-href="#/base_config" ng-if="app.user_has_right('customstats:admin_base:base_config')">Config</a>
+						<a class="mobile-link sub-link" ng-href="#/user_config" ng-if="app.user_has_right('customstats:admin_base:user_config')">User</a>
+						<a class="mobile-link sub-link" ng-href="#/champion_config" ng-if="app.user_has_right('customstats:admin_base:champion_config')">Champions</a>
+						<a class="mobile-link sub-link" ng-href="#/leagueapi_config" ng-if="app.user_has_right('customstats:admin_base:leagueapi_config')">Leagueapi</a>
+						<a class="mobile-link sub-link" ng-href="#/commandline" ng-if="app.user_has_right('customstats:admin:commandline')">CMD</a>
+						<a class="mobile-link sub-link" ng-href="#/new_game" ng-if="app.user_has_right('customstats:admin:new_game')">New Game</a>
+						<a class="mobile-link sub-link" ng-href="#/player_config" ng-if="app.user_has_right('customstats:admin_base:player_config')">Player</a>
+						<a class="mobile-link sub-link" ng-href="#/admin_tournament" ng-if="app.user_has_right('customstats:admin_tournament')">Tournament</a>
+						</div>
 					</div>
 				</div>
-
 			</div>
-
-
-
-<!-- 	<section class="navbar-flex-complete">
-
-		<section class="navbar-flex-box">
-			<div class="tab" ng-if="app.user_has_right('customstats:dashboard')" ng-class='{"focused":app.current_route == "/dashboard"}'>
-				<a class="link" href="#/dashboard" title="Dashboard">
-					<div class="i-dashboard"></div>
-					<div class="title">Dashboard</div>
-					</a>
-				</div>
-			<div class="tab" ng-if="app.user_has_right('customstats:chat')" ng-class='{"focused":app.current_route == "/chat"}'>
-				<a class="link" href="#/chat" title="Chat">
-					<div class="i-chat"></div>
-					<div class="title">Chat</div>
-					</a>
-				</div>
-			<div class="tab" ng-if="app.user_has_right('customstats:tabview_all_player')" ng-class='{"focused":app.current_route == "/all_player"}' >
-				<a class="link" href="#/all_player" title="Alle Spieler">
-					<div class="i-player-group"></div>
-					<div class="title">Alle Spieler</div>
-					</a>
-				</div>
-			<div class="tab" ng-if="app.user_has_right('customstats:champions')" ng-class='{"focused":app.current_route == "/champions"}'>
-				<a class="link" href="#/champions" title="Champions">
-					<div class="i-champions"></div>
-					<div class="title">Champions</div>
-					</a>
-				</div>
-			<div class="tab" ng-if="app.user_has_right('customstats:best_of')" ng-class='{"focused":app.current_route == "/best_of"}'>
-				<a class="link" href="#/best_of" title="Best Of">
-					<div class="i-best-of"></div>
-					<div class="title">Best Of</div>
-					</a>
-				</div>
-			<div class="tab" ng-if="app.user_has_right('customstats:tabview_media')" ng-class='{"focused":app.current_route == "/tabview_media"}'>
-				<a class="link" href="#/tabview_media" title="Media">
-					<div class="i-source"></div>
-					<div class="title">Media</div>
-					</a>
-				</div>
-			<div class="tab" ng-if="app.user_has_right('customstats:tabview_analysis')" ng-class='{"focused":app.current_route == "/tabview_analysis"}'>
-				<a class="link" href="#/tabview_analysis" title="Analyse">
-					<div class="i-graph"></div>
-					<div class="title">Statistik</div>
-					</a>
-				</div>
-			<div class="tab" ng-if="app.user_has_right('customstats:tournament')" ng-class='{"focused":app.current_route == "/tournament"}'>
-				<a class="link" href="#/tournament" title="Turnier">
-					<div class="i-tournament"></div>
-					<div class="title">Turnier</div>
-					</a>
-				</div>
-			<div class="tab" ng-if="app.user_has_right('customstats:tabview_admin')" ng-class='{"focused":app.current_route == "/tabview_admin"}'>
-				<a class="link" href="#/tabview_admin" title="Admin">
-					<div class="i-admin"></div>
-					<div class="title">Admin</div>
-					</a>
-				</div>
-			</section>
-
-		<section class="info-flex-box">
-			<div class="inner-box">
-				<div class="info">
-					<div class="text">
-						<span class="font-bold">Moin,&nbsp;</span>
-						<span class="font-bold tc-teal">{{app.data.user.username}}</span>
-						</div>
-					<div class="text">
-						<span>Session seit:&nbsp;<i class="tc-teal">{{app.data.session_data.active_hours}} Std. u. {{app.data.session_data.active_minutes}} Min.</i></span>
-						</div>
-					<div class="text">
-						<span>Version:&nbsp;<i class="tc-teal">{{app.data.version}}</i></span>
-						</div>
-					<div class="text">
-						<span>Versionsdatum:&nbsp;<i class="tc-teal">{{app.data.version_date | phpdate: 'd-m-Y'}}</i></span>
-						</div>
-					</div>
-				<div class="tabgroup">
-					<div class="tab" ng-if="app.user_has_right('customstats:profile')" ng-class='{"focused":app.current_route == "/tabview_profile"}'>
-						<a class="link" href="#/tabview_profile" title="Profil">
-							<div class="i-profile"></div>
-							<div class="title">Profil</div>
-							</a>
-						</div>
-					<div class="tab">
-						<a class="link" href="/logout" title="Logout">
-							<div class="i-logout"></div>
-							<div class="title">Logout</div>
-							</a>
-						</div>
-					</div>
-				</div>
-			</section>
-
-		</section> -->
 
 		<!-- Erstelle AngularJS View (einmalig) -->
 		<div ng-view></div>

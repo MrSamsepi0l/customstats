@@ -123,7 +123,7 @@
                 .chart-container {
                     display: flex;
                     position: relative;
-                    width: 32%;
+                    width: 100%;
                     height: 250px;
                     /*margin: 0.5rem 0.5rem 0.5rem 0.5rem;*/
                     background-color: var(--main-bg-dark-1);
@@ -166,7 +166,7 @@
         }
     }
 
-@media screen and (max-width: 1300px){
+/*@media screen and (max-width: 1300px){
 
     .dashboard {
 
@@ -188,16 +188,22 @@
                 }
             }
         }
-    }
+    }*/
 
- @media screen and (min-width: 2000px){
+/* Desktop */
+ @media screen and (min-width: 1200px){
 
     .dashboard {
 
         .body {
 
+            .chart-box {
+                /*flex-wrap: no;*/
+                }
+
             .chart-container {
                 min-height: 300px;
+                width: 32%;
                 }
             }
         }

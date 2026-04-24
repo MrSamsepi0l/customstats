@@ -3,7 +3,8 @@
 	<header class="header-main-nav sticky top-0 z-50 w-full text-white font-mono flex justify-center">
 		<div class="flex h-70 px-4 lg:pl-11 lg:pr-0 items-center self-center grow lg-pdl-11 lg-pdr-0">
 			<a class="logo" href="#/all_player">Customstats</a>
-			<div class="h-full flex items-center mx-4 grow">
+			<div class="menu-toggle cursor-pointer" ng-click="open_nav_menu = !open_nav_menu">☰</div>
+			<div class="h-full flex items-center mx-4 grow nav-links">
 				<div class="items-center flex-row h-full lg-flex">
 					<div class="group lg-flex xl-pd-14 h-full">
 						<div class="flex flex-row h-full items-center cursor-pointer justify-between" style="width: 16ch" ng-if="app.user_has_right('customstats:dashboard')">
@@ -84,9 +85,9 @@
 						</div>
 					</div>
 				</div>
-			<div class="h-full flex items-center mx-4 grow ta-center xl-gap" style="justify-content: end">
+			<div class="h-full flex items-center mx-4 grow ta-center xl-gap nav-links" style="justify-content: end">
 
-				<div class="flex flex-row h-full items-center cursor-pointer justify-between" style="margin-left: 30px" custom-tooltip-nav custom-tooltip-delay="0" custom-tooltip-option='{"background":"#0a0e13", "border":"1px solid rgb(255, 255, 255 / 0.3)","border-width":"1px"}' custom-tooltip-append-id="header-nav-profile" custom-tooltip-position="down" id="header-nav-profile">
+				<div class="flex flex-row h-full link items-center cursor-pointer justify-between" style="margin-left: 30px" custom-tooltip-nav custom-tooltip-delay="0" custom-tooltip-option='{"background":"#0a0e13", "border":"1px solid rgb(255, 255, 255 / 0.3)","border-width":"1px"}' custom-tooltip-append-id="header-nav-profile" custom-tooltip-position="down" id="header-nav-profile">
 
 					<div ng-if="!app.user_has_right('customstats:all_player')">
 						<span class="font-bold" style="font-size: 18px">Moin,&nbsp;<span class="tc-teal">{{app.data.user.username}}</span>!</span>
@@ -103,7 +104,7 @@
 									</div>
 								<div class="body" style="grid-template-columns: repeat(1,minmax(0,1fr))">
 									<div class="item" ng-if="app.user_has_right('customstats:profile')" style="margin-right: 3rem">
-										<a class="text" ng-href="#/profile" ><span>Account</span></a>
+										<a class="text" ng-href="#/profile"><span>Account</span></a>
 										</div>
 									<div class="item" style="margin-right: 3rem" ng-if="app.user_has_right('customstats:all_player')">
 										<a class="text" ng-href="#/all_player?playerID={{app.board_get_value('playerID')}}"><span>Customgames</span></a>
@@ -219,6 +220,48 @@
 
 
 		</header>
+
+		<div ng-if="open_nav_menu" class="mobile-nav-bar">
+			<div class="nav-list">
+				<a class="mobile-link" href="#/dashboard" ng-if="app.user_has_right('customstats:dashboard')">Dashboard</a>
+				<a class="mobile-link" href="#/chat" ng-if="app.user_has_right('customstats:chat')">Chat</a>
+				<div class="mobile-group">
+					<span class="link-group">Customgames</span>
+					<a class="mobile-link sub-link" href="#/all_player" ng-if="app.user_has_right('customstats:tabview_all_player')">Alle Spieler</a>
+					<a class="mobile-link sub-link" href="#/champions" ng-if="app.user_has_right('customstats:champions')">Champions</a>
+					<a class="mobile-link sub-link" href="#/sources" ng-if="app.user_has_right('customstats:tabview_media')">Quellen</a>
+					<a class="mobile-link sub-link" href="#/best_of" ng-if="app.user_has_right('customstats:best_of')">Best Of</a>
+					<a class="mobile-link sub-link" href="#/ingame_combination" ng-if="app.user_has_right('customstats:tabview_analysis')">Comparison</a>
+					</div>
+				<div class="mobile-group" ng-if="app.user_has_right('customstats:tournament')">
+					<span class="link-group">Tournament</span>
+					<a class="mobile-link sub-link" href="#/tournament_dashboard">Dashboard</a>
+					<a class="mobile-link sub-link" href="#/tournament">Overview</a>
+					<a class="mobile-link sub-link" href="#/tournament_all_profile">Alle Spieler</a>
+					</div>
+				<div class="mobile-group">
+					<span class="link-group">Profile</span>
+					<a class="mobile-link sub-link" ng-href="#/profile" ng-if="app.user_has_right('customstats:profile')">Account</a>
+					<a class="mobile-link sub-link" ng-href="#/all_player?playerID={{app.board_get_value('playerID')}}" ng-if="app.user_has_right('customstats:all_player')">Customgames</a>
+					<a class="mobile-link sub-link" ng-href="#/tournament_all_profile?playerID={{app.board_get_value('t_playerID')}}" ng-if="app.user_has_right('customstats:tournament:all_profile')">Tournament</a>
+					</div>
+				<div class="mobile-group" ng-if="app.user_has_right('customstats:tabview_admin')">
+					<span class="link-group">Admin</span>
+					<a class="mobile-link sub-link" ng-href="#/base_config" ng-if="app.user_has_right('customstats:admin_base:base_config')">Config</a>
+					<a class="mobile-link sub-link" ng-href="#/user_config" ng-if="app.user_has_right('customstats:admin_base:user_config')">User</a>
+					<a class="mobile-link sub-link" ng-href="#/champion_config" ng-if="app.user_has_right('customstats:admin_base:champion_config')">Champions</a>
+					<a class="mobile-link sub-link" ng-href="#/leagueapi_config" ng-if="app.user_has_right('customstats:admin_base:leagueapi_config')">Leagueapi</a>
+					<a class="mobile-link sub-link" ng-href="#/commandline" ng-if="app.user_has_right('customstats:admin:commandline')">CMD</a>
+					<a class="mobile-link sub-link" ng-href="#/new_game" ng-if="app.user_has_right('customstats:admin:new_game')">New Game</a>
+					<a class="mobile-link sub-link" ng-href="#/player_config" ng-if="app.user_has_right('customstats:admin_base:player_config')">Player</a>
+					<a class="mobile-link sub-link" ng-href="#/admin_tournament" ng-if="app.user_has_right('customstats:admin_tournament')">Tournament</a>
+
+					</div>
+				</div>
+
+			</div>
+
+
 
 <!-- 	<section class="navbar-flex-complete">
 

@@ -88,7 +88,7 @@
 
 .standings {
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	position: relative;
 	animation: fadein .8s;
 	overflow: hidden;
@@ -98,7 +98,7 @@
 .standings .results {
 	display: flex;
 	flex-direction: column;
-	width: 70%;
+	width: 100%;
 	}
 
 .standings .results .top-nav {
@@ -131,6 +131,7 @@
 .standings-list .group .title {
 	font-size: 1.8rem;
 	font-weight: bold;
+	padding: 1rem 0rem 1rem 0rem;
 	}
 
 .standings-list .group .ranking {
@@ -143,6 +144,7 @@
 	text-decoration: none;
 	cursor: pointer;
 	animation: fadein .8s;
+	padding: 1rem 0rem 1rem 0rem;
 	}
 
 .standings-list .group .ranking .ordinal {
@@ -150,6 +152,7 @@
     align-items: center;
     justify-content: center;
     height: 100%;
+    min-width: 70px;
 	}
 
 .standings-list .group .ranking .team {
@@ -201,6 +204,7 @@
     font-size: 1.4rem;
     font-weight: bold;
     overflow-x: auto;
+    padding: 1rem 0rem 1rem 0rem;
 	}
 @media only screen and (min-width: 1076px){
 	.standings .result .stage {
@@ -242,8 +246,9 @@
 
 	.standings .results .top-nav .stage-selector {
 		align-items: flex-end;
-		padding-bottom: 20px;
+		/*padding-bottom: 20px;*/
 		height: 80px;
+		padding: 0;
 		}
 
 	.standings .results .top-nav .stage-selector .options .stage-option {
@@ -270,11 +275,38 @@
 	color: #8fa3b0;
 	margin-right: 24px;
 	}
-@media only screen and (min-width: 1076px){
-	.standings .results .top-nav .stage-selector .title {
-		margin-left: 34px;
+
+/* DESKTOP */
+@media only screen and (min-width: 1200px){
+
+	.sidebar {
+		width: 40%;
+		min-height: 100vh;
+		}
+
+	.standings {
+		flex-direction: row;
+
+		.results {
+			width: 70%;
+
+			.top-nav {
+				padding: unset;
+
+				.stage-selector .title {
+					margin-left: 34px;
+					}
+				}
+			}
+		}
+
+	.standings-list .group .title {
+		padding: 0;
 		}
 	}
+
+
+
 
 .results {
 	margin-bottom: 50px;
@@ -282,9 +314,9 @@
 
 .sidebar {
 /*	width: calc(((100% - 215px) / 12) * 3 + 102px);*/
-	min-height: 100vh;
+
 /*	min-width: 450px;*/
-	width: 35%;
+	/*width: 100%;*/
 	background: #0a0e13;
 	border-top: 1px solid #252c32;
 	}
@@ -674,7 +706,8 @@
     align-items: center;
     position: relative;
     width: calc(((100% - 442px) / 12) * 12 + 374px);
-    height: 100px;
+    /*height: 100px;*/
+    flex-wrap: wrap;
     margin: 0 34px;
     border-top: 1px solid #292d31;
 /*    padding-top: 10px;*/

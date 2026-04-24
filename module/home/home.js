@@ -11,6 +11,9 @@ angular.module('customstats').controller('customstats.home_state_controller', ['
 	// set status object
 	$scope.status = null;
 
+	// (mobile only)
+	$scope.open_nav_menu = false;
+
 	// set servertime
 	// $scope.servertime = $phpdate($app.time()).format('d. F, H:i');
 

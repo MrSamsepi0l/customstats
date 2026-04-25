@@ -118,7 +118,7 @@
 
 					<div class="body tournament-dashboard-scrollbar">
 
-						<div class="tournament-match-history-filter">
+						<div class="tournament-match-history-filter" ng-if="view.match_history.length > 0">
 
 							<select ng-model="view.filter.match_history.team" ng-options="e as e for e in view.filter.match_history.team_list">
 								<option value="">Alle Teams</option>

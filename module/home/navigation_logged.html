@@ -22,7 +22,7 @@
 											<span class="text">GENERAL</span>
 											</div>
 										<div class="body">
-											<div class="item" ng-if="app.user_has_right('customstats:tabview_all_player')" style="margin-right: 3rem">
+											<div class="item" ng-if="app.user_has_right('customstats:all_player')" style="margin-right: 3rem">
 												<a class="text" href="#/all_player">Alle Spieler</a>
 												</div>
 											<div class="item" ng-if="app.user_has_right('customstats:champions')" style="margin-right: 3rem">
@@ -84,10 +84,10 @@
 				</div>
 			<div class="h-full flex items-center mx-4 grow ta-center xl-gap nav-links" style="justify-content: end">
 				<div class="flex flex-row h-full link items-center cursor-pointer justify-between" style="margin-left: 30px" custom-tooltip-nav custom-tooltip-delay="0" custom-tooltip-option='{"background":"#0a0e13", "border":"1px solid rgb(255, 255, 255 / 0.3)","border-width":"1px"}' custom-tooltip-append-id="header-nav-profile" custom-tooltip-position="down" id="header-nav-profile">
-					<div ng-if="!app.user_has_right('customstats:all_player')">
+					<div ng-if="!app.board_get_value('playerID')">
 						<span class="font-bold" style="font-size: 18px">Moin,&nbsp;<span class="tc-teal">{{app.data.user.username}}</span>!</span>
 						</div>
-					<div ng-if="app.user_has_right('customstats:all_player')">
+					<div ng-if="app.user_has_right('customstats:all_player') && app.board_get_value('playerID')">
 						<span class="font-bold" style="font-size: 18px">Moin,&nbsp;<a class="tc-teal" ng-href="#/all_player?playerID={{app.board_get_value('playerID')}}">{{app.data.user.username}}</a>!</span>
 						</div>
 					<content-template ng-show="false">
@@ -100,10 +100,10 @@
 									<div class="item" ng-if="app.user_has_right('customstats:profile')" style="margin-right: 3rem">
 										<a class="text" ng-href="#/profile"><span>Account</span></a>
 										</div>
-									<div class="item" style="margin-right: 3rem" ng-if="app.user_has_right('customstats:all_player')">
+									<div class="item" style="margin-right: 3rem" ng-if="app.user_has_right('customstats:all_player') && app.board_get_value('playerID')">
 										<a class="text" ng-href="#/all_player?playerID={{app.board_get_value('playerID')}}"><span>Customgames</span></a>
 										</div>
-									<div class="item" ng-if="app.user_has_right('customstats:tournament:all_profile')">
+									<div class="item" ng-if="app.user_has_right('customstats:tournament') && app.board_get_value('t_playerID')">
 										<a class="text" ng-href="#/tournament_all_profile?playerID={{app.board_get_value('t_playerID')}}"><span>Turniere</span></a>
 										</div>
 									</div>
@@ -208,7 +208,7 @@
 							</div>
 						</div>
 					<div class="mobile-group-body" ng-class='{"open": expand_customgames}'>
-						<a class="mobile-link sub-link" href="#/all_player" ng-if="app.user_has_right('customstats:tabview_all_player')">Alle Spieler</a>
+						<a class="mobile-link sub-link" href="#/all_player" ng-if="app.user_has_right('customstats:all_player')">Alle Spieler</a>
 						<a class="mobile-link sub-link" href="#/champions" ng-if="app.user_has_right('customstats:champions')">Champions</a>
 						<a class="mobile-link sub-link" href="#/sources" ng-if="app.user_has_right('customstats:tabview_media')">Quellen</a>
 						<a class="mobile-link sub-link" href="#/best_of" ng-if="app.user_has_right('customstats:best_of')">Best Of</a>
@@ -245,8 +245,8 @@
 						</div>
 					<div class="mobile-group-body" ng-class='{"open": expand_profile}'>
 						<a class="mobile-link sub-link" ng-href="#/profile" ng-if="app.user_has_right('customstats:profile')">Account</a>
-						<a class="mobile-link sub-link" ng-href="#/all_player?playerID={{app.board_get_value('playerID')}}" ng-if="app.user_has_right('customstats:all_player')">Customgames</a>
-						<a class="mobile-link sub-link" ng-href="#/tournament_all_profile?playerID={{app.board_get_value('t_playerID')}}" ng-if="app.user_has_right('customstats:tournament:all_profile')">Tournament</a>
+						<a class="mobile-link sub-link" ng-href="#/all_player?playerID={{app.board_get_value('playerID')}}" ng-if="app.user_has_right('customstats:all_player') && app.board_get_value('playerID')">Customgames</a>
+						<a class="mobile-link sub-link" ng-href="#/tournament_all_profile?playerID={{app.board_get_value('t_playerID')}}" ng-if="app.user_has_right('customstats:tournament') && && app.board_get_value('t_playerID')">Tournament</a>
 						</div>
 					</div>
 				<div class="mobile-group" ng-if="app.user_has_right('customstats:tabview_admin')">

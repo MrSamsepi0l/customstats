@@ -4,10 +4,10 @@
 if($this->user_logged()){
 
 	// activate right
-	$this->activate_right(['customstats:tournament:all_profile']);
+	$this->activate_right(['customstats:tournament']);
 
 	// if user has right
-	if($this->check_user_right('customstats:tournament:all_profile')){
+	if($this->check_user_right('customstats:tournament')){
 
 		/* Füge sämtliche Routing Objekte zum Hook hinzu */
 		$this->build_environment('body:routing[]', (object)[

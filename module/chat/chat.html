@@ -40,8 +40,8 @@
 								<span class="username">{{member.username}}</span>
 								<span class="realname"><i>{{member.realname}}</i></span>
 								</div>
-							<div class="online-state" ng-class='{"online":member.is_online}'>
-								<div class="online-icon" ng-class='{"i-online":member.is_online, "i-offline":!member.is_online}' title="{{member.online_status}}"></div>
+							<div class="online-state">
+								<div class="online-icon" ng-class='{"i-online online-icon-online":member.is_online, "i-offline":!member.is_online}' title="{{member.online_status}}"></div>
 								<!-- <div class="text" ng-if="!member.is_online && member.onlineTime">zuletzt:</div> -->
 								<!-- <div class="text" ng-if="!member.is_online && member.onlineTime">{{member.onlineTime | phpdate: 'd-m-Y'}}</div> -->
 								<span class="text" ng-if="member.is_online">online</span>

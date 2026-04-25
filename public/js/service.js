@@ -369,7 +369,17 @@ angular.module('customstats').factory('$app', ['$rootScope', '$http', '$interval
             },
 
         does_image_exist : function(url){
-            return $http.head(url)
+
+            // if no url given, return false
+            if(!url) return Promise.resolve(false);
+
+            // load image
+            return $http({
+                method  : 'GET',
+                url     : url,
+                cache   : true,
+                headers : { 'Cache-Control': 'max-age=3600' }
+                })
                 .then(function(response) {
                     return response.status === 200;
                 })

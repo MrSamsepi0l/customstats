@@ -1,4 +1,4 @@
-angular.module('customstats').controller('customstats.tournament_dashboard', ['$scope', '$filter', '$q', '$app', '$leagueapi', function($scope, $filter, $q, $app, $leagueapi){
+angular.module('customstats').controller('customstats.tournament_dashboard', ['$scope', '$filter', '$q', '$app', '$leagueapi', '$location', function($scope, $filter, $q, $app, $leagueapi, $location){
 
 	$scope.view = {
 		list			: [],
@@ -10,6 +10,15 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 		standings		: [],
 		schedule 		: [],
 		image_base_url  : 'public/img/tournament/team_logo',
+		filter 			: {
+			match_history 	: {
+				expand_all 	: false,
+				team_list 	: [],
+				team		: null,
+				player_list : [],
+				playerID	: null,
+				}
+			},
 
 		load_tournament : function(){
 			var self = this, param;
@@ -157,13 +166,35 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 					_.each(data, function(e, idx){
 
 						// default - collapse
-						e.match_history_expanded = (idx === 0);
+						e.match_history_expanded = _.contains([0,1,2], idx);
+
+						// if team not already added, add to unique list
+						if(!_.contains(self.filter.match_history.team_list, e.team_one.name)) self.filter.match_history.team_list.push(e.team_one.name);
+						if(!_.contains(self.filter.match_history.team_list, e.team_two.name)) self.filter.match_history.team_list.push(e.team_two.name);
+
+						// for each player in first team
+						_.each(e.team_one.stat_player_list, function(sp){
+
+							// build data
+							var p_data = {'playerID': sp.playerID, 'ingame_name': sp.ingame_name, 'team_name': e.team_one.name};
+
+							// if not already added
+							if(!_.find(self.filter.match_history.player_list, {'playerID': sp.playerID})) self.filter.match_history.player_list.push(p_data);
+							});
+
+						// for each player of second team
+						_.each(e.team_two.stat_player_list, function(sp){
+
+							// build data
+							var p_data = {'playerID': sp.playerID, 'ingame_name': sp.ingame_name, 'team_name': e.team_two.name};
+
+							// if not already added
+							if(!_.find(self.filter.match_history.player_list, {'playerID': sp.playerID})) self.filter.match_history.player_list.push(p_data);
+							});
 						});
 
 					// take data
 					self.match_history = data;
-
-					console.log(data);
 					},
 				'*' : function(data, status){
 					self.status = status;
@@ -209,6 +240,41 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 					// no status to avoid loading abortion
 					}
 				});
+			},
+
+		filter_match_history : function(entry, idx, list){
+			var self = $scope.view;
+
+			// filter by team
+			if(self.filter.match_history.team !== null && self.filter.match_history.team != (entry.team_one.name || entry.team_two.name)) return false;
+
+			// filter by player
+			if(self.filter.match_history.playerID !== null && (!_.contains(entry.team_one.playerID_list, self.filter.match_history.playerID) && !_.contains(entry.team_two.playerID_list, self.filter.match_history.playerID))) return false;
+
+			// render everything by default
+			return true;
+			},
+
+		match_history_toggle_expand : function(expand){
+			var self = this;
+
+			// for each match in history
+			_.each(self.match_history, function(e){
+
+				// expand/collapse all matches
+				e.match_history_expanded = expand;
+				});
+			},
+
+		redirect_template : function(template, param){
+			var self = this;
+
+			// redirect to all tournament players tab
+			if(template == 'tournament_all_profile'){
+
+				// and search for profile by ingame name
+				$location.url('/tournament_all_profile').search({ingame_name: param});
+				}
 			},
 		};
 

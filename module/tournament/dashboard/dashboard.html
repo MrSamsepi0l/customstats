@@ -118,6 +118,21 @@
 
 					<div class="body tournament-dashboard-scrollbar">
 
+						<div class="tournament-match-history-filter">
+
+							<select ng-model="view.filter.match_history.team" ng-options="e as e for e in view.filter.match_history.team_list">
+								<option value="">Alle Teams</option>
+								</select>
+							<select ng-model="view.filter.match_history.playerID" ng-options="e.playerID as e.ingame_name group by e.team_name for e in view.filter.match_history.player_list">
+								<option value="">Alle Spieler</option>
+								</select>
+							<button ng-click="view.filter.match_history.expand_all = !view.filter.match_history.expand_all; view.match_history_toggle_expand(view.filter.match_history.expand_all)">
+								<span ng-if="!view.filter.match_history.expand_all">Expand all</span>
+								<span ng-if="view.filter.match_history.expand_all">Collapse all</span>
+									<!-- <div style="width: 32px; height: 32px;" ng-class='{"i-expand-white": !view.filter.match_history.expand_all, "i-collapse-white": view.filter.match_history.expand_all}'></div> -->
+								</button>
+							</div>
+
 						<div class="date-group">
 
 							<!-- <div class="date">{{gameDate | phpdate: 'd.m.Y'}}</div> ng-repeat="(gameDate, list) in view.data | groupBy: 'gameDate' " -->
@@ -126,7 +141,7 @@
 								<div><i>No matches played so far...</i></div>
 								</div>
 
-							<div class="game-complete" ng-repeat="e in view.match_history">
+							<div class="game-complete" ng-repeat="e in view.match_history | filter: view.filter_match_history">
 
 								<div class="information">
 									<div class="data">
@@ -179,7 +194,7 @@
 														<span class="champion-level-static">{{p.level}}</span>
 														<img class="position-level-static" ng-src="{{'public/img/position/' + p.position + '.png'}}" />
 														</div>
-													<a ng-class='{"active-filter": view.filter.player_full.playerID == p.playerID, "player-equals-account": app.board_get_value("t_playerID") == p.playerID}' ng-click="view.redirect_template(p.ingame_name)">{{p.ingame_name}}</a>
+													<a ng-class='{"active-filter": view.filter.player_full.playerID == p.playerID, "player-equals-account": app.board_get_value("t_playerID") == p.playerID}' ng-click="view.redirect_template('tournament_all_profile', p.ingame_name)">{{p.ingame_name}}</a>
 													</div>
 												<div class="kda-box">
 													<span ng-class='{"player-equals-account": app.board_get_value("t_playerID") == p.playerID}'>{{p.total_kills}} <span class="match-history-kda-sep">/</span> {{p.total_deaths}} <span class="match-history-kda-sep">/</span> {{p.total_assists}}</span>
@@ -242,7 +257,7 @@
 													<span ng-class='{"player-equals-account": app.board_get_value("t_playerID") == p.playerID}'>{{p.kill_participation | number: 1}} %</span>
 													</div>
 												<div class="icon-name-box" style="justify-content: flex-end">
-													<a ng-class='{"active-filter": view.filter.player_full.playerID == p.playerID, "player-equals-account": app.board_get_value("t_playerID") == p.playerID}' ng-click="view.redirect_template(p.ingame_name)">{{p.ingame_name}}</a>
+													<a ng-class='{"active-filter": view.filter.player_full.playerID == p.playerID, "player-equals-account": app.board_get_value("t_playerID") == p.playerID}' ng-click="view.redirect_template('tournament_all_profile', p.ingame_name)">{{p.ingame_name}}</a>
 													<div class="match-history-champion-icon {{p.name_converted}}" ng-class='{"activer-filter-border": view.filter.champion_full.championID == p.championID}' custom-hover="{{p.champion_name}}" style="width: 40px; height: 40px; margin-left: 15px">
 														<span class="champion-level-static">{{p.level}}</span>
 														<img class="position-level-static" ng-src="{{'public/img/position/' + p.position + '.png'}}" />

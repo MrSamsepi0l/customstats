@@ -58,8 +58,6 @@ angular.module('customstats').controller('customstats.tournament_all_profile_con
 			$leagueapi.send_request('customstats_tournament_api_get_profile', param, {
 				200 : function(data){
 
-					console.log(data);
-
 					// for each player
 					_.each(data, function(e){
 

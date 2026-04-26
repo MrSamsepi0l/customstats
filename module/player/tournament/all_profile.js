@@ -38,6 +38,7 @@ angular.module('customstats').controller('customstats.tournament_all_profile_con
 			},
 		win_lose_chartdata_list : {},
 		playrate_chartdata_list : {},
+		image_base_url  		: 'public/img/tournament/team_logo',
 
 		get_league_profile_list : function(tournamentID){
 			var self = this, param;
@@ -57,6 +58,8 @@ angular.module('customstats').controller('customstats.tournament_all_profile_con
 			$leagueapi.send_request('customstats_tournament_api_get_profile', param, {
 				200 : function(data){
 
+					console.log(data);
+
 					// for each player
 					_.each(data, function(e){
 
@@ -74,6 +77,12 @@ angular.module('customstats').controller('customstats.tournament_all_profile_con
 						e.total_games_general = parseInt(e.total_games_general);
 
 						_.each(e.team_list, function(f){
+
+							// remove special charts, lowercase, whitespace
+							f.team_name_converted = f.name.split(' ').join('').toLowerCase().replace(/'/g, "");
+
+							// define full team url
+							f.image_url = self.image_base_url + '/' + f.team_name_converted + '.png';
 
 							// extend entry
 							f = _.extend(f, {

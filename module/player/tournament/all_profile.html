@@ -234,8 +234,8 @@
 					<div class="i-history-clock-teal user-league-profile-icon-bigger"></div>
 					</div>
 
-				<div class="body customstats-scrollbar" when-scrolled="view.increase_render_limit(20)">
-					<div class="user-league-profile-table-match-history">
+				<div class="body" when-scrolled="view.increase_render_limit(20)">
+					<div class="user-league-profile-table-match-history customstats-scrollbar">
 						<div class="box-complete" ng-class='{"win":e.won, "loss":!e.won}' ng-repeat="e in view.entry.match_history | orderBy:['-gameID'] | limitTo: view.match_history.render_limit">
 							<div class="gamebox background">
 								<div class="general-stat">

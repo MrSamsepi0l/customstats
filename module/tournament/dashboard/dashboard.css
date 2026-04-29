@@ -173,7 +173,7 @@
 	        						align-items: center;
 	        						flex: 1;
 	        						gap: 12px;
-	        						padding: 1rem 1rem 1rem 0rem;
+	        						padding: 1rem 1rem 1rem 1rem;
 
 	        						>.name {
 	        							/*white-space: nowrap;*/

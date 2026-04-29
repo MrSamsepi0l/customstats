@@ -71,10 +71,17 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 						e.image_url_team_two = self.image_base_url + '/' + e.team_two_name_converted + '.png';
 
 						// check if image exists
-						$app.does_image_exist(e.image_url).then(function(exists){
+						$app.does_image_exist(e.image_url_team_one).then(function(exists){
 
 							// define if image exists
-							e.image_exists = exists;
+							e.image_exists_team_one = exists;
+							});
+
+						// check if image exists
+						$app.does_image_exist(e.image_url_team_two).then(function(exists){
+
+							// define if image exists
+							e.image_exists_team_two = exists;
 							});
 
 						// if match in future - add to list

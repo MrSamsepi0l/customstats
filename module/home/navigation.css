@@ -60,7 +60,7 @@ a {
 
 .link {
 
-	svg {
+	.rotate-svg {
 		transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 		transform-origin: center;
 		}
@@ -70,7 +70,7 @@ a {
 	color: #bbedff;
 	font-weight: 500;
 
-	svg {
+	.rotate-svg {
 		transform: rotate(180deg);
 		}
 	}

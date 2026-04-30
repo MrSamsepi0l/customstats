@@ -62,6 +62,10 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 					// for each team
 					_.each(data, function(e){
 
+						// relative date start
+						e.start_date = moment(e.estimatedDate_from).format('dddd, DD.MM.YYYY');
+						e.start_date_relative = moment(e.estimatedDate_from).fromNow();
+
 						// remove whitespace and lowercase
 						e.team_one_name_converted = e.team_one_name.split(' ').join('').toLowerCase().replace(/'/g, "");
 						e.team_two_name_converted = e.team_two_name.split(' ').join('').toLowerCase().replace(/'/g, "");

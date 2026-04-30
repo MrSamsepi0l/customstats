@@ -62,7 +62,8 @@
 						<div class="info-box" ng-repeat="e in view.schedule">
 							<div class="header">
 								<!-- <div class="date">Today - 30.4.2026 18:00</div> -->
-								<div class="date">{{e.estimatedDate_from | phpdate: 'd.m.Y'}}</div>
+								<!-- <div class="date">{{e.estimatedDate_from | phpdate: 'DDDD d.m.Y'}}</div> -->
+								<div class="date">{{e.start_date}} - <i style="color: #a9a9a9">{{e.start_date_relative}}</i></div>
 								</div>
 							<div class="match">
 								<div class="teamspot">

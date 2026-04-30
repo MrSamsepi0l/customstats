@@ -435,9 +435,10 @@
 			                    width: 100%;
 			                    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
 			                    color: #b7b7b7;
+			                    gap: 25px;
 
 			                    .data {
-			                        font-size: 1.0rem;
+			                        font-size: 0.8rem;
 
 			                        .mapname {
 
@@ -569,7 +570,38 @@
 			                            }
 
 			                        .footer {
+			                        	/*border-top: 1px solid #2f2f2f;*/
 
+			                        	.banlist {
+			                        		display: flex;
+			                        		justify-content: space-evenly;
+			                        		width: 100%;
+			                        		margin-top: 0.4rem;
+
+			                        		.ban {
+												position: relative;
+												display: inline-block;
+			                        			}
+
+			                        		.ban::after {
+												content: "";
+												position: absolute;
+												top: 50%;
+												left: 50%;
+
+												/* Make line long enough to reach corners */
+												width: 140%;
+												height: 2px;
+												background: #ff6c6c;
+
+												transform: translate(-50%, -50%) rotate(-45deg);
+												transform-origin: center;
+			                        			}
+
+			                        		.ban:hover {
+			                        			cursor: help;
+			                        			}
+			                        		}
 			                            }
 			                        }
 
@@ -650,7 +682,38 @@
 			                            }
 
 			                        .footer {
+			                        	/*border-top: 1px solid #2f2f2f;*/
 
+			                        	.banlist {
+			                        		display: flex;
+			                        		justify-content: space-evenly;
+			                        		width: 100%;
+			                        		margin-top: 0.4rem;
+
+			                        		.ban {
+												position: relative;
+												display: inline-block;
+			                        			}
+
+			                        		.ban::after {
+												content: "";
+												position: absolute;
+												top: 50%;
+												left: 50%;
+
+												/* Make line long enough to reach corners */
+												width: 140%;
+												height: 2px;
+												background: #ff6c6c;
+
+												transform: translate(-50%, -50%) rotate(-45deg);
+												transform-origin: center;
+			                        			}
+
+			                        		.ban:hover {
+			                        			cursor: help;
+			                        			}
+			                        		}
 			                            }
 			                        }
 			                    }

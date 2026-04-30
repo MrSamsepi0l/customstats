@@ -217,7 +217,13 @@
 													</div>
 												</div>
 											</div>
-										<div class="footer"></div>
+										<div class="footer" ng-if="e.match_history_expanded">
+											<div class="banlist">
+												<div class="ban" ng-repeat="b in e.team_one.ban_list track by $index">
+													<div class="match-history-champion-icon {{b.champion_converted}}" custom-hover="{{b.champion}}" style="width: 20px; height: 20px; box-shadow: none;"></div>
+													</div>
+												</div>
+											</div>
 
 										</div>
 
@@ -273,7 +279,13 @@
 
 												</div>
 											</div>
-										<div class="footer"></div>
+										<div class="footer" ng-if="e.match_history_expanded">
+											<div class="banlist">
+												<div class="ban" ng-repeat="b in e.team_two.ban_list track by $index">
+													<div class="match-history-champion-icon {{b.champion_converted}}" custom-hover="{{b.champion}}" style="width: 20px; height: 20px; box-shadow: none;"></div>
+													</div>
+												</div>
+											</div>
 
 										</div>
 

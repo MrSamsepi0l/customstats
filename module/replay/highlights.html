@@ -1,0 +1,44 @@
+<article ng-controller="customstats.replay_controller">
+
+	<div class="flex-box" style="margin-top: 50px;" ng-if="user_session.role == 1">
+		<table class="table table-dark" style="max-width: 800px; background: linear-gradient(to right, #02222e, #151516) !important">
+			<tr>
+				<td style="display: flex; justify-content: center;"><input type='file' name='file' id='file' ng-file='uploadfiles' style="width: 100%; max-width: 400px; color: white; background-color: #2b353c; padding: 10px 10px" /></td>
+				<td><button class="btn btn-dark" type='button' value='Upload' id='upload' style="background-color: black" ng-click="view.upload_replay()">Replay hochladen</button></td>
+				</tr>
+			</table>
+		</div>
+
+	<section class="flex-video-section" style="margin-top: 50px">
+		<div class="flex-video-box" ng-repeat="e in view.data | orderBy:'gameDate'">
+				<div class="video-title ta-center" style="align-items: center">
+					<span ng-if="!e.edit">{{e.name}}</span>
+					<div ng-if="user_session.role === 1">
+						<input ng-if="e.edit && view.edit" type="text" ng-model="view.entry.name" />
+						<span ng-if="!e.edit && !view.edit" class="i-edit" title="Bearbeiten" style="background: #3b504f; margin-left: 10px" ng-click="e.edit = !e.edit; view.entry = e; view.edit = true"></span>
+						<span ng-if="e.edit" class="i-ok" title="Speichern" ng-click="view.update(e); e.edit = false; view.edit = false;"></span>
+						<span ng-if="e.edit" class="i-back" title="Zurück" ng-click="e.edit = !e.edit; view.edit = false; view.load(e.replayID)"></span>
+						</div>
+					<!-- <span style="font-size: 2vh">({{e.gameDate ? e.gameDate : null}})</span> -->
+					</div>
+				<video class="video" controls="controls" name="{{e.name}}" ng-if="e.url" src="{{view.trust_src(e.url)}}"></video>
+				<div class="video-footer ta-center">
+					<div ng-repeat="player in e.involved_player">
+						<span>{{player.real_name}} ({{player.ingame_name}})</span>
+						<button class="btn" ng-if="e.edit_player && view.edit" ng-click="view.delete_replay_player(e.replayID, player.playerID)">X</button>
+						</div>
+					<div ng-if="user_session.role === 1" style="display: flex; align-items: center">
+						<select ng-if="e.edit_player && view.edit" ng-options="e.playerID as e.ingame_name for e in view.playerlist" ng-model="view.player_selection"></select>
+						<button ng-if="e.edit_player && view.edit" class="btn" ng-click="view.create_replay_player(e.replayID, view.player_selection)">Hinzufügen</button>
+						<span ng-if="!e.edit_player && !view.edit" class="i-edit" title="Bearbeiten" style="background: #3b504f; margin-left: 10px" ng-click="e.edit_player = !e.edit_player; view.player = player; view.edit = true"></span>
+						<span ng-if="e.edit_player" class="i-ok" title="Speichern" ng-click="e.edit_player = false; view.edit = false;"></span>
+						<span ng-if="e.edit_player" class="i-back" title="Zurück" ng-click="e.edit_player = !e.edit_player; view.edit = false; view.load(e.replayID)"></span>
+						</div>
+					</div>
+			</div>
+		</section>
+
+
+	<div ng-if="view.status == 100" class="loading-div"></div>
+
+	</article>

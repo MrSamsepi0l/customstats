@@ -31,6 +31,9 @@
 											<div class="item" ng-if="app.user_has_right('customstats:tabview_media')">
 												<a class="text" href="#/sources">Quellen</a>
 												</div>
+											<div class="item" ng-if="app.user_has_right('customstats:highlights')">
+												<a class="text" href="#/highlights">Highlights</a>
+												</div>
 											</div>
 										</div>
 									<div class="flex flex-col menu" style="margin-top: 2rem">
@@ -211,6 +214,7 @@
 						<a class="mobile-link sub-link" href="#/all_player" ng-if="app.user_has_right('customstats:all_player')">Alle Spieler</a>
 						<a class="mobile-link sub-link" href="#/champions" ng-if="app.user_has_right('customstats:champions')">Champions</a>
 						<a class="mobile-link sub-link" href="#/sources" ng-if="app.user_has_right('customstats:tabview_media')">Quellen</a>
+						<a class="mobile-link sub-link" href="#/highlights" ng-if="app.user_has_right('customstats:highlights')">Highlights</a>
 						<a class="mobile-link sub-link" href="#/best_of" ng-if="app.user_has_right('customstats:best_of')">Best Of</a>
 						<a class="mobile-link sub-link" href="#/ingame_combination" ng-if="app.user_has_right('customstats:tabview_analysis')">Comparison</a>
 						</div>

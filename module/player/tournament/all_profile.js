@@ -23,6 +23,10 @@ angular.module('customstats').controller('customstats.tournament_all_profile_con
 		    	{key : 'Letztes Spiel', value : 'last_game'},
 		    	{key : 'KDA', value : 'kda_number'},
 		    	],
+		    match_history : {
+		    	champion 	: null,
+		    	position 	: [],
+		    	},
 			},
 		translate_position : {
 			'top'		: 'Toplane',
@@ -426,6 +430,46 @@ angular.module('customstats').controller('customstats.tournament_all_profile_con
 
 			// define global chartdata
 			self.playrate_chartdata_list[player.playerID] = multichart.create_chart(new_chart);
+			},
+
+		filter_match_history_list : function(entry){
+
+			// define self
+			var self = $scope.view;
+
+			// if position filter defined: remove all games not played in this position
+			if(!_.isEmpty(self.filter.match_history.position) && !_.contains(self.filter.match_history.position, entry.position)) return false;
+
+			// if champion filter defined: remove all games not played with this champ
+			if(self.filter.match_history.champion !== null && self.filter.match_history.champion != entry.champion) return false;
+
+			// allow everything else
+			return true;
+			},
+
+		match_history_position_filter(position){
+			var self = this;
+
+			// if position already in filter list
+			if(_.contains(self.filter.match_history.position, position)){
+
+				// filter match history position list
+				return self.filter.match_history.position = _.reject(self.filter.match_history.position, function(e){
+
+					// remove it
+					return e == position;
+					});
+				}
+
+			// add position to filter
+			self.filter.match_history.position.push(position);
+			},
+
+		match_history_position_filter_is_selected(position){
+			var self = this;
+
+			// check if position filter is currently active
+			return _.contains(self.filter.match_history.position, position);
 			},
 
 		// sequential rendering function

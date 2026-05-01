@@ -128,11 +128,11 @@
 							<div class="headline">
 								<span>{{view.entry.ingame_name}}</span>
 								</div>
-							<select class="tournament-profile-select" ng-model="view.filter.tournamentID" ng-change="view.get_league_profile_list(view.filter.tournamentID)" ng-options="e.tournamentID as e.name for e in view.entry.tournament_list">
+<!-- 							<select class="tournament-profile-select" ng-model="view.filter.tournamentID" ng-change="view.get_league_profile_list(view.filter.tournamentID)" ng-options="e.tournamentID as e.name for e in view.entry.tournament_list">
 								<option value="">Alle Turniere</option>
-								</select>
+								</select> -->
 							<div class="flex-expand"></div>
-							<div class="i-profile-teal"></div>
+							<div class="i-profile-teal" style="background-size: contain; width: 60px; height: 60px;"></div>
 							</div>
 
 						<div class="box">
@@ -201,7 +201,7 @@
 						<div class="headline">
 							<span>FAVORITEN</span>
 							</div>
-						<div class="i-favorite-shield-teal user-league-profile-icon-bigger"></div>
+						<div class="i-favorite-shield-teal user-league-profile-icon-bigger" style="background-size: contain; width: 50px; height: 50px;"></div>
 						</div>
 					<div class="list">
 						<table class="user-league-profile-table">
@@ -228,15 +228,29 @@
 
 			<div class="match-history">
 				<div class="header">
-					<div class="headline">
-						<span>MATCH HISTORY</span>
+					<div class="title">
+						<div class="headline">
+							<span>MATCH HISTORY</span>
+							</div>
+						<div class="i-history-clock-teal user-league-profile-icon-bigger" style="background-size: contain; width: 50px; height: 50px;"></div>
 						</div>
-					<div class="i-history-clock-teal user-league-profile-icon-bigger"></div>
+					<div class="filter">
+						<div class="position">
+							<div class="icon" ng-class='{"selected": view.match_history_position_filter_is_selected(position)}' ng-click="view.match_history_position_filter(position)" ng-repeat="position in ['top', 'jungle', 'mid', 'adc', 'support']"><img ng-src="{{'public/img/position/' + position + '.png'}}" custom-hover="{{view.translate_position[position]}}" /></div>
+							</div>
+						<div class="champion">
+							<select class="select {{e.champion}} customstats-scrollbar" ng-options="e.champion as e.champion for e in view.entry.champion_with_player | orderBy: ['champion']" ng-model="view.filter.match_history.champion">
+								<option class="{{e.champion}}" value="">Alle Champions</option>
+								</select>
+							<div ng-if="view.filter.match_history.champion" class="icon {{view.filter.match_history.champion}}" ng-click="view.filter.match_history.champion = null"></div>
+							</div>
+						<div class="win-lose"></div>
+						</div>
 					</div>
 
 				<div class="body">
 					<div class="user-league-profile-table-match-history customstats-scrollbar" when-scrolled="view.increase_render_limit(20)">
-						<div class="box-complete" ng-class='{"win":e.won, "loss":!e.won}' ng-repeat="e in view.entry.match_history | orderBy:['-gameID'] | limitTo: view.match_history.render_limit">
+						<div class="box-complete" ng-class='{"win":e.won, "loss":!e.won}' ng-repeat="e in view.entry.match_history | filter:view.filter_match_history_list | orderBy:['-gameID'] | limitTo: view.match_history.render_limit">
 							<div class="gamebox background">
 								<div class="general-stat">
 									<div class="gamedate">

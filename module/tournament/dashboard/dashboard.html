@@ -5,7 +5,7 @@
 		<div class="header ta-center">
 			<span class="headline">Tournament Dashboard</span>
 			<div class="official-logo">
-				<img ng-if="view.tournamentID == 3" class="logo" ng-src='{{"public/img/tournament/return_from_retirement.png"}}' />
+				<img ng-if="view.tournamentID == 3" class="logo" ng-src='{{"public/img/tournament/return_from_retirement.png"}}' ng-click="view.popup.tournament_logo.url = 'public/img/tournament/return_from_retirement.png'; view.popup.tournament_logo.show = true" />
 				</div>
 			</div>
 
@@ -313,6 +313,14 @@
 		<body-part>
 			<div>
 				<img ng-src="{{view.popup.source.url}}" />
+				</div>
+			</body-part>
+		</league-popup>
+
+	<league-popup ng-if="view.popup.tournament_logo.show" xa-popup-options='{"overlayClose":true, "top": "50%", "left":"50%", "width": "800px", "height": "800px", "background":"transparent !important", "position":"absolute", "transform":"translate(-50%, -50%)"}'>
+		<body-part>
+			<div>
+				<img ng-src="{{view.popup.tournament_logo.url}}" style="width: 800px; height: 800px;" />
 				</div>
 			</body-part>
 		</league-popup>

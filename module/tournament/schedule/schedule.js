@@ -42,6 +42,10 @@ angular.module('customstats').controller('customstats.tournament_schedule_contro
 					// for each schedule
 					_.each(data, function(e){
 
+						// convert back to date only
+						e.estimatedDate_from = moment(e.estimatedDate_from).format('YYYY.MM.DD');
+						e.estimatedDate_to = moment(e.estimatedDate_to).format('YYYY.MM.DD');
+
 						// convert teamname without spaces and lowercase
 						e.team_one_name_converted = e.team_one_name.split(' ').join('').toLowerCase();
 						e.team_two_name_converted = e.team_two_name.split(' ').join('').toLowerCase();

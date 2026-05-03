@@ -64,6 +64,7 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 
 						// relative date start
 						e.start_date = moment(e.estimatedDate_from).format('dddd, DD.MM.YYYY');
+						e.start_time = moment(e.estimatedDate_from).format('HH:mm');
 						e.start_date_relative = moment(e.estimatedDate_from).fromNow();
 
 						// remove whitespace and lowercase

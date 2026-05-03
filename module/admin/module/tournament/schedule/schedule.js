@@ -48,6 +48,7 @@ angular.module('customstats').controller('customstats.admin_tournament:schedule_
 				'team_oneID'	: entry.team_oneID,
 				'team_twoID'	: entry.team_twoID,
 				'type'			: entry.type,
+				'stream_link'	: entry.stream_link,
 				'estimatedDate_from'	: entry.estimatedDate_from,
 				'estimatedDate_to'		: entry.estimatedDate_to,
 				};
@@ -82,6 +83,7 @@ angular.module('customstats').controller('customstats.admin_tournament:schedule_
 				'team_oneID'	: entry.team_oneID,
 				'team_twoID'	: entry.team_twoID,
 				'type'			: entry.type,
+				'stream_link'	: entry.stream_link,
 				'estimatedDate_from'	: entry.estimatedDate_from,
 				'estimatedDate_to'		: entry.estimatedDate_to,
 				};

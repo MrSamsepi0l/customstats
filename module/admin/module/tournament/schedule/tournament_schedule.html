@@ -64,6 +64,10 @@
 									<td><select class="ban-select new-game-select-team new-game-scrollbar" ng-options="e.key as e.val for e in schedule.type_list" ng-model="schedule.entry_edit.type" style="width: 100%"></select></td>
 									</tr>
 								<tr>
+									<td class="v-middle">Stream-Link</td>
+									<td><input class="tournament-team-config-entry-input" type="text" ng-model="schedule.entry_edit.stream_link" /></td>
+									</tr>
+								<tr>
 									<td class="v-middle">Estimated Start</td>
 									<td><input class="tournament-team-config-entry-input" type="text" ng-model="schedule.entry_edit.estimatedDate_from" /></td>
 									</tr>
@@ -111,6 +115,10 @@
 								<tr>
 									<td class="v-middle">Begegnungstyp</td>
 									<td><select class="ban-select new-game-select-team new-game-scrollbar" ng-options="e.key as e.val for e in schedule.type_list" ng-model="schedule.entry_new.type" style="width: 100%"></select></td>
+									</tr>
+								<tr>
+									<td class="v-middle">Stream-Link</td>
+									<td><input class="tournament-team-config-entry-input" type="text" ng-model="schedule.entry_new.stream_link" /></td>
 									</tr>
 								<tr>
 									<td class="v-middle">Estimated Start</td>

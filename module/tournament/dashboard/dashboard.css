@@ -147,11 +147,33 @@
 	        				display: flex;
 	        				flex-direction: row;
 	        				padding: 1rem 1rem 1rem 1rem;
+	        				justify-content: space-between;
+	        				align-items: center;
 
 	        				>.date {
 	        					color: #feffc3;
 	        					border-bottom: 1px solid #373634;
 	        					padding-bottom: 0.3rem;
+	        					}
+
+	        				>.stream {
+
+	        					>.stream-logo {
+
+	        						}
+
+	        					.stream-logo:hover {
+	        						cursor: pointer;
+	        						}
+
+	        					.stream-logo:hover path {
+	        						fill: white !important;
+	        						cursor: pointer;
+	        						}
+	        					}
+
+	        				>.stream:hover {
+	        					color: white;
 	        					}
 	        				}
 

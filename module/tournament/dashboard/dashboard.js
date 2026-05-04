@@ -258,7 +258,7 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 			var self = $scope.view;
 
 			// filter by team
-			if(self.filter.match_history.team !== null && self.filter.match_history.team != (entry.team_one.name && entry.team_two.name)) return false;
+			if(self.filter.match_history.team !== null && (self.filter.match_history.team != entry.team_one.name && self.filter.match_history.team != entry.team_two.name)) return false;
 
 			// filter by player
 			if(self.filter.match_history.playerID !== null && (!_.contains(entry.team_one.playerID_list, self.filter.match_history.playerID) && !_.contains(entry.team_two.playerID_list, self.filter.match_history.playerID))) return false;

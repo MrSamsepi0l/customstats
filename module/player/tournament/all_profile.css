@@ -356,6 +356,10 @@
     background: transparent url('/public/img/tournament/missping.png') no-repeat center center;
     }
 
+.returnfromretirementliga {
+    background: transparent url('/public/img/tournament/return_from_retirement.png') no-repeat center center;
+    }
+
 .flex-box-league-profile .player-profile .list .header .tournament-profile-select {
     width: 30%;
     height: 50px;
@@ -364,7 +368,7 @@
     border-radius: 5px;
     color: #bbedff;
     background: #0f1519;
-    margin-left: 2rem;
+    margin-right: 2rem;
     animation: fadein 2.0s forwards;
     }
 

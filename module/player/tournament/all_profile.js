@@ -55,6 +55,13 @@ angular.module('customstats').controller('customstats.tournament_all_profile_con
 			// if no tournamentID given, remove
 			if(!param.tournamentID) delete(param.tournamentID);
 
+			// if we already have an entry
+			if(self.entry){
+
+				// set ingame_name in url aswell (keeping the profile selected after reload)
+				$location.url('/tournament_all_profile').search({ingame_name: self.entry.ingame_name});
+				}
+
 			// init status
 			self.status = 100;
 

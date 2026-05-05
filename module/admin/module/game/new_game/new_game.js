@@ -15,7 +15,7 @@ angular.module('customstats').controller('customstats.admin_game.new_game_contro
 			{key: 'smite', val: 'Smite'},
 			{key: 'cleanse', val: 'Cleanse'},
 			],
-		level_list 	  	: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18],
+		level_list 	  	: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
 		position_list	: ['TOP', 'JUNGLE', 'MID', 'ADC', 'SUPPORT'],
 		champion_list 	: [],
 		error_message	: '',

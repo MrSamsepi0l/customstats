@@ -203,6 +203,28 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 							// if not already added
 							if(!_.find(self.filter.match_history.player_list, {'playerID': sp.playerID})) self.filter.match_history.player_list.push(p_data);
 							});
+
+						// remove whitespace and lowercase
+						e.team_one.name_converted = e.team_one.name.split(' ').join('').toLowerCase().replace(/'/g, "");
+						e.team_two.name_converted = e.team_two.name.split(' ').join('').toLowerCase().replace(/'/g, "");
+
+						// define full image url
+						e.team_one.image_url = self.image_base_url + '/' + e.team_one.name_converted + '.png';
+						e.team_two.image_url = self.image_base_url + '/' + e.team_two.name_converted + '.png';
+
+						// check if image exists
+						$app.does_image_exist(e.team_one.image_url).then(function(exists){
+
+							// define if image exists
+							e.team_one.image_exists = exists;
+							});
+
+						// check if image exists
+						$app.does_image_exist(e.team_two.image_url).then(function(exists){
+
+							// define if image exists
+							e.team_two.image_exists = exists;
+							});
 						});
 
 					// take data

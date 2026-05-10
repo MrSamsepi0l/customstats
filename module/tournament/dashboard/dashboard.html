@@ -178,6 +178,7 @@
 										<div class="header">
 											<span class="win-text" ng-if="e.team_one.stat_complete.has_won">GEWONNEN</span>
 											<span class="lose-text" ng-if="!e.team_one.stat_complete.has_won">VERLOREN</span>
+											<img class="team-logo" ng-if="e.team_one.image_exists" ng-src='{{e.team_one.image_url}}' />
 											<span ng-class='{"win-team-name": e.team_one.stat_complete.has_won, "lose-team-name": !e.team_one.stat_complete.has_won}'>{{e.team_one.name}}</span>
 											<span custom-hover="Gold">{{e.team_one.stat_complete.gold_string}}</span>
 											<div class="kda-box" custom-hover="Kills">
@@ -213,7 +214,7 @@
 													<span ng-class='{"player-equals-account": app.board_get_value("t_playerID") == p.playerID}'>{{p.total_kills}} <span class="match-history-kda-sep">/</span> {{p.total_deaths}} <span class="match-history-kda-sep">/</span> {{p.total_assists}}</span>
 													</div>
 												<div class="kp-box">
-													<span ng-class='{"player-equals-account": app.board_get_value("t_playerID") == p.playerID}'>{{p.kill_participation | number: 1}} %</span>
+													<span ng-class='{"player-equals-account": app.board_get_value("t_playerID") == p.playerID, "positive-kda": p.kill_participation > 50, "negative-kda": p.kill_participation <= 35}'>{{p.kill_participation | number: 1}} %</span>
 													</div>
 												<div class="cs-box">
 													<span ng-class='{"player-equals-account": app.board_get_value("t_playerID") == p.playerID}'>{{p.creep_score}}</span>
@@ -242,6 +243,7 @@
 												</div>
 											<span custom-hover="Gold">{{e.team_two.stat_complete.gold_string}}</span>
 											<span ng-class='{"win-team-name": e.team_two.stat_complete.has_won, "lose-team-name": !e.team_two.stat_complete.has_won}'>{{e.team_two.name}}</span>
+											<img class="team-logo" ng-if="e.team_two.image_exists" ng-src='{{e.team_two.image_url}}' />
 											<span class="win-text" ng-if="e.team_two.stat_complete.has_won">GEWONNEN</span>
 											<span class="lose-text" ng-if="!e.team_two.stat_complete.has_won">VERLOREN</span>
 											</div>
@@ -273,7 +275,7 @@
 													<span ng-class='{"player-equals-account": app.board_get_value("t_playerID") == p.playerID}'>{{p.total_kills}} / {{p.total_deaths}} / {{p.total_assists}}</span>
 													</div>
 												<div class="kp-box">
-													<span ng-class='{"player-equals-account": app.board_get_value("t_playerID") == p.playerID}'>{{p.kill_participation | number: 1}} %</span>
+													<span ng-class='{"player-equals-account": app.board_get_value("t_playerID") == p.playerID, "positive-kda": p.kill_participation > 50, "negative-kda": p.kill_participation <= 35}'>{{p.kill_participation | number: 1}} %</span>
 													</div>
 												<div class="icon-name-box" style="justify-content: flex-end">
 													<a ng-class='{"active-filter": view.filter.player_full.playerID == p.playerID, "player-equals-account": app.board_get_value("t_playerID") == p.playerID}' ng-click="view.redirect_template('tournament_all_profile', p.ingame_name)">{{p.ingame_name}}</a>

@@ -3,6 +3,8 @@
     --bg-information-box: #393a4f;  /* purple */
     --bg-box-hr-line: #f6d6f9;      /* pink */
     --tc-box-title: #8fa3b0;        /* grey-blue */
+    --tc-positive-kda: #c6f3c6;
+    --tc-negative-kda: #ffafba;
 
     display: flex;
     flex-direction: column;
@@ -540,6 +542,12 @@
 			                                flex-direction: row;
 			                                align-items: center;
 			                                }
+
+			                            .team-logo {
+			                            	width: 32px;
+			                            	height: 32px;
+			                            	background-size: contain;
+			                            	}
 			                            }
 
 			                        .body {
@@ -584,6 +592,14 @@
 
 			                                .kp-box {
 			                                    width: 15%;
+
+			                                    .positive-kda {
+			                                    	color: var(--tc-positive-kda);
+			                                    	}
+
+			                                    .negative-kda {
+			                                    	color: var(--tc-negative-kda);
+			                                    	}
 			                                    }
 
 			                                .gold-box {
@@ -651,6 +667,12 @@
 			                                flex-direction: row;
 			                                align-items: center;
 			                                }
+
+			                            .team-logo {
+			                            	width: 32px;
+			                            	height: 32px;
+			                            	background-size: contain;
+			                            	}
 			                            }
 
 			                        .body {
@@ -696,6 +718,14 @@
 
 			                                .kp-box {
 			                                    width: 15%;
+
+			                                    .positive-kda {
+			                                    	color: var(--tc-positive-kda);
+			                                    	}
+
+			                                    .negative-kda {
+			                                    	color: var(--tc-negative-kda);
+			                                    	}
 			                                    }
 
 			                                .gold-box {

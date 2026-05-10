@@ -126,10 +126,10 @@
 
 						<div class="tournament-match-history-filter" ng-if="view.match_history.length > 0">
 
-							<select ng-model="view.filter.match_history.team" ng-options="e as e for e in view.filter.match_history.team_list">
+							<select class="customstats-scrollbar" ng-model="view.filter.match_history.team" ng-options="e as e for e in view.filter.match_history.team_list">
 								<option value="">Alle Teams</option>
 								</select>
-							<select ng-model="view.filter.match_history.playerID" ng-options="e.playerID as e.ingame_name group by e.team_name for e in view.filter.match_history.player_list">
+							<select class="customstats-scrollbar" ng-model="view.filter.match_history.playerID" ng-options="e.playerID as e.ingame_name group by e.team_name for e in view.filter.match_history.player_list">
 								<option value="">Alle Spieler</option>
 								</select>
 							<button ng-click="view.filter.match_history.expand_all = !view.filter.match_history.expand_all; view.match_history_toggle_expand(view.filter.match_history.expand_all)">

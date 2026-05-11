@@ -35,7 +35,8 @@ angular.module('customstats').controller('customstats.dashboard_controller', ['$
 				'run'			: 'bestof',
 				'step'			: '+1 month',
 				'category'		: 'date',
-				'from'			: '-12 months',
+				'from'			: '-11 months',
+				'to'			: '+1 month',
 				'range_num'		: 1000,
 				};
 

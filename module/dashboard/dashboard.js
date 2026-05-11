@@ -36,7 +36,7 @@ angular.module('customstats').controller('customstats.dashboard_controller', ['$
 				'step'			: '+1 month',
 				'category'		: 'date',
 				'from'			: '-11 months',
-				'to'			: '+1 month',
+				'to'			: $phpdate('now').format('Y-m-31'),
 				'range_num'		: 1000,
 				};
 

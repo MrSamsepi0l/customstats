@@ -281,6 +281,16 @@ angular.module('customstats').factory('$app', ['$rootScope', '$http', '$interval
             self.current_route = current_route;
             },
 
+        is_current_route : function(route_or_route_list){
+            var self = this;
+
+            // if single string, convert to array
+            if(typeof route_or_route_list === 'string') route_or_route_list = [route_or_route_list];
+
+            // check if current route is within given list
+            return _.contains(route_or_route_list, self.current_route);
+            },
+
         // request functions
         ajax : function(sendobj, title, qfn){
             var self = this;

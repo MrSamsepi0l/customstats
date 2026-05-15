@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('customstats').controller('customstats.home_state_controller', ['$scope', '$app', '$phpdate', function($scope, $app, $phpdate){
+angular.module('customstats').controller('customstats.home_state_controller', ['$scope', '$app', '$phpdate', '$location', function($scope, $app, $phpdate, $location){
 
 	// define used variables
 	var start_timer, reload_timer;
@@ -22,6 +22,15 @@ angular.module('customstats').controller('customstats.home_state_controller', ['
 
 		// use app service reload
 		$app.board_reload();
+		};
+
+	$scope.logout = function(){
+
+		// update app state
+		$app.update_app_state('logging_out');
+
+		// call logout route
+		window.location.href = '/logout';
 		};
 
 

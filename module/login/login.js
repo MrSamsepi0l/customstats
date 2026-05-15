@@ -11,6 +11,9 @@ angular.module('customstats').controller('customstats.login_controller', ['$scop
 		// basic param check
 		if(!username || !password) return;
 
+		// update app state
+		$app.update_app_state('logging_in');
+
 		// send request
 		$http({'method':'POST', 'url': 'customstats/authenticate.json', 'data': {'username':username, 'password': password}}).then(
 			function(response){
@@ -28,11 +31,8 @@ angular.module('customstats').controller('customstats.login_controller', ['$scop
 				// logged in
 				if(status == 200){
 
-					// add panel state to local storage
-					localStorage.setItem('panel_state', 'login');
-
-					// reload
-					location.reload();
+					// reload board after 250 ms (no cache refresh)
+					$app.board_reload(250, false);
 					}
 				},
 

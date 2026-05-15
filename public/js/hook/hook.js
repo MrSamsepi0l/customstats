@@ -10,17 +10,17 @@ angular.module('customstats').run(function($http, $rootScope, $app, $location){
 
     	init_view : function(init){
 
-            // get panel state
-            var panel_state = localStorage.getItem('panel_state');
+            // get current app state
+            var app_state = $app.get_app_state();
 
             // if login state
-            if(panel_state == 'login'){
+            if(app_state == 'logging_in'){
 
                 // redirect to dashboard (if user has not the right, no route will be selected)
                 $location.url('/tournament_dashboard');
 
-                // update state
-                localStorage.setItem('panel_state', 'logged_in');
+                // update app state
+                $app.update_app_state('logged_in');
                 }
     		},
 

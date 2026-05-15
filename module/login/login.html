@@ -24,7 +24,7 @@
 	<section class="flex-box-login">
 		<div class="card">
 			<div class="header">
-				<i class="title">Welcome back!</i>
+				<i class="title">Sprich Freund und tritt ein</i>
 				</div>
 			<div class="body">
 				<div class="input-group">
@@ -36,12 +36,20 @@
 					</div>
 				<div class="space2"></div>
 				<button class="login-button" ng-disabled="!username || !password" ng-if="!error_message" ng-click="send_login_request(username, password)">Login</button>
-				<a ng-href="#/register" ng-if="!error_message">Noch kein Konto?</a>
+				<a ng-href="#/register" ng-if="!error_message" style="margin-top: 5px">Noch kein Freund?</a>
 				<!-- <i class="ta-center" ng-if="!error_message" style="margin-top: 10px">Zugang ausschließlich mit bestehendem Account möglich.</i> -->
 				<div class="login-error" ng-if="error_message"><span class="message">{{error_message}}</span></div>
 				</div>
 			</div>
 
 		</section>
+
+	<div class="loading-animation" ng-if="app.get_app_state() === 'logging_in'">
+		<div class="loading">
+			<div class="inner one"></div>
+			<div class="inner two"></div>
+			<div class="inner three"></div>
+			</div>
+		</div>
 
 	</article>

@@ -28,9 +28,6 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 				'tournamentID'	: self.tournamentID,
 				};
 
-			// init status
-			self.status = 100;
-
 			// load
 			$leagueapi.send_request('customstats_tournament_api_get_tournament', param, {
 				200 : function(data){
@@ -39,7 +36,7 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 					self.tournament = data;
 					},
 				'*' : function(data, status){
-					self.status = status;
+
 					}
 				});
 			},
@@ -51,9 +48,6 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 			param = {
 				'tournamentID'	: self.tournamentID,
 				};
-
-			// init status
-			self.status = 100;
 
 			// load
 			$leagueapi.send_request('customstats_tournament_api_get_schedule', param, {
@@ -94,7 +88,7 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 						});
 					},
 				'*' : function(data, status){
-					self.status = status;
+
 					}
 				});
 			},
@@ -106,9 +100,6 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 			param = {
 				'tournamentID'	: self.tournamentID,
 				};
-
-			// init status
-			self.status = 100;
 
 			// load
 			$leagueapi.send_request('customstats_tournament_api_get_tournament_team', param, {
@@ -151,7 +142,7 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 					self.standings = sorted;
 					},
 				'*' : function(data, status){
-					self.status = status;
+
 					}
 				});
 			},

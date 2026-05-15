@@ -59,6 +59,7 @@ angular.module('customstats').factory('$app', ['$rootScope', '$http', '$interval
         hook       : {},
         user_panel : {},
         current_route : null,
+        current_state : null,
 
 
         // load board user state
@@ -135,6 +136,26 @@ angular.module('customstats').factory('$app', ['$rootScope', '$http', '$interval
                     if(_.isUndefined(status)) self.board_reload(0, true);
                     }
                 });
+            },
+
+        get_app_state : function(){
+            var self = this;
+
+            // return current state
+            return localStorage.getItem('panel_state');
+            },
+
+        update_app_state : function(current_state, callback){
+            var self = this;
+
+            // update current app state
+            self.current_state = current_state;
+
+            // update in local cache
+            localStorage.setItem('panel_state', current_state);
+
+            // run callback
+            if(callback) callback();
             },
 
         board_add_listener : function(identifier, callback, execute_if_ready){

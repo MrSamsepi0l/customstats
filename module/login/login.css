@@ -167,7 +167,7 @@ a:hover {
 		.card {
             width: 40%;
             min-width: 330px;
-            height: 500px;
+            /*height: 500px;*/
             font-size: 1.2em;
 			}
 

@@ -34,10 +34,16 @@ angular.module('customstats').controller('customstats.login_controller', ['$scop
 					// reload board after 250 ms (no cache refresh)
 					$app.board_reload(250, false);
 					}
+
+				// reset app state
+				else $app.update_app_state(null);
 				},
 
 			// http error
 			function(response){
+
+				// reset app state
+				$app.update_app_state(null);
 
 				// show server error
 				$scope.error_message = 'Server Error - Versuche es später noch einmal';

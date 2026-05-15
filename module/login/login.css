@@ -14,7 +14,11 @@ a:hover {
 	justify-content: space-around;
 	flex-direction: column;
 	/*height: 100%;*/
-	animation: fadein 1.0s;
+	opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: forwards;
+	animation-duration: 0.55s;
 	padding: 3rem 3rem 3rem 3rem;
 	min-height: 624px;
 

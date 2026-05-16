@@ -20,6 +20,7 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 				}
 			},
 		team_win_progression_chart : {},
+		team_win_progression_chart_available: false,
 
 		load_tournament : function(){
 			var self = this, param;
@@ -437,6 +438,32 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 				if(match.winner_teamID == 2) render_data[match.team_two.name].times_won++;
 				render_data[match.team_two.name].data.push(render_data[match.team_two.name].times_won);
 				});
+
+			// if standings loaded already
+			if(self.standings){
+
+				// loop through each team
+				_.each(self.standings, function(standing){
+
+					// take random dash/color index
+					var rand_dash_idx = Math.floor(Math.random() * dash_list.length);
+					var rand_color_idx = Math.floor(Math.random() * color_list.length);
+
+					// if team has no games in match history
+					if(!standing.times_played) render_data[standing.name] = {
+						times_won: 0,
+						data: [0],
+						color: color_list.splice(rand_color_idx, 1)[0],
+						dashstyle: dash_list.splice(rand_dash_idx, 1)[0],
+						};
+					});
+				}
+
+			// if no data available
+			if(_.isEmpty(render_data)) return;
+
+			// there is a chart to be rendered
+			self.team_win_progression_chart_available = true;
 
 			_.each(render_data, function(e, name){
 

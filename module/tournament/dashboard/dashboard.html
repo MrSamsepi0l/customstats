@@ -48,7 +48,7 @@
 						<div class="title">Matches Played</div>
 						</div>
 					</div>
-				<div class="chart-box">
+				<div class="chart-box" ng-if="view.team_win_progression_chart_available">
 					<div class="chart">
 						<div><league-highchart class="highcharts-container" league-instance="view.instance_team_win_progression_chart" league-highchart="view.team_win_progression_chart"></league-highchart></div>
 						</div>

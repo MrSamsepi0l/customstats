@@ -1,4 +1,4 @@
-angular.module('customstats').controller('customstats.tournament_dashboard', ['$scope', '$filter', '$q', '$app', '$leagueapi', '$location', function($scope, $filter, $q, $app, $leagueapi, $location){
+angular.module('customstats').controller('customstats.tournament_dashboard', ['$scope', '$filter', '$q', '$app', '$leagueapi', '$location', '$multichart', function($scope, $filter, $q, $app, $leagueapi, $location, $multichart){
 
 	$scope.view = {
 		list			: [],
@@ -19,6 +19,7 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 				playerID	: null,
 				}
 			},
+		team_win_progression_chart : {},
 
 		load_tournament : function(){
 			var self = this, param;
@@ -169,7 +170,7 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 					_.each(data, function(e, idx){
 
 						// default - collapse
-						e.match_history_expanded = _.contains([0,1,2], idx);
+						e.match_history_expanded = _.contains([0], idx);
 
 						// if team not already added, add to unique list
 						if(!_.contains(self.filter.match_history.team_list, e.team_one.name)) self.filter.match_history.team_list.push(e.team_one.name);
@@ -220,6 +221,9 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 
 					// take data
 					self.match_history = data;
+
+					// render chart
+					self.render_team_win_progression_chart();
 					},
 				'*' : function(data, status){
 					self.status = status;
@@ -300,6 +304,196 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 				// and search for profile by ingame name
 				$location.url('/tournament_all_profile').search({ingame_name: param});
 				}
+			},
+
+		render_team_win_progression_chart : function(change_config){
+			var self = this,
+				series = null,
+				new_chart = angular.merge({
+					chart: {
+						height: 300,
+						width: 900,
+						// spacing: [0,0,0,0],
+					    type: 'line',
+						},
+					xAxis: {
+						// lineWidth: 0,
+						// minorGridLineWidth: 0,
+						// labels: {
+						// 	enabled: false
+						// 	},
+						minTickInterval: 1,
+						tickLength: 0,
+						title: {
+							text: 'Games played'
+							},
+						},
+				    yAxis: {
+				        // gridLineWidth: 0,
+				        // labels: {
+				        //     enabled: false,
+				        // },
+				        title: {
+				        	text: 'WINS',
+				        	// useHTML: true,
+				        	// text: '<span style="color: #fff; font-size: 0.6rem; letter-spacing: .1rem; font-weight: bold; textTransform: uppercase">'+player.winrate+' %<span style="color: var(--light-blue-gray-1)"> Winrate</span></span>',
+				            // y: -10,
+				        	}
+				    	},
+					tooltip: {
+						shared: true,
+						headerFormat: '<b style="color:#8fa3b0">{point.key} Games</b><br/>',
+						pointFormat: '<span style="color:{series.color}">●  {series.name}:</span> <b style="color:#8fa3b0"> {point.y}</b><br/>'
+						},
+					// tooltip: {
+					// 	enabled: false,
+					// 	pointFormat: '',
+					// 	backgroundColor: '#000',
+					// 	style: {
+					// 		color: '#fff',
+					// 		fontSize: '1rem',
+					// 		},
+					// 	},
+				    legend: {
+						enabled: true,
+						align: 'right',
+						verticalAlign: 'middle',
+						layout: 'vertical'
+						},
+					plotOptions: {
+						series: {
+							// allowPointSelect: false,
+							// enableMouseTracking: false,
+							pointStart: 0,
+							cursor: 'pointer',
+							// lineWidth: 13,
+							// linecap: 'square',
+							marker: {
+								enabled: false,
+								states: {
+									hover: {
+										enabled: true
+										}
+									}
+								},
+							label: {
+								color: '#fff',
+								enabled: true,
+								connectorAllowed: false // Optional: removes connector line
+								},
+							// dataLabels: [
+							// {
+							// 	enabled: true,
+							// 	format: '{point.y:.0f} {point.name}',
+							// 	style: {
+							// 		fontSize: '0.7em',
+							// 		color: '#000',
+							// 		fontWeight: 'normal',
+							// 		},
+							// 	}],
+							showInLegend: true,
+							states : {
+								hover : {
+									enabled: false,
+									}
+								},
+							line: {
+								dashstyle: 'Solid',
+								// marker: { enabled: false },
+								linecap: 'square',
+								},
+							},
+						},
+					series: [],
+					}, change_config);
+
+			// default
+			render_data = {};
+
+			// get match history (back in correct order from beginning first)
+			var rawdata = angular.copy(self.match_history).reverse();
+
+			// dash style list / color style list
+			const dash_list = ["Solid", "ShortDash", "ShortDot", "ShortDashDot", "ShortDashDotDot", "Dot", "Dash", "LongDash"];
+			const color_list = ["#14B8A6", "#06B6D4", "#3B82F6", "#8B5CF6", "#A855F7", "#D946EF", "#64748B"];
+
+			// for each game
+			_.each(rawdata, function(match){
+
+				// set default
+				if(!render_data[match.team_one.name]){
+
+					// take random dash/color index
+					var rand_dash_idx = Math.floor(Math.random() * dash_list.length);
+					var rand_color_idx = Math.floor(Math.random() * color_list.length);
+
+					// add
+					render_data[match.team_one.name] = {
+						times_won: 0,
+						data: [0],
+						color: color_list.splice(rand_color_idx, 1)[0],
+						dashstyle: dash_list.splice(rand_dash_idx, 1)[0],
+						};
+					}
+
+				// set default
+				if(!render_data[match.team_two.name]){
+
+					var rand_dash_idx = Math.floor(Math.random() * dash_list.length);
+					var rand_color_idx = Math.floor(Math.random() * color_list.length);
+
+					render_data[match.team_two.name] = {
+						times_won: 0,
+						data: [0],
+						color: color_list.splice(rand_color_idx, 1)[0],
+						dashstyle: dash_list.splice(rand_dash_idx, 1)[0],
+						};
+					}
+
+				//
+				if(match.winner_teamID == 1) render_data[match.team_one.name].times_won++;
+				render_data[match.team_one.name].data.push(render_data[match.team_one.name].times_won);
+
+
+				if(match.winner_teamID == 2) render_data[match.team_two.name].times_won++;
+				render_data[match.team_two.name].data.push(render_data[match.team_two.name].times_won);
+				});
+
+			_.each(render_data, function(e, name){
+
+				series = {
+					name: name,
+					data: e.data,
+					color: e.color,
+					dashStyle: e.dashstyle,
+					dataLabels: {
+					    enabled: true,
+					    useHTML: true,
+					    allowOverlap: true,
+					    crop: false,
+
+					    formatter: function () {
+					        if (this.point.index === this.series.data.length - 1) {
+					            return `<span style="color:${this.series.color}">
+					                        ${this.series.name}
+					                    </span>`;
+					        }
+					        return null;
+					    },
+
+					    align: 'left',
+					    x: 10
+					}
+					};
+
+				new_chart.series.push(series);
+				});
+
+			// create single multichart
+			var multichart = $multichart.get_new();
+
+			// define global chartdata
+			self.team_win_progression_chart = multichart.create_chart(new_chart);
 			},
 		};
 

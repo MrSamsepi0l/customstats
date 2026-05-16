@@ -162,7 +162,7 @@ angular.module('customstats').controller('customstats.all_player_controller', ['
 				}
 
 			// search player by ID
-			entry = _.findWhere(self.list, {'playerID': playerID});
+			entry = _.findWhere(self.list_copy, {'playerID': playerID});
 
 			// set entry
 			self.entry = entry;

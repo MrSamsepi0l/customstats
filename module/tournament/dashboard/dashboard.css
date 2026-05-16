@@ -51,6 +51,22 @@
             width: 100%;
             align-items: center;
 
+            >.chart-box {
+				display: flex;
+				flex-direction: row;
+				justify-content: space-evenly;
+				margin-right: auto;
+				align-items: center;
+				float: left;
+				width: 100%;
+				border-radius: 5px;
+				margin-left: 10rem;
+
+                >.chart {
+                	width: 100%;
+                	}
+            	}
+
             >.box {
                 display: flex;
                 flex-direction: row;
@@ -352,7 +368,7 @@
     				border: 1px solid #393a4f;
     				border-radius: 10px;
     				width: 100%;
-					max-height: 800px;
+					max-height: 1010px;
 					overflow-y: auto;
 
 		        	>.tournament-match-history-filter {
@@ -844,7 +860,7 @@
         	}
 
 /* DESKTOP */
-@media (min-width: 1200px) {
+@media (min-width: 1600px) {
 
 	.tournament-dashboard {
 
@@ -852,7 +868,8 @@
 
 			.base-info {
 				flex-direction: row;
-				width: 60%;
+				justify-content: space-evenly;
+				width: 100%;
 
 				.box {
 	                min-width: unset;

@@ -3,7 +3,7 @@
 	<!-- Desktop Navigation Bar (logo and symbol [☰] still rendered for mobile navbar) -->
 	<header class="header-main-nav sticky top-0 z-50 w-full text-white font-mono flex justify-center">
 		<div class="flex h-70 px-4 lg:pl-11 lg:pr-0 items-center self-center grow lg-pdl-11 lg-pdr-0">
-			<a class="logo" href="#/all_player">Customstats</a>
+			<a class="logo" href="#/tournament_dashboard">Customstats</a>
 			<div class="menu-toggle cursor-pointer" ng-click="open_nav_menu = !open_nav_menu">☰</div>
 			<div class="h-full flex items-center mx-4 grow nav-links">
 				<div class="items-center flex-row h-full lg-flex">
@@ -65,19 +65,19 @@
 											</div>
 										<div class="body">
 											<div class="item" style="margin-right: 3rem">
-												<a class="text" href="#/tournament_dashboard">Dashboard</a>
+												<a class="text" ng-class='{"current-route": app.is_current_route("/tournament_dashboard")}' href="#/tournament_dashboard">Dashboard</a>
 												</div>
 											<div class="item" style="margin-right: 3rem">
-												<a class="text" href="#/tournament">Overview</a>
+												<a class="text" ng-class='{"current-route": app.is_current_route("/tournament")}' href="#/tournament">Overview</a>
 												</div>
 											<div class="item" style="margin-right: 3rem">
-												<a class="text" href="#/tournament_all_profile">Alle Spieler</a>
+												<a class="text" ng-class='{"current-route": app.is_current_route("/tournament_all_profile")}' href="#/tournament_all_profile">Alle Spieler</a>
 												</div>
 											</div>
 										</div>
 									</div>
 								</content-template>
-							<span class="inline-block group-hover:font-bold" style="font-size: 18px">Turniere</span>
+							<span class="inline-block group-hover:font-bold" ng-class='{"current-route": app.is_current_route(["/tournament_dashboard", "/tournament", "/tournament_all_profile"])}' style="font-size: 18px">Turniere</span>
 							<svg class="rotate-svg" width="32" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path fill-rule="evenodd" clip-rule="evenodd" fill="#bbedff" d="M5.70711 9.71069C5.31658 10.1012 5.31658 10.7344 5.70711 11.1249L10.5993 16.0123C11.3805 16.7927 12.6463 16.7924 13.4271 16.0117L18.3174 11.1213C18.708 10.7308 18.708 10.0976 18.3174 9.70708C17.9269 9.31655 17.2937 9.31655 16.9032 9.70708L12.7176 13.8927C12.3271 14.2833 11.6939 14.2832 11.3034 13.8927L7.12132 9.71069C6.7308 9.32016 6.09763 9.32016 5.70711 9.71069Z" />
 								</svg>

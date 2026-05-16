@@ -60,6 +60,11 @@
 				float: left;
 				width: 100%;
 				border-radius: 5px;
+                opacity: 1;
+                animation-name: fadeInOpacity;
+                animation-iteration-count: 1;
+                animation-timing-function: ease-in;
+                animation-duration: 0.5s;
 
                 >.chart {
                 	width: 100%;
@@ -128,6 +133,11 @@
 	        	flex-direction: column;
 	        	margin-right: 2rem;
 	        	flex: 0.7;
+                opacity: 1;
+                animation-name: fadeInOpacity;
+                animation-iteration-count: 1;
+                animation-timing-function: ease-in;
+                animation-duration: 1.0s;
 	        	/*width: 33.3%;*/
 
 	        	>.header {
@@ -250,6 +260,11 @@
 	        	align-items: center;
 	        	flex-direction: column;
 	        	margin-right: 2rem;
+                opacity: 1;
+                animation-name: fadeInOpacity;
+                animation-iteration-count: 1;
+                animation-timing-function: ease-in;
+                animation-duration: 1.0s;
 	        	/*width: 33%;*/
 
 	        	>.header {
@@ -342,6 +357,11 @@
 	        	align-items: center;
 	        	flex-direction: column;
 	        	flex: 1;
+                opacity: 1;
+                animation-name: fadeInOpacity;
+                animation-iteration-count: 1;
+                animation-timing-function: ease-in;
+                animation-duration: 1.0s;
 
 	        	>.header {
 	        		display: flex;

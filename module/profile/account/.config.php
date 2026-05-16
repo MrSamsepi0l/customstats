@@ -22,5 +22,13 @@ if($this->user_logged()){
 		/* JS & CSS Modul laden */
 		$this->build_environment('header:css[]', $moduleurl.'/profile.css', 50);
 		$this->build_environment('header:js[]', $moduleurl.'/profile.js', 50);
+
+		// Ausführbare Funktionen inkl. benötigtes Recht
+		$this->build_environment('customstats_base_api:execute[]', (object)[
+			'fn'		=> 'customstats_update_user_password',
+			'ns'		=> '\customstats\api::update_user_password',
+			'param'		=> true,
+			'priority'	=> 700,
+			]);
 		}
 	}

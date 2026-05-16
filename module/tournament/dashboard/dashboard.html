@@ -78,13 +78,13 @@
 							<div class="match">
 								<div class="teamspot">
 									<div class="team">
-										<img class="logo" ng-if="e.image_exists_team_one" ng-src='{{e.image_url_team_one}}' />
+										<img class="logo" ng-if="e.image_exists_team_one" ng-src='{{e.image_url_team_one}}' ng-click="view.popup.tournament_logo.url = e.image_url_team_one; view.popup.tournament_logo.show = true" />
 										<span class="name">{{e.team_one_name}}</span>
 										</div>
 									<div class="vs">VS</div>
 									<div class="team">
 										<span class="name">{{e.team_two_name}}</span>
-										<img class="logo" ng-if="e.image_exists_team_two" ng-src='{{e.image_url_team_two}}' />
+										<img class="logo" ng-if="e.image_exists_team_two" ng-src='{{e.image_url_team_two}}' ng-click="view.popup.tournament_logo.url = e.image_url_team_two; view.popup.tournament_logo.show = true" />
 										</div>
 									</div>
 								</div>
@@ -109,7 +109,7 @@
 							<div class="team-row" ng-repeat="e in view.standings track by $index">
 								<div class="rank">{{e.rank}}</div>
 								<div class="name-logo">
-									<img class="logo" ng-if="e.image_exists" ng-src='{{e.image_url}}' />
+									<img class="logo" ng-if="e.image_exists" ng-src='{{e.image_url}}' ng-click="view.popup.tournament_logo.url = e.image_url; view.popup.tournament_logo.show = true" />
 									<div class="name">{{e.name}}</div>
 									</div>
 								<div class="w-l">{{e.times_won}}-{{e.times_lost}}</div>
@@ -183,7 +183,7 @@
 										<div class="header">
 											<span class="win-text" ng-if="e.team_one.stat_complete.has_won">GEWONNEN</span>
 											<span class="lose-text" ng-if="!e.team_one.stat_complete.has_won">VERLOREN</span>
-											<img class="team-logo" ng-if="e.team_one.image_exists" ng-src='{{e.team_one.image_url}}' />
+											<img class="team-logo" ng-if="e.team_one.image_exists" ng-src='{{e.team_one.image_url}}' ng-click="view.popup.tournament_logo.url = e.team_one.image_url; view.popup.tournament_logo.show = true" style="cursor: pointer" />
 											<span ng-class='{"win-team-name": e.team_one.stat_complete.has_won, "lose-team-name": !e.team_one.stat_complete.has_won}'>{{e.team_one.name}}</span>
 											<span custom-hover="Gold">{{e.team_one.stat_complete.gold_string}}</span>
 											<div class="kda-box" custom-hover="Kills">
@@ -248,7 +248,7 @@
 												</div>
 											<span custom-hover="Gold">{{e.team_two.stat_complete.gold_string}}</span>
 											<span ng-class='{"win-team-name": e.team_two.stat_complete.has_won, "lose-team-name": !e.team_two.stat_complete.has_won}'>{{e.team_two.name}}</span>
-											<img class="team-logo" ng-if="e.team_two.image_exists" ng-src='{{e.team_two.image_url}}' />
+											<img class="team-logo" ng-if="e.team_two.image_exists" ng-src='{{e.team_two.image_url}}' ng-click="view.popup.tournament_logo.url = e.team_two.image_url; view.popup.tournament_logo.show = true" style="cursor: pointer" />
 											<span class="win-text" ng-if="e.team_two.stat_complete.has_won">GEWONNEN</span>
 											<span class="lose-text" ng-if="!e.team_two.stat_complete.has_won">VERLOREN</span>
 											</div>
@@ -324,7 +324,7 @@
 			</body-part>
 		</league-popup>
 
-	<league-popup ng-if="view.popup.tournament_logo.show" xa-popup-options='{"overlayClose":true, "top": "50%", "left":"50%", "width": "800px", "height": "800px", "background":"transparent !important", "position":"absolute", "transform":"translate(-50%, -50%)"}'>
+	<league-popup ng-if="view.popup.tournament_logo.show" xa-popup-options='{"overlayClose":true, "top": "50%", "left":"50%", "width": "800px", "height": "800px", "background":"transparent !important", "position":"fixed", "transform":"translate(-50%, -50%)"}'>
 		<body-part>
 			<div>
 				<img ng-src="{{view.popup.tournament_logo.url}}" style="width: 800px; height: 800px;" />

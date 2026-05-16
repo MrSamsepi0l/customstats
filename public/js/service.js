@@ -399,25 +399,32 @@ angular.module('customstats').factory('$app', ['$rootScope', '$http', '$interval
                 });
             },
 
-        does_image_exist : function(url){
+        does_image_exist: function(url){
 
             // if no url given, return false
-            if(!url) return Promise.resolve(false);
+            if(!url) return $q.resolve(false);
 
-            // load image
-            return $http({
-                method  : 'GET',
-                url     : url,
-                cache   : true,
-                headers : { 'Cache-Control': 'max-age=3600' }
-                })
-                .then(function(response) {
-                    return response.status === 200;
-                })
-                .catch(function(error) {
-                    return false;
+            // run asynchron fn
+            return $q(function(resolve){
+
+                // load image
+                var img = new Image();
+
+                // on success, return true
+                img.onload = function(){
+                    resolve(true);
+                    };
+
+                // on error, return false
+                img.onerror = function(){
+                    resolve(false);
+                    };
+
+                // take url
+                img.src = url;
                 });
             },
+
         };
 
     // global sichtbar machen

@@ -312,39 +312,30 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 				new_chart = angular.merge({
 					chart: {
 						height: 300,
-						width: 900,
-						// spacing: [0,0,0,0],
+						width: 850,
 					    type: 'line',
 						},
 				    title: {
 				        text: 'Team performance over played games',
 				        align: 'left',
 						style: {
-							fontSize: '12px'
+							fontSize: '12px',
+							color: '#666666',
 							},
 				    	},
 					xAxis: {
-						// lineWidth: 0,
-						// minorGridLineWidth: 0,
-						// labels: {
-						// 	enabled: false
-						// 	},
 						minTickInterval: 1,
 						tickLength: 0,
 						title: {
-							text: 'Games played'
+							text: 'Games played',
+							style: {
+								fontStyle: 'italic',
+								},
 							},
 						},
 				    yAxis: {
-				        // gridLineWidth: 0,
-				        // labels: {
-				        //     enabled: false,
-				        // },
 				        title: {
 				        	text: 'WINS',
-				        	// useHTML: true,
-				        	// text: '<span style="color: #fff; font-size: 0.6rem; letter-spacing: .1rem; font-weight: bold; textTransform: uppercase">'+player.winrate+' %<span style="color: var(--light-blue-gray-1)"> Winrate</span></span>',
-				            // y: -10,
 				        	}
 				    	},
 					tooltip: {
@@ -352,29 +343,21 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 						headerFormat: '<b style="color:#8fa3b0">{point.key} Games</b><br/>',
 						pointFormat: '<span style="color:{series.color}">●  {series.name}:</span> <b style="color:#8fa3b0"> {point.y}</b><br/>'
 						},
-					// tooltip: {
-					// 	enabled: false,
-					// 	pointFormat: '',
-					// 	backgroundColor: '#000',
-					// 	style: {
-					// 		color: '#fff',
-					// 		fontSize: '1rem',
-					// 		},
-					// 	},
 				    legend: {
 						enabled: true,
 						align: 'right',
 						verticalAlign: 'middle',
-						layout: 'vertical'
+						layout: 'vertical',
+						itemStyle: {
+							fontSize: '12px',
+							color: '#9d9d9d',
+							},
+						margin: 30,
 						},
 					plotOptions: {
 						series: {
-							// allowPointSelect: false,
-							// enableMouseTracking: false,
 							pointStart: 0,
 							cursor: 'pointer',
-							// lineWidth: 13,
-							// linecap: 'square',
 							marker: {
 								enabled: false,
 								states: {
@@ -388,16 +371,6 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 								enabled: true,
 								connectorAllowed: false // Optional: removes connector line
 								},
-							// dataLabels: [
-							// {
-							// 	enabled: true,
-							// 	format: '{point.y:.0f} {point.name}',
-							// 	style: {
-							// 		fontSize: '0.7em',
-							// 		color: '#000',
-							// 		fontWeight: 'normal',
-							// 		},
-							// 	}],
 							showInLegend: true,
 							states : {
 								hover : {
@@ -406,7 +379,6 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 								},
 							line: {
 								dashstyle: 'Solid',
-								// marker: { enabled: false },
 								linecap: 'square',
 								},
 							},

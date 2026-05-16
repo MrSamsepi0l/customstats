@@ -316,6 +316,13 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 						// spacing: [0,0,0,0],
 					    type: 'line',
 						},
+				    title: {
+				        text: 'Team performance over played games',
+				        align: 'left',
+						style: {
+							fontSize: '12px'
+							},
+				    	},
 					xAxis: {
 						// lineWidth: 0,
 						// minorGridLineWidth: 0,

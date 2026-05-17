@@ -3,7 +3,7 @@
 	<section class="tournament-dashboard">
 
 		<div class="header ta-center">
-			<span class="headline">Tournament Dashboard</span>
+			<span class="headline">{{view.tournament.name}} - Dashboard</span>
 			<div class="official-logo">
 				<img ng-if="view.tournamentID == 3" class="logo" ng-src='{{"public/img/tournament/return_from_retirement.png"}}' ng-click="view.popup.tournament_logo.url = 'public/img/tournament/return_from_retirement.png'; view.popup.tournament_logo.show = true" />
 				</div>
@@ -17,13 +17,13 @@
 
 			<div class="base-info">
 				<div class="info">
-					<div class="box">
+<!-- 					<div class="box">
 						<div class="text">
 							<div class="value">{{view.tournament.name}}</div>
 							<hr />
 							<div class="title">Tournament</div>
 							</div>
-						</div>
+						</div> -->
 					<div class="box">
 						<div class="text">
 							<div class="value">{{view.standings.length}}</div>

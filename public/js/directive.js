@@ -464,7 +464,7 @@ angular.module('customstats').directive('customTooltipNav', ['$document', '$time
 				timer_hide = null,
 				clicked = false,
 				hover = $compile(
-						'<div ng-class="customTooltipClass" ng-style="customTooltipStyle" ng-attr-id="{{::uniqueTooltipId}}">'
+						'<div ng-class="customTooltipClass" ng-style="customTooltipStyle" ng-attr-id="{{uniqueTooltipId}}">'
 							+'<div class="float-right"><span class="span-button fas fa-times" ng-click="closeCustomTooltip();"></span></div>'
 							+'<custom-tooltip-content></custom-tooltip-content>' /*class="p-3"*/
 							+'</div>')($scope),
@@ -596,7 +596,9 @@ angular.module('customstats').directive('customTooltipNav', ['$document', '$time
 			function mouse_enter(e){
 
 				// pre check + appendHover
-				pre_check();
+				// pre_check();
+
+				appendHover();
 
 				// if delay is defined
 				if(attrs.customTooltipDelay) {
@@ -624,7 +626,7 @@ angular.module('customstats').directive('customTooltipNav', ['$document', '$time
 				$timeout.cancel(timer_show);
 				timer_show = null;
 
-				// after 300ms, add class to animation hide
+				// after 100ms, add class to animation hide
 				timer_hide = $timeout(function(){
 
 					// add class hover_hide (fade out of tooltip)
@@ -703,15 +705,13 @@ angular.module('customstats').directive('customTooltipNav', ['$document', '$time
 
 					// call mouse leave event
 					mouse_leave();
-					}, 1);
+					}, 10);
 				});
 
 			// on mouseenter event on hover template
 			hover.on('mouseenter', function(e){
 
-				// cancel hide timeout
-				// $timeout.cancel(timer_hide);
-				// timer_hide = null;
+				// nothing to do
 				});
 
 			// on mouseleave event on hover template
@@ -722,7 +722,7 @@ angular.module('customstats').directive('customTooltipNav', ['$document', '$time
 
 					// call mouse leave event
 					mouse_leave();
-					}, 1);
+					}, 10);
 				});
 
 			// this happens if element is destroyed, remove everything
@@ -733,7 +733,7 @@ angular.module('customstats').directive('customTooltipNav', ['$document', '$time
 
 					// call mouse leave event
 					mouse_leave();
-					}, 1);
+					}, 10);
 				});
 
 			// if location changed: force close popup instantly

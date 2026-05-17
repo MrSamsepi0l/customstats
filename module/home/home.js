@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('customstats').controller('customstats.home_state_controller', ['$scope', '$app', '$phpdate', '$location', function($scope, $app, $phpdate, $location){
+angular.module('customstats').controller('customstats.home_state_controller', ['$scope', '$app', '$phpdate', '$location', '$rootScope', function($scope, $app, $phpdate, $location, $rootScope){
 
 	// define used variables
 	var start_timer, reload_timer;

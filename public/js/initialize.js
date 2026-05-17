@@ -21,9 +21,7 @@ angular.module('customstats', ['ngRoute'])
 	// make date accessable
 	$rootScope.Date = Date;
 
-	$rootScope.show_login = true;
-	$rootScope.show_register = true;
-
+	// even listener for URL change
 	$rootScope.$on('$locationChangeStart', function(event, next, current){
 
 		// extract sub path
@@ -33,16 +31,17 @@ angular.module('customstats', ['ngRoute'])
 		$app.init_navbar(actual_route);
 		});
 
-	}]);
+	// Possible template loading animation
+	// $rootScope.$on('$routeChangeStart', function () {
+	// 	$rootScope.loading_template = true;
+	// 	});
 
-// .run(['$route', '$templateCache', '$http', (function ($route, $templateCache, $http){
-//         var url;
-//         for (var i in $route.routes) {
-//             if ($route.routes[i].preload) {
-//                 if (url = $route.routes[i].templateUrl) {
-//                     $http.get(url, { cache: $templateCache });
-//                 }
-//             }
-//         }
-//     })
-// ]);
+	// $rootScope.$on('$routeChangeSuccess', function () {
+	// 	$rootScope.loading_template = false;
+	// 	});
+
+	// $rootScope.$on('$routeChangeError', function () {
+	// 	$rootScope.loading_template = false;
+	// 	});
+
+	}]);

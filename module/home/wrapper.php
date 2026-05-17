@@ -32,6 +32,15 @@
 			echo '<ng-include src="\'load_template/footer\'"></ng-include>';
 			?>
 
+	<!-- Possible template loading animation -->
+<!-- 	<div class="loading-animation" ng-if="loading_template">
+		<div class="loading">
+			<div class="inner one"></div>
+			<div class="inner two"></div>
+			<div class="inner three"></div>
+			</div>
+		</div> -->
+
 		</body>
 
 

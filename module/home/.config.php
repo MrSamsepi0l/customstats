@@ -3,19 +3,6 @@
 // Wrapper zur Umgebung hinzufügen
 $this->build_environment('body:wrapper', $this->path->app.$moduleurl.'/wrapper.php');
 
-if(!$this->user_logged()){
-
-	/* Füge sämtliche Routing Objekte zum Hook hinzu */
-	$this->build_environment('body:routing[]', (object)[
-		'name'		=> 'Navigation Unlogged',
-		'group'		=> 'navigation:unlogged',
-		'route'		=> 'navigation_unlogged',
-		'path'		=> $moduleurl.'/navigation_unlogged.html',
-		'enabled'	=> true,
-		'priority'	=> 10,
-		]);
-	}
-
 if($this->user_logged()){
 
 	/* Füge sämtliche Routing Objekte zum Hook hinzu */

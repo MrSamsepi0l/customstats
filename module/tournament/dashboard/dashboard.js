@@ -536,8 +536,8 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 			var	series = null,
 				new_chart = angular.merge({
 					chart: {
-						height: 225,
-						width: 250,
+						height: 300,
+						width: 300,
 					    type: 'pie',
 						},
 					accessibility: {
@@ -548,17 +548,18 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 					title: {
 						text: '<span style="color: #9d9d9d; letter-spacing: 1px">Matches Played: <span style="color: #fff">'+times_played+'</span></span>',
 						useHTML: true,
+						y: 30,
 						},
 			        subtitle: {
-			            text:   '<span style="font-size: 1rem; color: #0498cb; letter-spacing: 1px">'+chartdata.blue_side.winrate+' %</span>'
-			            		+'<hr style="width: 100%; margin-top: 0.1rem; margin-bottom: 0.1rem; margin-right: 0; background-color: #2f2f5d" />'
-			            		+'<span style="font-size: 0.9rem; color: #6b2c3c; letter-spacing: 1px">'+chartdata.red_side.winrate+' %</span>'
+			            text:   '<span style="font-size: 1.1rem; color: #0498cb; letter-spacing: 1px">'+chartdata.blue_side.winrate+' %</span>'
+			            		+'<hr style="width: 100%; margin-top: 0.2rem; margin-bottom: 0.2rem; margin-right: 0; background-color: #2f2f5d" />'
+			            		+'<span style="font-size: 1.0rem; color: #6b2c3c; letter-spacing: 1px">'+chartdata.red_side.winrate+' %</span>'
 			            		+'<br>'
 			            		+'<span style="font-size: 0.8rem"> Winrate</span>',
 			            floating: true,
 			            useHTML: true,
 			            verticalAlign: 'middle',
-			            y: 28
+			            y: 30
 			        	},
 					tooltip: {
 						pointFormat: '',
@@ -576,9 +577,18 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 							allowPointSelect: false,
 							cursor: 'pointer',
 							dataLabels: [
-							{
+								{
+									enabled: true,
+									distance: 20,
+									format: '{point.name}',
+					                style: {
+					                    fontSize: '0.7em',
+					                    color: '#9d9d9d',
+					                	}
+									},
+								{
 								enabled: true,
-								distance: -20,
+								distance: -14,
 								format: '{point.y:.0f}',
 								style: {
 									fontSize: '0.9em'
@@ -595,8 +605,9 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 
 			// create series
 			series = {
+				'name': 'Games played',
 				'colorByPoint': true,
-				'innerSize': '60%',
+				'innerSize': '75%',
 				'colorIndex': 50,
 				'data'		: [
 					{name: 'Blue side', y: chartdata.blue_side.times_won, colorIndex: 53},

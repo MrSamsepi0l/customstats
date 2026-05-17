@@ -4,6 +4,9 @@
   --highcharts-color-50: #bdeaee;
   --highcharts-color-51: #894fe0;
   --highcharts-color-52: #282945;
+
+  --highcharts-color-53: #0498cb;   /* blue-side */
+  --highcharts-color-54: #6b2c3c;   /* red-side  */
   }
 
 /* Remove borders around points */
@@ -40,6 +43,16 @@
 .highcharts-color-52 {
     fill: var(--highcharts-color-52);
     stroke: var(--highcharts-color-52);
+}
+
+.highcharts-color-53 {
+    fill: var(--highcharts-color-53);
+    stroke: var(--highcharts-color-53);
+}
+
+.highcharts-color-54 {
+    fill: var(--highcharts-color-54);
+    stroke: var(--highcharts-color-54);
 }
 
 /* Remove text options in dataLabel */

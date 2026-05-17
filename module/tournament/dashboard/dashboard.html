@@ -38,12 +38,17 @@
 							<div class="title">Current Phase</div>
 							</div>
 						</div>
-					<div class="box">
+					<div class="box" ng-if="!view.match_history.length">
 						<div class="text">
-							<div class="value">{{view.match_history.length}}</div>
+							<div class="value">0</div>
 							<hr />
 							<div class="title">Matches Played</div>
 							</div>
+						</div>
+					</div>
+				<div class="chart-box" ng-if="view.match_history.length">
+					<div class="chart">
+						<div><league-highchart class="highcharts-container" league-instance="view.instance_side_win_lose_chart" league-highchart="view.side_win_lose_chart"></league-highchart></div>
 						</div>
 					</div>
 				<div class="chart-box" ng-if="view.team_win_progression_chart_available">

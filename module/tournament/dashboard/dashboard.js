@@ -21,6 +21,7 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 			},
 		team_win_progression_chart : {},
 		team_win_progression_chart_available: false,
+		side_win_lose_chart: {},
 
 		load_tournament : function(){
 			var self = this, param;
@@ -225,6 +226,7 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 
 					// render chart
 					self.render_team_win_progression_chart();
+					self.render_win_lose_chart();
 					},
 				'*' : function(data, status){
 					self.status = status;
@@ -500,6 +502,119 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 
 			// define global chartdata
 			self.team_win_progression_chart = multichart.create_chart(new_chart);
+			},
+
+		render_win_lose_chart : function(change_config){
+			var self = this,
+				times_played = self.match_history.length;
+
+			// if no games played, return here
+			if(!times_played) return;
+
+			var chartdata = {
+				'blue_side'	: {
+					'times_won'	: 0,
+					'winrate'	: 0,
+					},
+				'red_side'	: {
+					'times_won'	: 0,
+					'winrate'	: 0,
+					},
+				};
+
+			_.each(self.match_history, function(e){
+
+				// increment by won side
+				if(e.winner_teamID == 1) chartdata.blue_side.times_won++;
+				if(e.winner_teamID == 2) chartdata.red_side.times_won++;
+				});
+
+			// calculate winrates
+			chartdata.blue_side.winrate = (chartdata.blue_side.times_won / times_played * 100).toFixed(1);
+			chartdata.red_side.winrate = (chartdata.red_side.times_won / times_played * 100).toFixed(1);
+
+			var	series = null,
+				new_chart = angular.merge({
+					chart: {
+						height: 225,
+						width: 250,
+					    type: 'pie',
+						},
+					accessibility: {
+						point: {
+							valueSuffix: '%',
+							},
+						},
+					title: {
+						text: '<span style="color: #9d9d9d; letter-spacing: 1px">Matches Played: <span style="color: #fff">'+times_played+'</span></span>',
+						useHTML: true,
+						},
+			        subtitle: {
+			            text:   '<span style="font-size: 1rem; color: #0498cb; letter-spacing: 1px">'+chartdata.blue_side.winrate+' %</span>'
+			            		+'<hr style="width: 100%; margin-top: 0.1rem; margin-bottom: 0.1rem; margin-right: 0; background-color: #2f2f5d" />'
+			            		+'<span style="font-size: 0.9rem; color: #6b2c3c; letter-spacing: 1px">'+chartdata.red_side.winrate+' %</span>'
+			            		+'<br>'
+			            		+'<span style="font-size: 0.8rem"> Winrate</span>',
+			            floating: true,
+			            useHTML: true,
+			            verticalAlign: 'middle',
+			            y: 28
+			        	},
+					tooltip: {
+						pointFormat: '',
+						backgroundColor: '#000',
+						style: {
+							color: '#fff',
+							fontSize: '1rem',
+							},
+						},
+					legend: {
+						enabled: false
+						},
+					plotOptions: {
+						series: {
+							allowPointSelect: false,
+							cursor: 'pointer',
+							dataLabels: [
+							{
+								enabled: true,
+								distance: -20,
+								format: '{point.y:.0f}',
+								style: {
+									fontSize: '0.9em'
+									},
+								}],
+							showInLegend: true
+							},
+						pie: {
+							size: 175,
+							},
+						},
+					series: [],
+					}, change_config);
+
+			// create series
+			series = {
+				'colorByPoint': true,
+				'innerSize': '60%',
+				'colorIndex': 50,
+				'data'		: [
+					{name: 'Blue side', y: chartdata.blue_side.times_won, colorIndex: 53},
+					{name: 'Red side', y: chartdata.red_side.times_won, colorIndex: 54},
+					],
+				};
+
+			// add series to chart
+			new_chart.series.push(series);
+
+			// take series values
+			new_chart.series = _.values(new_chart.series);
+
+			// create single multichart
+			var multichart = $multichart.get_new();
+
+			// define global chartdata
+			self.side_win_lose_chart = multichart.create_chart(new_chart);
 			},
 		};
 

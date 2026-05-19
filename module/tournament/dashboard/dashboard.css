@@ -46,7 +46,7 @@
 
         >.base-info {
             display: flex;
-            justify-content: flex-start;
+            justify-content: center;
             flex-direction: column;
             width: 100%;
             align-items: center;
@@ -898,13 +898,13 @@
 				flex-direction: row;
 				justify-content: space-between;
 				width: 100%;
+				flex-wrap: wrap;
 
 				>.info {
 					display: flex;
-					flex-direction: row;
+					flex-direction: column;
 					flex-wrap: wrap;
 					justify-content: center;
-					align-items: center;
 					gap: 10px;
 
 					.box {

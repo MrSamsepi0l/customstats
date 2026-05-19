@@ -7,6 +7,18 @@
 
   --highcharts-color-53: #0498cb;   /* blue-side */
   --highcharts-color-54: #6b2c3c;   /* red-side  */
+
+  /* Purple palette */
+  --highcharts-color-70: #9B8AF2;
+  --highcharts-color-71: #927FEA;
+  --highcharts-color-72: #8572DF;
+  --highcharts-color-73: #7663D4;
+  --highcharts-color-74: #6855C7;
+  --highcharts-color-75: #5C4AB7;
+  --highcharts-color-76: #5140A6;
+  --highcharts-color-77: #473894;
+  --highcharts-color-78: #3D307F;
+  --highcharts-color-79: #4B475F;
   }
 
 /* Remove borders around points */
@@ -53,6 +65,88 @@
 .highcharts-color-54 {
     fill: var(--highcharts-color-54);
     stroke: var(--highcharts-color-54);
+}
+
+
+/* Purple palette */
+.highcharts-color-70 {
+    fill: var(--highcharts-color-70);
+    stroke: var(--highcharts-color-70);
+}
+
+.highcharts-color-71 {
+    fill: var(--highcharts-color-71);
+    stroke: var(--highcharts-color-71);
+}
+
+.highcharts-color-72 {
+    fill: var(--highcharts-color-72);
+    stroke: var(--highcharts-color-72);
+}
+
+.highcharts-color-73 {
+    fill: var(--highcharts-color-73);
+    stroke: var(--highcharts-color-73);
+}
+
+.highcharts-color-74 {
+    fill: var(--highcharts-color-74);
+    stroke: var(--highcharts-color-74);
+}
+
+.highcharts-color-75 {
+    fill: var(--highcharts-color-75);
+    stroke: var(--highcharts-color-75);
+}
+
+.highcharts-color-76 {
+    fill: var(--highcharts-color-76);
+    stroke: var(--highcharts-color-76);
+}
+
+.highcharts-color-77 {
+    fill: var(--highcharts-color-77);
+    stroke: var(--highcharts-color-77);
+}
+
+.highcharts-color-78 {
+    fill: var(--highcharts-color-78);
+    stroke: var(--highcharts-color-78);
+}
+
+.highcharts-color-79 {
+    fill: var(--highcharts-color-79);
+    stroke: var(--highcharts-color-79);
+}
+
+/* connector lines */
+.highcharts-data-label-connector {
+    stroke: #596180;
+    stroke-width: 1px;
+    fill: none;
+}
+
+/* label wrapper */
+.pie-label {
+    text-align: left;
+    color: white;
+    min-width: 30px;
+}
+
+/* percentage */
+.pie-percent {
+    font-size: 0.55rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 8px;
+    color: #ffffff;
+}
+
+/* country */
+.pie-name {
+    font-size: 0.6rem;
+    color: #9FA7C0;
+    letter-spacing: 0.5px;
 }
 
 /* Remove text options in dataLabel */

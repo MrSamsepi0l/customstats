@@ -22,6 +22,7 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 		team_win_progression_chart : {},
 		team_win_progression_chart_available: false,
 		side_win_lose_chart: {},
+		champion_presence_chart : {},
 
 		load_tournament : function(){
 			var self = this, param;
@@ -227,6 +228,7 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 					// render chart
 					self.render_team_win_progression_chart();
 					self.render_win_lose_chart();
+					self.render_champion_presence_chart();
 					},
 				'*' : function(data, status){
 					self.status = status;
@@ -322,9 +324,10 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 				        text: 'Team performance over played games',
 				        align: 'left',
 						style: {
-							fontSize: '12px',
+							fontSize: '0.75rem',
 							color: '#666666',
 							},
+						y: 5,
 				    	},
 					xAxis: {
 						minTickInterval: 1,
@@ -511,6 +514,7 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 			// if no games played, return here
 			if(!times_played) return;
 
+			// default
 			var chartdata = {
 				'blue_side'	: {
 					'times_won'	: 0,
@@ -546,12 +550,12 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 							},
 						},
 					title: {
-						text: '<span style="color: #9d9d9d; letter-spacing: 1px">Matches Played: <span style="color: #fff">'+times_played+'</span></span>',
+						text: '<span style="color: #666666; font-size: 0.75rem; letter-spacing: 1px">Matches Played <br/><span style="color: #fff; font-size: 1.6rem">'+times_played+'</span></span>',
 						useHTML: true,
-						y: 30,
+						y: 10,
 						},
 			        subtitle: {
-			            text:   '<span style="font-size: 1.1rem; color: #0498cb; letter-spacing: 1px">'+chartdata.blue_side.winrate+' %</span>'
+			            text:   '<span style="font-size: 1.3rem; color: #0498cb; letter-spacing: 1px">'+chartdata.blue_side.winrate+' %</span>'
 			            		+'<hr style="width: 100%; margin-top: 0.2rem; margin-bottom: 0.2rem; margin-right: 0; background-color: #2f2f5d" />'
 			            		+'<span style="font-size: 1.0rem; color: #6b2c3c; letter-spacing: 1px">'+chartdata.red_side.winrate+' %</span>'
 			            		+'<br>'
@@ -559,7 +563,7 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 			            floating: true,
 			            useHTML: true,
 			            verticalAlign: 'middle',
-			            y: 30
+			            y: 40
 			        	},
 					tooltip: {
 						pointFormat: '',
@@ -588,16 +592,17 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 									},
 								{
 								enabled: true,
-								distance: -14,
+								distance: -11,
 								format: '{point.y:.0f}',
 								style: {
-									fontSize: '0.9em'
+									fontSize: '0.8em'
 									},
 								}],
 							showInLegend: true
 							},
 						pie: {
 							size: 175,
+							borderRadius: 0,
 							},
 						},
 					series: [],
@@ -627,6 +632,209 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 			// define global chartdata
 			self.side_win_lose_chart = multichart.create_chart(new_chart);
 			},
+
+		render_champion_presence_chart : function(change_config){
+			var self = this, champs_played = 0, champs_banned = 0, total_games = self.match_history.length;
+
+			// if no games played, stop
+			if(!total_games) return;
+
+			// default
+			var chartdata = {};
+
+			// for each match in history
+			_.each(self.match_history, function(match){
+
+				// merge ban lists of both teams
+				var ban_list = match.team_one.ban_list.concat(match.team_two.ban_list);
+
+				// for all bans of both teams
+				_.each(ban_list, function(ban){
+
+					// if not set already
+					if(!chartdata[ban.championID]){
+
+						// init data here
+						chartdata[ban.championID] = {
+							'name'			: ban.champion,
+							'converted'		: ban.champion_converted,
+							'times_picked'	: 0,
+							'times_banned'	: 0,
+							'total_presence': 0,
+							};
+
+						// unique champs banned
+						champs_banned++;
+						}
+
+					// increment stats
+					chartdata[ban.championID].times_banned++;
+					chartdata[ban.championID].total_presence++;
+					});
+
+				// convert objects to array
+				match.team_one.stat_player_list = _.toArray(match.team_one.stat_player_list);
+				match.team_two.stat_player_list = _.toArray(match.team_two.stat_player_list);
+
+				// merge player stat list of both teams
+				var stat_list = match.team_one.stat_player_list.concat(match.team_two.stat_player_list);
+
+				// for each players stat of both teams
+				_.each(stat_list, function(stat){
+
+					// if not set already
+					if(!chartdata[stat.championID]){
+
+						// init data here
+						chartdata[stat.championID] = {
+							'name'			: stat.champion_name,
+							'converted'		: stat.name_converted,
+							'times_picked'	: 0,
+							'times_banned'	: 0,
+							'total_presence': 0,
+							};
+
+						// unique champs played
+						champs_played++;
+						}
+
+					// increment stats
+					chartdata[stat.championID].times_picked++;
+					chartdata[stat.championID].total_presence++;
+					});
+				});
+
+			// take top 10 most present champions
+			chartdata = _.sortBy(chartdata, 'total_presence').reverse();
+
+			// take top 10
+			chartdata = _.first(chartdata, 10);
+
+			var	series = null,
+				new_chart = angular.merge({
+					chart: {
+						height: 300,
+						width: 400,
+					    type: 'pie',
+						},
+					accessibility: {
+						point: {
+							valueSuffix: '%',
+							},
+						},
+					title: {
+						text: '<span style="color: #666666; font-size: 0.75rem; letter-spacing: 1px">Champion Presence - Top 10</span>',
+						useHTML: true,
+						y: 10,
+						},
+			        subtitle: {
+			            text:   '<span style="font-size: 0.7rem; letter-spacing: 1px">Total unique</span><br/>'
+			            		+'<span style="font-size: 1.0rem; color: #fff; letter-spacing: 1px">'+champs_played+' played</span>'
+			            		+'<hr style="width: 100%; margin-top: 0.2rem; margin-bottom: 0.2rem; margin-right: 0; background-color: #2f2f5d" />'
+			            		+'<span style="font-size: 0.9rem; color: #6b2c3c; letter-spacing: 1px">'+champs_banned+' banned</span>'
+			            		+'<br>',
+			            floating: true,
+			            useHTML: true,
+			            verticalAlign: 'middle',
+			            y: 30
+			        	},
+					tooltip: {
+						headerFormat: '<b style="color:#8fa3b0">{point.name}</b><br/>',
+						pointFormat: '<span style="color:{series.color}">●  Total presence:</span> <b style="color:#8fa3b0"> {point.total_presence} / '+total_games+' Games</b><br/>'
+									+'<span style="color:#14b8a6">●  Games picked:</span> <b style="color:#14b8a6"> {point.times_picked} x</b><br/>'
+									+'<span style="color:#ffafba">●  Games banned:</span> <b style="color:#ffafba"> {point.times_banned} x</b><br/>',
+					    backgroundColor: '#000',
+						style: {
+							color: '#fff',
+							fontSize: '0.7rem',
+							opacity: 1.0,
+							},
+					},
+					legend: {
+						enabled: false
+						},
+					plotOptions: {
+						series: {
+							allowPointSelect: false,
+							cursor: 'pointer',
+							showInLegend: false
+							},
+						pie: {
+							size: 150,
+							borderWidth: 2,
+							borderRadius: 0,
+				            dataLabels: {
+				                enabled: true,
+				                distance: 35,
+				                connectorWidth: 1,
+				                connectorColor: '#596180',
+				                softConnector: false,
+
+				                useHTML: true,
+				                crop: false,
+				                overflow: 'allow',
+
+				                formatter: function () {
+				                    return `
+				                        <div class="pie-label">
+				                            <div class="pie-percent">
+				                    			${Highcharts.numberFormat(this.point.total_presence_rate, 1)} %
+				                            </div>
+
+				                            <div class="pie-name">
+				                                ${this.point.name}
+				                            </div>
+				                        </div>
+				                    `;
+				                }
+				            },
+							},
+						},
+					series: [],
+					}, change_config);
+
+			// create series
+			series = {
+				'name': 'Games played',
+				'colorByPoint': true,
+				'innerSize': '80%',
+				'data'		: [],
+				};
+
+			// for each champion
+			_.each(chartdata, function(e, idx){
+
+				// calculate total presence rate (against all games)
+				e.total_presence_rate = e.total_presence / total_games * 100;
+
+				var data = {
+					'name'			: e.name,
+					'y'				: e.total_presence,
+					'converted'		: e.name_converted,
+					'times_picked'	: e.times_picked,
+					'times_banned'	: e.times_banned,
+					'total_presence': e.total_presence,
+					'total_presence_rate': e.total_presence_rate,
+					'colorIndex'	: 70 + idx, // starts from 70 (purple palette)
+					};
+
+				// add to data
+				series.data.push(data);
+				});
+
+			// add series to chart
+			new_chart.series.push(series);
+
+			// take series values
+			new_chart.series = _.values(new_chart.series);
+
+			// create single multichart
+			var multichart = $multichart.get_new();
+
+			// define global chartdata
+			self.champion_presence_chart = multichart.create_chart(new_chart);
+			},
+
 		};
 
 	// initialize

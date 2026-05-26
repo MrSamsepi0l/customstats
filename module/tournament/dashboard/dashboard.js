@@ -658,6 +658,7 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 						chartdata[ban.championID] = {
 							'name'			: ban.champion,
 							'converted'		: ban.champion_converted,
+							'times_won'		: 0,
 							'times_picked'	: 0,
 							'times_banned'	: 0,
 							'total_presence': 0,
@@ -689,6 +690,7 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 						chartdata[stat.championID] = {
 							'name'			: stat.champion_name,
 							'converted'		: stat.name_converted,
+							'times_won'		: 0,
 							'times_picked'	: 0,
 							'times_banned'	: 0,
 							'total_presence': 0,
@@ -701,6 +703,9 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 					// increment stats
 					chartdata[stat.championID].times_picked++;
 					chartdata[stat.championID].total_presence++;
+
+					// if won, increment aswell
+					if(stat.has_won) chartdata[stat.championID].times_won++;
 					});
 				});
 
@@ -742,8 +747,9 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 						headerFormat: '<b style="color:#8fa3b0">{point.name}</b><br/>',
 						pointFormat: '<span style="color:{series.color}">●  Total presence:</span> <b style="color:#8fa3b0"> {point.total_presence} / '+total_games+' Games</b><br/>'
 									+'<span style="color:#14b8a6">●  Games picked:</span> <b style="color:#14b8a6"> {point.times_picked} x</b><br/>'
-									+'<span style="color:#ffafba">●  Games banned:</span> <b style="color:#ffafba"> {point.times_banned} x</b><br/>',
-					    backgroundColor: '#000',
+									+'<span style="color:#ffafba">●  Games banned:</span> <b style="color:#ffafba"> {point.times_banned} x</b><br/>'
+									+'<span style="color:#2caffe">●  Winrate:</span> <b style="color:#2caffe"> {point.total_winrate} %</b><br/>',
+					   	// backgroundColor: 'rgba(255,255,255,1)', // must be 1.0
 						style: {
 							color: '#fff',
 							fontSize: '0.7rem',
@@ -807,6 +813,9 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 				// calculate total presence rate (against all games)
 				e.total_presence_rate = e.total_presence / total_games * 100;
 
+				// calculate total winrate (against all games)
+				e.total_winrate = (e.times_picked > 0) ? (e.times_won / e.times_picked * 100) : "No games";
+
 				var data = {
 					'name'			: e.name,
 					'y'				: e.total_presence,
@@ -815,6 +824,7 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 					'times_banned'	: e.times_banned,
 					'total_presence': e.total_presence,
 					'total_presence_rate': e.total_presence_rate,
+					'total_winrate'	: e.total_winrate.toFixed(1),
 					'colorIndex'	: 70 + idx, // starts from 70 (purple palette)
 					};
 

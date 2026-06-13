@@ -2,20 +2,24 @@
 
 angular.module('customstats').controller('customstats.login_controller', ['$scope', '$http', '$timeout', '$app', function($scope, $http, $timeout, $app){
 
+	// DEPRECATED
 	$scope.username = '';
 	$scope.password = '';
+
+	$scope.identifier = '';
+	$scope.auth	= '';
 	$scope.error_message = null;
 
-	$scope.send_login_request = function(username, password){
+	$scope.send_login_request = function(identifier, auth){
 
 		// basic param check
-		if(!username || !password) return;
+		if(!identifier || !auth) return;
 
 		// update app state
 		$app.update_app_state('logging_in');
 
 		// send request
-		$http({'method':'POST', 'url': 'customstats/authenticate.json', 'data': {'username':username, 'password': password}}).then(
+		$http({'method':'POST', 'url': 'customstats/authenticate.json', 'data': {'identifier':identifier, 'auth': auth}}).then(
 			function(response){
 
 				// take status
@@ -28,15 +32,18 @@ angular.module('customstats').controller('customstats.login_controller', ['$scop
 				// start timer, after 3 secods, hide error message
 				$timeout(function(){$scope.error_message = null}, 3000);
 
-				// logged in
-				if(status == 200){
+				// on any error
+				if(status != 200){
 
-					// reload board after 250 ms (no cache refresh)
-					$app.board_reload(250, false);
+					// reset app state
+					$app.update_app_state(null);
+
+					// stop processing
+					return;
 					}
 
-				// reset app state
-				else $app.update_app_state(null);
+				// reload board after 250 ms (no cache refresh)
+				$app.board_reload(250, false);
 				},
 
 			// http error

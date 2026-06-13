@@ -28,14 +28,14 @@
 				</div>
 			<div class="body">
 				<div class="input-group">
-					<input type="text" placeholder="Username" ng-model="username" ng-keydown="$event.keyCode == 13 && send_login_request(username, password)" />
+					<input type="text" placeholder="Username / Mail" ng-model="identifier" ng-keydown="$event.keyCode == 13 && send_login_request(identifier, auth)" />
 					</div>
 				<div class="space"></div>
 				<div class="input-group">
-					<input type="password" placeholder="Password" ng-model="password" ng-keydown="$event.keyCode == 13 && send_login_request(username, password)" />
+					<input type="password" placeholder="Password" ng-model="auth" ng-keydown="$event.keyCode == 13 && send_login_request(identifier, auth)" />
 					</div>
 				<div class="space2"></div>
-				<button class="login-button" ng-disabled="!username || !password" ng-if="!error_message" ng-click="send_login_request(username, password)">Login</button>
+				<button class="login-button" ng-disabled="!identifier || !auth" ng-if="!error_message" ng-click="send_login_request(identifier, auth)">Login</button>
 				<a ng-href="#/register" ng-if="!error_message" style="margin-top: 5px"><i>Noch kein Freund?</i></a>
 				<!-- <i class="ta-center" ng-if="!error_message" style="margin-top: 10px">Zugang ausschließlich mit bestehendem Account möglich.</i> -->
 				<div class="login-error" ng-if="error_message"><span class="message">{{error_message}}</span></div>

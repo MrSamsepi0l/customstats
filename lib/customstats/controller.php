@@ -553,8 +553,8 @@ class controller {
 
 		// mandatory
 		$mand = h::eX($req, [
-			'username'		=> '~1,255/s',
-			'password'		=> '~/s',
+			'identifier'	=> '~1,255/s',
+			'auth'			=> '~/s',
 			], $error);
 
 		// on error
@@ -569,8 +569,8 @@ class controller {
 
 		// process login
 		$res = base_user_login::authenticate([
-			'username'		=> trim($mand['username']),
-			'password'		=> $mand['password'],
+			'identifier'	=> trim($mand['identifier']),
+			'auth'			=> $mand['auth'],
 			]);
 
 		// on success

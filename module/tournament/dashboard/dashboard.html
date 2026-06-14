@@ -45,6 +45,13 @@
 							<div class="title">Matches Played</div>
 							</div>
 						</div>
+					<div class="box" ng-if="view.match_history.length">
+						<div class="text">
+							<div class="value">{{view.avg_duration | number: 2}} min</div>
+							<hr />
+							<div class="title">&empty; Game Duration</div>
+							</div>
+						</div>
 					</div>
 				<div class="chart-box" ng-if="view.match_history.length">
 					<div class="chart">

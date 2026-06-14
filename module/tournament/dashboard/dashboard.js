@@ -2,9 +2,9 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 
 	$scope.view = {
 		list			: [],
-		entry			: null,
 		status 			: null,
 		current_phase 	: null,
+		avg_duration	: 0.0,
 		tournamentID	: null,
 		match_history 	: [],
 		standings		: [],
@@ -169,8 +169,14 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 					// newest first
 					data = data.reverse();
 
+					// default
+					var total_duration = 0.0;
+
 					// for each match in history
 					_.each(data, function(e, idx){
+
+						// increment
+						total_duration += parseFloat(e.duration);
 
 						// default - collapse
 						e.match_history_expanded = _.contains([0], idx);
@@ -221,6 +227,9 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 							e.team_two.image_exists = exists;
 							});
 						});
+
+					// calculate avg game duration
+					self.avg_duration = total_duration / _.size(data);
 
 					// take data
 					self.match_history = data;

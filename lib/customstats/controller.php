@@ -10,9 +10,10 @@ use \customstats\app\leagueapi;
 use \customstats\base\user as base_user;
 use \customstats\base\config as base_config;
 use \customstats\base\session as base_session;
-use \customstats\base\user\login as base_user_login;
 use \customstats\base\user\right as base_user_right;
-use \customstats\base\user\registration as base_user_registration;
+
+use \customstats\api\authenticate as api_authenticate;
+use \customstats\api\registration as api_registration;
 
 
 class controller {
@@ -20,8 +21,8 @@ class controller {
 	    \customstats\extension\usersession_trait;
 
 	public $project = 'customstats';
-	public $version = '3.2.0';
-	public $version_date = '2026-05-15';
+	public $version = '3.3.0';
+	public $version_date = '2026-06-14';
 	public $version_int = 3;
 	public $user;
 	public $session_lifetime = 28800; // 8 hours
@@ -568,8 +569,8 @@ class controller {
 			}
 
 		// process login
-		$res = base_user_login::authenticate([
-			'identifier'	=> trim($mand['identifier']),
+		$res = api_authenticate::login_user([
+			'identifier'	=> $mand['identifier'],
 			'auth'			=> $mand['auth'],
 			]);
 
@@ -627,11 +628,11 @@ class controller {
 
 
 		// process registration
-		$registration = base_user_registration::register([
-			'username'	=> trim($mand['username']),
-			'email'		=> trim($mand['email']),
-			'real_name'	=> trim($mand['real_name']),
-			'password'	=> $mand['auth'],
+		$registration = api_registration::register_user([
+			'username'	=> $mand['username'],
+			'email'		=> $mand['email'],
+			'real_name'	=> $mand['real_name'],
+			'auth'		=> $mand['auth'],
 			]);
 
 		// user successfully registered
@@ -724,6 +725,9 @@ class controller {
 
 	    	// take config
 	    	$has_right = true;
+
+	    	// stop searching
+	    	break;
 	    	}
 
 	    // if user doesn't have right

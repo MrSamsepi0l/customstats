@@ -2,9 +2,8 @@
 /* Last update: 2024-10-25
 	Jeremiah Meyer - mobile TREND GmbH
 	*/
-use \jmeyer\error as e;
-use \jmeyer\helper as h;
-use \jmeyer\http;
+use \heart\core\error as e;
+use \heart\core\helper as h;
 
 use \customstats\app\leagueapi;
 use \customstats\base\user as base_user;
@@ -17,7 +16,7 @@ use \customstats\api\registration as api_registration;
 
 
 class controller {
-	use \jmeyer\routing_trait,
+	use \heart\core\routing_trait,
 	    \customstats\extension\usersession_trait;
 
 	public $project = 'customstats';
@@ -921,38 +920,41 @@ class controller {
 		// on remote call
 		if(!empty($opt['remote'])){
 
-			// send request to remote server
-			$curl_obj = http::curl_obj([
-				'url'		=> 'https://'.$opt['remote'].'/ajax/cmd.json',
-				'ipv4only'	=> true,
-				'method'	=> 'POST',
-				'jsonencode'=> true,
-				'sslVerify'	=> 2,
-				'post'		=> [
-					'user'		=> sha1($this->user->email), // TODO: CHECK THIS
-					'php_script'=> $mand['php_script'],
-					],
-				]);
+			// return not implemented
+			return $this->response(501);
 
-			// if request is basically okay
-			if($curl_obj->httpcode == 200){
+			// // send request to remote server
+			// $curl_obj = http::curl_obj([
+			// 	'url'		=> 'https://'.$opt['remote'].'/ajax/cmd.json',
+			// 	'ipv4only'	=> true,
+			// 	'method'	=> 'POST',
+			// 	'jsonencode'=> true,
+			// 	'sslVerify'	=> 2,
+			// 	'post'		=> [
+			// 		'user'		=> sha1($this->user->email), // TODO: CHECK THIS
+			// 		'php_script'=> $mand['php_script'],
+			// 		],
+			// 	]);
 
-				// and content is json
-				if(strpos($curl_obj->contenttype, '/json') !== false){
+			// // if request is basically okay
+			// if($curl_obj->httpcode == 200){
 
-					// convert json and return success
-					return $this->response(200, json_decode($curl_obj->content));
-					}
+			// 	// and content is json
+			// 	if(strpos($curl_obj->contenttype, '/json') !== false){
 
-				// otherwise log error
-				e::logtrigger('Can not use response of type: '.h::encode_php($curl_obj->contenttype));
+			// 		// convert json and return success
+			// 		return $this->response(200, json_decode($curl_obj->content));
+			// 		}
 
-				// return 500 'Server Error'
-				return $this->response(500);
-				}
+			// 	// otherwise log error
+			// 	e::logtrigger('Can not use response of type: '.h::encode_php($curl_obj->contenttype));
 
-			// otherwise just return http response code
-			return $this->response($curl_obj->httpcode);
+			// 	// return 500 'Server Error'
+			// 	return $this->response(500);
+			// 	}
+
+			// // otherwise just return http response code
+			// return $this->response($curl_obj->httpcode);
 			}
 
 

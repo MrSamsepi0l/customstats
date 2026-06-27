@@ -1,0 +1,239 @@
+<article ng-controller="customstats.admin_dev.phplog">
+
+	<div class="phplog">
+
+		<div class="header">
+			<div class="headline ta-center">
+				<span>PHP-Log</span>
+				</div>
+			</div>
+
+
+		<div class="body">
+
+			<div class="phplog-complete">
+
+				<div class="phplog">
+
+					<div class="filelist">
+
+						<div class="header">
+							<span class="headline">Directory & File Inspection</span>
+							<div class="info">
+								<div class="box">
+									<div class="key">Server</div>
+									<div class="value">
+										<span>{{view.info.name}} ({{view.info.key}})</span>
+										</div>
+									</div>
+								<div class="box">
+									<div class="key">Domain</div>
+									<div class="value">
+										<span>{{view.info.domain}}</span>
+										</div>
+									</div>
+								<div class="box">
+									<div class="key">Root-Log</div>
+									<div class="value">
+										<span>{{view.info.root_logpath}}</span>
+										</div>
+									</div>
+								<div class="box">
+									<div class="key">Production</div>
+									<div class="value">
+										<span ng-if="view.info.is_production">YES</span>
+										<span ng-if="!view.info.is_production">NO</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						<div class="body">
+							<table class="file-table">
+								<tr>
+									<th>Name</th>
+									<th>Type</th>
+									<th>Created on</th>
+									<th>at</th>
+									</tr>
+								<tr class="customstats-btn btn-phplog-file btn-xs" ng-repeat="e in view.dir_list" ng-click="view.load_path(e)" style="display: table-row">
+									<td>
+										<span class="customstats-btn btn-phplog-file btn-xs">{{(e.name == '.') ? '&lt;- BACK' : e.name}}</span>
+										<!-- <button class="customstats-btn btn-phplog-file btn-xs" ng-click="view.entry = e; view.get_dir_or_file(view.entry, view.pos)">{{(e.name == '.') ? '..' : e.name}}</button> -->
+										</td>
+									<td>
+										<span>{{e.type}}</span>
+										</td>
+									<td>
+										<span style="margin-right: 20px">{{e.createTime | phpdate: 'd.m.Y'}}</span>
+										</td>
+									<td>
+										<span style="color: #bbedff">{{e.createTime | phpdate: 'H:i'}}<span style="color: #37474d">{{e.createTime | phpdate: ':s'}}</span></span>
+										</td>
+									</tr>
+
+
+								</table>
+							</div>
+
+						</div>
+
+						<div class="loglist">
+							<div class="header">
+								<div class="log-filter-panel">
+									<div class="panel-left">
+										<span class="headline">Load Control Panel</span>
+										</div>
+									<div class="panel-right">
+										<span class="input-addon">Pos:</span>
+										<input type="number" name="Log-Position" min="0" ng-model="view.pos" placeholder="Log-Position" />
+										<span class="input-addon">Max:</span>
+										<input type="number" name="Max Log-Entries" min="1" max="100" ng-model="view.max" placeholder="Max Log-Entries" />
+										<span class="input-addon" ng-if="view.filter">Filter:</span>
+										<select class="customstats-select" ng-model="view.selected_filter" ng-if="view.filter" ng-options="e as e.key + ' (' + e.matched + ')' for e in view.filter_option">
+											<option value="">All Types</option>
+											</select>
+										<div class="">{{view.active_log}}</div>
+										<button class="customstats-btn btn-phplog-load" ng-click="view.load_pos(view.pos)">Load</button>
+										<!-- <button class="customstats-btn btn-dark" ng-click="view.clear_phplog()" style="font-size: 1.2vh; padding: 10px 10px 10px 10px">Clear Log</button> -->
+										</div>
+									</div>
+								</div>
+							<div class="body">
+							<table class="table table-striped slim fixed" style="background-color: #0a121c">
+								<thead>
+									<tr style="color: #bbedff !important">
+									  <th style="width:300px;"># Log Entry</th>
+									  <th class="noselect" style="width:975px;">
+									    <span>Position</span>
+									    <b class="cur-pointer hc-yellow" ng-disabled="view.prevpos >= view.pos" ng-click="view.load_pos(view.prevpos)">&lt;&lt;-</b>
+									    <span class="cur-pointer hc-yellow" ng-click="view.load_pos(view.pos)">{{view.pos}}</span>
+									    <b class="cur-pointer hc-yellow" ng-disabled="view.nextpos < view.pos" ng-click="view.load_pos(view.nextpos)">-&gt;&gt;</b>
+									    <span>of</span>
+									    <span ng-if="view.unfiltered == view.lines" class="cur-pointer hc-yellow" ng-click="view.load_pos(view.endpos)">{{view.lines}}</span>
+									    <span ng-if="view.unfiltered == view.lines">- <span class="cur-pointer hc-yellow" ng-click="view.load_pos(0)">TO BEGIN</span></span>
+									    <span ng-if="view.unfiltered != view.lines" class="cur-pointer hc-yellow" ng-click="view.load_pos(view.endpos)">{{view.unfiltered}} (of {{view.lines}})</span>
+									  </th>
+									  <!-- <th>{{view.active_log}}</th> -->
+									  <!-- <th style="width:60px;"></th> -->
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="e in view.data track by $index" ng-init="e.expanded = false">
+									<td ng-if="e.logtype == 'jsonlog'" style="font-size: 11px; width: 100%; float: left">
+									  <b class="log-time">{{e.time | phpdate: 'Y-m-d H:i'}}<span class="tc-phplog-blue-gray">{{e.time | phpdate: ':s'}}</span></b>
+									  <span class="tc-phplog-blue-gray">&sdot;&sdot;</span>
+									  <span style="font-size: 13px; color: #ab82ad; float: right">{{e.code}}</span><br/>
+									  <span class="tc-phplog-blue-gray" style="font-style: italic">{{e.domain}}</span>
+									</td>
+									<td ng-if="e.logtype == 'invalidjson'">
+									  <span>Invalid JSON</span>
+									</td>
+									<!-- 	    <td ng-if="e.logtype == 'symfony'">
+									  <b>{{e.time}}<span class="tc-gray">{{e.time}}</span></b>
+									  <span class="tc-gray">&sdot;&sdot;</span>
+									  <span class="tc-blue">{{e.part}}</span>.<span ng-class='{"tc-red":e.code=="CRITICAL","tc-yellow":e.code!="CRITICAL"}'>{{e.code}}</span>
+									</td> -->
+									<td ng-if="e.logtype == 'fpmpool'" style="font-size: 11px">
+										<b class="log-time">{{e.time | phpdate: 'Y-m-d H:i'}}<span class="tc-phplog-blue-gray">{{e.time | phpdate: ':s'}}</span></b>
+									  <!-- <span>{{e.time}}<span class="tc-phplog-blue-gray">{{e.time}}</span></span><br/> -->
+									  <span class="tc-phplog-blue-gray">&sdot;&sdot;</span>
+									  <span style="font-size: 13px; color: #ab82ad; float: right">{{e.code}}</span>
+									</td>
+									<td ng-if="e.logtype == 'plain'"  style="font-size: 11px">
+										<b class="log-time">{{e.time | phpdate: 'Y-m-d H:i'}}<span class="tc-phplog-blue-gray">{{e.time | phpdate: ':s'}}</span></b>
+									  <!-- <span>{{e.time}}<span class="tc-phplog-blue-gray">{{e.time}}</span></span><br/> -->
+									</td>
+									<td ng-if="e.logtype == 'unknown' || !e.logtype"></td>
+									<td colspan="2">
+									  <pre ng-if="e.logtype" ng-class='{"error-msg-slim":!e.expanded, "error-msg-full":e.expanded}'>{{e.desc}}</pre>
+									  <!-- ng-class='{"error-msg-slim":!e.expanded, "error-msg-full":e.expanded}' -->
+										  <span ng-if="e.logtype == 'jsonlog' || e.logtype == 'fpmpool'" style="font-size: 1.14vh" class="tc-phplog-blue-gray">&nbsp;&rsaquo;&rsaquo;&nbsp;{{e.file}}:<b>{{e.line}}</b><br/></span>
+										  <table class="table slim fixed" ng-if="e.expanded && e.logtype && e.logtype != 'unknown'" style="font-size: 1.15vh; color: #a0b7cd; background-color: #161c26;">
+									    <tr ng-if="e.logtype == 'jsonlog'">
+									      <td style="width:120px;">REQUEST:</td>
+									      <td><div class="t-ellipsis">{{e.method}} https://{{e.domain}}{{e.uri}}</div></td>
+									    </tr>
+									    <tr ng-if="e.logtype == 'jsonlog'">
+									      <td>IP:</td>
+									      <td><div class="t-ellipsis">{{e.ip}}</div></td>
+									    </tr>
+										    <tr ng-if="e.logtype == 'jsonlog' && e.content_type">
+									      <td>CONTENT_TYPE:</td>
+									      <td><div class="t-ellipsis">{{e.content_type}}</div></td>
+									    </tr>
+									    <tr ng-if="e.logtype == 'jsonlog'">
+									      <td>USER_AGENT:</td>
+									      <td><div class="t-ellipsis">{{e.useragent}}</div></td>
+									    </tr>
+									    <tr ng-if="e.logtype == 'jsonlog'">
+									      <td>REFERER:</td>
+									      <td><div class="t-ellipsis">{{e.referer}}</div></td>
+									    </tr>
+										    <tr ng-if="e.logtype == 'jsonlog' && !e.request">
+									      <td>GET:</td>
+									      <td>
+									       <ul class="flex-box-v request-param" ng-repeat="(k, v) in e.get">
+									        <li><div class="t-ellipsis tc-yellow">{{k}}:</div></li>
+									        <li class="flex-expand"><div class="t-ellipsis">{{v}}</div></li>
+									       </ul>
+									      </td>
+									    </tr>
+										    <tr ng-if="e.logtype == 'jsonlog' && !e.request">
+									      <td>POST:</td>
+									      <td>
+									       <ul class="flex-box-v" ng-repeat="(k, v) in e.post">
+									        <li><div class="t-ellipsis tc-yellow">{{k}}:</div></li>
+									        <li class="flex-expand"><div class="t-ellipsis">{{v}}</div></li>
+									       </ul>
+									      </td>
+									    </tr>
+									    <tr ng-if="e.logtype == 'jsonlog' && e.request">
+									      <td>REQUEST:</td>
+									      <td>
+									       <ul class="flex-box-v" ng-repeat="(k, v) in e.request">
+									        <li><div class="t-ellipsis tc-yellow">{{k}}:</div></li>
+									        <li class="flex-expand"><div class="t-ellipsis">{{v}}</div></li>
+									       </ul>
+									      </td>
+									    </tr>
+										    <tr>
+									      <td>BACKTRACE:</td>
+									      <td>
+									        <table style="max-width:100%; font-size: 11px;">
+									          <tr ng-repeat="t in e.debug_backtrace">
+									            <td><div class="t-ellipsis">{{t.class}}{{t.type}}{{t.function}}</div></td>
+									            <td style="width:25px; text-align:center;">&rsaquo;&rsaquo;</td>
+									            <td><div><span ng-if="t.file" class="tc-blue">{{t.file}}</span><b ng-if="t.line" class="tc-yellow">:{{t.line}}</b></div></td>
+									          </tr>
+									        </table>
+									      </td>
+									    </tr>
+										  </table>
+									  </td>
+									  <td valign="middle" style="text-align:center">
+									    <b style="font-size:1.3em;" class="cur-pointer tc-dark-gray" ng-click="e.expanded=!e.expanded">{{e.expanded | ie:"&dArr;":"&lArr;"}}</b>
+									  </td>
+									</tr>
+								</tbody>
+								<tfoot>
+									<tr ng-repeat="group in view.filter">
+									 <td style="width:210px;" class="t-right"><button class="btn btn-xs tc-white">{{group.type}}</button></td>
+									 <td colspan="2"><button class="btn btn-xs" ng-repeat="entry in group.list" ng-click="view.load_filtered(entry)" ng-class='{"c-blue":entry.unfiltered, "c-gray":!entry.unfiltered}'>{{entry.key}} ({{entry.unfiltered}})</button></td>
+									 <td style="width:30px;"></td>
+									</tr>
+								</tfoot>
+							</table>
+								</div>
+							</div>
+
+
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+
+
+	</article>

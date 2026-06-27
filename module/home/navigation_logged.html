@@ -144,6 +144,9 @@
 									<div class="item" ng-if="app.user_has_right('customstats:admin:commandline')">
 										<a class="text" href="#/commandline" ng-class='{"current-route": app.is_current_route("/commandline")}'>CMD</a>
 										</div>
+									<div class="item" ng-if="app.user_has_right('customstats:admin:phplog')">
+										<a class="text" href="#/phplog" ng-class='{"current-route": app.is_current_route("/phplog")}'>PHP-Log</a>
+										</div>
 									</div>
 								</div>
 							<div class="flex flex-col menu" style="margin-top: 2rem">
@@ -269,6 +272,7 @@
 						<a class="mobile-link sub-link" ng-href="#/champion_config" ng-if="app.user_has_right('customstats:admin_base:champion_config')">Champions</a>
 						<a class="mobile-link sub-link" ng-href="#/leagueapi_config" ng-if="app.user_has_right('customstats:admin_base:leagueapi_config')">Leagueapi</a>
 						<a class="mobile-link sub-link" ng-href="#/commandline" ng-if="app.user_has_right('customstats:admin:commandline')">CMD</a>
+						<a class="mobile-link sub-link" ng-href="#/phplog" ng-if="app.user_has_right('customstats:admin:phplog')">PHP-Log</a>
 						<a class="mobile-link sub-link" ng-href="#/new_game" ng-if="app.user_has_right('customstats:admin:new_game')">New Game</a>
 						<a class="mobile-link sub-link" ng-href="#/player_config" ng-if="app.user_has_right('customstats:admin_base:player_config')">Player</a>
 						<a class="mobile-link sub-link" ng-href="#/admin_tournament" ng-if="app.user_has_right('customstats:admin_tournament')">Tournament</a>

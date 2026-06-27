@@ -908,3 +908,49 @@ a:hover {
 .from-left:hover:after {
 	width: 100%;
 }
+
+
+
+.customstats-btn {
+	color: #fff;
+	letter-spacing: 3px;
+	background-color: transparent;
+	font-size: 1.0rem;
+	padding: 8px 0px 8px 0px;
+	border: 1px transparent;
+	border-radius: 6px;
+	user-select: none;
+	outline: none;
+	display: inline-block;
+	transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+	}
+
+.customstats-btn:hover {
+	transition: all 0.29s ease;
+	background-color: #142329;
+	}
+
+.customstats-select {
+	width: 70%;
+	font-size: 0.75rem;
+	padding: 10px 10px 10px 10px;
+	border-radius: 5px;
+	color: #fff;
+	background-color: var(--main-bg-content-dark-1);
+	outline: none;
+	box-shadow: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	}
+
+.noselect {
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+	-khtml-user-select: none; /* Konqueror HTML */
+	-moz-user-select: none; /* Old versions of Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	user-select: none; /* Non-prefixed version, currently
+						supported by Chrome, Edge, Opera and Firefox */
+	}
+

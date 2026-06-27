@@ -39,3 +39,27 @@ angular.module('customstats').filter('customOrderBy', function() {
     return items;
   };
 });
+
+angular.module('customstats').filter('ie', function(){
+	return function(v, yes, no){
+		return v ? yes : no;
+		};
+	});
+
+angular.module('customstats').filter('ieie', function(){
+	return function(v, y1, ei, y2, no){
+		return v ? y1 : (ei ? y2 : no);
+		};
+	});
+
+angular.module('customstats').filter('append', function(){
+	return function(v, n){
+		return (v || typeof v == 'number') ? v+n : v;
+		};
+	});
+
+angular.module('customstats').filter('prepend', function(){
+	return function(v, n){
+		return (v || typeof v == 'number') ? n+v : v;
+		};
+	});

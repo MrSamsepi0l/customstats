@@ -42,7 +42,7 @@ else {
 	$_SERVER['ROOT_DIRECTORY'] = '/home/strato/http/power/rid/56/60/511155660/htdocs';
 
 	// Webspace path
-	$_SERVER['WEBSPACE_PATH'] = '/mnt/web517/a0/60/511155660/htdocs';
+	$_SERVER['WEBSPACE_PATH'] = '/mnt/rid/56/60/511155660/htdocs';
 
 	// Setze Produktionsmodus
 	$_SERVER['PROJECT_MODE'] = 'prod';

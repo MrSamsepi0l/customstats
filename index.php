@@ -13,6 +13,9 @@ if($_SERVER['SERVER_NAME'] == 'customstats.localhost'){
 	// Htdocs Pfad als neues Root Verzeichnis setzen
 	$_SERVER['ROOT_DIRECTORY'] = 'Q:/xampp/htdocs';
 
+	// Webspace path
+	$_SERVER['WEBSPACE_PATH'] = 'Q:\xampp\htdocs';
+
 	// Setze Entwicklungsmodus
 	$_SERVER['PROJECT_MODE'] = 'dev';
 
@@ -38,6 +41,9 @@ else {
 	// Htdocs Pfad als neues Root Verzeichnis setzen
 	$_SERVER['ROOT_DIRECTORY'] = '/home/strato/http/power/rid/56/60/511155660/htdocs';
 
+	// Webspace path
+	$_SERVER['WEBSPACE_PATH'] = '/mnt/web517/a0/60/511155660/htdocs';
+
 	// Setze Produktionsmodus
 	$_SERVER['PROJECT_MODE'] = 'prod';
 
@@ -45,7 +51,7 @@ else {
 	$_SERVER['APP_CDN'] = 'http://cdn.custom-stats.de/app/cdn';
 
 	// Definiere Log-Path für PHP
-	$_SERVER['LOG_PATH'] = '/home/strato/http/power/rid/56/60/511155660/htdocs/log';
+	$_SERVER['LOG_PATH'] = $_SERVER['ROOT_DIRECTORY'] . '/log';
 
 	// Kein Logging im Production-Mode
 	$_SERVER['PRINT_ERROR'] = false;
@@ -80,7 +86,7 @@ if(!empty($_SERVER['LOG_PATH'])){
 	if(!empty($_SERVER['PRINT_ERROR']))	$error_handler_config['print'] = \heart\core\error::print_fn(true);
 
 	// Registriere eigene Error-Funktion mittels Config für den Root-Pfad
-	\heart\core\error::register_error_handler($error_handler_config, $_SERVER['ROOT_DIRECTORY']);
+	\heart\core\error::register_error_handler($error_handler_config, $_SERVER['WEBSPACE_PATH']);
 
 	// Lösche Error-Config
 	unset($error_handler_config);

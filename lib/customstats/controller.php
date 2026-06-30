@@ -1014,7 +1014,7 @@ class controller {
 		ltrim($mand['php_script']);
 
 		// now we append some PHP code at start and end
-		$mand['php_script'] = '<?php'.PHP_EOL.'use \\jmeyer\\helper as h;'.PHP_EOL.$mand['php_script'].PHP_EOL.'return null;'.PHP_EOL;
+		$mand['php_script'] = '<?php'.PHP_EOL.'use \\heart\\core\\helper as h;'.PHP_EOL.$mand['php_script'].PHP_EOL.'return null;'.PHP_EOL;
 
 		// finally write PHP script file
 		if(file_put_contents($file, $mand['php_script'])){

@@ -968,6 +968,7 @@
 	overflow:hidden;
 	color:#e5e7eb;
 	margin-top: 1rem;
+	transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 
 	>.header {
 		height:42px;
@@ -975,7 +976,7 @@
 		align-items:center;
 		justify-content:space-between;
 		padding:0 16px;
-		border-bottom:1px solid rgba(255,255,255,.08);
+		/*border-bottom:1px solid rgba(255,255,255,.08);*/
 
 		>.headline .text {
 			font-size: 1.2rem;
@@ -1008,6 +1009,11 @@
 	    padding-bottom:0;
 		}
 
+	}
+
+.playoff-bracket.collapsed:hover {
+	background-color: #171c26;
+	transition: all 0.3s ease;
 	}
 
 

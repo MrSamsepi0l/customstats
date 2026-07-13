@@ -957,3 +957,249 @@
 .tournament-dashboard-scrollbar::-webkit-scrollbar-thumb:hover {
 	background: #555;
 	}
+
+
+
+.playoff-bracket {
+	width:100%;
+	background: #0f1519;
+	border: 1px solid #393a4f;
+	border-radius: 10px;
+	overflow:hidden;
+	color:#e5e7eb;
+	margin-top: 1rem;
+
+	>.header {
+		height:42px;
+		display:flex;
+		align-items:center;
+		justify-content:space-between;
+		padding:0 16px;
+		border-bottom:1px solid rgba(255,255,255,.08);
+
+		>.headline .text {
+			font-size: 1.2rem;
+			text-transform: uppercase;
+			letter-spacing: 3px;
+			color: #9d9d9d;
+			}
+		}
+
+	>.body {
+	    max-height: 900px;
+	    padding: 10px;
+	    opacity: 1;
+	    overflow: hidden;
+	    transition:
+	        max-height .25s ease,
+	        opacity .2s ease,
+	        padding .25s ease;
+
+		.tournament-tree {
+			width: 100%;
+			position: relative;
+			}
+		}
+
+	>.body.collapsed {
+	    max-height:0;
+	    opacity:0;
+	    padding-top:0;
+	    padding-bottom:0;
+		}
+
+	}
+
+
+.collapse-btn{
+	width:28px;
+	height:28px;
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	border:0;
+	background:transparent;
+	color:#94a3b8;
+	cursor:pointer;
+	padding:0;
+	}
+
+.collapse-btn:hover{
+	color:#e5e7eb;
+	}
+
+.collapse-btn svg{
+	width:18px;
+	height:18px;
+	transition:transform .2s ease;
+	}
+
+.collapse-btn svg.collapsed{
+    transform:rotate(-90deg);
+	}
+
+.section-title{
+	font-size:11px;
+	font-weight:800;
+	color:#cbd5e1;
+	text-transform:uppercase;
+	margin-bottom:8px;
+	}
+
+.section-title span{
+	color:#64748b;
+	}
+
+
+.tree-row{
+	display:flex;
+	width:100%;
+	align-items:center;
+	}
+
+
+.round{
+	flex:1;
+	display:flex;
+	flex-direction:column;
+	justify-content:center;
+	gap:12px;
+	}
+
+
+.round-title{
+	text-align:center;
+	font-size:10px;
+	color:#64748b;
+	font-weight:700;
+	text-transform:uppercase;
+	}
+
+
+.match{
+	width:300px;
+	margin:auto;
+	background:#1f2937;
+	border:1px solid rgba(255,255,255,.08);
+	border-radius:5px;
+	position:relative;
+	overflow:hidden;
+	}
+
+
+.team {
+	height:32px;
+	display:flex;
+	align-items:center;
+	padding:0 8px;
+	border-bottom:1px solid rgba(255,255,255,.05);
+
+	>.standing {
+		color: #fff;
+		}
+
+	>.win {
+		color: #bbedff;
+		}
+
+	>.lose {
+		color: #f7a3a3;
+		}
+
+	>.tlogo {
+		width: 26px;
+		height: 26px;
+		}
+	}
+
+
+.team:last-child {
+	border:0;
+	}
+
+
+.seed {
+	width:68px;
+	font-size:9px;
+	color:#94a3b8;
+	font-weight:700;
+	}
+
+
+.name {
+	display: flex;
+	flex: 1;
+	font-size:12px;
+	font-weight:700;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	}
+
+
+.series {
+	position:absolute;
+	right:5px;
+	top:-14px;
+	font-size:9px;
+	color:#64748b;
+	font-weight:700;
+	}
+
+
+.upper {
+	height:190px;
+	}
+
+
+.lower {
+	margin-top:12px;
+	}
+
+.main-tree {
+	width:calc(100% - 260px);
+	}
+
+.grand-final-area {
+	position:absolute;
+	right:80px;
+	top:50%;
+	transform:translateY(-50%);
+	width:250px;
+	}
+
+
+.final {
+	width:250px;
+	border-color: #bbedff;
+	margin-top: 6px;
+	}
+
+
+.championship-title {
+	text-align:center;
+	font-size:11px;
+	font-weight:900;
+	color:#bbedff;
+	padding:6px;
+	}
+
+
+.final .team {
+	height:34px;
+	}
+
+
+@media(max-width:900px){
+
+	.playoff-bracket {
+
+		.body {
+			overflow-x:auto;
+
+			.tournament-tree {
+				min-width: 1000px;
+				}
+			}
+		}
+	}

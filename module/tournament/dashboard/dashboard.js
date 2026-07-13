@@ -23,6 +23,7 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 		team_win_progression_chart_available: false,
 		side_win_lose_chart: {},
 		champion_presence_chart : {},
+		knockout_bracket_collapsed: true,
 
 		load_tournament : function(){
 			var self = this, param;

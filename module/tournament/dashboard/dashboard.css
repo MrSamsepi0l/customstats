@@ -1030,21 +1030,21 @@
 	padding:0;
 	}
 
-.collapse-btn:hover{
-	color:#e5e7eb;
+.collapse-btn:hover {
+	color: #e5e7eb;
 	}
 
-.collapse-btn svg{
+.collapse-btn svg {
 	width:18px;
 	height:18px;
 	transition:transform .2s ease;
 	}
 
-.collapse-btn svg.collapsed{
+.collapse-btn svg.collapsed {
     transform:rotate(-90deg);
 	}
 
-.section-title{
+.section-title {
 	font-size:11px;
 	font-weight:800;
 	color:#cbd5e1;
@@ -1052,98 +1052,93 @@
 	margin-bottom:8px;
 	}
 
-.section-title span{
+.section-title span {
 	color:#64748b;
 	}
 
-
-.tree-row{
-	display:flex;
-	width:100%;
-	align-items:center;
+.tree-row {
+	display: flex;
+	width: 100%;
+	align-items: center;
 	}
 
+.round {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 12px;
 
-.round{
-	flex:1;
-	display:flex;
-	flex-direction:column;
-	justify-content:center;
-	gap:12px;
-	}
-
-
-.round-title{
-	text-align:center;
-	font-size:10px;
-	color:#64748b;
-	font-weight:700;
-	text-transform:uppercase;
-	}
-
-
-.match {
-	width:300px;
-	margin:auto;
-	background:#1f2937;
-	border:1px solid rgba(255,255,255,.08);
-	border-radius:5px;
-	position:relative;
-	overflow:hidden;
-
-	>.team {
-		height:32px;
-		display:flex;
-		align-items:center;
-		padding:0 8px;
-		border-bottom:1px solid rgba(255,255,255,.05);
-
-		>.standing {
-			color: #fff;
-			}
-
-		>.win {
-			color: #bbedff;
-			}
-
-		>.lose {
-			color: #f7a3a3;
-			}
-
-		>.tlogo {
-			width: 24px;
-			height: 24px;
-			margin-right: 10px;
-			}
-
-		>.seed {
-			width:68px;
-			font-size:9px;
-			color:#94a3b8;
-			font-weight:700;
-			}
-
-
-		>.name {
-			display: flex;
-			flex: 1;
-			font-size: 11px;
-			font-weight: 500;
-			white-space: nowrap;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			}
-		}
-
-	.series {
-		position:absolute;
-		right:5px;
-		top:-14px;
-		font-size:9px;
+	>.round-title {
+		text-align:center;
+		font-size:10px;
 		color:#64748b;
 		font-weight:700;
+		text-transform:uppercase;
 		}
 
+	>.match {
+		width:300px;
+		margin:auto;
+		background:#1f2937;
+		border:1px solid rgba(255,255,255,.08);
+		border-radius:5px;
+		position:relative;
+		overflow:hidden;
+
+		>.team {
+			height:32px;
+			display:flex;
+			align-items:center;
+			padding:0 8px;
+			border-bottom:1px solid rgba(255,255,255,.05);
+
+			>.standing {
+				color: #fff;
+				}
+
+			>.win {
+				color: #bbedff;
+				}
+
+			>.lose {
+				color: #f7a3a3;
+				}
+
+			>.tlogo {
+				width: 24px;
+				height: 24px;
+				margin-right: 10px;
+				}
+
+			>.seed {
+				width:68px;
+				font-size:9px;
+				color:#94a3b8;
+				font-weight:700;
+				}
+
+
+			>.name {
+				display: flex;
+				flex: 1;
+				font-size: 11px;
+				font-weight: 500;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				}
+			}
+
+		.series {
+			position:absolute;
+			right:5px;
+			top:-14px;
+			font-size:9px;
+			color:#64748b;
+			font-weight:700;
+			}
+		}
 	}
 
 

@@ -1171,7 +1171,7 @@
 
 .final {
 	width:250px;
-	border-color: #bbedff;
+	border-color: #bbedff !important;
 	margin-top: 6px;
 	}
 

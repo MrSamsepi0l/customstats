@@ -5,6 +5,7 @@
 		<div class="header ta-center">
 			<span class="headline">{{view.tournament.name}} - Dashboard</span>
 			<div class="date" ng-if="view.tournament.status == 'finished'"><i>{{view.tournament.startDate | phpdate: 'd.m.Y'}} - {{view.tournament.endDate | phpdate: 'd.m.Y'}}</i></div>
+			<div class="date" ng-if="view.tournament.status == 'regular_season' || view.tournament.status == 'knockout'"><i>{{view.tournament.startDate | phpdate: 'd.m.Y'}} - TODAY</i></div>
 			<div class="official-logo">
 				<img ng-if="view.tournament.tournamentID == 1" class="logo legacy" ng-src='{{"public/img/tournament/cleaner_schuh.png"}}' ng-click="view.popup.tournament_logo.url = 'public/img/tournament/cleaner_schuh.png'; view.popup.tournament_logo.show = true" />
 				<img ng-if="view.tournament.tournamentID == 2" class="logo legacy" ng-src='{{"public/img/tournament/missping.png"}}' ng-click="view.popup.tournament_logo.url = 'public/img/tournament/missping.png'; view.popup.tournament_logo.show = true" />

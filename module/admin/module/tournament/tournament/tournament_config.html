@@ -56,6 +56,10 @@
 									<td><input class="tournament-config-entry-input" type="text" ng-model="tournament.entry_edit.endDate" /></td>
 									</tr>
 								<tr>
+									<td class="v-middle">Status</td>
+									<td><select class="customstats-select" ng-options="e.key as e.val for e in tournament.tournament_status" ng-model="tournament.entry_edit.status"></select></td>
+									</tr>
+								<tr>
 									<td class="v-middle">Erstellzeit</td>
 									<td><span>{{tournament.entry_edit.createTime}}</span></td>
 									</tr>
@@ -95,6 +99,10 @@
 								<tr>
 									<td class="v-middle">Turnierende</td>
 									<td><input class="tournament-config-entry-input" type="text" ng-model="tournament.entry_new.endDate" /></td>
+									</tr>
+								<tr>
+									<td class="v-middle">Status</td>
+									<td><select class="customstats-select" ng-options="e.key as e.val for e in tournament.tournament_status" ng-model="tournament.entry_new.status"></select></td>
 									</tr>
 								</table>
 							</div>

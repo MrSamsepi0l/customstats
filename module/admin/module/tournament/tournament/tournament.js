@@ -4,6 +4,12 @@ angular.module('customstats').controller('customstats.admin_tournament:tournamen
 		data		: [],
 		entry		: null,
 		status		: null,
+		tournament_status: [
+			{key: 'scheduled', val: 'Scheduled'},
+			{key: 'regular_season', val: 'Regular Season'},
+			{key: 'knockout', val: 'Knockout Phase'},
+			{key: 'finished', val: 'Completed'},
+			],
 
 		get_tournament : function(){
 			var self = this, param;
@@ -35,6 +41,7 @@ angular.module('customstats').controller('customstats.admin_tournament:tournamen
 				'name'		: entry.name,
 				'startDate'	: entry.startDate,
 				'endDate'	: entry.endDate,
+				'status'	: entry.status,
 				};
 
 			// basic param check
@@ -65,6 +72,7 @@ angular.module('customstats').controller('customstats.admin_tournament:tournamen
 				'name'			: entry.name,
 				'startDate'		: entry.startDate,
 				'endDate'		: entry.endDate,
+				'status'		: entry.status,
 				};
 
 			// basic param check
@@ -105,6 +113,7 @@ angular.module('customstats').controller('customstats.admin_tournament:tournamen
 				'name'		: '',
 				'startDate'	: '0000-00-00',
 				'endDate'	: null,
+				'status'	: 'scheduled',
 				};
 			},
 

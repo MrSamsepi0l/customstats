@@ -3,7 +3,6 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 	$scope.view = {
 		list			: [],
 		status 			: null,
-		current_phase 	: null,
 		avg_duration	: 0.0,
 		tournamentID	: null,
 		match_history 	: [],
@@ -17,7 +16,18 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 				team		: null,
 				player_list : [],
 				playerID	: null,
-				}
+				},
+			selected 		: {
+				tournamentID: null,
+				},
+			},
+		translate: {
+			tournament_status: {
+				scheduled: 'Scheduled',
+				finished: 'Completed',
+				regular_season: 'Regular Season',
+				knockout: 'Knockout Phase',
+				},
 			},
 		team_win_progression_chart : {},
 		team_win_progression_chart_available: false,
@@ -25,12 +35,12 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 		champion_presence_chart : {},
 		knockout_bracket_collapsed: false,
 
-		load_tournament : function(){
+		load_tournament : function(tournamentID){
 			var self = this, param;
 
 			// define param
 			param = {
-				'tournamentID'	: self.tournamentID,
+				'tournamentID'	: tournamentID,
 				};
 
 			// load
@@ -39,6 +49,9 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 
 					// take data
 					self.tournament = data;
+
+					// select tournament
+					self.filter.selected.tournamentID = data.tournamentID;
 					},
 				'*' : function(data, status){
 
@@ -46,12 +59,31 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 				});
 			},
 
-		load_schedule: function(){
+		load_tournament_list : function(){
+			var self = this, param;
+
+			// define param
+			param = {};
+
+			// load
+			$leagueapi.send_request('customstats_tournament_api_get_tournament', param, {
+				200 : function(data){
+
+					// take data
+					self.tournament_list = data;
+					},
+				'*' : function(data, status){
+
+					}
+				});
+			},
+
+		load_schedule: function(tournamentID){
 			var self = this, param;
 
 			// define param
 			param = {
-				'tournamentID'	: self.tournamentID,
+				'tournamentID'	: tournamentID,
 				};
 
 			// load
@@ -98,12 +130,12 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 				});
 			},
 
-		load_standings : function(){
+		load_standings : function(tournamentID){
 			var self = this, param;
 
 			// define param
 			param = {
-				'tournamentID'	: self.tournamentID,
+				'tournamentID'	: tournamentID,
 				};
 
 			// load
@@ -152,12 +184,12 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 				});
 			},
 
-		load_match_history : function(){
+		load_match_history : function(tournamentID){
 			var self = this, param;
 
 			// define param
 			param = {
-				'tournamentID'	: self.tournamentID,
+				'tournamentID'	: tournamentID,
 				};
 
 			// init status
@@ -246,6 +278,16 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 				});
 			},
 
+		build_dashboard : function(tournamentID){
+			var self = this;
+
+			// load tournament dashboard data
+			$scope.view.load_tournament(tournamentID);
+			$scope.view.load_schedule(tournamentID);
+			$scope.view.load_standings(tournamentID);
+			$scope.view.load_match_history(tournamentID);
+			},
+
 		get_config : function(project){
 			var self = this, param;
 
@@ -265,17 +307,13 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 					if(!_.isUndefined(data.param.base_config.tournament)){
 
 						// take data from config
-						self.tournamentID = data.param.base_config.tournament.current_tournamentID;
-						self.current_phase = data.param.base_config.tournament.current_phase;
+						self.current_tournamentID = data.param.base_config.tournament.current_tournamentID;
 
 						// if tournament found
-						if(self.tournamentID){
+						if(self.current_tournamentID){
 
 							// load tournament dashboard data
-							$scope.view.load_tournament();
-							$scope.view.load_schedule();
-							$scope.view.load_standings();
-							$scope.view.load_match_history();
+							self.build_dashboard(self.current_tournamentID);
 							}
 						}
 					},
@@ -862,6 +900,9 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 
 		// init config loading
 		$scope.view.get_config(board_status.project);
+
+		// load list of ALL tournaments
+		$scope.view.load_tournament_list();
 		};
 
 	// when app board is ready

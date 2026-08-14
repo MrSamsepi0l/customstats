@@ -29,13 +29,24 @@
             color: var(--tc-headline);
             }
 
+        >.date {
+        	font-size: 1.5rem;
+        	color: #617b93;
+        	}
+
         >.official-logo {
 
         	>.logo {
         		width: 100px;
         		height: 100px;
         		}
+
+        	>.logo.legacy {
+        		width: 123px;
+        		height: 100px;
+        		}
         	}
+
         }
 
 	>.body {
@@ -1071,39 +1082,39 @@
 	gap: 12px;
 
 	>.round-title {
-		text-align:center;
-		font-size:10px;
-		color:#64748b;
-		font-weight:700;
-		text-transform:uppercase;
+		text-align: center;
+		font-size: 10px;
+		color: #64748b;
+		font-weight: 700;
+		text-transform: uppercase;
 		}
 
 	>.match {
-		width:300px;
-		margin:auto;
-		background:#1f2937;
-		border:1px solid rgba(255,255,255,.08);
-		border-radius:5px;
-		position:relative;
-		overflow:hidden;
+		width: 300px;
+		margin: auto;
+		background: #1f2937;
+		border: 1px solid rgba(255,255,255,.08);
+		border-radius: 5px;
+		position: relative;
+		overflow: hidden;
 
 		>.team {
-			height:32px;
-			display:flex;
-			align-items:center;
-			padding:0 8px;
-			border-bottom:1px solid rgba(255,255,255,.05);
+			height: 32px;
+			display: flex;
+			align-items: center;
+			padding: 0 8px;
+			border-bottom: 1px solid rgba(255,255,255,.05);
 
 			>.standing {
 				color: #fff;
 				}
 
 			>.win {
-				color: #bbedff;
+				color: #8affd4;
 				}
 
 			>.lose {
-				color: #f7a3a3;
+				color: #a38686;
 				}
 
 			>.tlogo {
@@ -1113,10 +1124,10 @@
 				}
 
 			>.seed {
-				width:68px;
-				font-size:9px;
-				color:#94a3b8;
-				font-weight:700;
+				width: 68px;
+				font-size: 9px;
+				color: #94a3b8;
+				font-weight: 700;
 				}
 
 

@@ -72,6 +72,7 @@
 
 				<div class="header" ng-click="view.knockout_bracket_collapsed = !view.knockout_bracket_collapsed">
 					<div class="headline">
+						<span class="text" ng-if="view.tournament.tournamentID == 1">Playoff Bracket - Normal Draft</span>
 						<span class="text" ng-if="view.tournament.tournamentID == 2">Playoff Bracket - Normal Draft</span>
 						<span class="text" ng-if="view.tournament.tournamentID == 3">Playoff Bracket - Fearless Draft</span>
 						</div>

@@ -81,6 +81,9 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 		load_schedule: function(tournamentID){
 			var self = this, param;
 
+			// reset list
+			self.schedule = [];
+
 			// define param
 			param = {
 				'tournamentID'	: tournamentID,

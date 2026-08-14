@@ -328,7 +328,7 @@ pre {
 	}
 
 
-table.table {
+table.phplog-table {
 	/*margin-bottom:0;*/
 	}
 
@@ -336,25 +336,25 @@ table.fixed{
 	table-layout:fixed;
 	}
 
-.table th, .table td {
+.phplog-table th, .table td {
 	/*padding:14px 8px;*/
 	/*padding: 3px 6px;*/
 	/*border-color: 1px solid #163341;*/
     word-break: break-all;
     word-wrap: break-word;
 	}
-.table.slim th, .table.slim td {
+.phplog-table.slim th, .phplog-table.slim td {
 	/*padding:13px 6px;*/
 	/*border: 1px solid #163341;*/
     word-break: break-all;
     word-wrap: break-word;
 	}
 
-.table td {
+.phplog-table td {
 	border-top: 1px solid #163341;
 	}
 
-.table thead th {
+.phplog-table thead th {
 	border: none;
 	border-top: none;
 	border-bottom: none;

@@ -377,7 +377,7 @@
 
 							<div class="game-complete" ng-repeat="e in view.match_history | filter: view.filter_match_history">
 
-								<div class="information">
+								<div class="information" ng-class='{"collapsed": !e.match_history_expanded}'>
 									<div class="data">
 										<!-- <span class="mapname">Kluft der Beschwörer I</span> -->
 										<span class="gameID">gameID: {{e.gameID}} ({{e.type}}) I</span>
@@ -401,7 +401,7 @@
 
 								<div class="both-teams">
 
-									<div class="team-one-left" ng-class='{"win-bg": e.team_one.stat_complete.has_won, "lose-bg": !e.team_one.stat_complete.has_won}'>
+									<div class="team-one-left" ng-class='{"win-bg": e.team_one.stat_complete.has_won, "lose-bg": !e.team_one.stat_complete.has_won, "collapsed": !e.match_history_expanded}'>
 
 										<div class="header">
 											<span class="win-text" ng-if="e.team_one.stat_complete.has_won">GEWONNEN</span>
@@ -462,7 +462,7 @@
 
 										</div>
 
-									<div class="team-two-right" ng-class='{"win-bg": e.team_two.stat_complete.has_won, "lose-bg": !e.team_two.stat_complete.has_won}'>
+									<div class="team-two-right" ng-class='{"win-bg": e.team_two.stat_complete.has_won, "lose-bg": !e.team_two.stat_complete.has_won, "collapsed": !e.match_history_expanded}'>
 
 										<div class="header">
 											<div class="kda-box" custom-hover="Kills">

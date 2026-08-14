@@ -36,7 +36,7 @@ if($_SERVER['SERVER_NAME'] == 'customstats.localhost'){
 else {
 
 	// Setze Server Domain
-	$_SERVER['DOMAIN'] = 'http://custom-stats.de';
+	$_SERVER['DOMAIN'] = 'https://custom-stats.de';
 
 	// Htdocs Pfad als neues Root Verzeichnis setzen
 	$_SERVER['ROOT_DIRECTORY'] = '/home/strato/http/power/rid/56/60/511155660/htdocs';

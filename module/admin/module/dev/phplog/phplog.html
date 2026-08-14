@@ -99,7 +99,7 @@
 									</div>
 								</div>
 							<div class="body">
-							<table class="table table-striped slim fixed" style="background-color: #0a121c">
+							<table class="phplog-table table-striped slim fixed" style="background-color: #0a121c">
 								<thead>
 									<tr style="color: #bbedff !important">
 									  <th style="width:300px;"># Log Entry</th>
@@ -148,7 +148,7 @@
 									  <pre ng-if="e.logtype" ng-class='{"error-msg-slim":!e.expanded, "error-msg-full":e.expanded}'>{{e.desc}}</pre>
 									  <!-- ng-class='{"error-msg-slim":!e.expanded, "error-msg-full":e.expanded}' -->
 										  <span ng-if="e.logtype == 'jsonlog' || e.logtype == 'fpmpool'" style="font-size: 1.14vh" class="tc-phplog-blue-gray">&nbsp;&rsaquo;&rsaquo;&nbsp;{{e.file}}:<b>{{e.line}}</b><br/></span>
-										  <table class="table slim fixed" ng-if="e.expanded && e.logtype && e.logtype != 'unknown'" style="font-size: 1.15vh; color: #a0b7cd; background-color: #161c26;">
+										  <table class="phplog-table slim fixed" ng-if="e.expanded && e.logtype && e.logtype != 'unknown'" style="font-size: 1.15vh; color: #a0b7cd; background-color: #161c26;">
 									    <tr ng-if="e.logtype == 'jsonlog'">
 									      <td style="width:120px;">REQUEST:</td>
 									      <td><div class="t-ellipsis">{{e.method}} https://{{e.domain}}{{e.uri}}</div></td>

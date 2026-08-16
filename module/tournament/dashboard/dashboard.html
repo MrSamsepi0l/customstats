@@ -113,9 +113,9 @@
 												<span class="name win" ng-if="view.tournament.tournamentID == 2">{{view.standings[0].name}}</span>
 												<span class="standing win" ng-if="view.tournament.tournamentID == 2">2</span>
 
-												<!-- T3 -->
-												<!-- <img class="tlogo" ng-if="view.tournament.tournamentID == 3" ng-src='{{view.standings[0].image_url}}' /> -->
-												<span class="name" ng-if="view.tournament.tournamentID == 3">TBD</span>
+												<!-- T3: Oberzissen -->
+												<img class="tlogo" ng-if="view.tournament.tournamentID == 3" ng-src='{{view.standings[0].image_url}}' />
+												<span class="name" ng-if="view.tournament.tournamentID == 3">{{view.standings[0].name}}</span>
 												<span class="standing" ng-if="view.tournament.tournamentID == 3">-</span>
 												</div>
 											<div class="team">
@@ -130,9 +130,9 @@
 												<span class="name lose" ng-if="view.tournament.tournamentID == 2">{{view.standings[3].name}}</span>
 												<span class="standing lose" ng-if="view.tournament.tournamentID == 2">0</span>
 
-												<!-- T3 -->
-												<!-- <img class="tlogo" ng-if="view.tournament.tournamentID == 2" ng-src='{{view.standings[3].image_url}}' /> -->
-												<span class="name" ng-if="view.tournament.tournamentID == 3">TBD</span>
+												<!-- T3: KTN -->
+												<img class="tlogo" ng-if="view.tournament.tournamentID == 3" ng-src='{{view.standings[3].image_url}}' />
+												<span class="name" ng-if="view.tournament.tournamentID == 3">{{view.standings[3].name}}</span>
 												<span class="standing" ng-if="view.tournament.tournamentID == 3">-</span>
 												</div>
 											<div class="series">BO3</div>
@@ -151,8 +151,9 @@
 												<span class="name win" ng-if="view.tournament.tournamentID == 2">{{view.standings[1].name}}</span>
 												<span class="standing win" ng-if="view.tournament.tournamentID == 2">2</span>
 
-												<!-- T3 -->
-												<span class="name" ng-if="view.tournament.tournamentID == 3">TBD</span>
+												<!-- T3: Stolzfüße -->
+												<img class="tlogo" ng-if="view.tournament.tournamentID == 3 && view.standings[1].image_exists" ng-src='{{view.standings[1].image_url}}' />
+												<span class="name" ng-if="view.tournament.tournamentID == 3">{{view.standings[1].name}}</span>
 												<span class="standing" ng-if="view.tournament.tournamentID == 3">-</span>
 												</div>
 											<div class="team">
@@ -168,8 +169,9 @@
 												<span class="name lose" ng-if="view.tournament.tournamentID == 2">{{view.standings[2].name}}</span>
 												<span class="standing lose" ng-if="view.tournament.tournamentID == 2">0</span>
 
-												<!-- T3 -->
-												<span class="name" ng-if="view.tournament.tournamentID == 3">TBD</span>
+												<!-- T3: AG -->
+												<img class="tlogo" ng-if="view.tournament.tournamentID == 3 && view.standings[2].image_exists" ng-src='{{view.standings[2].image_url}}' />
+												<span class="name" ng-if="view.tournament.tournamentID == 3">{{view.standings[2].name}}</span>
 												<span class="standing" ng-if="view.tournament.tournamentID == 3">-</span>
 												</div>
 											<div class="series">BO3</div>
@@ -263,9 +265,9 @@
 												<span class="name lose" ng-if="view.tournament.tournamentID == 2">{{view.standings[4].name}}</span>
 												<span class="standing lose" ng-if="view.tournament.tournamentID == 2">1</span>
 
-												<!-- T3 -->
-												<!-- <img class="tlogo" ng-if="view.tournament.tournamentID == 3" ng-src='{{view.standings[2].image_url}}' /> -->
-												<span class="name" ng-if="view.tournament.tournamentID == 3">TBD</span>
+												<!-- T3: SOMF -->
+												<img class="tlogo" ng-if="view.tournament.tournamentID == 3" ng-src='{{view.standings[4].image_url}}' />
+												<span class="name" ng-if="view.tournament.tournamentID == 3">{{view.standings[4].name}}</span>
 												<span class="standing lose" ng-if="view.tournament.tournamentID == 3">-</span>
 
 												<span ng-if="view.tournament.tournamentID == 3" class="standing">-</span>

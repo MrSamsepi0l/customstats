@@ -456,6 +456,9 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 			// for each game
 			_.each(rawdata, function(match){
 
+				// skip canceled matches
+				if(match.canceled) return;
+
 				// set default
 				if(!render_data[match.team_one.name]){
 
@@ -560,10 +563,10 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 
 		render_win_lose_chart : function(change_config){
 			var self = this,
-				times_played = self.match_history.length;
+				times_played = 0;
 
 			// if no games played, return here
-			if(!times_played) return;
+			if(!self.match_history.length) return;
 
 			// default
 			var chartdata = {
@@ -578,6 +581,12 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 				};
 
 			_.each(self.match_history, function(e){
+
+				// if canceled, skip
+				if(e.canceled) return;
+
+				// increment games played
+				times_played++;
 
 				// increment by won side
 				if(e.winner_teamID == 1) chartdata.blue_side.times_won++;
@@ -695,6 +704,9 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 
 			// for each match in history
 			_.each(self.match_history, function(match){
+
+				// if canceled, skip
+				if(match.canceled) return;
 
 				// merge ban lists of both teams
 				var ban_list = match.team_one.ban_list.concat(match.team_two.ban_list);

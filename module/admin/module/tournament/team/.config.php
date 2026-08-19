@@ -13,7 +13,7 @@ if($this->user_logged()){
 		$this->build_environment('body:routing[]', (object)[
 			'name'		=> 'Turnier-Team Konfiguration',
 			'group'		=> 'navbar:admin',
-			'route'		=> 'tournament_team',
+			'route'		=> 'admin_tournament_team',
 			'path'		=> $moduleurl.'/tournament_team.html',
 			'enabled'	=> true,
 			'priority'	=> 10,

@@ -1,0 +1,34 @@
+<article class="tournament-body">
+
+	<main class="teams">
+		<div class="team-banner">
+			<img class="team-icon" ng-if="view.tournament_entry.tournamentID != 1" ng-src='{{"public/img/tournament/team_logo/" + view.team_entry.name_converted + ".png"}}' />
+			<div class="team-info">
+				<p class="team-name">{{view.tournament_entry.name}}</p>
+				<p class="league-name team-button" ng-click="view.change_tab('overview')">{{view.team_entry.name}}</p>
+				</div>
+			</div>
+		<div class="space">
+			<div class="message">Teammitglieder</div>
+			</div>
+		<div class="roster">
+			<a class="tournamentcard" ng-repeat="e in view.team_entry.playerlist | orderBy:['-leader', 'departed', 'substitute']" ng-click="view.get_team_player(e); view.player_entry = e; view.change_tab('team_player')">
+				<div class="info" ng-style="{'background-image':'url(public/img/tournament/team_logo/'+view.team_entry.name_converted +'.png' +')'}" style="background-size: contain" ng-class='{"info-disabled":e.tag[0] == "departed" || e.tag[1] == "departed"}'>
+					<img ng-if="e.role" class="icon" ng-src="{{'public/img/position/' + e.role + '.png'}}" />
+					<div class="names">
+						<div class="summoner-name">
+							<span ng-style="{'font-style':e.substitute ? 'italic' : 'normal'}">{{e.ingame_name}}</span>
+							<span class="tc-dark-blue" ng-if="e.substitute" style="font-style: italic">&nbsp;(Substitute)</span>
+							</div>
+						<div ng-if="e.departed"><span style="font-size: 5rem">Ausgetreten</span></div>
+						<div class="real-name">
+							<span>{{e.real_name}}</span>
+							<span ng-if="e.leader">&nbsp;-&nbsp;Teamleader</span>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+		</main>
+
+	</article>

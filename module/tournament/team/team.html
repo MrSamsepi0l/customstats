@@ -1,34 +1,83 @@
-<article class="tournament-body">
+<article ng-controller="customstats.tournament_team">
 
-	<main class="teams">
-		<div class="team-banner">
-			<img class="team-icon" ng-if="view.tournament_entry.tournamentID != 1" ng-src='{{"public/img/tournament/team_logo/" + view.team_entry.name_converted + ".png"}}' />
-			<div class="team-info">
-				<p class="team-name">{{view.tournament_entry.name}}</p>
-				<p class="league-name team-button" ng-click="view.change_tab('overview')">{{view.team_entry.name}}</p>
+	<section class="tournament-team">
+
+		<div class="header ta-center">
+			<span class="headline">Tournament Teams</span>
+			<div class="official-logo">
+				<img ng-if="view.tournament.tournamentID == 1" class="logo legacy" ng-src='{{"public/img/tournament/cleaner_schuh.png"}}' ng-click="view.popup.tournament_logo.url = 'public/img/tournament/cleaner_schuh.png'; view.popup.tournament_logo.show = true" />
+				<img ng-if="view.tournament.tournamentID == 2" class="logo legacy" ng-src='{{"public/img/tournament/missping.png"}}' ng-click="view.popup.tournament_logo.url = 'public/img/tournament/missping.png'; view.popup.tournament_logo.show = true" />
+				<img ng-if="view.tournament.tournamentID == 3" class="logo" ng-src='{{"public/img/tournament/return_from_retirement.png"}}' ng-click="view.popup.tournament_logo.url = 'public/img/tournament/return_from_retirement.png'; view.popup.tournament_logo.show = true" />
 				</div>
+			<select class="customstats-select" ng-model="view.filter.tournamentID" ng-options="e.tournamentID as e.name + ((e.status == 'regular_season' || e.status == 'knockout') ? ' (currently active)' : '') for e in view.tournament_list" ng-change="view.prepare_data(view.filter.selected.tournamentID)" style="max-width: 320px; text-transform: uppercase;">
+				<option value="">All Tournaments</option>
+				</select>
 			</div>
-		<div class="space">
-			<div class="message">Teammitglieder</div>
-			</div>
-		<div class="roster">
-			<a class="tournamentcard" ng-repeat="e in view.team_entry.playerlist | orderBy:['-leader', 'departed', 'substitute']" ng-click="view.get_team_player(e); view.player_entry = e; view.change_tab('team_player')">
-				<div class="info" ng-style="{'background-image':'url(public/img/tournament/team_logo/'+view.team_entry.name_converted +'.png' +')'}" style="background-size: contain" ng-class='{"info-disabled":e.tag[0] == "departed" || e.tag[1] == "departed"}'>
-					<img ng-if="e.role" class="icon" ng-src="{{'public/img/position/' + e.role + '.png'}}" />
-					<div class="names">
-						<div class="summoner-name">
-							<span ng-style="{'font-style':e.substitute ? 'italic' : 'normal'}">{{e.ingame_name}}</span>
-							<span class="tc-dark-blue" ng-if="e.substitute" style="font-style: italic">&nbsp;(Substitute)</span>
-							</div>
-						<div ng-if="e.departed"><span style="font-size: 5rem">Ausgetreten</span></div>
-						<div class="real-name">
-							<span>{{e.real_name}}</span>
-							<span ng-if="e.leader">&nbsp;-&nbsp;Teamleader</span>
-							</div>
+
+		<div class="body" >
+
+			<div class="tournament" ng-repeat="tournamentID in view.tournamentID_list | filter:view.filter_list">
+				<div class="header">
+					<img ng-if="tournamentID == 1" class="logo legacy" ng-src='{{"public/img/tournament/cleaner_schuh.png"}}' ng-click="view.popup.tournament_logo.url = 'public/img/tournament/cleaner_schuh.png'; view.popup.tournament_logo.show = true" />
+					<img ng-if="tournamentID == 2" class="logo legacy" ng-src='{{"public/img/tournament/missping.png"}}' ng-click="view.popup.tournament_logo.url = 'public/img/tournament/missping.png'; view.popup.tournament_logo.show = true" />
+					<img ng-if="tournamentID == 3" class="logo" ng-src='{{"public/img/tournament/return_from_retirement.png"}}' ng-click="view.popup.tournament_logo.url = 'public/img/tournament/return_from_retirement.png'; view.popup.tournament_logo.show = true" />
+					<div class="name">
+						<span>{{view.tournament_list_tID[tournamentID].name}}</span>
+						<span ng-if="view.tournament_list_tID[tournamentID].status == 'finished'">{{view.tournament_list_tID[tournamentID].startDate | phpdate: 'd.m.Y'}} - {{view.tournament_list_tID[tournamentID].endDate | phpdate: 'd.m.Y'}}</span>
+						<span ng-if="view.tournament_list_tID[tournamentID].status == 'regular_season' || view.tournament_list_tID[tournamentID].status == 'knockout'">{{view.tournament_list_tID[tournamentID].startDate | phpdate: 'd.m.Y'}} - NOW</span>
+						<span>({{view.translate_status[view.tournament_list_tID[tournamentID].status]}})</span>
 						</div>
 					</div>
-				</a>
+				<div class="team-list">
+					<div class="team" ng-repeat="e in view.team_list_groups[tournamentID]" ng-style="{'background-image': e.image_exists ? 'url(' + e.image_url + ')' : 'none'}">
+						<div class="content">
+							<div class="header">
+								<div class="headline">{{e.name}}</div>
+								</div>
+							<div class="body">
+								<div class="info">
+									<span>Games Played: {{e.games_played}}</span>
+									<br />
+									<span>Games Won: {{e.games_won}}</span>
+									<br />
+									<span>Winrate: {{e.winrate | number: 1}} %</span>
+									</div>
+								<div class="playerlist">
+									<div class="player" ng-repeat="p in e.playerlist | orderBy: ['-leader', 'substitute', 'departed']">
+										<img ng-if="p.role" class="position" ng-src="{{'public/img/position/' + p.role + '.png'}}" />
+										<a ng-class='{"active-filter": view.filter.player_full.playerID == p.playerID, "player-equals-account": app.board_get_value("t_playerID") == p.playerID}' ng-click="view.redirect_template('tournament_all_profile', p.ingame_name)">{{p.ingame_name}}
+											<span ng-if="p.leader"> (Leader)</span>
+											<span ng-if="p.substitute"> (Sub)</span>
+											<span ng-if="p.departed"> (Dep)</span>
+											</a>
+										</div>
+									</div>
+								</div>
+							<div class="foot"></div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
 			</div>
-		</main>
+
+		</section>
+
+	<league-popup ng-if="view.popup.tournament_logo.show" xa-popup-options='{"overlayClose":true, "top": "50%", "left":"50%", "width": "800px", "height": "800px", "background":"transparent !important", "position":"fixed", "transform":"translate(-50%, -50%)"}'>
+		<body-part>
+			<div>
+				<img ng-src="{{view.popup.tournament_logo.url}}" style="width: 800px; height: 800px;" />
+				</div>
+			</body-part>
+		</league-popup>
+
+	<div class="loading-animation" ng-if="view.status == 100">
+		<div class="loading">
+			<div class="inner one"></div>
+			<div class="inner two"></div>
+			<div class="inner three"></div>
+			</div>
+		</div>
 
 	</article>

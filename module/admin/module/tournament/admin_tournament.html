@@ -30,7 +30,7 @@
 
 		<div ng-if="tab == 'tournament' && app.user_has_right('customstats:admin_tournament:tournament')" ng-include="'load_template/tournament_config'"></div>
 		<div ng-if="tab == 'player' && app.user_has_right('customstats:admin_tournament:player')" ng-include="'load_template/tournament_player'"></div>
-		<div ng-if="tab == 'team' && app.user_has_right('customstats:admin_tournament:team')" ng-include="'load_template/tournament_team'"></div>
+		<div ng-if="tab == 'team' && app.user_has_right('customstats:admin_tournament:team')" ng-include="'load_template/admin_tournament_team'"></div>
 		<div ng-if="tab == 'schedule' && app.user_has_right('customstats:admin_tournament:schedule')" ng-include="'load_template/tournament_schedule'"></div>
 		<div ng-if="tab == 'new_game' && app.user_has_right('customstats:admin_tournament:new_game')" ng-include="'load_template/tournament_new_game'"></div>
 

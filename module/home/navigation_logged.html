@@ -67,8 +67,11 @@
 											<div class="item" style="margin-right: 3rem">
 												<a class="text" ng-class='{"current-route": app.is_current_route("/tournament_dashboard")}' href="#/tournament_dashboard">Dashboard</a>
 												</div>
-											<div class="item" style="margin-right: 3rem">
+<!-- 											<div class="item" style="margin-right: 3rem">
 												<a class="text" ng-class='{"current-route": app.is_current_route("/tournament")}' href="#/tournament">Overview</a>
+												</div> -->
+											<div class="item" style="margin-right: 3rem">
+												<a class="text" ng-class='{"current-route": app.is_current_route("/tournament_team")}' href="#/tournament_team">Alle Teams</a>
 												</div>
 											<div class="item" style="margin-right: 3rem">
 												<a class="text" ng-class='{"current-route": app.is_current_route("/tournament_all_profile")}' href="#/tournament_all_profile">Alle Spieler</a>
@@ -153,9 +156,12 @@
 								<div class="header">
 									<span class="text">CUSTOMGAMES</span>
 									</div>
-								<div class="body" style="grid-template-columns: repeat(2,minmax(0,1fr));">
+								<div class="body" style="grid-template-columns: repeat(3,minmax(0,1fr));">
 									<div class="item" style="margin-right: 3rem" ng-if="app.user_has_right('customstats:admin:new_game')">
 										<a class="text" href="#/new_game" ng-class='{"current-route": app.is_current_route("/new_game")}'>New Game</a>
+										</div>
+									<div class="item" style="margin-right: 3rem" ng-if="app.user_has_right('customstats:admin:edit_game')">
+										<a class="text" href="#/edit_game" ng-class='{"current-route": app.is_current_route("/edit_game")}'>Edit Game</a>
 										</div>
 									<div class="item" style="margin-right: 3rem" ng-if="app.user_has_right('customstats:admin_base:player_config')">
 										<a class="text" href="#/player_config" ng-class='{"current-route": app.is_current_route("/player_config")}'>Player</a>
@@ -236,7 +242,8 @@
 						</div>
 					<div class="mobile-group-body" ng-class='{"open": expand_tournament}'>
 						<a class="mobile-link sub-link" href="#/tournament_dashboard">Dashboard</a>
-						<a class="mobile-link sub-link" href="#/tournament">Overview</a>
+						<!-- <a class="mobile-link sub-link" href="#/tournament">Overview</a> -->
+						<a class="mobile-link sub-link" href="#/tournament_team">Alle Teams</a>
 						<a class="mobile-link sub-link" href="#/tournament_all_profile">Alle Spieler</a>
 						</div>
 					</div>
@@ -274,6 +281,7 @@
 						<a class="mobile-link sub-link" ng-href="#/commandline" ng-if="app.user_has_right('customstats:admin:commandline')">CMD</a>
 						<a class="mobile-link sub-link" ng-href="#/phplog" ng-if="app.user_has_right('customstats:admin:phplog')">PHP-Log</a>
 						<a class="mobile-link sub-link" ng-href="#/new_game" ng-if="app.user_has_right('customstats:admin:new_game')">New Game</a>
+						<a class="mobile-link sub-link" ng-href="#/edit_game" ng-if="app.user_has_right('customstats:admin:edit_game')">Edit Game</a>
 						<a class="mobile-link sub-link" ng-href="#/player_config" ng-if="app.user_has_right('customstats:admin_base:player_config')">Player</a>
 						<a class="mobile-link sub-link" ng-href="#/admin_tournament" ng-if="app.user_has_right('customstats:admin_tournament')">Tournament</a>
 						</div>

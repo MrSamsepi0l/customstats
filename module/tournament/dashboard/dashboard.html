@@ -235,16 +235,16 @@
 											<div class="team">
 												<span class="seed">#6</span>
 												<img class="tlogo" ng-if="view.standings[5].image_exists" ng-src='{{view.standings[5].image_url}}' ng-click="view.popup.tournament_logo.url = view.standings[5].image_url; view.popup.tournament_logo.show = true" />
-												<span class="name">{{view.standings[5].name}}</span>
+												<span class="name win">{{view.standings[5].name}}</span>
 												<!-- <span class="name" ng-if="view.tournament.status != 'Knockout'">TBD</span> -->
-												<span class="standing">-</span>
+												<span class="standing win">2</span>
 												</div>
 											<div class="team">
 												<span class="seed">#7</span>
 												<img class="tlogo" ng-if="view.standings[6].image_exists" ng-src='{{view.standings[6].image_url}}' ng-click="view.popup.tournament_logo.url = view.standings[6].image_url; view.popup.tournament_logo.show = true" />
-												<span class="name">{{view.standings[6].name}}</span>
+												<span class="name lose">{{view.standings[6].name}}</span>
 												<!-- <span class="name" ng-if="view.tournament.status != 'Knockout'">TBD</span> -->
-												<span class="standing">-</span>
+												<span class="standing lose">0</span>
 												</div>
 											<div class="series">BO3</div>
 											</div>
@@ -284,8 +284,8 @@
 												<span class="standing win" ng-if="view.tournament.tournamentID == 2">2</span>
 
 												<!-- T3 -->
-												<!-- <img class="tlogo" ng-if="view.tournament.tournamentID == 3" ng-src='{{view.standings[2].image_url}}' /> -->
-												<span class="name" ng-if="view.tournament.tournamentID == 3">TBD</span>
+												<img class="tlogo" ng-if="view.tournament.tournamentID == 3" ng-src='{{view.standings[5].image_url}}' />
+												<span class="name" ng-if="view.tournament.tournamentID == 3">{{view.standings[5].name}}</span>
 												<span class="standing" ng-if="view.tournament.tournamentID == 3">-</span>
 												</div>
 											<div class="series">BO3</div>

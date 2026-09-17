@@ -267,8 +267,8 @@
 
 												<!-- T3: SOMF -->
 												<img class="tlogo" ng-if="view.tournament.tournamentID == 3" ng-src='{{view.standings[4].image_url}}' />
-												<span class="name" ng-if="view.tournament.tournamentID == 3">{{view.standings[4].name}}</span>
-												<span class="standing" ng-if="view.tournament.tournamentID == 3">-</span>
+												<span class="name lose" ng-if="view.tournament.tournamentID == 3">{{view.standings[4].name}}</span>
+												<span class="standing lose" ng-if="view.tournament.tournamentID == 3">0</span>
 												</div>
 											<div class="team">
 												<span ng-if="view.standings.length == 7" class="seed">Winner Play-IN</span>
@@ -283,10 +283,10 @@
 												<span class="name win" ng-if="view.tournament.tournamentID == 2">{{view.standings[5].name}}</span>
 												<span class="standing win" ng-if="view.tournament.tournamentID == 2">2</span>
 
-												<!-- T3 -->
+												<!-- T3 CooK -->
 												<img class="tlogo" ng-if="view.tournament.tournamentID == 3" ng-src='{{view.standings[5].image_url}}' />
-												<span class="name" ng-if="view.tournament.tournamentID == 3">{{view.standings[5].name}}</span>
-												<span class="standing" ng-if="view.tournament.tournamentID == 3">-</span>
+												<span class="name win" ng-if="view.tournament.tournamentID == 3">{{view.standings[5].name}}</span>
+												<span class="standing win" ng-if="view.tournament.tournamentID == 3">2</span>
 												</div>
 											<div class="series">BO3</div>
 											</div>
@@ -324,9 +324,9 @@
 												<span class="name lose" ng-if="view.tournament.tournamentID == 2">{{view.standings[5].name}}</span>
 												<span class="standing lose" ng-if="view.tournament.tournamentID == 2">0</span>
 
-												<!-- T3 -->
-												<!-- <img class="tlogo" ng-if="view.tournament.tournamentID == 3" ng-src='{{view.standings[2].image_url}}' /> -->
-												<span class="name" ng-if="view.tournament.tournamentID == 3">TBD</span>
+												<!-- T3 CooK -->
+												<img class="tlogo" ng-if="view.tournament.tournamentID == 3" ng-src='{{view.standings[5].image_url}}' />
+												<span class="name" ng-if="view.tournament.tournamentID == 3">{{view.standings[5].name}}</span>
 												<span class="standing" ng-if="view.tournament.tournamentID == 3">-</span>
 												</div>
 											<div class="series">BO3</div>

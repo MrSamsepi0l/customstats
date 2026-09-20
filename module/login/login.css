@@ -104,10 +104,15 @@ a:hover {
 				padding: 8px 0px 8px 0px;
 				border: 1px transparent;
 				border-radius: 6px;
-			    user-select: none;
-			    outline: none;
+				user-select: none;
+				outline: none;
 				display: inline-block;
-			    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+				transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+
+				&:disabled {
+					opacity: 0.5;
+					cursor: default;
+					}
 				}
 
 			.login-button:hover {
@@ -126,16 +131,16 @@ a:hover {
 				}
 
 			a {
-			    color: inherit;
-			    display: block;
-			    text-overflow: ellipsis;
-			    white-space: nowrap;
-			    overflow: hidden;
+				color: inherit;
+				display: block;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				overflow: hidden;
 				}
 
 			a:hover {
-			    cursor: pointer;
-			    text-decoration: underline;
+				cursor: pointer;
+				text-decoration: underline;
 				}
 			}
 		}
@@ -165,10 +170,10 @@ a:hover {
 	.flex-box-login {
 
 		.card {
-            width: 40%;
-            min-width: 330px;
-            /*height: 500px;*/
-            font-size: 1.2em;
+			width: 40%;
+			min-width: 330px;
+			/*height: 500px;*/
+			font-size: 1.2em;
 			}
 
 		}

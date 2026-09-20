@@ -1,9 +1,10 @@
 <?php
 
+$this->build_environment('header:css[]', $moduleurl.'/app.css', 15);
+
 // Wenn eingeloggt
 if($this->user_logged()){
 
-	$this->build_environment('header:css[]', $moduleurl.'/color.css', 15);
 	$this->build_environment('header:css[]', $moduleurl.'/keyframe.css', 15);
 	$this->build_environment('header:css[]', $moduleurl.'/tooltip.css', 15);
 	$this->build_environment('header:css[]', $moduleurl.'/modal.css', 15);

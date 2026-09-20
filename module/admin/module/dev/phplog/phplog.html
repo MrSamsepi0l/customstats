@@ -48,23 +48,22 @@
 								</div>
 							</div>
 						<div class="body">
-							<table class="file-table">
-								<tr>
+							<table class="customstats-table slim hover file-table">
+								<tr class="v-middle">
 									<th>Name</th>
 									<th>Type</th>
 									<th>Created on</th>
 									<th>at</th>
 									</tr>
-								<tr class="customstats-btn btn-phplog-file btn-xs" ng-repeat="e in view.dir_list" ng-click="view.load_path(e)" style="display: table-row">
+								<tr class="v-middle" ng-repeat="e in view.dir_list" ng-click="view.load_path(e)">
 									<td>
-										<span class="customstats-btn btn-phplog-file btn-xs">{{(e.name == '.') ? '&lt;- BACK' : e.name}}</span>
-										<!-- <button class="customstats-btn btn-phplog-file btn-xs" ng-click="view.entry = e; view.get_dir_or_file(view.entry, view.pos)">{{(e.name == '.') ? '..' : e.name}}</button> -->
+										<span>{{(e.name == '.') ? '&lt;- BACK' : e.name}}</span>
 										</td>
 									<td>
 										<span>{{e.type}}</span>
 										</td>
 									<td>
-										<span style="margin-right: 20px">{{e.createTime | phpdate: 'd.m.Y'}}</span>
+										<span>{{e.createTime | phpdate: 'd.m.Y'}}</span>
 										</td>
 									<td>
 										<span style="color: #bbedff">{{e.createTime | phpdate: 'H:i'}}<span style="color: #37474d">{{e.createTime | phpdate: ':s'}}</span></span>
@@ -92,34 +91,31 @@
 										<select class="customstats-select" ng-model="view.selected_filter" ng-if="view.filter" ng-options="e as e.key + ' (' + e.matched + ')' for e in view.filter_option">
 											<option value="">All Types</option>
 											</select>
-										<div class="">{{view.active_log}}</div>
-										<button class="customstats-btn btn-phplog-load" ng-click="view.load_pos(view.pos)">Load</button>
+										<div style="min-width: 120px">{{view.active_log}}</div>
+										<button class="button-admin-1 light-blue" ng-click="view.load_pos(view.pos)">Load</button>
 										<!-- <button class="customstats-btn btn-dark" ng-click="view.clear_phplog()" style="font-size: 1.2vh; padding: 10px 10px 10px 10px">Clear Log</button> -->
 										</div>
 									</div>
 								</div>
 							<div class="body">
-							<table class="phplog-table table-striped slim fixed" style="background-color: #0a121c">
-								<thead>
-									<tr style="color: #bbedff !important">
-									  <th style="width:300px;"># Log Entry</th>
-									  <th class="noselect" style="width:975px;">
-									    <span>Position</span>
-									    <b class="cur-pointer hc-yellow" ng-disabled="view.prevpos >= view.pos" ng-click="view.load_pos(view.prevpos)">&lt;&lt;-</b>
-									    <span class="cur-pointer hc-yellow" ng-click="view.load_pos(view.pos)">{{view.pos}}</span>
-									    <b class="cur-pointer hc-yellow" ng-disabled="view.nextpos < view.pos" ng-click="view.load_pos(view.nextpos)">-&gt;&gt;</b>
-									    <span>of</span>
-									    <span ng-if="view.unfiltered == view.lines" class="cur-pointer hc-yellow" ng-click="view.load_pos(view.endpos)">{{view.lines}}</span>
-									    <span ng-if="view.unfiltered == view.lines">- <span class="cur-pointer hc-yellow" ng-click="view.load_pos(0)">TO BEGIN</span></span>
-									    <span ng-if="view.unfiltered != view.lines" class="cur-pointer hc-yellow" ng-click="view.load_pos(view.endpos)">{{view.unfiltered}} (of {{view.lines}})</span>
-									  </th>
-									  <!-- <th>{{view.active_log}}</th> -->
-									  <!-- <th style="width:60px;"></th> -->
-									</tr>
-								</thead>
-								<tbody>
+							<table class="customstats-table xxs fixed striped">
+								<tr class="v-middle" style="color: #bbedff !important">
+								  <th style="width:300px;"># Log Entry</th>
+								  <th class="noselect" style="width:975px;">
+								    <span>Position</span>
+								    <b class="cur-pointer hc-yellow" ng-disabled="view.prevpos >= view.pos" ng-click="view.load_pos(view.prevpos)">&lt;&lt;-</b>
+								    <span class="cur-pointer hc-yellow" ng-click="view.load_pos(view.pos)">{{view.pos}}</span>
+								    <b class="cur-pointer hc-yellow" ng-disabled="view.nextpos < view.pos" ng-click="view.load_pos(view.nextpos)">-&gt;&gt;</b>
+								    <span>of</span>
+								    <span ng-if="view.unfiltered == view.lines" class="cur-pointer hc-yellow" ng-click="view.load_pos(view.endpos)">{{view.lines}}</span>
+								    <span ng-if="view.unfiltered == view.lines">- <span class="cur-pointer hc-yellow" ng-click="view.load_pos(0)">TO BEGIN</span></span>
+								    <span ng-if="view.unfiltered != view.lines" class="cur-pointer hc-yellow" ng-click="view.load_pos(view.endpos)">{{view.unfiltered}} (of {{view.lines}})</span>
+								  </th>
+								  <!-- <th>{{view.active_log}}</th> -->
+								  <!-- <th style="width:60px;"></th> -->
+								</tr>
 									<tr ng-repeat="e in view.data track by $index" ng-init="e.expanded = false">
-									<td ng-if="e.logtype == 'jsonlog'" style="font-size: 11px; width: 100%; float: left">
+									<td ng-if="e.logtype == 'jsonlog'" style="font-size: 11px; width: 100%">
 									  <b class="log-time">{{e.time | phpdate: 'Y-m-d H:i'}}<span class="tc-phplog-blue-gray">{{e.time | phpdate: ':s'}}</span></b>
 									  <span class="tc-phplog-blue-gray">&sdot;&sdot;</span>
 									  <span style="font-size: 13px; color: #ab82ad; float: right">{{e.code}}</span><br/>
@@ -148,7 +144,7 @@
 									  <pre ng-if="e.logtype" ng-class='{"error-msg-slim":!e.expanded, "error-msg-full":e.expanded}'>{{e.desc}}</pre>
 									  <!-- ng-class='{"error-msg-slim":!e.expanded, "error-msg-full":e.expanded}' -->
 										  <span ng-if="e.logtype == 'jsonlog' || e.logtype == 'fpmpool'" style="font-size: 1.14vh" class="tc-phplog-blue-gray">&nbsp;&rsaquo;&rsaquo;&nbsp;{{e.file}}:<b>{{e.line}}</b><br/></span>
-										  <table class="phplog-table slim fixed" ng-if="e.expanded && e.logtype && e.logtype != 'unknown'" style="font-size: 1.15vh; color: #a0b7cd; background-color: #161c26;">
+										  <table class="customstats-table slim fixed" ng-if="e.expanded && e.logtype && e.logtype != 'unknown'" style="font-size: 1.15vh; color: #a0b7cd; background-color: #161c26;">
 									    <tr ng-if="e.logtype == 'jsonlog'">
 									      <td style="width:120px;">REQUEST:</td>
 									      <td><div class="t-ellipsis">{{e.method}} https://{{e.domain}}{{e.uri}}</div></td>
@@ -210,15 +206,17 @@
 									    </tr>
 										  </table>
 									  </td>
-									  <td valign="middle" style="text-align:center">
-									    <b style="font-size:1.3em;" class="cur-pointer tc-dark-gray" ng-click="e.expanded=!e.expanded">{{e.expanded | ie:"&dArr;":"&lArr;"}}</b>
+									  <td valign="middle" style="text-align:center" ng-click="e.expanded=!e.expanded">
+										<svg ng-style='{"transform": e.expanded ? "rotate(180deg)" : "none"}' width="32" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path fill-rule="evenodd" clip-rule="evenodd" fill="#bbedff" d="M5.70711 9.71069C5.31658 10.1012 5.31658 10.7344 5.70711 11.1249L10.5993 16.0123C11.3805 16.7927 12.6463 16.7924 13.4271 16.0117L18.3174 11.1213C18.708 10.7308 18.708 10.0976 18.3174 9.70708C17.9269 9.31655 17.2937 9.31655 16.9032 9.70708L12.7176 13.8927C12.3271 14.2833 11.6939 14.2832 11.3034 13.8927L7.12132 9.71069C6.7308 9.32016 6.09763 9.32016 5.70711 9.71069Z" />
+											</svg>
+									    <!-- <b style="font-size:1.3em;" class="cur-pointer tc-dark-gray" ng-click="e.expanded=!e.expanded">{{e.expanded | ie:"&dArr;":"&lArr;"}}</b> -->
 									  </td>
 									</tr>
-								</tbody>
 								<tfoot>
 									<tr ng-repeat="group in view.filter">
-									 <td style="width:210px;" class="t-right"><button class="btn btn-xs tc-white">{{group.type}}</button></td>
-									 <td colspan="2"><button class="btn btn-xs" ng-repeat="entry in group.list" ng-click="view.load_filtered(entry)" ng-class='{"c-blue":entry.unfiltered, "c-gray":!entry.unfiltered}'>{{entry.key}} ({{entry.unfiltered}})</button></td>
+									 <td style="width:210px;" class="ta-right"><button class="btn btn-xs tc-white">{{group.type}}</button></td>
+									 <td colspan="2"><button class="button-admin-1 xs light-blue" ng-repeat="entry in group.list" ng-click="view.load_filtered(entry)" ng-class='{"c-blue":entry.unfiltered, "c-gray":!entry.unfiltered}'>{{entry.key}} ({{entry.unfiltered}})</button></td>
 									 <td style="width:30px;"></td>
 									</tr>
 								</tfoot>

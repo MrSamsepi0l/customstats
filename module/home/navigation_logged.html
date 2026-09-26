@@ -14,7 +14,7 @@
 						<div class="flex flex-row h-full items-center cursor-pointer justify-between" style="width: 10ch" ng-if="app.user_has_right('customstats:chat')">
 							<a class="inline-block link" ng-class='{"current-route": app.is_current_route("/chat")}' style="font-size: 18px" href="#/chat">Chat</a>
 							</div>
-						<div class="flex flex-row h-full link items-center cursor-pointer justify-between" style="width: 16ch" custom-tooltip-nav custom-tooltip-delay="0" custom-tooltip-option='{"background":"#0a0e13", "border":"1px solid rgb(255, 255, 255 / 0.3)","border-width":"1px"}' custom-tooltip-append-id="header-nav-customgame" custom-tooltip-position="down" id="header-nav-customgame">
+						<div class="flex flex-row h-full link multi items-center cursor-pointer justify-between" style="width: 16ch" custom-tooltip-nav custom-tooltip-delay="0" custom-tooltip-option='{"background":"#0a0e13", "border":"1px solid rgb(255, 255, 255 / 0.3)","border-width":"1px"}' custom-tooltip-append-id="header-nav-customgame" custom-tooltip-position="down" id="header-nav-customgame">
 							<content-template ng-show="false">
 								<div class="flex open-nav-menu flex-col">
 									<div class="flex flex-col menu">
@@ -23,16 +23,48 @@
 											</div>
 										<div class="body">
 											<div class="item" ng-if="app.user_has_right('customstats:all_player')" style="margin-right: 3rem">
-												<a class="text" ng-class='{"current-route": app.is_current_route("/all_player")}' href="#/all_player">Alle Spieler</a>
+												<a class="text" ng-class='{"current-route": app.is_current_route("/all_player")}' href="#/all_player">
+													<span class="icon-wrapper">
+														<span class="badge-1 with-icon users-group-two-rounded c-nav"></span>
+														</span>
+													<span class="text-wrapper">
+														<span>Alle Spieler</span>
+														<span class="description">Schau dir Statistiken von Spielern an</span>
+														</span>
+													</a>
 												</div>
 											<div class="item" ng-if="app.user_has_right('customstats:champions')" style="margin-right: 3rem">
-												<a class="text" ng-class='{"current-route": app.is_current_route("/champions")}' href="#/champions">Champions</a>
+												<a class="text" ng-class='{"current-route": app.is_current_route("/champions")}' href="#/champions">
+													<span class="icon-wrapper">
+														<span class="badge-1 with-icon bug c-nav"></span>
+														</span>
+													<span class="text-wrapper">
+														<span>Champions</span>
+														<span class="description">Interessantes über gespielte Champs</span>
+														</span>
+													</a>
 												</div>
 											<div class="item" ng-if="app.user_has_right('customstats:sources')">
-												<a class="text" ng-class='{"current-route": app.is_current_route("/sources")}' href="#/sources">Quellen</a>
+												<a class="text" ng-class='{"current-route": app.is_current_route("/sources")}' href="#/sources">
+													<span class="icon-wrapper">
+														<span class="badge-1 with-icon camera c-nav"></span>
+														</span>
+													<span class="text-wrapper">
+														<span>Quellen</span>
+														<span class="description">Du traust der Seite nicht? Schau selbst</span>
+														</span>
+													</a>
 												</div>
 											<div class="item" ng-if="app.user_has_right('customstats:highlights')">
-												<a class="text" ng-class='{"current-route": app.is_current_route("/highlights")}' href="#/highlights">Highlights</a>
+												<a class="text" ng-class='{"current-route": app.is_current_route("/highlights")}' href="#/highlights">
+													<span class="icon-wrapper">
+														<span class="badge-1 with-icon screencast c-nav"></span>
+														</span>
+													<span class="text-wrapper">
+														<span>Highlights</span>
+														<span class="description">Iconic Highlight-Videos</span>
+														</span>
+													</a>
 												</div>
 											</div>
 										</div>
@@ -42,10 +74,26 @@
 											</div>
 										<div class="body">
 											<div class="item" ng-if="app.user_has_right('customstats:best_of')">
-												<a class="text" ng-class='{"current-route": app.is_current_route("/best_of")}' href="#/best_of">Best Of</a>
+												<a class="text" ng-class='{"current-route": app.is_current_route("/best_of")}' href="#/best_of">
+													<span class="icon-wrapper">
+														<span class="badge-1 with-icon rocket c-nav"></span>
+														</span>
+													<span class="text-wrapper">
+														<span>Best Of</span>
+														<span class="description">Beste Leistungen und Rekorde</span>
+														</span>
+													</a>
 												</div>
 											<div class="item" ng-if="app.user_has_right('customstats:tabview_analysis')" style="margin-right: 2rem">
-												<a class="text" ng-class='{"current-route": app.is_current_route("/ingame_combination")}' href="#/ingame_combination">Comparison</a>
+												<a class="text" ng-class='{"current-route": app.is_current_route("/ingame_combination")}' href="#/ingame_combination">
+													<span class="icon-wrapper">
+														<span class="badge-1 with-icon chart c-nav"></span>
+														</span>
+													<span class="text-wrapper">
+														<span>Comparison</span>
+														<span class="description">Vergleiche Champs miteinander</span>
+														</span>
+													</a>
 												</div>
 											</div>
 										</div>
@@ -56,7 +104,7 @@
 								<path fill-rule="evenodd" clip-rule="evenodd" fill="#bbedff" d="M5.70711 9.71069C5.31658 10.1012 5.31658 10.7344 5.70711 11.1249L10.5993 16.0123C11.3805 16.7927 12.6463 16.7924 13.4271 16.0117L18.3174 11.1213C18.708 10.7308 18.708 10.0976 18.3174 9.70708C17.9269 9.31655 17.2937 9.31655 16.9032 9.70708L12.7176 13.8927C12.3271 14.2833 11.6939 14.2832 11.3034 13.8927L7.12132 9.71069C6.7308 9.32016 6.09763 9.32016 5.70711 9.71069Z" />
 								</svg>
 							</div>
-						<div class="flex flex-row h-full link items-center cursor-pointer justify-between" ng-if="app.user_has_right('customstats:tournament')" style="margin-left: 30px; width: 13ch" custom-tooltip-nav custom-tooltip-delay="0" custom-tooltip-option='{"background":"#0a0e13", "border":"1px solid rgb(255, 255, 255 / 0.3)","border-width":"1px"}' custom-tooltip-append-id="header-nav-tournament" custom-tooltip-position="down" id="header-nav-tournament">
+						<div class="flex flex-row h-full link multi items-center cursor-pointer justify-between" ng-if="app.user_has_right('customstats:tournament')" style="margin-left: 30px; width: 13ch" custom-tooltip-nav custom-tooltip-delay="0" custom-tooltip-option='{"background":"#0a0e13", "border":"1px solid rgb(255, 255, 255 / 0.3)","border-width":"1px"}' custom-tooltip-append-id="header-nav-tournament" custom-tooltip-position="down" id="header-nav-tournament">
 							<content-template ng-show="false">
 								<div class="flex open-nav-menu flex-col">
 									<div class="flex flex-col menu">
@@ -65,16 +113,40 @@
 											</div>
 										<div class="body">
 											<div class="item" style="margin-right: 3rem">
-												<a class="text" ng-class='{"current-route": app.is_current_route("/tournament_dashboard")}' href="#/tournament_dashboard">Dashboard</a>
+												<a class="text" ng-class='{"current-route": app.is_current_route("/tournament_dashboard")}' href="#/tournament_dashboard">
+													<span class="icon-wrapper">
+														<span class="badge-1 with-icon global c-nav"></span>
+														</span>
+													<span class="text-wrapper">
+														<span>Dashboard</span>
+														<span class="description">Wichtigste Turnierdaten im Überblick</span>
+														</span>
+													</a>
 												</div>
 <!-- 											<div class="item" style="margin-right: 3rem">
 												<a class="text" ng-class='{"current-route": app.is_current_route("/tournament")}' href="#/tournament">Overview</a>
 												</div> -->
 											<div class="item" style="margin-right: 3rem">
-												<a class="text" ng-class='{"current-route": app.is_current_route("/tournament_team")}' href="#/tournament_team">Alle Teams</a>
+												<a class="text" ng-class='{"current-route": app.is_current_route("/tournament_team")}' href="#/tournament_team">
+													<span class="icon-wrapper">
+														<span class="badge-1 with-icon share-circle c-nav"></span>
+														</span>
+													<span class="text-wrapper">
+														<span>Alle Teams</span>
+														<span class="description">Übersicht aller Turnierteams</span>
+														</span>
+													</a>
 												</div>
 											<div class="item" style="margin-right: 3rem">
-												<a class="text" ng-class='{"current-route": app.is_current_route("/tournament_all_profile")}' href="#/tournament_all_profile">Alle Spieler</a>
+												<a class="text" ng-class='{"current-route": app.is_current_route("/tournament_all_profile")}' href="#/tournament_all_profile">
+													<span class="icon-wrapper">
+														<span class="badge-1 with-icon users-group-two-rounded c-nav"></span>
+														</span>
+													<span class="text-wrapper">
+														<span>Alle Spieler</span>
+														<span class="description">Übersicht aller Turnierspieler</span>
+														</span>
+													</a>
 												</div>
 											</div>
 										</div>
@@ -89,7 +161,7 @@
 					</div>
 				</div>
 			<div class="h-full flex items-center mx-4 grow ta-center xl-gap nav-links" style="justify-content: end">
-				<div class="flex flex-row h-full link items-center cursor-pointer justify-between" style="margin-left: 30px" custom-tooltip-nav custom-tooltip-delay="0" custom-tooltip-option='{"background":"#0a0e13", "border":"1px solid rgb(255, 255, 255 / 0.3)","border-width":"1px"}' custom-tooltip-append-id="header-nav-profile" custom-tooltip-position="down" id="header-nav-profile">
+				<div class="flex flex-row h-full link multi items-center cursor-pointer justify-between" style="margin-left: 30px" custom-tooltip-nav custom-tooltip-delay="0" custom-tooltip-option='{"background":"#0a0e13", "border":"1px solid rgb(255, 255, 255 / 0.3)","border-width":"1px"}' custom-tooltip-append-id="header-nav-profile" custom-tooltip-position="down" id="header-nav-profile">
 					<div ng-if="!app.board_get_value('playerID')">
 						<span ng-class='{"current-route": app.is_current_route(["/profile"])}' style="font-size: 18px">Moin,&nbsp;<span class="tc-teal">{{app.data.user.username}}</span>!</span>
 						</div>
@@ -104,20 +176,44 @@
 									</div>
 								<div class="body" style="grid-template-columns: repeat(1,minmax(0,1fr))">
 									<div class="item" ng-if="app.user_has_right('customstats:profile')" style="margin-right: 3rem">
-										<a class="text" ng-class='{"current-route": app.is_current_route("/profile")}' ng-href="#/profile"><span>Account</span></a>
+										<a class="text" ng-class='{"current-route": app.is_current_route("/profile")}' ng-href="#/profile">
+											<span class="icon-wrapper">
+												<span class="badge-1 with-icon meditation c-nav"></span>
+												</span>
+											<span class="text-wrapper">
+												<span>Account</span>
+												<span class="description">Dein Customstats-Account</span>
+												</span>
+											</a>
 										</div>
 									<div class="item" style="margin-right: 3rem" ng-if="app.user_has_right('customstats:all_player') && app.board_get_value('playerID')">
-										<a class="text" ng-href="#/all_player?playerID={{app.board_get_value('playerID')}}"><span>Customgames</span></a>
+										<a class="text" ng-href="#/all_player?playerID={{app.board_get_value('playerID')}}">
+											<span class="icon-wrapper">
+												<span class="badge-1 with-icon accessibility c-nav"></span>
+												</span>
+											<span class="text-wrapper">
+												<span>Customgames</span>
+												<span class="description">Dein Spielerprofil für Customgames</span>
+												</span>
+											</a>
 										</div>
 									<div class="item" ng-if="app.user_has_right('customstats:tournament') && app.board_get_value('t_playerID')">
-										<a class="text" ng-href="#/tournament_all_profile?playerID={{app.board_get_value('t_playerID')}}"><span>Turniere</span></a>
+										<a class="text" ng-href="#/tournament_all_profile?playerID={{app.board_get_value('t_playerID')}}">
+											<span class="icon-wrapper">
+												<span class="badge-1 with-icon cup-star c-nav"></span>
+												</span>
+											<span class="text-wrapper">
+												<span>Turniere</span>
+												<span class="description">Dein Spielerprofil für alle Turniere</span>
+												</span>
+											</a>
 										</div>
 									</div>
 								</div>
 							</div>
 						</content-template>
 					</div>
-				<div class="flex flex-row h-full link items-center cursor-pointer justify-between" ng-if="app.user_has_right('customstats:tabview_admin')" style="width: 9ch" custom-tooltip-nav custom-tooltip-delay="0" custom-tooltip-option='{"background":"#0a0e13", "border":"1px solid rgb(255, 255, 255 / 0.3)","border-width":"1px"}' custom-tooltip-append-id="header-nav-admin" custom-tooltip-position="down" id="header-nav-admin">
+				<div class="flex flex-row h-full link multi items-center cursor-pointer justify-between" ng-if="app.user_has_right('customstats:tabview_admin')" style="width: 9ch" custom-tooltip-nav custom-tooltip-delay="0" custom-tooltip-option='{"background":"#0a0e13", "border":"1px solid rgb(255, 255, 255 / 0.3)","border-width":"1px"}' custom-tooltip-append-id="header-nav-admin" custom-tooltip-position="down" id="header-nav-admin">
 					<content-template ng-show="false">
 						<div class="flex open-nav-menu flex-col">
 							<div class="flex flex-col menu">

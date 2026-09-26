@@ -35,6 +35,18 @@
 	--icon-forbidden-circle: url('/public/img/svg/core/forbidden-circle.svg');
 	--icon-shield-check: url('/public/img/svg/core/shield-check.svg');
 	--icon-shield-cross: url('/public/img/svg/core/shield-cross.svg');
+	--icon-camera: url('/public/img/svg/core/camera.svg');
+	--icon-masks: url('/public/img/svg/core/masks.svg');
+	--icon-screencast: url('/public/img/svg/core/screencast.svg');
+	--icon-chart: url('/public/img/svg/core/chart.svg');
+	--icon-rocket: url('/public/img/svg/core/rocket.svg');
+	--icon-bug: url('/public/img/svg/core/bug.svg');
+	--icon-global: url('/public/img/svg/core/global.svg');
+	--icon-cup-star: url('/public/img/svg/core/cup-star.svg');
+	--icon-share-circle: url('/public/img/svg/core/share-circle.svg');
+	--icon-accessibility: url('/public/img/svg/core/accessibility.svg');
+	--icon-meditation: url('/public/img/svg/core/meditation.svg');
+	--icon-users-group-two-rounded: url('/public/img/svg/core/users-group-two-rounded.svg');
 
 }
 
@@ -316,11 +328,16 @@ a {
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: contain;
+		background-color: currentColor;
+		}
+
+	&.c-nav {
+		color: #bbedff;
 		}
 
 	&.check-circle {
-		background-image: var(--icon-check-circle);
-
+		mask: var(--icon-check-circle) center / contain no-repeat;
+		-webkit-mask: var(--icon-check-circle) center / contain no-repeat;
 
 		&.neon-green {
 			background-color: #adffce;
@@ -328,12 +345,79 @@ a {
 		}
 
 	&.forbidden-circle {
-		background-image: var(--icon-forbidden-circle);
+		mask: var(--icon-forbidden-circle) center / contain no-repeat;
+		-webkit-mask: var(--icon-forbidden-circle) center / contain no-repeat;
 
 		&.neon-red {
 			background-color: #ff789d;
 			}
 		}
+
+	&.camera {
+		mask: var(--icon-camera) center / contain no-repeat;
+		-webkit-mask: var(--icon-camera) center / contain no-repeat;
+		}
+
+	&.masks {
+		mask: var(--icon-masks) center / contain no-repeat;
+		-webkit-mask: var(--icon-masks) center / contain no-repeat;
+		}
+
+	&.screencast {
+		mask: var(--icon-screencast) center / contain no-repeat;
+		-webkit-mask: var(--icon-screencast) center / contain no-repeat;
+		}
+
+	&.screencast {
+		mask: var(--icon-screencast) center / contain no-repeat;
+		-webkit-mask: var(--icon-screencast) center / contain no-repeat;
+		}
+
+	&.users-group-two-rounded {
+		mask: var(--icon-users-group-two-rounded) center / contain no-repeat;
+		-webkit-mask: var(--icon-users-group-two-rounded) center / contain no-repeat;
+		}
+
+	&.chart {
+		mask: var(--icon-chart) center / contain no-repeat;
+		-webkit-mask: var(--icon-chart) center / contain no-repeat;
+		}
+
+	&.rocket {
+		mask: var(--icon-rocket) center / 85% 85% no-repeat;
+		-webkit-mask: var(--icon-rocket) center / 85% 85% no-repeat;
+		}
+
+	&.bug {
+		mask: var(--icon-bug) center / contain no-repeat;
+		-webkit-mask: var(--icon-bug) center / contain no-repeat;
+		}
+
+	&.global {
+		mask: var(--icon-global) center / contain no-repeat;
+		-webkit-mask: var(--icon-global) center / contain no-repeat;
+		}
+
+	&.share-circle {
+		mask: var(--icon-share-circle) center / contain no-repeat;
+		-webkit-mask: var(--icon-share-circle) center / contain no-repeat;
+		}
+
+	&.cup-star {
+		mask: var(--icon-cup-star) center / contain no-repeat;
+		-webkit-mask: var(--icon-cup-star) center / contain no-repeat;
+		}
+
+	&.accessibility {
+		mask: var(--icon-accessibility) center / contain no-repeat;
+		-webkit-mask: var(--icon-accessibility) center / contain no-repeat;
+		}
+
+	&.meditation {
+		mask: var(--icon-meditation) center / contain no-repeat;
+		-webkit-mask: var(--icon-meditation) center / contain no-repeat;
+		}
+
 	}
 
 

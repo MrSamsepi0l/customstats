@@ -810,7 +810,7 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 			            y: 30
 			        	},
 					tooltip: {
-						headerFormat: '<div style="display: flex; align-items: center; gap: 10px"><span class="{point.converted}" style="background-size: contain; display: inline-block; width: 32px; height: 32px"></span><b style="color:#8fa3b0">{point.name}</b></div><br/>',
+						headerFormat: '<div style="display: flex; align-items: center; gap: 10px"><span class="{point.converted}" style="background-size: contain; display: inline-block; width: 32px; height: 32px"></span><b style="color:#8fa3b0">{point.name}</b><span> | </span><b style="color:#8fa3b0">{point.total_presence_rate} % P/B</b></div><br/>',
 						pointFormat: '<span style="color:{series.color}">●  Total presence:</span> <b style="color:#8fa3b0"> {point.total_presence} / '+total_games+' Games</b><br/>'
 									+'<span style="color:#14b8a6">●  Games picked:</span> <b style="color:#14b8a6"> {point.times_picked} x</b><br/>'
 									+'<span style="color:#ffafba">●  Games banned:</span> <b style="color:#ffafba"> {point.times_banned} x</b><br/>'
@@ -889,7 +889,7 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 					'times_picked'	: e.times_picked,
 					'times_banned'	: e.times_banned,
 					'total_presence': e.total_presence,
-					'total_presence_rate': e.total_presence_rate,
+					'total_presence_rate': e.total_presence_rate.toFixed(1),
 					'total_winrate'	: e.total_winrate.toFixed(1),
 					'colorIndex'	: 70 + idx, // starts from 70 (purple palette)
 					};

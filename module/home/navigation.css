@@ -14,6 +14,10 @@
   transition: transform .3s cubic-bezier(.4,0,.2,1),box-shadow .3s cubic-bezier(.4,0,.2,1);
   /*border-style: solid;*/
   /*border-color: #e5e7eb;*/
+
+	animation: hide-border-on-scroll linear both;
+	animation-timeline: scroll(root block);
+	animation-range: 0px 100px; /* border fades out over the first 100px of scroll */
 	}
 
 .logo {
@@ -978,3 +982,13 @@
 						supported by Chrome, Edge, Opera and Firefox */
 	}
 
+
+
+@keyframes hide-border-on-scroll {
+	from {
+		border-bottom-color: #163341;
+	}
+	to {
+		border-bottom-color: transparent;
+	}
+}

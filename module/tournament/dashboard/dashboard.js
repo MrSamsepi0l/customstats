@@ -723,7 +723,7 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 						// init data here
 						chartdata[ban.championID] = {
 							'name'			: ban.champion,
-							'converted'		: ban.champion_converted,
+							'name_converted': ban.champion_converted,
 							'times_won'		: 0,
 							'times_picked'	: 0,
 							'times_banned'	: 0,
@@ -752,7 +752,7 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 						// init data here
 						chartdata[stat.championID] = {
 							'name'			: stat.champion_name,
-							'converted'		: stat.name_converted,
+							'name_converted': stat.name_converted,
 							'times_won'		: 0,
 							'times_picked'	: 0,
 							'times_banned'	: 0,
@@ -810,7 +810,7 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 			            y: 30
 			        	},
 					tooltip: {
-						headerFormat: '<b style="color:#8fa3b0">{point.name}</b><br/>',
+						headerFormat: '<div style="display: flex; align-items: center; gap: 10px"><span class="{point.converted}" style="background-size: contain; display: inline-block; width: 32px; height: 32px"></span><b style="color:#8fa3b0">{point.name}</b></div><br/>',
 						pointFormat: '<span style="color:{series.color}">●  Total presence:</span> <b style="color:#8fa3b0"> {point.total_presence} / '+total_games+' Games</b><br/>'
 									+'<span style="color:#14b8a6">●  Games picked:</span> <b style="color:#14b8a6"> {point.times_picked} x</b><br/>'
 									+'<span style="color:#ffafba">●  Games banned:</span> <b style="color:#ffafba"> {point.times_banned} x</b><br/>'

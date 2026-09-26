@@ -694,10 +694,10 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 			},
 
 		render_champion_presence_chart : function(change_config){
-			var self = this, unique_champs_played = 0, unique_champs_banned = 0, total_games = self.match_history.length;
+			var self = this, unique_champs_played = 0, unique_champs_banned = 0, total_games = 0;
 
 			// if no games played, stop
-			if(!total_games) return;
+			if(!self.match_history.length) return;
 
 			// default
 			var chartdata = {};
@@ -707,6 +707,9 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 
 				// if canceled, skip
 				if(match.canceled) return;
+
+				// increment total games
+				total_games++;
 
 				// merge ban lists of both teams
 				var ban_list = match.team_one.ban_list.concat(match.team_two.ban_list);
@@ -772,7 +775,7 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 			// unique champs banned
 			unique_champs_banned = _.size(_.values(chartdata).filter(champion => champion.times_banned > 0));
 
-			// take top 10 most present champions
+			// sort by total presence DESC
 			chartdata = _.sortBy(chartdata, 'total_presence').reverse();
 
 			// take top 10

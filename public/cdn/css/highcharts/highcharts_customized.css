@@ -37,10 +37,23 @@
     stroke: #0f1519;
 }
 
+
+/* Fixes the tooltip hover opacity bug - start */
 .highcharts-tooltip-box {
-    stroke-width: 0;
-    fill: #1b1e1e;
-}
+    fill: #1b1e1e !important;
+    fill-opacity: 1 !important;
+    }
+
+.highcharts-tooltip-container {
+    opacity: 1 !important;
+    }
+
+.highcharts-tooltip > span, .highcharts-tooltip div {
+    background-color: #1C1C1C !important;
+    opacity: 1 !important;
+    backdrop-filter: none !important;
+    }
+/* Fixes the tooltip hover opacity bug - end */
 
 .highcharts-color-50 {
     fill: var(--highcharts-color-50);

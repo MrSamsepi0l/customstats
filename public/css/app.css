@@ -46,6 +46,9 @@
 	--icon-share-circle: url('/public/img/svg/core/share-circle.svg');
 	--icon-accessibility: url('/public/img/svg/core/accessibility.svg');
 	--icon-meditation: url('/public/img/svg/core/meditation.svg');
+	--icon-paw: url('/public/img/svg/core/paw.svg');
+	--icon-leaf: url('/public/img/svg/core/leaf.svg');
+	--icon-ghost: url('/public/img/svg/core/ghost.svg');
 	--icon-users-group-two-rounded: url('/public/img/svg/core/users-group-two-rounded.svg');
 
 }
@@ -416,6 +419,21 @@ a {
 	&.meditation {
 		mask: var(--icon-meditation) center / contain no-repeat;
 		-webkit-mask: var(--icon-meditation) center / contain no-repeat;
+		}
+
+	&.paw {
+		mask: var(--icon-paw) center / contain no-repeat;
+		-webkit-mask: var(--icon-paw) center / contain no-repeat;
+		}
+
+	&.leaf {
+		mask: var(--icon-leaf) center / contain no-repeat;
+		-webkit-mask: var(--icon-leaf) center / contain no-repeat;
+		}
+
+	&.ghost {
+		mask: var(--icon-ghost) center / contain no-repeat;
+		-webkit-mask: var(--icon-ghost) center / contain no-repeat;
 		}
 
 	}

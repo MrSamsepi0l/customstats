@@ -36,11 +36,11 @@
 											<div class="item" ng-if="app.user_has_right('customstats:champions')" style="margin-right: 3rem">
 												<a class="text" ng-class='{"current-route": app.is_current_route("/champions")}' href="#/champions">
 													<span class="icon-wrapper">
-														<span class="badge-1 with-icon bug c-nav"></span>
+														<span class="badge-1 with-icon paw c-nav"></span>
 														</span>
 													<span class="text-wrapper">
 														<span>Champions</span>
-														<span class="description">Interessantes über gespielte Champs</span>
+														<span class="description">Interessantes über gespielte Champions</span>
 														</span>
 													</a>
 												</div>
@@ -62,7 +62,7 @@
 														</span>
 													<span class="text-wrapper">
 														<span>Highlights</span>
-														<span class="description">Iconic Highlight-Videos</span>
+														<span class="description">Iconic Highlight Replays</span>
 														</span>
 													</a>
 												</div>
@@ -73,6 +73,17 @@
 											<span class="text">STATS</span>
 											</div>
 										<div class="body">
+											<div class="item" ng-if="app.user_has_right('customstats:dashboard')" style="margin-right: 3rem">
+												<a class="text" ng-class='{"current-route": app.is_current_route("/dashboard")}' href="#/dashboard">
+													<span class="icon-wrapper">
+														<span class="badge-1 with-icon global c-nav"></span>
+														</span>
+													<span class="text-wrapper">
+														<span>Dashboard</span>
+														<span class="description">Wichtigste Customgames Daten im Überblick</span>
+														</span>
+													</a>
+												</div>
 											<div class="item" ng-if="app.user_has_right('customstats:best_of')">
 												<a class="text" ng-class='{"current-route": app.is_current_route("/best_of")}' href="#/best_of">
 													<span class="icon-wrapper">
@@ -91,7 +102,7 @@
 														</span>
 													<span class="text-wrapper">
 														<span>Comparison</span>
-														<span class="description">Vergleiche Champs miteinander</span>
+														<span class="description">Vergleiche Champions miteinander</span>
 														</span>
 													</a>
 												</div>

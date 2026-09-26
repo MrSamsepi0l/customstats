@@ -462,6 +462,9 @@ angular.module('customstats').directive('customTooltipNav', ['$document', '$time
 			var x = $scope.$eval(attrs.customTooltipOption),
 				timer_show = null,
 				timer_hide = null,
+				is_hovering = false,
+				timer_hide_inner = null,
+				current_domain = $location.host(),
 				clicked = false,
 				hover = $compile(
 						'<div ng-class="customTooltipClass" ng-style="customTooltipStyle" ng-attr-id="{{uniqueTooltipId}}">'
@@ -582,12 +585,15 @@ angular.module('customstats').directive('customTooltipNav', ['$document', '$time
 
 			function pre_check(){
 
+				// if locked global, abort
+				if($rootScope.tooltipNavLock) return;
+
 				// cancel hide timeout
 				$timeout.cancel(timer_hide);
 				timer_hide = null;
 
-				// return if already show
-				// if(hover[0] && hover[0].classList.contains(hover_show)) return;
+				// don't append a second copy if the tooltip node is already in the DOM
+				if(document.getElementById($scope.uniqueTooltipId)) return;
 
 				// append
 				appendHover();
@@ -595,34 +601,44 @@ angular.module('customstats').directive('customTooltipNav', ['$document', '$time
 
 			function mouse_enter(e){
 
-				// pre check + appendHover
-				// pre_check();
+				// if locked global, abort
+				if($rootScope.tooltipNavLock) return;
 
+				// if inner timer for hiding already started
+				if(timer_hide_inner){
+
+					// cancel and reset it
+					$timeout.cancel(timer_hide_inner);
+					timer_hide_inner = null;
+					hover.removeClass(hover_hide);
+					}
+
+				// already open, nothing to do
+				if(hover[0] && hover[0].classList.contains(hover_show)) return;
+
+				// guard against a stray leftover node (e.g. hide animation was interrupted)
+				if(document.getElementById($scope.uniqueTooltipId)) return;
+
+				// actually append now
 				appendHover();
 
-				// if delay is defined
-				if(attrs.customTooltipDelay) {
+				// define delay (delay it even if not defined minimum 50ms to update scope)
+				var delay = (attrs.customTooltipDelay) ? attrs.customTooltipDelay * 1000 : 50;
 
-					// timeout for showing
-					timer_show = $timeout(function(){
-						tooltip_position(e);
-						}, attrs.customTooltipDelay * 1000);
-					}
-				else {
+				// start timer to show
+				timer_show = $timeout(function(){
 
-					// timeout for showing
-					timer_show = $timeout(function(){
-						tooltip_position(e);
-						}, 50);
-					}
+					// and show after given or default delay
+					tooltip_position(e);
+					}, delay);
 				}
 
 			function mouse_leave(){
 
-				// dont close if clicked before
+				// don't close if clicked before
 				if(clicked) return;
 
-				// cancel open timeout
+				// cancel and reset open timer
 				$timeout.cancel(timer_show);
 				timer_show = null;
 
@@ -633,7 +649,7 @@ angular.module('customstats').directive('customTooltipNav', ['$document', '$time
 					hover.addClass(hover_hide);
 
 					// after length of animation (75ms), remove classes and element from document
-					$timeout(function() {
+					timer_hide_inner = $timeout(function(){
 						hover.removeClass(hover_show);
 						hover.removeClass(hover_hide);
 
@@ -686,41 +702,60 @@ angular.module('customstats').directive('customTooltipNav', ['$document', '$time
 			// mouseenter
 			element.on('mouseenter', function(e){
 
-				timer_show = $timeout(function(){
+				is_hovering = true;
 
+				// a pending close from a just-finished hover shouldn't fire after we've re-entered
+				$timeout.cancel(timer_hide);
+				timer_hide = null;
+
+				// cancel an in-flight removal immediately, don't wait for the 55ms delay to reach mouse_enter
+				if(timer_hide_inner){
+					$timeout.cancel(timer_hide_inner);
+					timer_hide_inner = null;
+					hover.removeClass(hover_hide);
+					}
+
+				// don't stack a second show-timer on top of one already pending
+				$timeout.cancel(timer_show);
+
+				timer_show = $timeout(function(){
 					mouse_enter(element);
 					}, 55);
-
-				// show tooltip
-				// $timeout.cancel(timer_hide);
-				// timer_hide = null;
-
 				});
 
 			// mouseleave
 			element.on('mouseleave', function(e){
 
-				// "timeout" for showing
-				timer_hide = $timeout(function(){
+				is_hovering = false;
 
-					// call mouse leave event
+				// a pending open shouldn't fire after we've already left
+				$timeout.cancel(timer_show);
+				timer_show = null;
+
+				// don't stack a second hide-timer on top of one already pending
+				$timeout.cancel(timer_hide);
+
+				timer_hide = $timeout(function(){
 					mouse_leave();
-					}, 10);
+					}, 50);
 				});
 
 			// on mouseenter event on hover template
 			hover.on('mouseenter', function(e){
 
-				// nothing to do
+				// moving onto the tooltip itself should also cancel any pending close
+				$timeout.cancel(timer_hide);
+				timer_hide = null;
 				});
 
 			// on mouseleave event on hover template
 			hover.on('mouseleave', function(e){
 
-				// "timeout" for showing
-				timer_hide = $timeout(function(){
+				$timeout.cancel(timer_show);
+				timer_show = null;
+				$timeout.cancel(timer_hide);
 
-					// call mouse leave event
+				timer_hide = $timeout(function(){
 					mouse_leave();
 					}, 10);
 				});
@@ -728,6 +763,9 @@ angular.module('customstats').directive('customTooltipNav', ['$document', '$time
 			// this happens if element is destroyed, remove everything
 			$scope.$on('$destroy', function(){
 
+				// prevent a leftover show-timer from opening a tooltip on a destroyed element
+				$timeout.cancel(timer_show);
+
 				// "timeout" for showing
 				timer_hide = $timeout(function(){
 
@@ -736,21 +774,52 @@ angular.module('customstats').directive('customTooltipNav', ['$document', '$time
 					}, 10);
 				});
 
-			// if location changed: force close popup instantly
+			// block set the moment navigation begins — before any old elements are even torn down
+			$rootScope.$on('$locationChangeStart', function(){
+				$rootScope.tooltipNavLock = true;
+
+				// kill any tooltip mid-flight right away, on whichever instance currently has one open
+				$timeout.cancel(timer_show);
+				$timeout.cancel(timer_hide);
+				timer_show = null;
+				timer_hide = null;
+				timer_hide_inner = null;
+				clicked = false;
+
+				hover.removeClass(hover_show);
+				hover.removeClass(hover_hide);
+
+				var node = document.getElementById($scope.uniqueTooltipId);
+				if(node) node.parentNode.removeChild(node);
+				});
+
+			// on content finished renderinng: only release the lock once the NEW view (and its new directive instances) has finished loading
+			$rootScope.$on('$viewContentLoaded', function(){
+				$timeout(function(){
+
+					// unlock globally
+					$rootScope.tooltipNavLock = false;
+
+					// if the cursor never left this element while the lock was active
+					if(is_hovering){
+
+						// no mouseenter will ever fire again to open it - so open it now if still hovered
+						mouse_enter(element);
+						}
+					});
+				});
+
+			/* on location route changes */
 			$scope.$on('$locationChangeSuccess', function(){
 				var new_domain = $location.host();
-				var current_domain = null;
 
-				// if domain changed successfully
+				// if domain changed
 				if(new_domain !== current_domain){
 
-					// safe new domain
+					// update to new domain
 					current_domain = new_domain;
 
-					// call mouse leave event
-					mouse_leave();
-
-					// Execute callback
+					// execute callback
 					$scope.$eval(attrs.domainWatcher);
 					}
 				});
@@ -772,7 +841,7 @@ angular.module('customstats').directive('leaguePopup', function($document){
 		template	: '<div>'
 						+'<div class="modal-overlay" ng-click="overlayClose()"></div>'
 						+'<div class="absboxorg custom-modal-dialog" ng-style="ngStyle">'
-							+'<div class="absboxorg body">'
+							+'<div class="absboxorg body" style="width: 100%; height: 100%">'
 								+'<div ng-transclude="body"></div>'
 							+'</div>'
 						+'</div>'
@@ -807,33 +876,33 @@ angular.module('customstats').directive('leaguePopup', function($document){
 
 // Directive: scroll-if
 angular.module('customstats').directive('scrollIf', function(){
-    var getScrollingParent = function(element) {
-        element = element.parentElement;
-        while (element) {
-            if (element.scrollHeight !== element.clientHeight) {
-                return element;
-            }
-            element = element.parentElement;
-        }
-        return null;
-    };
-    return function (scope, element, attrs) {
-        scope.$watch(attrs.scrollIf, function(value) {
-            if (value) {
-                var sp = getScrollingParent(element[0]);
-                var topMargin = parseInt(attrs.scrollMarginTop) || 0;
-                var bottomMargin = parseInt(attrs.scrollMarginBottom) || 0;
-                var elemOffset = element[0].offsetTop -200;
-                var elemHeight = element[0].clientHeight;
+	var getScrollingParent = function(element) {
+		element = element.parentElement;
+		while (element) {
+			if (element.scrollHeight !== element.clientHeight) {
+				return element;
+			}
+			element = element.parentElement;
+		}
+		return null;
+	};
+	return function (scope, element, attrs) {
+		scope.$watch(attrs.scrollIf, function(value) {
+			if (value) {
+				var sp = getScrollingParent(element[0]);
+				var topMargin = parseInt(attrs.scrollMarginTop) || 0;
+				var bottomMargin = parseInt(attrs.scrollMarginBottom) || 0;
+				var elemOffset = element[0].offsetTop -200;
+				var elemHeight = element[0].clientHeight;
 
-                if (elemOffset - topMargin < sp.scrollTop) {
-                    sp.scrollTop = elemOffset - topMargin;
-                } else if (elemOffset + elemHeight + bottomMargin > sp.scrollTop + sp.clientHeight) {
-                    sp.scrollTop = elemOffset + elemHeight + bottomMargin - sp.clientHeight;
-                }
-            }
-        });
-    }
+				if (elemOffset - topMargin < sp.scrollTop) {
+					sp.scrollTop = elemOffset - topMargin;
+				} else if (elemOffset + elemHeight + bottomMargin > sp.scrollTop + sp.clientHeight) {
+					sp.scrollTop = elemOffset + elemHeight + bottomMargin - sp.clientHeight;
+				}
+			}
+		});
+	}
 	});
 
 // Directive: scroll-to-bottom
@@ -908,7 +977,7 @@ angular.module('customstats').directive('leagueProfileLevelProgression', ['$inte
 						+'<div class="progress-spinner"></div>'
 						+'</div>'
 					  +'<div class="level-progress-footer" ng-if="progression_result.level < 21"><nobr>Nächster Rang: {{progression_result.next_rank}} ({{progression_result.necessary_games}} {{progression_result.necessary_games > 1 ? \'Customs\' : \'Custom\'}})</nobr></div>'
-				      +'<div class="level-progress-footer" ng-if="progression_result.level >= 26"><nobr>Höchster Rang erreicht</nobr></div>',
+					  +'<div class="level-progress-footer" ng-if="progression_result.level >= 26"><nobr>Höchster Rang erreicht</nobr></div>',
 
 		link : function($scope, element, attrs){
 
@@ -1070,3 +1139,15 @@ angular.module('customstats').directive('leagueProfileLevelProgression', ['$inte
 		};
 
 	}]);
+
+angular.module('customstats').directive('fileChange', function() {
+    return function(scope, element, attrs) {
+        element.on('change', function() {
+            scope.$apply(function() {
+                scope.$eval(attrs.fileChange, {
+                    files: element[0].files
+                });
+            });
+        });
+    };
+});

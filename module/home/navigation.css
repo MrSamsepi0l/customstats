@@ -58,6 +58,8 @@
 	background-position: 50% 100%;
 	background-repeat: no-repeat;
 
+	will-change: background;
+
 	transition:
 		color 0.25s ease,
 		background-size 0.4s cubic-bezier(0.22, 1, 0.36, 1);
@@ -96,7 +98,7 @@
 		linear-gradient(to bottom, transparent 82%, rgba(187, 237, 255, 0.07) 94%, transparent 100%),
 		radial-gradient(
 			ellipse 70% 80% at 50% 120%,
-			rgba(187, 237, 255, 5.25) 0%,
+			rgba(187, 237, 255, 1) 0%,
 			rgba(187, 237, 255, 0.16) 35%,
 			rgba(187, 237, 255, 0.05) 55%,
 			transparent 100%

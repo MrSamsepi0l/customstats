@@ -109,8 +109,8 @@ a {
 	cursor: default;
 	}
 
-.cur-pointer {
-	cursor: pointer;
+[ng-click], .cur-pointer, tr.cur-pointer td, th.cur-pointer td {
+	cursor:pointer;
 	}
 
 
@@ -266,7 +266,8 @@ a {
 		}
 
 	&.refresh {
-		background-image: var(--icon-refresh);
+		mask: var(--icon-refresh) center / contain no-repeat;
+		-webkit-mask: var(--icon-refresh) center / contain no-repeat;
 		}
 
 	&.plain-2 {
@@ -274,15 +275,18 @@ a {
 		}
 
 	&.check-circle {
-		background-image: var(--icon-check-circle);
+		mask: var(--icon-check-circle) center / contain no-repeat;
+		-webkit-mask: var(--icon-check-circle) center / contain no-repeat;
 		}
 
 	&.shield-check {
-		background-image: var(--icon-shield-check);
+		mask: var(--icon-shield-check) center / contain no-repeat;
+		-webkit-mask: var(--icon-shield-check) center / contain no-repeat;
 		}
 
 	&.shield-cross {
-		background-image: var(--icon-shield-cross);
+		mask: var(--icon-shield-cross) center / contain no-repeat;
+		-webkit-mask: var(--icon-shield-cross) center / contain no-repeat;
 		}
 
 	&.neon-green {
@@ -454,10 +458,6 @@ a {
 	width: 100%;
 	border-collapse: collapse;
 	border-spacing: 0;
-
-	[ng-click], .cur-pointer, tr.cur-pointer td, th.cur-pointer td {
-		cursor:pointer;
-		}
 
 	& thead, & th {
 		border: none;

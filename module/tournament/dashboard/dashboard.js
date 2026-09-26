@@ -694,7 +694,7 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 			},
 
 		render_champion_presence_chart : function(change_config){
-			var self = this, champs_played = 0, champs_banned = 0, total_games = self.match_history.length;
+			var self = this, unique_champs_played = 0, unique_champs_banned = 0, total_games = self.match_history.length;
 
 			// if no games played, stop
 			if(!total_games) return;
@@ -726,9 +726,6 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 							'times_banned'	: 0,
 							'total_presence': 0,
 							};
-
-						// unique champs banned
-						champs_banned++;
 						}
 
 					// increment stats
@@ -758,9 +755,6 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 							'times_banned'	: 0,
 							'total_presence': 0,
 							};
-
-						// unique champs played
-						champs_played++;
 						}
 
 					// increment stats
@@ -771,6 +765,12 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 					if(stat.has_won) chartdata[stat.championID].times_won++;
 					});
 				});
+
+			// unique champs played
+			unique_champs_played = _.size(_.values(chartdata).filter(champion => champion.times_picked > 0));
+
+			// unique champs banned
+			unique_champs_banned = _.size(_.values(chartdata).filter(champion => champion.times_banned > 0));
 
 			// take top 10 most present champions
 			chartdata = _.sortBy(chartdata, 'total_presence').reverse();
@@ -797,9 +797,9 @@ angular.module('customstats').controller('customstats.tournament_dashboard', ['$
 						},
 			        subtitle: {
 			            text:   '<span style="font-size: 0.7rem; letter-spacing: 1px">Total unique</span><br/>'
-			            		+'<span style="font-size: 1.0rem; color: #fff; letter-spacing: 1px">'+champs_played+' played</span>'
+			            		+'<span style="font-size: 1.0rem; color: #fff; letter-spacing: 1px">'+unique_champs_played+' played</span>'
 			            		+'<hr style="width: 100%; margin-top: 0.2rem; margin-bottom: 0.2rem; margin-right: 0; background-color: #2f2f5d" />'
-			            		+'<span style="font-size: 0.9rem; color: #6b2c3c; letter-spacing: 1px">'+champs_banned+' banned</span>'
+			            		+'<span style="font-size: 0.9rem; color: #6b2c3c; letter-spacing: 1px">'+unique_champs_banned+' banned</span>'
 			            		+'<br>',
 			            floating: true,
 			            useHTML: true,

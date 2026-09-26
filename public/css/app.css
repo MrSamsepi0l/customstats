@@ -217,6 +217,23 @@ a {
 		}
 	}
 
+.icon-wrapper {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 12px;
+	border-radius: 10px;
+	background:
+	radial-gradient(
+		ellipse 80% 100% at 50% 100%,
+		rgba(187, 237, 255, 0.28) 0%,
+		rgba(187, 237, 255, 0.13) 40%,
+		rgba(187, 237, 255, 0.045) 65%,
+		transparent 100%
+		),
+		var(--main-bg-dark-1);
+	}
+
 .btn-with-icon {
 	width: 36px;
 	height: 36px;

@@ -44,6 +44,10 @@
 			flex-direction: column;
 
 			.headline {
+				display: flex;
+				align-items: center;
+				gap: 15px;
+				justify-content: flex-start;
 				width: 100%;
 				border-bottom: 1px solid #163341;
 				padding: 0rem 1rem 1rem 1rem;

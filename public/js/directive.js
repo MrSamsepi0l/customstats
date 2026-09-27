@@ -528,22 +528,22 @@ angular.module('customstats').directive('customTooltipNav', ['$document', '$time
 
 			function tooltip_position(e){
 
-				// add class to show element
 				hover.addClass(hover_show);
 
-				// some default values
+				// capture natural width BEFORE any positioning math touches the element,
+				// so we can lock it in and prevent left+right from ever squishing the box
+				var naturalWidth = hover.outerWidth();
+				hover.css({ width: naturalWidth, right: 'auto' }); // right:'auto' kills any conflicting right constraint
+
 				var pos = e[0].getBoundingClientRect(),
 					offset = hover.offset(),
 					hoverHeight = hover.outerHeight(),
-					hoverWidth = hover.outerWidth(),
+					hoverWidth = naturalWidth, // use the locked value consistently
 					elWidth = pos.width || pos.right - pos.left,
 					elHeight = pos.height || pos.bottom - pos.top,
 					hoverOffset = 0,
 					scrollOnBody = $document.find('body')[0].scrollTop;
 
-				// console.log(pos, offset, hoverHeight, hoverWidth, elWidth, elHeight);
-
-				// some calculation
 				if(hover.hasClass('custom-tooltip-nav-down')) {
 					offset.top = pos.top + elHeight + hoverOffset + scrollOnBody;
 					offset.left = pos.left - (hoverWidth / 2) + (elWidth / 2);
@@ -561,27 +561,25 @@ angular.module('customstats').directive('customTooltipNav', ['$document', '$time
 					offset.left = pos.left - (hoverWidth / 2) + (elWidth / 2);
 					}
 
-				// set offset for template
-				hover.offset(offset);
+				hover.offset(offset); // offset() only ever sets top/left — safe now that right:auto is set
 
-				// take some params
-				var hover_pos = hover[0].getBoundingClientRect(),
-					window_width = $window.innerWidth,
-					offset = hover.offset();
+				var window_width = document.documentElement.clientWidth;
+				var edgeMargin = 8;
 
-				// if hover element right position is bigger than viewport, recalculate right and left
-				if(hover_pos.right > window_width){
-					offset.right = hover_pos.right - window_width;
-					offset.left = offset.left - offset.right;
-					}
-				else if(hover_pos.left < 0){
-					offset.left = 0;
-					offset.right = offset.right + Math.abs(hover_pos.left);
+				var hover_pos = hover[0].getBoundingClientRect();
+				offset = hover.offset();
+
+				if(hover_pos.right > window_width - edgeMargin){
+					offset.left -= (hover_pos.right - (window_width - edgeMargin));
+					hover.offset(offset); // only left changes — width stays locked, box just slides
+					hover_pos = hover[0].getBoundingClientRect();
 					}
 
-				// set offset again
-				hover.offset(offset);
-				}
+				if(hover_pos.left < edgeMargin){
+					offset.left += (edgeMargin - hover_pos.left);
+					hover.offset(offset);
+					}
+			    }
 
 			function pre_check(){
 

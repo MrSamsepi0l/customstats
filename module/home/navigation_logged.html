@@ -231,18 +231,50 @@
 								<div class="header">
 									<span class="text">BASE</span>
 									</div>
-								<div class="body" style="grid-template-columns: repeat(3,minmax(0,1fr)); min-width: 500px;">
+								<div class="body" style="grid-template-columns: repeat(3,minmax(0,1fr))">
 									<div class="item" style="margin-right: 3rem" ng-if="app.user_has_right('customstats:admin_base:base_config')">
-										<a class="text" href="#/base_config" ng-class='{"current-route": app.is_current_route("/base_config")}'>Config</a>
+										<a class="text" href="#/base_config" ng-class='{"current-route": app.is_current_route("/base_config")}'>
+											<span class="icon-wrapper">
+												<span class="badge-1 with-icon settings c-nav"></span>
+												</span>
+											<span class="text-wrapper">
+												<span>Config</span>
+												<span class="description">Project configuration</span>
+												</span>
+											</a>
 										</div>
 									<div class="item" style="margin-right: 3rem" ng-if="app.user_has_right('customstats:admin_base:user_config')">
-										<a class="text" href="#/user_config" ng-class='{"current-route": app.is_current_route("/user_config")}'>User</a>
+										<a class="text" href="#/user_config" ng-class='{"current-route": app.is_current_route("/user_config")}'>
+											<span class="icon-wrapper">
+												<span class="badge-1 with-icon users-group-two-rounded c-nav"></span>
+												</span>
+											<span class="text-wrapper">
+												<span>User</span>
+												<span class="description">Settings and access rights</span>
+												</span>
+											</a>
 										</div>
 									<div class="item" style="margin-right: 3rem" ng-if="app.user_has_right('customstats:admin_base:champion_config')">
-										<a class="text" href="#/champion_config" ng-class='{"current-route": app.is_current_route("/champion_config")}'>Champions</a>
+										<a class="text" href="#/champion_config" ng-class='{"current-route": app.is_current_route("/champion_config")}'>
+											<span class="icon-wrapper">
+												<span class="badge-1 with-icon paw c-nav"></span>
+												</span>
+											<span class="text-wrapper">
+												<span>Champions</span>
+												<span class="description">Create or edit champions</span>
+												</span>
+											</a>
 										</div>
 									<div class="item" style="margin-right: 3rem" ng-if="app.user_has_right('customstats:admin_base:leagueapi_config')">
-										<a class="text" href="#/leagueapi_config" ng-class='{"current-route": app.is_current_route("/leagueapi_config")}'>Leagueapi</a>
+										<a class="text" href="#/leagueapi_config" ng-class='{"current-route": app.is_current_route("/leagueapi_config")}'>
+											<span class="icon-wrapper">
+												<span class="badge-1 with-icon flame c-nav"></span>
+												</span>
+											<span class="text-wrapper">
+												<span>Leagueapi</span>
+												<span class="description">Internal API configuration</span>
+												</span>
+											</a>
 										</div>
 									</div>
 								</div>
@@ -252,10 +284,26 @@
 									</div>
 								<div class="body" style="grid-template-columns: repeat(2,minmax(0,1fr)); min-width: 500px;">
 									<div class="item" ng-if="app.user_has_right('customstats:admin:commandline')">
-										<a class="text" href="#/commandline" ng-class='{"current-route": app.is_current_route("/commandline")}'>CMD</a>
+										<a class="text" href="#/commandline" ng-class='{"current-route": app.is_current_route("/commandline")}'>
+											<span class="icon-wrapper">
+												<span class="badge-1 with-icon shield-network c-nav"></span>
+												</span>
+											<span class="text-wrapper">
+												<span>CMD</span>
+												<span class="description">PHP server console</span>
+												</span>
+											</a>
 										</div>
 									<div class="item" ng-if="app.user_has_right('customstats:admin:phplog')">
-										<a class="text" href="#/phplog" ng-class='{"current-route": app.is_current_route("/phplog")}'>PHP-Log</a>
+										<a class="text" href="#/phplog" ng-class='{"current-route": app.is_current_route("/phplog")}'>
+											<span class="icon-wrapper">
+												<span class="badge-1 with-icon bill c-nav"></span>
+												</span>
+											<span class="text-wrapper">
+												<span>PHP-Log</span>
+												<span class="description">Inspect server logfiles</span>
+												</span>
+											</a>
 										</div>
 									</div>
 								</div>
@@ -281,7 +329,15 @@
 									</div>
 								<div class="body">
 									<div class="item" style="margin-right: 3rem" ng-if="app.user_has_right('customstats:admin_tournament')">
-										<a class="text" href="#/admin_tournament" ng-class='{"current-route": app.is_current_route("/admin_tournament")}'>Configuration</a>
+										<a class="text" href="#/admin_tournament" ng-class='{"current-route": app.is_current_route("/admin_tournament")}'>
+											<span class="icon-wrapper">
+												<span class="badge-1 with-icon cup-star c-nav"></span>
+												</span>
+											<span class="text-wrapper">
+												<span>Configuration</span>
+												<span class="description">Configure tournament settings</span>
+												</span>
+											</a>
 										</div>
 									</div>
 								</div>

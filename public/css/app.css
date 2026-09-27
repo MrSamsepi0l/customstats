@@ -832,11 +832,12 @@ a {
 	width: 100%;
 	border-collapse: collapse;
 	border-spacing: 0;
+	background-color: #0f1519;
 
 	& thead, & th {
 		border: none;
 		border-top: none;
-		border-bottom: none;
+		border-bottom: 1px solid #1f292b;
 		}
 
 	& > tr + tr, & > tbody > tr + tr {
@@ -847,8 +848,15 @@ a {
 		transition: background-color .15s ease-in-out;
 		}
 
-	& td {
-
+	& td input {
+		background-color: rgba(255, 255, 255, 0.035);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		color: #fff;
+		font-size: 0.85rem;
+		vertical-align: middle;
+		outline: none;
+		padding: 10px;
+		width: 100%;
 		}
 
 	& th, & td {
@@ -882,7 +890,11 @@ a {
 
 	&.striped {
 		& > tr:nth-child(even) > :is(th, td), & > tbody > tr:nth-child(even) > :is(th, td){
-			background-color: #0f1721;
+			background-color: #131a1e;
+
+			& input {
+				background-color: rgba(255, 255, 255, 0.035);
+				}
 			}
 
 		&.hover > tr:hover > :is(th, td), &.hover > tbody > tr:hover > :is(th, td){

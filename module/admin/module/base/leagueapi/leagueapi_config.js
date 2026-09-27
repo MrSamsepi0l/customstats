@@ -92,6 +92,9 @@ angular.module('customstats').controller('customstats.admin_base:leagueapi_confi
 			$app.send_base_request('customstats_base_update_leagueapi', param, {
 				'*' : function(data, status){
 
+					// take new entry
+					self.entry = angular.copy(entry);
+
 					// set status
 					self.status = status;
 

@@ -11,6 +11,9 @@ angular.module('customstats').controller('customstats.admin_base:leagueapi_confi
 		filter		: {
 			string	: '',
 			},
+		delete 		: {
+			show_modal 	: false,
+			},
 
 		get_leagueapi_list : function(){
 			var self = this, param;
@@ -88,6 +91,36 @@ angular.module('customstats').controller('customstats.admin_base:leagueapi_confi
 			// update
 			$app.send_base_request('customstats_base_update_leagueapi', param, {
 				'*' : function(data, status){
+
+					// set status
+					self.status = status;
+
+					// reload
+					self.get_leagueapi_list();
+					}
+				});
+			},
+
+		delete_leagueapi : function(entry){
+			var self = this, param;
+
+			// set param
+			param = {
+				'name'		: entry.name,
+				};
+
+			// basic param check
+			if(!param.name) return;
+
+			// init status
+			self.status = 100;
+
+			// update
+			$app.send_base_request('customstats_base_delete_leagueapi', param, {
+				'*' : function(data, status){
+
+					// close modal
+					self.delete.show_modal = false;
 
 					// set status
 					self.status = status;

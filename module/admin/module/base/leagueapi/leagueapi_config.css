@@ -1,16 +1,57 @@
+.leagueapi {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 100%;
+
+    >.header {
+        width: 100%;
+        padding: 1rem 1rem 1rem 1rem;
+        animation: fadein .8s;
+
+        /* new */
+        background-color: #0f1519;
+
+        >.headline {
+            font-size: 3rem;
+            letter-spacing: 3px;
+            color: var(--tc-headline);
+            }
+        }
+
+	>.body {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		gap: 10px;
+		padding: 1rem 1rem 1rem 1rem;
+
+		>.leagueapi-config {
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			width: 100%;
+			padding: 1rem 1rem 1rem 1rem;
+		}
+	}
+
+
+
+
+
+
 .leagueapi-config-search-bar {
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
-	width: 100%;
+	gap: 10px;
+	width: 50%;
 	height: 50px;
 	background: #0a0e13;
-	margin-top: 6px;
-	margin-bottom: 6px;
 	}
 
 .leagueapi-config-search-bar .search {
-	background: transparent;
+	/*background: transparent;*/
 	width: 50%;
 	}
 
@@ -99,7 +140,7 @@
 	width: 50%;
 	max-height: 460px;
 	flex-direction: column;
-	background: linear-gradient(to right bottom, #050a0c, #320518);
+	/*background: linear-gradient(to right bottom, #050a0c, #320518);*/
 	}
 
 .flex-box-leagueapi-config .api-entry .header {

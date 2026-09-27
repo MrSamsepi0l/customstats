@@ -1,129 +1,185 @@
 <article ng-controller='customstats.admin_base:leagueapi_config_controller'>
 
-	<div class="leagueapi-config-search-bar">
-		<input class="leagueapi-config-entry-input search" placeholder="Suche..." ng-model="leagueapi.filter.string" />
-		<div>
-			<button class="btn bc-green user-config-switch-btn" ng-click="leagueapi.set_new()">Neue Funktion erstellen</button>
+	<div class="leagueapi">
+
+		<div class="header">
+			<div class="headline ta-center">
+				<span>Admin Leagueapi</span>
+				</div>
 			</div>
+
+		<div class="body">
+
+			<div class="leagueapi-config">
+
+				<div class="leagueapi-config-search-bar">
+					<input class="leagueapi-config-entry-input search" placeholder="Suche..." ng-model="leagueapi.filter.string" />
+					<div class="flex-expand"></div>
+					<button class="button-admin-1 new" ng-click="leagueapi.set_new()">Neue Funktion erstellen</button>
+					<button class="btn-with-icon refresh" ng-click="leagueapi.get_leagueapi_list()"></button>
+					</div>
+
+				<section class="flex-box-leagueapi-config">
+
+					<div class="api-list leagueapi-config-scrollbar">
+						<table class="customstats-table slim hover" style="background: #0f1519">
+							<tr class="font-bold">
+								<td ng-click="leagueapi.order_list('name')">Funktions-Name</td>
+								<td class="ta-center" ng-click="leagueapi.order_list('right')">Recht</td>
+								<td class="ta-center" ng-click="leagueapi.order_list('enabled')">Active</td>
+								<td class="ta-center" ng-click="leagueapi.order_list('is_callable')">Callable</td>
+								<td ng-click="leagueapi.order_list('createTime')">Erstellt am</td>
+								</tr>
+							<tbody>
+								<tr ng-repeat="e in leagueapi.data | orderBy:leagueapi.order_by | filter:leagueapi.filter.string track by $index" ng-click="leagueapi.entry = e; leagueapi.edit(e); leagueapi.show_edit = true; leagueapi.show_new = false" ng-class='{"champion-config-focused":leagueapi.entry.name == e.name}'>
+									<td>{{e.name}}</td>
+									<td class="ta-center">
+										<span ng-if="e.right == 0">Registered</span>
+										<span ng-if="e.right == 1">Admin</span>
+										<span ng-if="e.right == 2">Confirmed</span>
+										</td>
+									<td class="ta-center">
+										<span class="badge-1 with-icon check-circle neon-green" ng-if="e.enabled"></span>
+										<span class="badge-1 with-icon forbidden-circle neon-red" ng-if="!e.enabled"></span>
+										</td>
+									<td class="ta-center">
+										<span class="badge-1 with-icon check-circle neon-green" ng-if="e.is_callable"></span>
+										<span class="badge-1 with-icon forbidden-circle neon-red" ng-if="!e.is_callable"></span>
+										</td>
+									<td style="color: #787878">{{e.createTime | phpdate:'d.m.Y'}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+					<div class="api-entry" ng-if="leagueapi.entry_edit && leagueapi.show_edit">
+						<div class="header">
+							<div class="id-name font-bold">
+								<span>#&nbsp;{{leagueapi.entry.name}}</span>
+								<span>&nbsp;-&nbsp;<span ng-class='{"tc-green":leagueapi.entry.enabled, "tc-red":!leagueapi.entry.enabled}'>[{{leagueapi.entry.enabled ? 'Aktiviert' : 'Deaktiviert'}}]</span></span>
+								</div>
+							<div class="flex-expand"></div>
+							<div class="i-wrench"></div>
+							</div>
+						<div class="body">
+							<div>
+								<table class="customstats-table striped">
+									<tr>
+										<td class="v-middle">Funktions-Name</td>
+										<td><input ng-disabled="true" class="leagueapi-config-entry-input" type="text" ng-model="leagueapi.entry_edit.name" /></td>
+										</tr>
+									<tr>
+										<td class="v-middle">Namespace-Funktion</td>
+										<td><input class="leagueapi-config-entry-input" type="text" ng-model="leagueapi.entry_edit.fn" /></td>
+										</tr>
+									<tr>
+										<td class="v-middle">benötigtes Recht (0,1,2)</td>
+										<td><input class="leagueapi-config-entry-input" type="text" ng-model="leagueapi.entry_edit.right" /></td>
+										</tr>
+									<tr>
+										<td class="v-middle">Aktiviert</td>
+										<td>
+											<div>
+												<button class="btn-with-icon small shield-check" ng-class='{"neon-green": leagueapi.entry_edit.enabled}' ng-click="leagueapi.entry_edit.enabled = true" ng-disabled="leagueapi.entry_edit.enabled"></button>
+												<button class="btn-with-icon small shield-cross" ng-class='{"neon-red": !leagueapi.entry_edit.enabled}' ng-click="leagueapi.entry_edit.enabled = false" ng-disabled="!leagueapi.entry_edit.enabled"></button>
+												</div>
+											</td>
+										</tr>
+									<tr>
+										<td class="v-middle">Erstellt am</td>
+										<td><span>{{leagueapi.entry_edit.createTime | phpdate: 'd.m.Y H:i:s'}}</span></td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						<div class="footer">
+							<button class="button-admin-1 delete" ng-click="leagueapi.delete.show_modal = true">Funktion löschen</button>
+							<div class="flex-expand"></div>
+							<button class="button-admin-1 edit" ng-click="leagueapi.update_leagueapi(leagueapi.entry_edit)">Funktion speichern</button>
+							</div>
+						</div>
+
+					<div class="api-entry" ng-if="leagueapi.entry_new && leagueapi.show_new">
+						<div class="header">
+							<div class="id-name font-bold">
+								<span>#&nbsp;{{leagueapi.entry_new.name}}</span>
+								<span>&nbsp;-&nbsp;<span ng-class='{"tc-green":leagueapi.entry_new.enabled, "tc-red":!leagueapi.entry_new.enabled}'>[{{leagueapi.entry_new.enabled ? 'Aktiviert' : 'Deaktiviert'}}]</span></span>
+								</div>
+							<div class="flex-expand"></div>
+							<div class="i-wrench"></div>
+							</div>
+						<div class="body">
+							<div>
+								<table class="table table-striped leagueapi-config-table">
+									<tr>
+										<td class="v-middle">Funktions-Name</td>
+										<td><input class="leagueapi-config-entry-input" type="text" ng-model="leagueapi.entry_new.name" /></td>
+										</tr>
+									<tr>
+										<td class="v-middle">Namespace-Funktion</td>
+										<td><input class="leagueapi-config-entry-input" type="text" ng-model="leagueapi.entry_new.fn" /></td>
+										</tr>
+									<tr>
+										<td class="v-middle">benötigtes Recht (0,1,2)</td>
+										<td><input class="leagueapi-config-entry-input" type="text" ng-model="leagueapi.entry_new.right" /></td>
+										</tr>
+									<tr>
+										<td class="v-middle">Aktiviert</td>
+										<td>
+											<div>
+												<button ng-class='{"leagueapi-config-button-enabled":leagueapi.entry_new.enabled, "leagueapi-config-button":!leagueapi.entry_new.enabled}' class="btn i-tick" ng-disabled="leagueapi.entry_new.enabled" ng-click="leagueapi.entry_new.enabled = true"></button>
+												<button ng-class='{"leagueapi-config-button-disabled":!leagueapi.entry_new.enabled, "leagueapi-config-button":leagueapi.entry_new.enabled}' class="btn i-x" ng-disabled="!leagueapi.entry_new.enabled" ng-click="leagueapi.entry_new.enabled = false"></button>
+												</div>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						<div class="footer">
+							<div class="flex-expand"></div>
+								<button class="button-admin-1 new" ng-click="leagueapi.create_leagueapi(leagueapi.entry_new)">Funktion erstellen</button>
+								</div>
+							</div>
+
+						</section>
+
+				</div>
+
+			</div>
+
 		</div>
 
-	<section class="flex-box-leagueapi-config">
+	<league-popup ng-if="leagueapi.delete.show_modal" xa-popup-options='{"overlayClose":true, "background-color": "#0a0e13", "width":"35%", "top":"50%", "height": "350px", "left":"52%", "position":"fixed", "transform":"translate(-50%, -50%)"}'>
+		<body-part>
+			<div class="popup-entry-edit">
+				<div class="header">
+					<div class="headline">
+						<span>Delete API Funktion: <b>{{leagueapi.entry_edit.name}}</b> -- <i></i></span>
+						</div>
+					</div>
+				<div class="body">
+					<div>{{leagueapi.entry_edit.fn}}()</div>
+					</div>
 
-		<div class="api-list leagueapi-config-scrollbar">
-			<table class="leagueapi-config-table leagueapi-config-table-hover" style="background: #0f1519">
-				<tr class="font-bold">
-					<td style="max-height: 50px" ng-click="leagueapi.order_list('name')">Name</td>
-					<td style="max-height: 50px" ng-click="leagueapi.order_list('createTime')">Erstelldatum</td>
-					</tr>
-				<tbody>
-					<tr ng-repeat="e in leagueapi.data | orderBy:leagueapi.order_by | filter:leagueapi.filter.string track by $index" ng-click="leagueapi.entry = e; leagueapi.edit(e); leagueapi.show_edit = true; leagueapi.show_new = false" ng-class='{"champion-config-focused":leagueapi.entry.name == e.name}'>
-						<td>{{e.name}}</td>
-						<td style="color: #787878">{{e.createTime | phpdate:'Y-m-d'}}</td>
-						</tr>
-					</tbody>
-				</table>
+				<div class="footer">
+					<div class="badge-1 success" ng-if="leagueapi.delete.show_success">Match was deleted successfully!</div>
+					<div class="badge-1 error" ng-if="leagueapi.delete.show_error">
+						<span>Error! Funktion wurde nicht gelöscht:</span>
+						<span ng-if="leagueapi.delete.error_msg"><b>{{view.show.delete_game.error_msg}}</b></span>
+						</div>
+					<button class="button-admin-1 delete" ng-disabled="leagueapi.status == 100 || leagueapi.delete.show_error || leagueapi.delete.show_success" ng-click="leagueapi.delete_leagueapi(leagueapi.entry_edit)">Funktion löschen</button>
+					</div>
+
+				</div>
+			</body-part>
+		</league-popup>
+
+	<div class="loading-animation" ng-if="view.status == 100 || leagueapi.status == 100">
+		<div class="loading">
+			<div class="inner one"></div>
+			<div class="inner two"></div>
+			<div class="inner three"></div>
 			</div>
-
-		<div class="api-entry" ng-if="leagueapi.entry_edit && leagueapi.show_edit">
-			<div class="header">
-				<div class="id-name font-bold">
-					<span>#&nbsp;{{leagueapi.entry.name}}</span>
-					<span>&nbsp;-&nbsp;<span ng-class='{"tc-green":leagueapi.entry.enabled, "tc-red":!leagueapi.entry.enabled}'>[{{leagueapi.entry.enabled ? 'Aktiviert' : 'Deaktiviert'}}]</span></span>
-					</div>
-				<div class="flex-expand"></div>
-				<div class="i-wrench"></div>
-				</div>
-			<div class="body">
-				<div>
-					<table class="table table-striped leagueapi-config-table">
-						<tr>
-							<td class="v-middle">Funktions-Name</td>
-							<td><input class="leagueapi-config-entry-input" type="text" ng-model="leagueapi.entry_edit.name" /></td>
-							</tr>
-						<tr>
-							<td class="v-middle">Namespace-Funktion</td>
-							<td><input class="leagueapi-config-entry-input" type="text" ng-model="leagueapi.entry_edit.fn" /></td>
-							</tr>
-						<tr>
-							<td class="v-middle">benötigtes Recht (0,1,2)</td>
-							<td><input class="leagueapi-config-entry-input" type="text" ng-model="leagueapi.entry_edit.right" /></td>
-							</tr>
-						<tr>
-							<td class="v-middle">Aktiviert</td>
-							<td>
-								<div>
-									<button ng-class='{"leagueapi-config-button-enabled":leagueapi.entry_edit.enabled, "leagueapi-config-button":!leagueapi.entry_edit.enabled}' class="btn i-tick" ng-disabled="leagueapi.entry_edit.enabled" ng-click="leagueapi.entry_edit.enabled = true"></button>
-									<button ng-class='{"leagueapi-config-button-disabled":!leagueapi.entry_edit.enabled, "leagueapi-config-button":leagueapi.entry_edit.enabled}' class="btn i-x" ng-disabled="!leagueapi.entry_edit.enabled" ng-click="leagueapi.entry_edit.enabled = false"></button>
-									</div>
-								</td>
-							</tr>
-						<tr>
-							<td class="v-middle">Erstellzeit</td>
-							<td><span>{{leagueapi.entry_edit.createTime}}</span></td>
-							</tr>
-						</table>
-					</div>
-				</div>
-			<div class="footer">
-				<div class="flex-expand"></div>
-					<button class="save-button" ng-click="leagueapi.update_leagueapi(leagueapi.entry_edit)">
-						<div class="image-and-button">
-							<span>Funktion speichern</span>
-							<div class="i-tick"></div>
-							</div>
-						</button>
-					</div>
-				</div>
-
-		<div class="api-entry" ng-if="leagueapi.entry_new && leagueapi.show_new">
-			<div class="header">
-				<div class="id-name font-bold">
-					<span>#&nbsp;{{leagueapi.entry_new.name}}</span>
-					<span>&nbsp;-&nbsp;<span ng-class='{"tc-green":leagueapi.entry_new.enabled, "tc-red":!leagueapi.entry_new.enabled}'>[{{leagueapi.entry_new.enabled ? 'Aktiviert' : 'Deaktiviert'}}]</span></span>
-					</div>
-				<div class="flex-expand"></div>
-				<div class="i-wrench"></div>
-				</div>
-			<div class="body">
-				<div>
-					<table class="table table-striped leagueapi-config-table">
-						<tr>
-							<td class="v-middle">Funktions-Name</td>
-							<td><input class="leagueapi-config-entry-input" type="text" ng-model="leagueapi.entry_new.name" /></td>
-							</tr>
-						<tr>
-							<td class="v-middle">Namespace-Funktion</td>
-							<td><input class="leagueapi-config-entry-input" type="text" ng-model="leagueapi.entry_new.fn" /></td>
-							</tr>
-						<tr>
-							<td class="v-middle">benötigtes Recht (0,1,2)</td>
-							<td><input class="leagueapi-config-entry-input" type="text" ng-model="leagueapi.entry_new.right" /></td>
-							</tr>
-						<tr>
-							<td class="v-middle">Aktiviert</td>
-							<td>
-								<div>
-									<button ng-class='{"leagueapi-config-button-enabled":leagueapi.entry_new.enabled, "leagueapi-config-button":!leagueapi.entry_new.enabled}' class="btn i-tick" ng-disabled="leagueapi.entry_new.enabled" ng-click="leagueapi.entry_new.enabled = true"></button>
-									<button ng-class='{"leagueapi-config-button-disabled":!leagueapi.entry_new.enabled, "leagueapi-config-button":leagueapi.entry_new.enabled}' class="btn i-x" ng-disabled="!leagueapi.entry_new.enabled" ng-click="leagueapi.entry_new.enabled = false"></button>
-									</div>
-								</td>
-							</tr>
-						</table>
-					</div>
-				</div>
-			<div class="footer">
-				<div class="flex-expand"></div>
-					<button class="save-button" ng-click="leagueapi.create_leagueapi(leagueapi.entry_new)">
-						<div class="image-and-button">
-							<span>Funktion erstellen</span>
-							<div class="i-tick"></div>
-							</div>
-						</button>
-					</div>
-				</div>
-
-			</section>
-
-	<div class="loading-div" ng-if="view.status == 100 || leagueapi.status == 100"></div>
+		</div>
 
 	</article>

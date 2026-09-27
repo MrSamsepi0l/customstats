@@ -265,6 +265,13 @@
 												</span>
 											</a>
 										</div>
+									</div>
+								</div>
+							<div class="flex flex-col menu" style="margin-top: 2rem">
+								<div class="header">
+									<span class="text">Developer</span>
+									</div>
+								<div class="body" style="grid-template-columns: repeat(3,minmax(0,1fr))">
 									<div class="item" style="margin-right: 3rem" ng-if="app.user_has_right('customstats:admin_base:leagueapi_config')">
 										<a class="text" href="#/leagueapi_config" ng-class='{"current-route": app.is_current_route("/leagueapi_config")}'>
 											<span class="icon-wrapper">
@@ -276,13 +283,6 @@
 												</span>
 											</a>
 										</div>
-									</div>
-								</div>
-							<div class="flex flex-col menu" style="margin-top: 2rem">
-								<div class="header">
-									<span class="text">Developer</span>
-									</div>
-								<div class="body" style="grid-template-columns: repeat(2,minmax(0,1fr)); min-width: 500px;">
 									<div class="item" ng-if="app.user_has_right('customstats:admin:commandline')">
 										<a class="text" href="#/commandline" ng-class='{"current-route": app.is_current_route("/commandline")}'>
 											<span class="icon-wrapper">
@@ -313,13 +313,37 @@
 									</div>
 								<div class="body" style="grid-template-columns: repeat(3,minmax(0,1fr));">
 									<div class="item" style="margin-right: 3rem" ng-if="app.user_has_right('customstats:admin:new_game')">
-										<a class="text" href="#/new_game" ng-class='{"current-route": app.is_current_route("/new_game")}'>New Game</a>
+										<a class="text" href="#/new_game" ng-class='{"current-route": app.is_current_route("/new_game")}'>
+											<span class="icon-wrapper">
+												<span class="badge-1 with-icon benzene-ring c-nav"></span>
+												</span>
+											<span class="text-wrapper">
+												<span>New Game</span>
+												<span class="description">Create customgames (deprecated)</span>
+												</span>
+											</a>
 										</div>
 									<div class="item" style="margin-right: 3rem" ng-if="app.user_has_right('customstats:admin:edit_game')">
-										<a class="text" href="#/edit_game" ng-class='{"current-route": app.is_current_route("/edit_game")}'>Edit Game</a>
+										<a class="text" href="#/edit_game" ng-class='{"current-route": app.is_current_route("/edit_game")}'>
+											<span class="icon-wrapper">
+												<span class="badge-1 with-icon benzene-ring c-nav"></span>
+												</span>
+											<span class="text-wrapper">
+												<span>Game Configuration</span>
+												<span class="description">Create or edit customgames</span>
+												</span>
+											</a>
 										</div>
 									<div class="item" style="margin-right: 3rem" ng-if="app.user_has_right('customstats:admin_base:player_config')">
-										<a class="text" href="#/player_config" ng-class='{"current-route": app.is_current_route("/player_config")}'>Player</a>
+										<a class="text" href="#/player_config" ng-class='{"current-route": app.is_current_route("/player_config")}'>
+											<span class="icon-wrapper">
+												<span class="badge-1 with-icon users-group-two-rounded c-nav"></span>
+												</span>
+											<span class="text-wrapper">
+												<span>Player</span>
+												<span class="description">Configure players</span>
+												</span>
+											</a>
 										</div>
 									</div>
 								</div>

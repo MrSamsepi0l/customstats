@@ -15,7 +15,7 @@ if($this->user_logged()){
 		'priority'	=> 10,
 		]);
 
-	$this->build_environment('header:js[]', $moduleurl.'/home.js', 50);
+	$this->build_environment('header:js[]', $moduleurl.'/home.js', 50, 'defer');
 	}
 
 /* Füge sämtliche Routing Objekte zum Hook hinzu */

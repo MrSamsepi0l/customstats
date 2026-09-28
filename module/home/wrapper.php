@@ -5,7 +5,7 @@
 		<title>Customstats</title>
 		<?php echo '<link rel="shortcut icon" type="image/x-icon" href="'.$this->get_environment('header:favicon')->value.'">'; ?>
 		<?php foreach($this->get_environment('header:css') as $href) echo '<link rel="stylesheet" href="'.$href->value.'">'; ?>
-		<?php foreach($this->get_environment('header:js') as $src) echo '<script type="text/javascript" src="'.$src->value.'"></script>'; ?>
+		<?php foreach($this->get_environment('header:js') as $src) echo '<script type="text/javascript" src="'.$src->value.'" '.$src->render_mode.'></script>'; ?>
 		</head>
 	<body class="customstats-scrollbar" id="custom-stats">
 		<?php

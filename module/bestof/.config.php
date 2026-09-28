@@ -21,7 +21,7 @@ if($this->user_logged()){
 
 		/* JS & CSS Modul laden */
 		$this->build_environment('header:css[]', $moduleurl.'/best_of.css', 50);
-		$this->build_environment('header:js[]', $moduleurl.'/best_of.js', 50);
+		$this->build_environment('header:js[]', $moduleurl.'/best_of.js', 50, 'defer');
 
 		// Ausführbare Funktionen inkl. benötigtes Recht
 		$this->build_environment('customstats_base_api:execute[]', (object)[

@@ -21,7 +21,7 @@ if($this->user_logged()){
 
 		/* JS & CSS Modul laden */
 		$this->build_environment('header:css[]', $moduleurl.'/profile.css', 50);
-		$this->build_environment('header:js[]', $moduleurl.'/profile.js', 50);
+		$this->build_environment('header:js[]', $moduleurl.'/profile.js', 50, 'defer');
 
 		// Ausführbare Funktionen inkl. benötigtes Recht
 		$this->build_environment('customstats_base_api:execute[]', (object)[

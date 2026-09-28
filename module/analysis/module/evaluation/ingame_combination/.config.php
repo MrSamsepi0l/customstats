@@ -21,7 +21,7 @@ if($this->user_logged()){
 
 		/* JS & CSS Modul laden */
 		$this->build_environment('header:css[]', $moduleurl.'/ingame_combination.css', 50);
-		$this->build_environment('header:js[]', $moduleurl.'/ingame_combination.js', 50);
+		$this->build_environment('header:js[]', $moduleurl.'/ingame_combination.js', 50, 'defer');
 
 		// Ausführbare Funktionen inkl. benötigtes Recht
 		$this->build_environment('customstats_leagueapi:execute[]', (object)[

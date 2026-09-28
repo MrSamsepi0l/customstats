@@ -20,7 +20,7 @@ if($this->user_logged()){
 			]);
 
 		/* JS & CSS Modul laden */
-		$this->build_environment('header:js[]', $moduleurl.'/tournament.js', 50);
+		$this->build_environment('header:js[]', $moduleurl.'/tournament.js', 50, 'defer');
 		$this->build_environment('header:css[]', $moduleurl.'/tournament.css', 50);
 		}
 

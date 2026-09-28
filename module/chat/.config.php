@@ -21,7 +21,7 @@ if($this->user_logged()){
 
 		/* JS & CSS Modul laden */
 		$this->build_environment('header:css[]', $moduleurl.'/chat.css', 50);
-		$this->build_environment('header:js[]', $moduleurl.'/chat.js', 50);
+		$this->build_environment('header:js[]', $moduleurl.'/chat.js', 50, 'defer');
 
 		// if user has right to load messages
 		if($this->check_user_right('customstats:request:load_chatlist')){

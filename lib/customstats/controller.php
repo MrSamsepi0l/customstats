@@ -20,8 +20,8 @@ class controller {
 	    \customstats\extension\usersession_trait;
 
 	public $project = 'customstats';
-	public $version = '3.3.1';
-	public $version_date = '2026-08-14';
+	public $version = '3.4.0';
+	public $version_date = '2026-09-28';
 	public $version_int = 3;
 	public $user;
 	public $session_lifetime = 28800; // 8 hours
@@ -354,15 +354,16 @@ class controller {
 		return $build;
 		}
 
-	protected function build_environment($env_type, $hook, $priority = 10000){
+	protected function build_environment($env_type, $hook, $priority = 10000, $render_mode = ''){
 
 		// if no object, but string
 		if(!is_object($hook) and is_string($hook)){
 
 			// convert to object
 			$hook = (object)[
-				'value' 	=> $hook,
-				'priority' 	=> $priority,
+				'value' 		=> $hook,
+				'priority' 		=> $priority,
+				'render_mode'	=> $render_mode,
 				];
 			}
 

@@ -29,6 +29,7 @@ angular.module('customstats').controller('customstats.chat_controller', ['$scope
 		filter 			: {
 			string 		: '',
 			},
+		scroll_trigger 	: 0,
 
 		load_chat : function(init = false){
 			var self = this, param;
@@ -79,6 +80,9 @@ angular.module('customstats').controller('customstats.chat_controller', ['$scope
 
 					// take group chat
 					self.entry = data[0];
+
+					// scroll down
+					if(init) self.trigger_scroll_down();
 					},
 				'*' : function(data, status){
 
@@ -122,7 +126,7 @@ angular.module('customstats').controller('customstats.chat_controller', ['$scope
 					$app.board_set_value('last_message_sent', $phpdate('now').format('Uu'));
 
 					// load chat
-					self.load_chat();
+					self.load_chat(true);
 
 					// block chat
 					self.init_chatblock(self.config.message.min_seconds_between_message);
@@ -173,6 +177,13 @@ angular.module('customstats').controller('customstats.chat_controller', ['$scope
 
 			// check if online
 			return (user && user.is_online);
+			},
+
+		trigger_scroll_down : function(){
+			var self = this;
+
+			// increment scroll counter (triggering directive update)
+			self.scroll_trigger++;
 			},
 
 		get_config : function(project){

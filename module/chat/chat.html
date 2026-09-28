@@ -56,7 +56,7 @@
 						<span>{{view.config.message.info_message}}</span>
 						</div>
 					</div>
-				<div class="body chat-scroll" scroll-to-bottom="view.entry.chat_message_list && view.init">
+				<div class="body chat-scroll" scroll-to-bottom="view.scroll_trigger">
 					<div class="message-list" ng-repeat="e in view.entry.chat_message_list">
 						<div class="day-divider" ng-if="e._dayheader">
 							<span ng-if="e._dayheader != 'TODAY'">{{e._dayheader | phpdate: 'd-m-Y'}}</span>
@@ -76,6 +76,13 @@
 								</div>
 							</div>
 						</div>
+					<button class="scroll-down-btn" ng-click="view.trigger_scroll_down()" id="scrollDownBtn" title="Back to latest" aria-label="Scroll to latest messages">
+						<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+							<line x1="12" y1="4" x2="12" y2="20"/>
+							<polyline points="6 14 12 20 18 14"/>
+							</svg>
+						<span>Back to latest</span>
+						</button>
 					</div>
 				<div class="footer">
 					<div class="send-message">

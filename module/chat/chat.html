@@ -45,11 +45,32 @@
 					</div>
 				</div>
 			<div class="panel-right">
-
 				<div class="header">
 					<div class="main-headline">
-						<span class="text">Global Chat </span>
-						<span class="sub-text">{{view.entry.total_profile}} members</span>
+						<div class="info">
+							<span class="text">Global Chat </span>
+							</div>
+						<div class="flex-expand"></div>
+						<div class="stats">
+							<div class="stat">
+								<div class="stat-value">{{view.entry.chat_message_list.length}}</div>
+								<div class="stat-label">total messages</div>
+								</div>
+							<div class="stat">
+								<div class="stat-value">{{view.entry.last_messageTime | phpdate: 'd.m.y H:i'}}</div>
+								<div class="stat-label">last message</div>
+								</div>
+							<div class="stat">
+								<div class="stat-value">{{view.entry.total_profile}}</div>
+								<div class="stat-label">total members</div>
+								</div>
+							<div class="stat">
+								<div class="stat-value">{{view.entry.user_chat_joinTime | phpdate: 'd.m.Y'}}</div>
+								<div class="stat-label">you joined</div>
+								</div>
+
+
+							</div>
 						</div>
 					<div class="sub-headline">
 						<span class="label">TODAY: </span>

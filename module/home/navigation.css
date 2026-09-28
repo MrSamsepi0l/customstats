@@ -464,15 +464,6 @@
 	flex: 1;
 	}
 
-@keyframes fadeInOpacity {
-	0% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
-	}
-}
-
 
 	.main-footer {
 		display: flex;
@@ -487,7 +478,7 @@
 		padding-bottom: 2rem;
 	/*animation: fadein 3.0s;*/
 		opacity: 1;
-		animation-name: fadeInOpacity;
+		animation-name: fadein;
 		animation-iteration-count: 1;
 		animation-timing-function: ease-in;
 		animation-duration: 0.5s;

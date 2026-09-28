@@ -749,6 +749,9 @@ angular.module('customstats').directive('customTooltipNav', ['$document', '$time
 			// on mouseleave event on hover template
 			hover.on('mouseleave', function(e){
 
+				// when button is hovered again (after leaving), don't close tooltip
+				if(is_hovering) return;
+
 				$timeout.cancel(timer_show);
 				timer_show = null;
 				$timeout.cancel(timer_hide);

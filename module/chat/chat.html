@@ -34,7 +34,7 @@
 								<span class="badge-1 with-icon square-academic-cap-2 c-nav" style="width: 18px; height: 18px;"></span>
 								</span>
 							<div class="name" ng-class='{"online-text": member.is_online, "offline-text": !member.is_online}'>
-								<span class="main">{{member.username}}</span>
+								<span class="main">{{member.username}}<span ng-if="member.username == app.board_get_value('username')"> (You)</span></span>
 								<span class="sub">{{member.realname}}</span>
 								</div>
 							</div>

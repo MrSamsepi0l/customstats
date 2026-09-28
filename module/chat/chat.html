@@ -2,117 +2,93 @@
 
 	<section class="chat-complete">
 
-<!-- 		<div class="header">
+		<div class="header">
 			<div class="headline ta-center">
-				<span>Chat</span>
+				<span class="text">Chat</span>
 				</div>
-			</div> -->
-
-		<div class="body-header">
-
-			<div class="box-left">
-
-				<div class="date-info-box">
-					<div class="date-box">
-						<span class="date">{{view.date_org | phpdate: 'D'}}</span>
-						<span class="separator">&#65372;</span>
-						<span class="date">{{view.date}}</span>
-						<span class="separator">&#65372;</span>
-						<span class="date">KW {{view.calender_week}}</span>
-						</div>
-					<div class="time-box">
-						<span class="time">{{view.time}}</span>
-						</div>
-					</div>
-
-				<div class="member-box">
-					<div class="header">
-						<span class="text">MEMBERS</span>
-						</div>
-					<div class="body chat-scroll">
-						<div class="member" ng-repeat="member in view.entry.user_profile_list | filter: view.filter.chat_user | orderBy:['-is_online', '-onlineTime']">
-							<a class="profile" ng-click="view.redirect_template(member.ingame_name)" title="Spielerprofil aufrufen">
-								<div class="icon i-profile-white"></div>
-								<span class="text" ng-if="member.ingame_name">{{member.ingame_name}}</span>
-								<span class="text" ng-if="!member.ingame_name"><i>kein Profil</i></span>
-								</a>
-							<div class="info">
-								<span class="username">{{member.username}}</span>
-								<span class="realname"><i>{{member.realname}}</i></span>
-								</div>
-							<div class="online-state">
-								<div class="online-icon" ng-class='{"i-online online-icon-online":member.is_online, "i-offline":!member.is_online}' title="{{member.online_status}}"></div>
-								<!-- <div class="text" ng-if="!member.is_online && member.onlineTime">zuletzt:</div> -->
-								<!-- <div class="text" ng-if="!member.is_online && member.onlineTime">{{member.onlineTime | phpdate: 'd-m-Y'}}</div> -->
-								<span class="text" ng-if="member.is_online">online</span>
-								<span class="text" ng-if="!member.is_online">offline</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-			<div class="box-right">
-				<div class="info-box">
-					<div class="total-user">
-						<span class="title">Total</span>
-						<span class="value">{{view.entry.total_profile}}</span>
-						</div>
-					<div class="online-user">
-						<span class="title">Online</span>
-						<span class="value">{{view.entry.total_online}}</span>
-						</div>
-					<div class="offline-user">
-						<span class="title">Offline</span>
-						<span class="value">{{view.entry.total_offline}}</span>
-						</div>
-					</div>
-
-				<div class="chat-box">
-
-					<div class="body chat-scroll" scroll-to-bottom="view.entry.chat_message_list && view.init">
-						<div ng-repeat="(date, list) in view.entry.chat_message_list | groupBy:'createDate'">
-							<div class="date-group">
-								<span class="ta-center date">{{date | phpdate: 'd.m.Y'}}</span>
-								</div>
-							<div class="chat-complete" ng-repeat="e in list" ng-class='{"right-ordered":e.current_from_username == app.board_get_value("username"), "left-ordered": e.current_from_username != app.board_get_value("username")}'>
-								<div class="chat">
-									<div class="message" ng-class='{"own-message": e.current_from_username == app.board_get_value("username"), "foreign-message": e.current_from_username != app.board_get_value("username")}'>
-										<div class="header" ng-if="e.current_from_username != app.board_get_value('username')">
-											<span>-&nbsp;</span>
-											<span style="color: #85cbf9; word-break: keep-all">{{e.current_from_username}}</span>
-											<span ng-if="user_session.user_is_online" style="color: #6eff6e">&nbsp;(online)&nbsp;</span>
-											<span>&nbsp;-</span>
-											</div>
-										<div class="body">{{e.chat_message}}</div>
-										<div class="footer">{{e.sentTime | phpdate: 'H:i'}}</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-					<div class="footer">
-						<div class="message">
-							<textarea class="chat-scroll" ng-model="view.chat_message" ng-keydown="$event.keyCode === 13 && !view.chatblock.show && view.send_message(view.entry, view.chat_message)" placeholder="Nachricht schreiben..."></textarea>
-							</div>
-						<div class="send" ng-if="!view.chatblock.show">
-							<a class="link" ng-click="view.send_message(view.entry, view.chat_message)" ng-disabled="!view.chat_message || view.chatblock.show">
-								<div class="i-send button"></div>
-								</a>
-							</div>
-						<div class="block" ng-if="view.chatblock.show">
-							<span>{{view.chatblock.timer}}</span>
-							</div>
-						</div>
-					</div>
-
-				</div>
-
 			</div>
 
+		<div class="chat">
+			<div class="panel-left">
+				<div class="header">
+					<div class="text date">
+						<span>{{view.date_org | phpdate: 'D'}}</span>
+						<span class="separator">&#65372;</span>
+						<span>{{view.date}}</span>
+						<span class="separator">&#65372;</span>
+						<span>KW {{view.calender_week}}</span>
+						</div>
+					<div class="text time">
+						<span>{{view.time}}</span>
+						</div>
+					<span class="text info">Only one chat to rule them all.</span>
+					</div>
+				<div class="body chat-scroll">
+					<div class="headline">
+						<span class="text">WHO'S HERE</span>
+						<span class="text">{{view.entry.total_online}}/{{view.entry.total_profile}}</span>
+						</div>
+					<div class="member-list">
+						<div class="member" ng-repeat="member in view.entry.user_profile_list | filter: view.filter.chat_user | orderBy:['-is_online', '-onlineTime']">
+							<span class="icon-wrapper small" ng-class='{"online": member.is_online, "offline": !member.is_online}'>
+								<span class="badge-1 with-icon square-academic-cap-2 c-nav" style="width: 18px; height: 18px;"></span>
+								</span>
+							<div class="name" ng-class='{"online-text": member.is_online, "offline-text": !member.is_online}'>
+								<span class="main">{{member.username}}</span>
+								<span class="sub">{{member.realname}}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				<div class="footer">
+					<span class="text">{{view.entry.total_profile}} people share this room. Only selected and confirmed members can read & write here.</span>
+					</div>
+				</div>
+			<div class="panel-right">
 
-
+				<div class="header">
+					<div class="main-headline">
+						<span class="text">Global Chat </span>
+						<span class="sub-text">{{view.entry.total_profile}} members</span>
+						</div>
+					<div class="sub-headline">
+						<span class="label">TODAY: </span>
+						<span>{{view.config.message.info_message}}</span>
+						</div>
+					</div>
+				<div class="body chat-scroll" scroll-to-bottom="view.entry.chat_message_list && view.init">
+					<div class="message-list" ng-repeat="e in view.entry.chat_message_list">
+						<div class="day-divider" ng-if="e._dayheader">
+							<span ng-if="e._dayheader != 'TODAY'">{{e._dayheader | phpdate: 'd-m-Y'}}</span>
+							<span ng-if="e._dayheader == 'TODAY'">{{e._dayheader}}</span>
+							</div>
+						<div class="entry" ng-class='{"mine": e.current_from_username == app.board_get_value("username")}'>
+							<div class="entry-time">{{e.sentTime | phpdate: 'H:i'}}</div>
+							<span class="entry-tag icon-wrapper small" ng-class='{"online": view.is_online(e.current_from_username), "offline": !view.is_online(e.current_from_username)}'>
+								<span class="badge-1 with-icon square-academic-cap-2 c-nav" style="width: 18px; height: 18px;"></span>
+								</span>
+							<div class="entry-body">
+								<div class="entry-name">
+									<span ng-if="e.current_from_username == app.board_get_value('username')">You</span>
+									<span ng-if="e.current_from_username != app.board_get_value('username')">{{e.current_from_username}}</span>
+									</div>
+								<div class="entry-text">{{e.chat_message}}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				<div class="footer">
+					<div class="send-message">
+						<span class="prompt">></span>
+						<input type="text" ng-model="view.chat_message" placeholder="Write a message..." ng-keydown="$event.keyCode === 13 && !view.chatblock.show && view.send_message(view.entry, view.chat_message)">
+						<button class="btn-with-icon plain-2 c-nav" ng-if="!view.chatblock.show" ng-click="view.send_message(view.entry, view.chat_message)" ng-disabled="!view.chat_message || view.chatblock.show" style="width: 32px; height: 32px;"></button>
+						<div class="block" ng-if="view.chatblock.show">
+							<span>Blocked for: {{view.chatblock.timer}} s</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
 		</section>
 

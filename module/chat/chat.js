@@ -16,7 +16,8 @@ angular.module('customstats').controller('customstats.chat_controller', ['$scope
 		// default config
 		config			: {
 			message 	: {
-				'min_seconds_between_message': 10,
+				'min_seconds_between_message': 5,
+				'info_message'				 : 'Holaaaaa!',
 				},
 			},
 
@@ -50,6 +51,31 @@ angular.module('customstats').controller('customstats.chat_controller', ['$scope
 
 					// take chatlist
 					self.data = data;
+
+					// define todays date once
+					var today_date = $phpdate('now').format('Y-m-d');
+
+					// added header list
+					var added_dayheaders = [];
+
+					// for each message in list
+					_.each(data[0].chat_message_list, function(message){
+
+						// message date
+						var message_date = $phpdate(message.sentTime).format('Y-m-d');
+
+						// define current day header
+						var dayheader = (message_date == today_date) ? 'TODAY' : message_date;
+
+						// if dayheader already added, skip
+						if(_.contains(added_dayheaders, dayheader)) return;
+
+						// add to message
+						message._dayheader = dayheader;
+
+						// add to list
+						added_dayheaders.push(dayheader);
+						});
 
 					// take group chat
 					self.entry = data[0];
@@ -137,6 +163,16 @@ angular.module('customstats').controller('customstats.chat_controller', ['$scope
 					self.chatblock.show = false;
 					}
 				}, 1000, 0); // every second
+			},
+
+		is_online : function(username){
+			var self = this;
+
+			// search for user by name
+			var user = _.findWhere(self.entry.user_profile_list, {'username': username});
+
+			// check if online
+			return (user && user.is_online);
 			},
 
 		get_config : function(project){

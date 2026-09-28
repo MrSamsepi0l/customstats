@@ -302,6 +302,10 @@ a {
 		transparent 100%
 		),
 		var(--main-bg-dark-1);
+
+	&.small {
+		padding: 8px;
+		}
 	}
 
 .btn-with-icon {
@@ -358,7 +362,8 @@ a {
 		}
 
 	&.plain-2 {
-		background-image: var(--icon-plain-2);
+		mask: var(--icon-plain-2) center / contain no-repeat;
+		-webkit-mask: var(--icon-plain-2) center / contain no-repeat;
 		}
 
 	&.check-circle {
@@ -660,8 +665,8 @@ a {
 		-webkit-mask: var(--icon-paw) center / contain no-repeat;
 		}
 	&.plain-2 {
-		mask: var(--icon-plain-2) center / contain no-repeat;
-		-webkit-mask: var(--icon-plain-2) center / contain no-repeat;
+		mask: var(--icon-plain-2) center / 85% 85% no-repeat;
+		-webkit-mask: var(--icon-plain-2) center / 85% 85% no-repeat;
 		}
 	&.planet-2 {
 		mask: var(--icon-planet-2) center / contain no-repeat;

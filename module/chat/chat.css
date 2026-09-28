@@ -319,11 +319,11 @@
 						font-weight: 600;
 						letter-spacing: 0.04em;
 						color: #8b9aac;
-						margin-bottom: 6px;
 						}
 
 					.entry-text {
 						font-size: 14px;
+						font-family: 'IBM Plex Mono', monospace;
 						line-height: 1.55;
 						color: #E7EEF3;
 						}

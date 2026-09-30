@@ -65,11 +65,18 @@
 								<div class="stat-label">total members</div>
 								</div>
 							<div class="stat">
+								<span class="entry-tag icon-wrapper small">
+									<span class="badge-1 with-icon meditation c-nav" style="width: 18px; height: 18px;"></span>
+									</span>
+								</div>
+							<div class="stat" style="border-left: none; padding-left: 0px">
+								<div class="stat-value username">{{app.board_get_value('username')}}</div>
+								<div class="stat-label realname">{{app.board_get_value('real_name')}}</div>
+								</div>
+							<div class="stat">
 								<div class="stat-value">{{view.entry.user_chat_joinTime | phpdate: 'd.m.Y'}}</div>
 								<div class="stat-label">you joined</div>
 								</div>
-
-
 							</div>
 						</div>
 					<div class="sub-headline">

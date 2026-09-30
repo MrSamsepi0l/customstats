@@ -223,6 +223,10 @@
 								color: #97bed9;
 								line-height: 1.2;
 								font-variant-numeric: tabular-nums;
+
+								&.username {
+									color: #7fd1ae;
+									}
 								}
 
 							.stat-of {
@@ -238,6 +242,10 @@
 								letter-spacing: 0.03em;
 								margin-top: 2px;
 								white-space: nowrap;
+
+								&.realname {
+									color: #7fd1ae;
+									}
 								}
 							}
 						}

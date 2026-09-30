@@ -35,7 +35,7 @@
 								</span>
 							<div class="name" ng-class='{"online-text": member.is_online, "offline-text": !member.is_online}'>
 								<span class="main">{{member.username}}<span ng-if="member.username == app.board_get_value('username')"> (You)</span></span>
-								<span class="sub">{{member.realname}}</span>
+								<span class="sub">{{member.realname}}<span ng-if="member.ingame_name"> [{{member.ingame_name}}]</span></span>
 								</div>
 							</div>
 						</div>

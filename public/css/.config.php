@@ -1,6 +1,6 @@
 <?php
 
-$this->build_environment('header:css[]', $moduleurl.'/app.css', 15);
+$this->build_environment('header:css[]', $moduleurl.'/app.css', 10);
 
 // Wenn eingeloggt
 if($this->user_logged()){

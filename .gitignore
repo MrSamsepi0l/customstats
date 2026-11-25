@@ -1,5 +1,8 @@
 schedule.txt
 
+# CMD data
+data/developer_php_cmd/
+
 
 # Local / Remote config
 config/*

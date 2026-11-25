@@ -1,4 +1,7 @@
 schedule.txt
 
+
 # Local / Remote config
 config/*
+
+.htaccess

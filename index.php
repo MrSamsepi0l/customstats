@@ -2,7 +2,7 @@
 session_start(); // Starte PHP Session
 
 // Binde Serverkonfiguration ein
-include('config/server.php');
+include('server.php');
 
 // Setze appspezifischen Controller
 $_SERVER['APP_CONTROLLER'] = 'lib/customstats/controller.php';

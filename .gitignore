@@ -5,6 +5,6 @@ data/developer_php_cmd/
 
 
 # Local / Remote config
-config/*
+server.php
 
 .htaccess

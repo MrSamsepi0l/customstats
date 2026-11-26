@@ -441,6 +441,20 @@ angular.module('customstats').factory('$leagueapi', ['$http', '$app', '$phpdate'
     // define obj
     var $leagueapi = {
 
+        level_list      : [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
+        position_list   : ['TOP', 'JUNGLE', 'MID', 'ADC', 'SUPPORT'],
+        summoner_list   : [
+            {key: 'flash',      val: 'Flash'},
+            {key: 'ignite',     val: 'Ignite'},
+            {key: 'teleport',   val: 'Teleport'},
+            {key: 'heal',       val: 'Heal'},
+            {key: 'ghost',      val: 'Ghost'},
+            {key: 'barrier',    val: 'Barrier'},
+            {key: 'exhaust',    val: 'Exhaust'},
+            {key: 'smite',      val: 'Smite'},
+            {key: 'cleanse',    val: 'Cleanse'},
+            ],
+
         // executes api request by name
         send_request : function(fn, params, qfn, url){
             var url = url || 'leagueapi/v1/request.json';
@@ -453,6 +467,24 @@ angular.module('customstats').factory('$leagueapi', ['$http', '$app', '$phpdate'
 
             // execute and return ajax leagueapi request
             return $app.ajax({"method": "POST", "url": url, "data": postdata}, 'League API Request: '+postdata.fn, qfn);
+            },
+
+        get_position_list : function(){
+
+            // return list of positions (uppercase)
+            return this.position_list;
+            },
+
+        get_summoner_list : function(){
+
+            // return list of all summoners
+            return this.summoner_list;
+            },
+
+        get_level_list : function(){
+
+            // return integer list of all levels
+            return this.level_list;
             },
 
         get_random_playerlist : function(){
@@ -761,6 +793,9 @@ angular.module('customstats').factory('$leagueapi', ['$http', '$app', '$phpdate'
                         // take player
                         matched_player = _.first(sorted_playerlist);
 
+                        // if not found, return
+                        if(!matched_player) return;
+
                         // if player does not match, skip
                         if(matched_player.playerID != player.playerID) return;
 
@@ -783,6 +818,7 @@ angular.module('customstats').factory('$leagueapi', ['$http', '$app', '$phpdate'
                             'key'   : e.name,
                             'desc'  : description[key],
                             'color' : e.color,
+                            'list'  : sorted_playerlist,
                             };
 
                         // add to result
@@ -879,7 +915,6 @@ angular.module('customstats').factory('$leagueapi', ['$http', '$app', '$phpdate'
     // return $leagueapi service
     return $leagueapi;
     }]);
-
 
 // Service: $phpdate
 angular.module('customstats').factory('$phpdate', [function(){

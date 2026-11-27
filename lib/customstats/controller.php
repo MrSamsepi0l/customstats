@@ -1,7 +1,7 @@
 <?php
-/* Last update: 2024-10-25
-	Jeremiah Meyer - mobile TREND GmbH
-	*/
+/* Last update: 2026-11-27
+***** Jeremiah Meyer *****
+*****/
 use \heart\core\error as e;
 use \heart\core\helper as h;
 
@@ -20,8 +20,8 @@ class controller {
 	    \customstats\extension\usersession_trait;
 
 	public $project = 'customstats';
-	public $version = '3.4.0';
-	public $version_date = '2026-09-28';
+	public $version = '3.4.1';
+	public $version_date = '2026-11-28';
 	public $version_int = 3;
 	public $user;
 	public $session_lifetime = 28800; // 8 hours
